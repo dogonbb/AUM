@@ -1,0 +1,176 @@
+Create a Product / Service Model according to 4EM for the given case.
+
+## Purpose of the model
+
+The Product / Service Model describes which products and services the enterprise offers.
+It shows products, services, components, and features.
+It also explains how products, services, components, and features are composed, specialized, and dependent on each other.
+
+## Allowed element types
+
+Use only the following element types:
+
+- Product
+- Service
+- Component
+- Feature
+
+Do not use any other element types.
+Do not create elements such as Goal, Actor, Concept, Technical Component, Market, Constraint, Requirement, or Process.
+
+## Allowed direct connection types
+
+Use only the following direct connection types:
+
+- part_of
+- is_a
+- requires
+
+## Allowed connector types
+
+Use only the following connector-based connections:
+
+- PartOF (AND)
+- PartOF (OR)
+- PartOF (XOR)
+- Total-ISA
+- Partial-ISA
+
+## Meaning of direct connections
+
+Use direct connections only for simple one-to-one relations.
+
+- A part_of B  
+  means that A is a part, component, feature, or sub-product of B.
+
+- A is_a B  
+  means that A is a specialization, version, variant, or subtype of B.
+
+- A requires B  
+  means that A depends on B or needs B in order to work.
+
+## Meaning of connector-based connections
+
+Use connector-based connections when multiple elements are connected to one target or when the relation expresses AND, OR, XOR, or ISA grouping.
+
+- A, B, C PartOF (AND) D  
+  means that A, B, and C are all parts of D.
+
+- A, B, C PartOF (OR) D  
+  means that one or more of A, B, and C can be parts of D.
+
+- A, B, C PartOF (XOR) D  
+  means that exactly one of A, B, and C can be part of D.
+
+- A, B, C Total-ISA D  
+  means that A, B, and C are specializations of D and together form the complete set of possible variants.
+
+- A, B, C Partial-ISA D  
+  means that A, B, and C are specializations of D, but the list is not necessarily complete.
+
+## Allowed connection patterns
+
+For part_of and PartOF connectors:
+
+- Product part_of Product
+- Product part_of Service
+- Product part_of Component
+- Product part_of Feature
+- Service part_of Product
+- Service part_of Service
+- Service part_of Component
+- Service part_of Feature
+- Component part_of Product
+- Component part_of Service
+- Component part_of Component
+- Component part_of Feature
+- Feature part_of Product
+- Feature part_of Service
+- Feature part_of Component
+- Feature part_of Feature
+
+For is_a and ISA connectors:
+
+- Product is_a Product
+- Service is_a Service
+- Component is_a Component
+- Feature is_a Feature
+
+Use ISA relations preferably only between elements of the same type.
+
+For requires:
+
+- Feature requires Component
+- Feature requires Product
+- Feature requires Service
+
+Do not use requires from Product, Service, or Component unless the dependency is clearly described as a feature dependency and can be modeled through a Feature.
+
+## Modeling rules
+
+1. Use Product for offered products or product variants.
+2. Use Service only if the case explicitly describes a service.
+3. Use Component for physical or technical parts of a product or service.
+4. Use Feature for functions, capabilities, or measurable functions offered by a product or service.
+5. Every element used in CONNECTIONS must be listed exactly once in ELEMENTS.
+6. Do not invent elements that are not supported by the case text.
+7. Prefer connector-based connections for grouped variants, alternatives, or multiple parts.
+8. Use Total-ISA when the text gives a complete list of versions or variants.
+9. Use Partial-ISA when the text gives only examples or an incomplete list of variants.
+10. Use PartOF (XOR) for mutually exclusive alternatives.
+11. Use PartOF (OR) for optional or non-exclusive alternatives.
+12. Use PartOF (AND) when all listed elements belong together.
+13. Do not write explanations, comments, descriptions, bullet points, or any text outside the required output sections.
+
+## Output format
+
+Output the model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> part_of <element name>
+<element name> is_a <element name>
+<element name> requires <element name>
+<element name_1>, <element name_2>, <element name_3> PartOF (AND) <element name>
+<element name_1>, <element name_2>, <element name_3> PartOF (OR) <element name>
+<element name_1>, <element name_2>, <element name_3> PartOF (XOR) <element name>
+<element name_1>, <element name_2>, <element name_3> Total-ISA <element name>
+<element name_1>, <element name_2>, <element name_3> Partial-ISA <element name>
+
+Task:
+Apply the rules to the following text:
+
+The BC is a small computer device with a display and 5 controls. The BC exists in
+different versions, which all can be mounted on the frame of the bike using a bracket.
+The bracket is designed to be fitted to the handlebars. It can be fitted with cable ties
+(permanent attachment) or O-rings (removable attachment).
+
+All BC versions offer functionality for measuring the speed (speedometer), total
+distance, trip count, and a clock. The basic version has only this functionality. The
+advanced version also has average trip, average speed, temperature, and a stopwatch.
+The supreme version adds pedal rotation and average pedal rotation to the advanced
+version.
+
+For the speedometer, a magnet and a sensor have to be mounted at the wheel of the
+bike. The sensor is available in two variants: with a cable to the BC or as a wireless
+device. Similar to the speedometer, the number of pedal rotations per minute can be
+measured. Again, a magnet and a sensor must be mounted on the bike's frame for this
+purpose. These are available as a wireless version and as a conventional cable-based
+version.
+
+For the energy supply of the BC, three possibilities exist: a battery, a rechargeable
+battery, or a photovoltaic cell. The photovoltaic cell is not possible for a BC with
+wireless sensors.
+
+On the US market, the wireless version is only available for the speedometer but not
+for pedal rotation. On the Chinese market, only the cable-based versions are offered.
+These restrictions do not exist for other markets.
+
+The supreme version can be connected to an optional heartbeat monitor and a GPS-based
+navigation system. Furthermore, the wireless version of the supreme BC can be connected
+to Nike bike shoes with built-in motion sensors.

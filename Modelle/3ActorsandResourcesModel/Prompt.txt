@@ -1,0 +1,95 @@
+Create an **Actors and Resources Model according to 4EM** for the given case.
+
+## Purpose of the model
+
+The Actors and Resources Model describes **who acts in the enterprise and which resources are used**.  
+It shows individuals, organizational units, roles, and non-human resources.  
+It also explains responsibilities, assignments, dependencies, reporting structures, and resource usage.
+
+## Allowed elements
+
+Use only the following element types:
+
+- Individual
+- Organizational Unit
+- Role
+- Non-human Resource
+
+## Allowed connections
+
+Use only the following connection types:
+
+- plays
+- is_part_of
+- works_for
+- is_responsible_for
+- performs
+- uses
+- supports_work_of
+- depends_on
+- authority_dependency
+- operational_dependency
+- accounts_to
+- is_managing
+
+## Possible connections between elements
+
+- Individual plays Role
+- Organizational Unit plays Role
+- Individual works_for Organizational Unit
+- Organizational Unit is_part_of Organizational Unit
+- Individual is_responsible_for Business Process
+- Individual is_responsible_for Goal
+- Individual is_responsible_for Business Rule
+- Individual is_responsible_for Product
+- Role is_responsible_for Business Process
+- Role is_responsible_for Goal
+- Role is_responsible_for Business Rule
+- Role is_responsible_for Product
+- Organizational Unit is_responsible_for Business Process
+- Organizational Unit is_responsible_for Goal
+- Individual performs Business Process
+- Role performs Business Process
+- Organizational Unit performs Business Process
+- Individual uses Non-human Resource
+- Role uses Non-human Resource
+- Organizational Unit uses Non-human Resource
+- Non-human Resource supports_work_of Individual
+- Non-human Resource supports_work_of Role
+- Individual depends_on Individual
+- Role depends_on Role
+- Organizational Unit depends_on Organizational Unit
+- Individual authority_dependency Individual
+- Role authority_dependency Role
+- Individual operational_dependency Individual
+- Role operational_dependency Role
+- Individual accounts_to Individual
+- Individual is_managing Organizational Unit
+- Role is_managing Organizational Unit
+
+## Output format
+
+Output the model **only** in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+…
+ElementType <name_n>
+
+CONNECTIONS
+<element name> plays <element name>
+<element name> is_part_of <element name>
+<element name> works_for <element name>
+<element name> is_responsible_for <element name>
+<element name> performs <element name>
+<element name> uses <element name>
+<element name> supports_work_of <element name>
+<element name> depends_on <element name>
+<element name> authority_dependency <element name>
+<element name> operational_dependency <element name>
+<element name> accounts_to <element name>
+<element name> is_managing <element name>
+
+You can use as many Elements and Connections as you want. You can only use components that are specified in ELEMENTS for defining Connections.  
+Do not write explanations, descriptions, bullet points, or additional text outside the ELEMENTS and CONNECTIONS sections.

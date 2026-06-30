@@ -1,0 +1,79 @@
+Create a **Technical Components and Requirements Model according to 4EM** for the given case.
+
+## Purpose of the model
+
+The Technical Components and Requirements Model describes **which technical systems, components, and requirements are relevant for the enterprise or an information system**.  
+It shows technical components, information system goals, information system problems, and functional or non-functional requirements.  
+It also explains how technical components and requirements support, hinder, or relate to goals and processes.
+
+## Allowed elements
+
+Use only the following element types:
+
+- Information System Goal
+- Information System Problem
+- Information System Requirement
+- Functional Requirement
+- Non-Functional Requirement
+- Technical Component
+
+## Allowed connections
+
+Use only the following connection types:
+
+- supports
+- conflicts
+- hinders
+- relates_to
+- requires
+- AND_decomposition
+- OR_decomposition
+- refers_to
+
+## Possible connections between elements
+
+- Technical Component supports Information System Goal
+- Technical Component supports Business Process
+- Technical Component supports Role
+- Technical Component supports Goal
+- Information System Requirement supports Information System Goal
+- Functional Requirement supports Information System Goal
+- Non-Functional Requirement supports Information System Goal
+- Information System Problem hinders Information System Goal
+- Information System Problem hinders Information System Requirement
+- Information System Requirement conflicts Information System Requirement
+- Functional Requirement conflicts Non-Functional Requirement
+- Technical Component relates_to Information System Requirement
+- Technical Component relates_to Functional Requirement
+- Technical Component relates_to Non-Functional Requirement
+- Information System Requirement requires Technical Component
+- Technical Component requires Technical Component
+- Information System Goal AND_decomposition Information System Goal
+- Information System Goal OR_decomposition Information System Goal
+- Information System Requirement AND_decomposition Information System Requirement
+- Information System Requirement OR_decomposition Information System Requirement
+- Technical Component refers_to Concept
+- Information System Requirement refers_to Concept
+
+## Output format
+
+Output the model **only** in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+…
+ElementType <name_n>
+
+CONNECTIONS
+<element name> supports <element name>
+<element name> conflicts <element name>
+<element name> hinders <element name>
+<element name> relates_to <element name>
+<element name> requires <element name>
+<element name_1> <element name_2> <element name_3> … <element name_n> AND_decomposition <element name>
+<element name_1> <element name_2> <element name_3> … <element name_n> OR_decomposition <element name>
+<element name> refers_to <element name>
+
+You can use as many Elements and Connections as you want. You can only use components that are specified in ELEMENTS for defining Connections.  
+Do not write explanations, descriptions, bullet points, or additional text outside the ELEMENTS and CONNECTIONS sections.

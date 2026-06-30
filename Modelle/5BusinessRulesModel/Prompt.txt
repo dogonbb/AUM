@@ -1,0 +1,73 @@
+Create a **Business Rules Model according to 4EM** for the given case.
+
+## Purpose of the model
+
+The Business Rules Model describes **which rules, conditions, and restrictions apply in the enterprise**.  
+It shows rules that control processes, influence decisions, support goals, or restrict behavior.  
+It also explains how rules are related to goals, processes, concepts, and other rules.
+
+## Allowed elements
+
+Use only the following element types:
+
+- Business Rule
+- Derivation Rule
+- Event-Action Rule
+- Constraint Rule
+- Static Constraint
+- Transition Constraint
+
+## Allowed connections
+
+Use only the following connection types:
+
+- supports
+- conflicts
+- hinders
+- triggers
+- controls
+- AND_decomposition
+- OR_decomposition
+- refers_to
+
+## Possible connections between elements
+
+- Business Rule supports Goal
+- Business Rule supports Business Process
+- Business Rule supports Business Rule
+- Business Rule conflicts Goal
+- Business Rule conflicts Business Rule
+- Business Rule hinders Goal
+- Business Rule hinders Business Process
+- Event-Action Rule triggers Business Process
+- Constraint Rule controls Business Process
+- Static Constraint controls Concept
+- Transition Constraint controls Business Process
+- Business Rule AND_decomposition Business Rule
+- Business Rule OR_decomposition Business Rule
+- Business Rule refers_to Concept
+- Derivation Rule refers_to Concept
+- Constraint Rule refers_to Concept
+
+## Output format
+
+Output the model **only** in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+…
+ElementType <name_n>
+
+CONNECTIONS
+<element name> supports <element name>
+<element name> conflicts <element name>
+<element name> hinders <element name>
+<element name> triggers <element name>
+<element name> controls <element name>
+<element name_1> <element name_2> <element name_3> … <element name_n> AND_decomposition <element name>
+<element name_1> <element name_2> <element name_3> … <element name_n> OR_decomposition <element name>
+<element name> refers_to <element name>
+
+You can use as many Elements and Connections as you want. You can only use components that are specified in ELEMENTS for defining Connections.  
+Do not write explanations, descriptions, bullet points, or additional text outside the ELEMENTS and CONNECTIONS sections.

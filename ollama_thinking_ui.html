@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ollama Chat mit Thinking</title>
+
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color-scheme: light dark;
+      --bg: #111827;
+      --panel: #1f2937;
+      --panel2: #111827;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #374151;
+      --accent: #60a5fa;
+      --danger: #f87171;
+      --ok: #34d399;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 1.6rem;
+    }
+
+    .hint {
+      color: var(--muted);
+      margin: 0 0 20px;
+      line-height: 1.45;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 850px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.18);
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel2);
+      color: var(--text);
+      padding: 10px 12px;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 170px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      background: var(--accent);
+      color: #07111f;
+      font-weight: 700;
+    }
+
+    button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.4;
+    }
+
+    .status.ok {
+      color: var(--ok);
+    }
+
+    .status.err {
+      color: var(--danger);
+    }
+
+    .output-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      margin: 0;
+      min-height: 120px;
+      max-height: 420px;
+      overflow: auto;
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      line-height: 1.5;
+    }
+
+    code {
+      color: #bfdbfe;
+    }
+
+    .small {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .warning {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--muted);
+      background: rgba(255,255,255,.03);
+      font-size: .86rem;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+
+<body>
+<main>
+  <h1>Ollama Chat mit Thinking</h1>
+
+  <p class="hint">
+    Lokale HTML-Oberfläche für <code>/api/chat</code>.
+    Thinking wird, falls vom Modell unterstützt, getrennt von der finalen Antwort angezeigt.
+  </p>
+
+  <div class="grid">
+    <section class="card">
+      <label for="baseUrl">Ollama Base URL</label>
+      <input id="baseUrl" value="http://localhost:11434" />
+
+      <label for="model">Modell</label>
+      <input id="model" value="gemma4:12b" />
+
+      <label for="think">Thinking</label>
+      <select id="think">
+        <option value="true" selected>true</option>
+        <option value="false">false</option>
+        <option value="low">low</option>
+        <option value="medium">medium</option>
+        <option value="high">high</option>
+        <option value="max">max</option>
+        <option value="omit">nicht mitsenden</option>
+      </select>
+
+      <div class="row">
+        <div>
+          <label for="temperature">temperature</label>
+          <input id="temperature" type="number" min="0" max="2" step="0.1" value="0.7" />
+        </div>
+
+        <div>
+          <label for="topP">top_p</label>
+          <input id="topP" type="number" min="0" max="1" step="0.01" value="0.9" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="numPredict">num_predict</label>
+          <input id="numPredict" type="number" step="1" value="-1" />
+        </div>
+
+        <div>
+          <label for="numCtx">num_ctx</label>
+          <input id="numCtx" type="number" step="1" value="131072" />
+        </div>
+      </div>
+
+      <label for="keepAlive">keep_alive</label>
+      <input id="keepAlive" value="5m" />
+
+      <label for="systemPrompt">System-Prompt optional</label>
+      <textarea id="systemPrompt" placeholder="z. B. Antworte auf Deutsch und strukturiert."></textarea>
+
+      <label for="prompt">Prompt</label>
+      <textarea id="prompt" placeholder="Schreibe hier deinen Prompt hinein..."></textarea>
+
+      <div class="buttons">
+        <button id="sendBtn">Senden</button>
+        <button id="stopBtn" class="secondary" disabled>Stoppen</button>
+      </div>
+
+      <div id="status" class="status">Bereit.</div>
+
+      <div class="warning">
+        Öffne diese Datei nicht per <code>file:///</code>, sondern über einen lokalen Server,
+        z. B. <code>python -m http.server 8000</code>.
+      </div>
+    </section>
+
+    <section class="output-grid">
+      <div class="card">
+        <div class="section-title">
+          <h2>Thinking</h2>
+          <span id="thinkingStats" class="small"></span>
+        </div>
+        <pre id="thinkingOut"></pre>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          <h2>Antwort</h2>
+          <span id="answerStats" class="small"></span>
+        </div>
+        <pre id="answerOut"></pre>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          <h2>Letzter Request</h2>
+          <span class="small">Debug</span>
+        </div>
+        <pre id="requestOut"></pre>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+
+  const sendBtn = $("sendBtn");
+  const stopBtn = $("stopBtn");
+  const statusEl = $("status");
+  const thinkingOut = $("thinkingOut");
+  const answerOut = $("answerOut");
+  const requestOut = $("requestOut");
+  const thinkingStats = $("thinkingStats");
+  const answerStats = $("answerStats");
+
+  let controller = null;
+
+  function setStatus(text, type = "") {
+    statusEl.textContent = text;
+    statusEl.className = "status" + (type ? " " + type : "");
+  }
+
+  function parseThink(value) {
+    if (value === "omit") return undefined;
+    if (value === "true") return true;
+    if (value === "false") return false;
+
+    // Für Modelle/Ollama-Versionen, die Thinking-Level unterstützen:
+    // low, medium, high, max
+    return value;
+  }
+
+  function numberOrUndefined(value) {
+    if (value === "" || value === null || value === undefined) {
+      return undefined;
+    }
+
+    const number = Number(value);
+
+    if (Number.isNaN(number)) {
+      return undefined;
+    }
+
+    return number;
+  }
+
+  function buildPayload() {
+    const messages = [];
+
+    const systemPrompt = $("systemPrompt").value.trim();
+
+    if (systemPrompt) {
+      messages.push({
+        role: "system",
+        content: systemPrompt
+      });
+    }
+
+    messages.push({
+      role: "user",
+      content: $("prompt").value
+    });
+
+    const options = {
+      temperature: numberOrUndefined($("temperature").value),
+      top_p: numberOrUndefined($("topP").value),
+      num_predict: numberOrUndefined($("numPredict").value),
+      num_ctx: numberOrUndefined($("numCtx").value)
+    };
+
+    // Entfernt leere oder ungültige option-Werte
+    Object.keys(options).forEach((key) => {
+      if (options[key] === undefined) {
+        delete options[key];
+      }
+    });
+
+    const payload = {
+      model: $("model").value.trim(),
+      messages: messages,
+      stream: true,
+      keep_alive: $("keepAlive").value.trim() || "5m",
+      options: options
+    };
+
+    const think = parseThink($("think").value);
+
+    if (think !== undefined) {
+      payload.think = think;
+    }
+
+    return payload;
+  }
+
+  async function sendPrompt() {
+    const baseUrl = $("baseUrl").value.trim().replace(/\/$/, "");
+    const model = $("model").value.trim();
+    const prompt = $("prompt").value.trim();
+
+    if (!baseUrl) {
+      setStatus("Bitte Ollama Base URL eintragen.", "err");
+      return;
+    }
+
+    if (!model) {
+      setStatus("Bitte Modell eintragen.", "err");
+      return;
+    }
+
+    if (!prompt) {
+      setStatus("Bitte Prompt eintragen.", "err");
+      return;
+    }
+
+    thinkingOut.textContent = "";
+    answerOut.textContent = "";
+    requestOut.textContent = "";
+    thinkingStats.textContent = "";
+    answerStats.textContent = "";
+
+    const payload = buildPayload();
+    requestOut.textContent = JSON.stringify(payload, null, 2);
+
+    controller = new AbortController();
+
+    sendBtn.disabled = true;
+    stopBtn.disabled = false;
+
+    setStatus("Sende Anfrage an Ollama...");
+
+    let thinkingChars = 0;
+    let answerChars = 0;
+
+    try {
+      const response = await fetch(baseUrl + "/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error("HTTP " + response.status + ": " + errorText);
+      }
+
+      if (!response.body) {
+        throw new Error("Der Browser unterstützt kein Streaming für diese Antwort.");
+      }
+
+      setStatus("Antwort wird gestreamt...");
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+
+      let buffer = "";
+
+      while (true) {
+        const result = await reader.read();
+
+        if (result.done) {
+          break;
+        }
+
+        buffer += decoder.decode(result.value, {
+          stream: true
+        });
+
+        const lines = buffer.split("\n");
+        buffer = lines.pop();
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+
+          if (!trimmed) {
+            continue;
+          }
+
+          let chunk;
+
+          try {
+            chunk = JSON.parse(trimmed);
+          } catch (error) {
+            console.warn("Konnte JSON-Zeile nicht parsen:", trimmed);
+            continue;
+          }
+
+          const thinking = chunk?.message?.thinking || "";
+          const content = chunk?.message?.content || "";
+
+          if (thinking) {
+            thinkingOut.textContent += thinking;
+            thinkingChars += thinking.length;
+            thinkingStats.textContent = thinkingChars + " Zeichen";
+            thinkingOut.scrollTop = thinkingOut.scrollHeight;
+          }
+
+          if (content) {
+            answerOut.textContent += content;
+            answerChars += content.length;
+            answerStats.textContent = answerChars + " Zeichen";
+            answerOut.scrollTop = answerOut.scrollHeight;
+          }
+
+          if (chunk.done) {
+            let status = "Fertig.";
+
+            if (chunk.eval_count) {
+              status += " " + chunk.eval_count + " Tokens generiert.";
+            }
+
+            setStatus(status, "ok");
+          }
+        }
+      }
+
+      if (!answerOut.textContent && !thinkingOut.textContent) {
+        setStatus(
+          "Fertig, aber keine Ausgabe erhalten. Prüfe Modellname, Thinking-Unterstützung und num_ctx.",
+          "err"
+        );
+      } else {
+        setStatus("Fertig.", "ok");
+      }
+    } catch (error) {
+      if (error.name === "AbortError") {
+        setStatus("Abgebrochen.");
+      } else {
+        setStatus(error.message, "err");
+      }
+    } finally {
+      sendBtn.disabled = false;
+      stopBtn.disabled = true;
+      controller = null;
+    }
+  }
+
+  sendBtn.addEventListener("click", sendPrompt);
+
+  stopBtn.addEventListener("click", () => {
+    if (controller) {
+      controller.abort();
+    }
+  });
+
+  $("prompt").addEventListener("keydown", (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+      sendPrompt();
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+Create a **Concepts Model according to 4EM** for the given case.
+
+## Purpose of the model
+
+The Concepts Model describes **the important things, terms, and phenomena in the enterprise domain**.  
+It defines concepts that are used in other models and clarifies their meaning.  
+It helps avoid ambiguity and makes the domain vocabulary explicit.
+
+## Allowed elements
+
+Use only the following element types:
+
+- Concept
+- Attribute
+
+## Allowed connections
+
+Use only the following connection types:
+
+- binary_relationship
+- is_a
+- part_of
+- has_attribute
+- refers_to
+
+## Possible connections between elements
+
+- Concept binary_relationship Concept
+- Concept is_a Concept
+- Concept part_of Concept
+- Concept has_attribute Attribute
+- Concept refers_to Concept
+
+## Output format
+
+Output the model **only** in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+…
+ElementType <name_n>
+
+CONNECTIONS
+<element name> binary_relationship <element name>
+<element name> is_a <element name>
+<element name_1>, <element name_2>, <element name_3> … part_of <element name>
+<element name_1>, <element name_2>, <element name_3> … has_attribute <element name>
+<element name> refers_to <element name>
+
+You can use as many Elements and Connections as you want. You can only use components that are specified in ELEMENTS for defining Connections.  
+Do not write explanations, descriptions, bullet points, or additional text outside the ELEMENTS and CONNECTIONS sections.

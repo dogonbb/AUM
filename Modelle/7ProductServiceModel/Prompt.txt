@@ -36,6 +36,16 @@ Use only the following connector-based connections:
 - Total-ISA
 - Partial-ISA
 
+## Meaning of element types
+
+- Product: what the enterprise offers to its customers. A product can be physical, digital, virtual, or service-related and has attributes, benefits, features, functions, or uses that satisfy customer needs or wants.
+
+- Service: a specialization of Product that is offered to customers as a service and is created or delivered as the result of a process.
+
+- Component: a distinguishable part of a product or service that is supplied by a partner or produced within the enterprise.
+
+- Feature: a characteristic or function of a product or service that is valuable to customers or target groups using the product or service.
+
 ## Meaning of direct connections
 
 Use direct connections only for simple one-to-one relations.
@@ -142,35 +152,8 @@ CONNECTIONS
 <element name_1>, <element name_2>, <element name_3> Total-ISA <element name>
 <element name_1>, <element name_2>, <element name_3> Partial-ISA <element name>
 
+
+Note that for connections, you shouldn’t include the ElementType in the Connection.
+
 Task:
 Apply the rules to the following text:
-
-The BC is a small computer device with a display and 5 controls. The BC exists in
-different versions, which all can be mounted on the frame of the bike using a bracket.
-The bracket is designed to be fitted to the handlebars. It can be fitted with cable ties
-(permanent attachment) or O-rings (removable attachment).
-
-All BC versions offer functionality for measuring the speed (speedometer), total
-distance, trip count, and a clock. The basic version has only this functionality. The
-advanced version also has average trip, average speed, temperature, and a stopwatch.
-The supreme version adds pedal rotation and average pedal rotation to the advanced
-version.
-
-For the speedometer, a magnet and a sensor have to be mounted at the wheel of the
-bike. The sensor is available in two variants: with a cable to the BC or as a wireless
-device. Similar to the speedometer, the number of pedal rotations per minute can be
-measured. Again, a magnet and a sensor must be mounted on the bike's frame for this
-purpose. These are available as a wireless version and as a conventional cable-based
-version.
-
-For the energy supply of the BC, three possibilities exist: a battery, a rechargeable
-battery, or a photovoltaic cell. The photovoltaic cell is not possible for a BC with
-wireless sensors.
-
-On the US market, the wireless version is only available for the speedometer but not
-for pedal rotation. On the Chinese market, only the cable-based versions are offered.
-These restrictions do not exist for other markets.
-
-The supreme version can be connected to an optional heartbeat monitor and a GPS-based
-navigation system. Furthermore, the wireless version of the supreme BC can be connected
-to Nike bike shoes with built-in motion sensors.

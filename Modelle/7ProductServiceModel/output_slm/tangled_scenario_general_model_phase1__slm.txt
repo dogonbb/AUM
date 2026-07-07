@@ -1,0 +1,11 @@
+ELEMENTS
+Product Smart-Heat
+Component indoor module
+Component outdoor module
+Feature target feature
+Component production system
+Component version management system
+
+CONNECTIONS
+indoor module, outdoor module PartOF (AND) Smart-Heat
+target feature part_of Smart-Heat

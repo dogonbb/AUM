@@ -1,0 +1,23 @@
+ELEMENTS
+External Process Customer_Order_Submission
+Information Set Order_Specification
+Process Check_Order_Validity
+Information Set Rejected_Order
+Information Set Verified_Order_Specification
+Process Handle_Customer_Order
+Process Check_Availability
+Process Check_Customer_Status
+Process Check_Configuration
+Information Set Order_Confirmation
+Process Prepare_Product_Delivery
+Information Set Delivery_Order
+
+CONNECTIONS
+Customer_Order_Submission Output Order_Specification
+Order_Specification Input Check_Order_Validity
+Check_Order_Validity Split (OR) Rejected_Order, Verified_Order_Specification
+Verified_Order_Specification Input Handle_Customer_Order
+Handle_Customer_Order Split (AND) Check_Availability, Check_Customer_Status, Check_Configuration
+Check_Availability, Check_Customer_Status, Check_Configuration Join (AND) Order_Confirmation
+Order_Confirmation Input Prepare_Product_Delivery
+Prepare_Product_Delivery Output Delivery_Order

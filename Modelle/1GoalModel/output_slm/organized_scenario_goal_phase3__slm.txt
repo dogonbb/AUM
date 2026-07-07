@@ -1,0 +1,20 @@
+ELEMENTS
+Goal Provide most energy-efficient heating solution
+Goal Minimize energy consumption of the heat pump
+Goal Produce remaining energy with integrated photovoltaic module
+Problem High energy consumption of current product version
+Goal Develop new heat extractor with low energy consumption
+Goal Re-design existing heat extractor for new refrigerant
+Problem Short development period
+Problem High cost of new refrigerants
+Constraint Maximum photovoltaic output of 50 kWh
+
+CONNECTIONS
+Minimize energy consumption of the heat pump supports Provide most energy-efficient heating solution
+Produce remaining energy with integrated photovoltaic module supports Provide most energy-efficient heating solution
+High energy consumption of current product version hinders Minimize energy consumption of the heat pump
+Develop new heat extractor with low energy consumption, Re-design existing heat extractor for new refrigerant OR Minimize energy consumption of the heat pump
+Short development period hinders Develop new heat extractor with low energy consumption
+Short development period hinders Re-design existing heat extractor for new refrigerant
+High cost of new refrigerants hinders Re-design existing heat extractor for new refrigerant
+Maximum photovoltaic output of 50 kWh hinders Produce remaining energy with integrated photovoltaic module

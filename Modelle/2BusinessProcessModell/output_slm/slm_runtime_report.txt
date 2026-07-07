@@ -1,0 +1,239 @@
+SLM Runtime Report
+================================================================================
+
+Startzeit:              2026-07-06 21:25:10
+Endzeit:                2026-07-06 22:59:45
+Gesamtdauer:            1 Std 34 Min 35.02 Sek
+
+Konfiguration
+--------------------------------------------------------------------------------
+Modell:                 gemma4:12b
+Ollama URL:             http://localhost:11434
+Thinking aktiviert:     Ja
+Thinking-Wert:          true
+Thinking gespeichert:   Nein
+Thinking in Konsole:    Ja
+num_ctx:                131072
+temperature:            0.2
+top_p:                  Ollama-Standard
+seed:                   kein fester Seed
+num_predict:            Ollama-Standard
+
+Zusammenfassung
+--------------------------------------------------------------------------------
+Gesamtanzahl:           14
+Erfolgreich:            11
+Übersprungen:           0
+Fehler:                 3
+SLM-Gesamtzeit:         1 Std 34 Min 29.82 Sek
+ADL-Gesamtzeit:         3.70 Sekunden
+Scenario-Gesamtzeit:    1 Std 34 Min 34.92 Sek
+
+Durchschnitt
+--------------------------------------------------------------------------------
+Ø Gesamtzeit pro Datei: 6 Min 45.35 Sek
+Ø SLM-Zeit pro Datei:   6 Min 44.99 Sek
+Ø ADL-Zeit pro Datei:   0.26 Sekunden
+
+Details pro Scenario
+================================================================================
+
+1. controlled_scenario_business_process_phase1.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\controlled_scenario_business_process_phase1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\controlled_scenario_business_process_phase1__adl.adl
+SLM-Output-Zeichen:     393
+SLM-Zeit:               3 Min 46.66 Sek
+ADL-Zeit:               0.93 Sekunden
+Gesamtzeit:             3 Min 47.61 Sek
+
+2. controlled_scenario_business_process_phase2.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\controlled_scenario_business_process_phase2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\controlled_scenario_business_process_phase2__adl.adl
+SLM-Output-Zeichen:     536
+SLM-Zeit:               1 Min 2.21 Sek
+ADL-Zeit:               0.26 Sekunden
+Gesamtzeit:             1 Min 2.48 Sek
+
+3. controlled_scenario_business_process_phase3.1.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\controlled_scenario_business_process_phase3.1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\controlled_scenario_business_process_phase3.1__adl.adl
+SLM-Output-Zeichen:     536
+SLM-Zeit:               2 Min 27.46 Sek
+ADL-Zeit:               0.40 Sekunden
+Gesamtzeit:             2 Min 27.87 Sek
+
+4. controlled_scenario_business_process_phase3.2.txt
+--------------------------------------------------------------------------------
+Status:                 ERROR
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\controlled_scenario_business_process_phase3.2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\controlled_scenario_business_process_phase3.2__adl.adl
+SLM-Output-Zeichen:     859
+SLM-Zeit:               6 Min 32.44 Sek
+ADL-Zeit:               0.00 Sekunden
+Gesamtzeit:             6 Min 32.80 Sek
+
+Fehler:
+slm_to_adl.py-Aufruf fehlgeschlagen.
+Befehl: C:\Python312\python.exe C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\controlled_scenario_business_process_phase3.2__slm.txt C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\controlled_scenario_business_process_phase3.2__adl.adl --model-name gemma4:12b
+Fehlerausgabe:
+Traceback (most recent call last):
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 803, in <module>
+    main()
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 792, in main
+    elements, connections = parse_notation(text)
+                            ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 255, in parse_notation
+    elements = [parse_element_line(line) for line in element_lines]
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 121, in parse_element_line
+    raise ValueError(f"Elementname fehlt in Zeile: {line!r}")
+ValueError: Elementname fehlt in Zeile: 'Split (AND)'
+
+Standardausgabe:
+
+
+5. controlled_scenario_business_process_phase4.1.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\controlled_scenario_business_process_phase4.1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\controlled_scenario_business_process_phase4.1__adl.adl
+SLM-Output-Zeichen:     536
+SLM-Zeit:               1 Min 2.75 Sek
+ADL-Zeit:               0.32 Sekunden
+Gesamtzeit:             1 Min 3.07 Sek
+
+6. controlled_scenario_business_process_phase4.2.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\controlled_scenario_business_process_phase4.2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\controlled_scenario_business_process_phase4.2__adl.adl
+SLM-Output-Zeichen:     836
+SLM-Zeit:               8 Min 57.79 Sek
+ADL-Zeit:               0.36 Sekunden
+Gesamtzeit:             8 Min 58.17 Sek
+
+7. controlled_scenario_business_process_phase4.3.txt
+--------------------------------------------------------------------------------
+Status:                 ERROR
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\controlled_scenario_business_process_phase4.3__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\controlled_scenario_business_process_phase4.3__adl.adl
+SLM-Output-Zeichen:     1056
+SLM-Zeit:               4 Min 22.69 Sek
+ADL-Zeit:               0.00 Sekunden
+Gesamtzeit:             4 Min 22.99 Sek
+
+Fehler:
+slm_to_adl.py-Aufruf fehlgeschlagen.
+Befehl: C:\Python312\python.exe C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\controlled_scenario_business_process_phase4.3__slm.txt C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\controlled_scenario_business_process_phase4.3__adl.adl --model-name gemma4:12b
+Fehlerausgabe:
+Traceback (most recent call last):
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 803, in <module>
+    main()
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 792, in main
+    elements, connections = parse_notation(text)
+                            ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 262, in parse_notation
+    connections = [parse_connection_line(line, elements_by_name) for line in connection_lines]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 231, in parse_connection_line
+    raise ValueError(f"Ziel {target!r} wurde nicht unter ELEMENTS definiert.")
+ValueError: Ziel 'Split (AND) check availability' wurde nicht unter ELEMENTS definiert.
+
+Standardausgabe:
+
+
+8. organized_scenario_business_process_phase1.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\organized_scenario_business_process_phase1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\organized_scenario_business_process_phase1__adl.adl
+SLM-Output-Zeichen:     393
+SLM-Zeit:               1 Min 56.62 Sek
+ADL-Zeit:               0.23 Sekunden
+Gesamtzeit:             1 Min 56.96 Sek
+
+9. organized_scenario_business_process_phase2.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\organized_scenario_business_process_phase2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\organized_scenario_business_process_phase2__adl.adl
+SLM-Output-Zeichen:     503
+SLM-Zeit:               1 Min 23.88 Sek
+ADL-Zeit:               0.25 Sekunden
+Gesamtzeit:             1 Min 24.16 Sek
+
+10. organized_scenario_business_process_phase3.1.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\organized_scenario_business_process_phase3.1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\organized_scenario_business_process_phase3.1__adl.adl
+SLM-Output-Zeichen:     515
+SLM-Zeit:               1 Min 11.97 Sek
+ADL-Zeit:               0.25 Sekunden
+Gesamtzeit:             1 Min 12.23 Sek
+
+11. organized_scenario_business_process_phase3.2.txt
+--------------------------------------------------------------------------------
+Status:                 ERROR
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\organized_scenario_business_process_phase3.2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\organized_scenario_business_process_phase3.2__adl.adl
+SLM-Output-Zeichen:     814
+SLM-Zeit:               6 Min 51.74 Sek
+ADL-Zeit:               0.00 Sekunden
+Gesamtzeit:             6 Min 52.14 Sek
+
+Fehler:
+slm_to_adl.py-Aufruf fehlgeschlagen.
+Befehl: C:\Python312\python.exe C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\organized_scenario_business_process_phase3.2__slm.txt C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\organized_scenario_business_process_phase3.2__adl.adl --model-name gemma4:12b
+Fehlerausgabe:
+Traceback (most recent call last):
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 803, in <module>
+    main()
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 792, in main
+    elements, connections = parse_notation(text)
+                            ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 262, in parse_notation
+    connections = [parse_connection_line(line, elements_by_name) for line in connection_lines]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\slm_to_adl.py", line 231, in parse_connection_line
+    raise ValueError(f"Ziel {target!r} wurde nicht unter ELEMENTS definiert.")
+ValueError: Ziel 'social media campaign' wurde nicht unter ELEMENTS definiert.
+
+Standardausgabe:
+
+
+12. organized_scenario_business_process_phase4.1.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\organized_scenario_business_process_phase4.1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\organized_scenario_business_process_phase4.1__adl.adl
+SLM-Output-Zeichen:     503
+SLM-Zeit:               9 Min 7.27 Sek
+ADL-Zeit:               0.21 Sekunden
+Gesamtzeit:             9 Min 7.52 Sek
+
+13. organized_scenario_business_process_phase4.2.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\organized_scenario_business_process_phase4.2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\organized_scenario_business_process_phase4.2__adl.adl
+SLM-Output-Zeichen:     856
+SLM-Zeit:               23 Min 52.63 Sek
+ADL-Zeit:               0.21 Sekunden
+Gesamtzeit:             23 Min 52.86 Sek
+
+14. organized_scenario_business_process_phase4.3.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_slm\organized_scenario_business_process_phase4.3__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\2BusinessProcessModell\output_adl\organized_scenario_business_process_phase4.3__adl.adl
+SLM-Output-Zeichen:     940
+SLM-Zeit:               21 Min 53.70 Sek
+ADL-Zeit:               0.28 Sekunden
+Gesamtzeit:             21 Min 54.07 Sek

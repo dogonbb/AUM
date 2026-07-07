@@ -1,0 +1,12 @@
+ELEMENTS
+Individual Individual_1
+Role Role_ProductOwner
+OrganizationalUnit OrganizationalUnit_ProductDevelopmentDepartment
+Individual Individual_2
+Role Role_ProductDesigner
+
+CONNECTIONS
+Individual_1 plays Role_ProductOwner
+Role_ProductOwner works in OrganizationalUnit_ProductDevelopmentDepartment
+Individual_2 plays Role_ProductDesigner
+Role_ProductDesigner works in OrganizationalUnit_ProductDevelopmentDepartment

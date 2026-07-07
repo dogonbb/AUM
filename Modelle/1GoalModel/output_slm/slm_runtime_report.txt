@@ -1,0 +1,119 @@
+SLM Runtime Report
+================================================================================
+
+Startzeit:              2026-07-06 20:02:58
+Endzeit:                2026-07-06 21:14:12
+Gesamtdauer:            1 Std 11 Min 14.08 Sek
+
+Konfiguration
+--------------------------------------------------------------------------------
+Modell:                 gemma4:12b
+Ollama URL:             http://localhost:11434
+Thinking aktiviert:     Ja
+Thinking-Wert:          true
+Thinking gespeichert:   Nein
+Thinking in Konsole:    Ja
+num_ctx:                131072
+temperature:            0.2
+top_p:                  Ollama-Standard
+seed:                   kein fester Seed
+num_predict:            Ollama-Standard
+
+Zusammenfassung
+--------------------------------------------------------------------------------
+Gesamtanzahl:           8
+Erfolgreich:            8
+Übersprungen:           0
+Fehler:                 0
+SLM-Gesamtzeit:         1 Std 11 Min 11.66 Sek
+ADL-Gesamtzeit:         2.42 Sekunden
+Scenario-Gesamtzeit:    1 Std 11 Min 14.08 Sek
+
+Durchschnitt
+--------------------------------------------------------------------------------
+Ø Gesamtzeit pro Datei: 8 Min 54.26 Sek
+Ø SLM-Zeit pro Datei:   8 Min 53.96 Sek
+Ø ADL-Zeit pro Datei:   0.30 Sekunden
+
+Details pro Scenario
+================================================================================
+
+1. controlled_scenario_goal_phase1.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_slm\controlled_scenario_goal_phase1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_adl\controlled_scenario_goal_phase1__adl.adl
+SLM-Output-Zeichen:     222
+SLM-Zeit:               1 Min 43.97 Sek
+ADL-Zeit:               0.37 Sekunden
+Gesamtzeit:             1 Min 44.34 Sek
+
+2. controlled_scenario_goal_phase2.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_slm\controlled_scenario_goal_phase2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_adl\controlled_scenario_goal_phase2__adl.adl
+SLM-Output-Zeichen:     476
+SLM-Zeit:               2 Min 18.63 Sek
+ADL-Zeit:               0.20 Sekunden
+Gesamtzeit:             2 Min 18.83 Sek
+
+3. organized_scenario_goal_phase2.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_slm\organized_scenario_goal_phase2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_adl\organized_scenario_goal_phase2__adl.adl
+SLM-Output-Zeichen:     489
+SLM-Zeit:               28 Min 41.65 Sek
+ADL-Zeit:               0.22 Sekunden
+Gesamtzeit:             28 Min 41.87 Sek
+
+4. organized_scenario_goal_phase3.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_slm\organized_scenario_goal_phase3__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_adl\organized_scenario_goal_phase3__adl.adl
+SLM-Output-Zeichen:     1341
+SLM-Zeit:               5 Min 20.04 Sek
+ADL-Zeit:               0.22 Sekunden
+Gesamtzeit:             5 Min 20.27 Sek
+
+5. controlled_scenario_goal_phase3.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_slm\controlled_scenario_goal_phase3__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_adl\controlled_scenario_goal_phase3__adl.adl
+SLM-Output-Zeichen:     713
+SLM-Zeit:               18 Min 34.00 Sek
+ADL-Zeit:               0.43 Sekunden
+Gesamtzeit:             18 Min 34.43 Sek
+
+6. controlled_scenario_goal_phase4.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_slm\controlled_scenario_goal_phase4__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_adl\controlled_scenario_goal_phase4__adl.adl
+SLM-Output-Zeichen:     1418
+SLM-Zeit:               6 Min 48.18 Sek
+ADL-Zeit:               0.44 Sekunden
+Gesamtzeit:             6 Min 48.62 Sek
+
+7. organized_scenario_goal_phase1.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_slm\organized_scenario_goal_phase1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_adl\organized_scenario_goal_phase1__adl.adl
+SLM-Output-Zeichen:     178
+SLM-Zeit:               35.17 Sek
+ADL-Zeit:               0.25 Sekunden
+Gesamtzeit:             35.41 Sek
+
+8. organized_scenario_goal_phase4.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_slm\organized_scenario_goal_phase4__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\1GoalModel\output_adl\organized_scenario_goal_phase4__adl.adl
+SLM-Output-Zeichen:     1000
+SLM-Zeit:               7 Min 10.01 Sek
+ADL-Zeit:               0.29 Sekunden
+Gesamtzeit:             7 Min 10.30 Sek

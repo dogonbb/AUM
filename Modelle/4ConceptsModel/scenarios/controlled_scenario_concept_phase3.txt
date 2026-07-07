@@ -1,0 +1,14 @@
+Important concepts we have to understand are
+    • Energy-efficiency: is calculated as the energy output for heating divided by the energy consumption
+    • Energy consumption: is measured in kilowatt-hours (kWh) per year
+    • Customer survey: summarizes what expectations the customers have regarding the next version of the company products
+    • Feature: is a characteristic of the product visible for the customer
+    • Target feature: is a feature to be implemented in the next version of the product
+    • Specification document: defines the functional and non-functional characteristics to be achieved by a product
+    • Design description: defines the main building blocks of a product, their interfaces and dependencies.
+    • Zero-emission energy production: means that energy is produced without causing CO2 emissions
+    • Heat pump: extracts heat from water or the air, amplifies it and provides it to heat buildings. Some of the above concepts are attributes of the heat pump concept: energy-efficiency, energy consumption and a list of features.
+    • Campaign target document: consists of the attributes target group, campaign start date, campaign end date and campaign budget.
+    • Campaign plan: describes what social media activities and print media products are part of the campaign.
+    • Campaign statistics: summarizes the response rates for the social media and print media activities.
+    • Campaign result document: summarizes the statistics and compares them with the attributes in the campaign target document.

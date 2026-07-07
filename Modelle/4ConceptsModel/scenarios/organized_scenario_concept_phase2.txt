@@ -1,0 +1,11 @@
+Let me explain some of the important concepts we use in the company:
+•	Energy-efficiency can be calculated as the energy output for heating divided by the energy consumption. 
+•	Energy consumption is measured in kilowatt-hours (kWh)
+•	The customer survey provides an overview what our customers expect for the next version of our products.
+•	Feature is something the customer wants the product to have.
+•	Target feature is a feature we will implement in the next version of the product
+•	Specification document defines the functional and non-functional characteristics to be offered by the product
+•	Design description defines the main building blocks of a product with their interfaces.
+•	Zero-emission energy production means that energy is produced without CO2 emissions
+•	Heat pump extracts heat from the environment to be used to heat buildings.
+Heat pumps are characterized by their energy-efficiency, energy consumption and features.

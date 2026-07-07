@@ -75,5 +75,8 @@ CONNECTIONS
 <element name_1> <element name_2> <element name_3> … <element name_n> OR_decomposition <element name>
 <element name> refers_to <element name>
 
+
+Note that for connections, you shouldn’t include the ElementType in the Connection.
+
 You can use as many Elements and Connections as you want. You can only use components that are specified in ELEMENTS for defining Connections.  
 Do not write explanations, descriptions, bullet points, or additional text outside the ELEMENTS and CONNECTIONS sections.

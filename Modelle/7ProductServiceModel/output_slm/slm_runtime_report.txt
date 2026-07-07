@@ -1,0 +1,139 @@
+SLM Runtime Report
+================================================================================
+
+Startzeit:              2026-07-06 16:16:49
+Endzeit:                2026-07-06 20:02:50
+Gesamtdauer:            3 Std 46 Min 0.17 Sek
+
+Konfiguration
+--------------------------------------------------------------------------------
+Modell:                 gemma4:12b
+Ollama URL:             http://localhost:11434
+Thinking aktiviert:     Ja
+Thinking-Wert:          true
+Thinking gespeichert:   Nein
+Thinking in Konsole:    Ja
+num_ctx:                131072
+temperature:            0.2
+top_p:                  Ollama-Standard
+seed:                   kein fester Seed
+num_predict:            Ollama-Standard
+
+Zusammenfassung
+--------------------------------------------------------------------------------
+Gesamtanzahl:           10
+Erfolgreich:            10
+Übersprungen:           0
+Fehler:                 0
+SLM-Gesamtzeit:         3 Std 45 Min 57.01 Sek
+ADL-Gesamtzeit:         3.17 Sekunden
+Scenario-Gesamtzeit:    3 Std 46 Min 0.17 Sek
+
+Durchschnitt
+--------------------------------------------------------------------------------
+Ø Gesamtzeit pro Datei: 22 Min 36.02 Sek
+Ø SLM-Zeit pro Datei:   22 Min 35.70 Sek
+Ø ADL-Zeit pro Datei:   0.32 Sekunden
+
+Details pro Scenario
+================================================================================
+
+1. controlled_scenario_product_phase1.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_slm\controlled_scenario_product_phase1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_adl\controlled_scenario_product_phase1__adl.adl
+SLM-Output-Zeichen:     204
+SLM-Zeit:               5 Min 1.39 Sek
+ADL-Zeit:               0.62 Sekunden
+Gesamtzeit:             5 Min 2.01 Sek
+
+2. controlled_scenario_product_phase2.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_slm\controlled_scenario_product_phase2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_adl\controlled_scenario_product_phase2__adl.adl
+SLM-Output-Zeichen:     445
+SLM-Zeit:               6 Min 41.85 Sek
+ADL-Zeit:               0.24 Sekunden
+Gesamtzeit:             6 Min 42.10 Sek
+
+3. controlled_scenario_product_phase3.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_slm\controlled_scenario_product_phase3__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_adl\controlled_scenario_product_phase3__adl.adl
+SLM-Output-Zeichen:     626
+SLM-Zeit:               7 Min 30.65 Sek
+ADL-Zeit:               0.32 Sekunden
+Gesamtzeit:             7 Min 30.97 Sek
+
+4. controlled_scenario_product_phase4.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_slm\controlled_scenario_product_phase4__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_adl\controlled_scenario_product_phase4__adl.adl
+SLM-Output-Zeichen:     894
+SLM-Zeit:               5 Min 37.98 Sek
+ADL-Zeit:               0.29 Sekunden
+Gesamtzeit:             5 Min 38.27 Sek
+
+5. organized_scenario_product_phase1.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_slm\organized_scenario_product_phase1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_adl\organized_scenario_product_phase1__adl.adl
+SLM-Output-Zeichen:     204
+SLM-Zeit:               3 Min 0.42 Sek
+ADL-Zeit:               0.30 Sekunden
+Gesamtzeit:             3 Min 0.73 Sek
+
+6. organized_scenario_product_phase2.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_slm\organized_scenario_product_phase2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_adl\organized_scenario_product_phase2__adl.adl
+SLM-Output-Zeichen:     445
+SLM-Zeit:               4 Min 10.98 Sek
+ADL-Zeit:               0.31 Sekunden
+Gesamtzeit:             4 Min 11.29 Sek
+
+7. organized_scenario_product_phase3.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_slm\organized_scenario_product_phase3__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_adl\organized_scenario_product_phase3__adl.adl
+SLM-Output-Zeichen:     632
+SLM-Zeit:               19 Min 17.61 Sek
+ADL-Zeit:               0.33 Sekunden
+Gesamtzeit:             19 Min 17.94 Sek
+
+8. organized_scenario_product_phase4.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_slm\organized_scenario_product_phase4__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_adl\organized_scenario_product_phase4__adl.adl
+SLM-Output-Zeichen:     900
+SLM-Zeit:               2 Std 48 Min 26.11 Sek
+ADL-Zeit:               0.29 Sekunden
+Gesamtzeit:             2 Std 48 Min 26.40 Sek
+
+9. tangled_scenario_general_model_phase1.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_slm\tangled_scenario_general_model_phase1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_adl\tangled_scenario_general_model_phase1__adl.adl
+SLM-Output-Zeichen:     264
+SLM-Zeit:               3 Min 8.58 Sek
+ADL-Zeit:               0.24 Sekunden
+Gesamtzeit:             3 Min 8.82 Sek
+
+10. tangled_scenario_general_model_phase2.txt
+--------------------------------------------------------------------------------
+Status:                 OK
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_slm\tangled_scenario_general_model_phase2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\7ProductServiceModel\output_adl\tangled_scenario_general_model_phase2__adl.adl
+SLM-Output-Zeichen:     584
+SLM-Zeit:               3 Min 1.44 Sek
+ADL-Zeit:               0.22 Sekunden
+Gesamtzeit:             3 Min 1.65 Sek

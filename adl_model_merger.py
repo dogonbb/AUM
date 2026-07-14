@@ -7,7 +7,9 @@ Die Zieldatei enthält:
   3. anschließend die vollständigen Modellblöcke aller ausgewählten Dateien.
 
 Das Skript bietet standardmäßig einen Dateiauswahldialog. Alternativ können
-Eingabedateien und Ausgabe über die Kommandozeile angegeben werden.
+Eingabedateien oder Ordner und die Ausgabe über die Kommandozeile angegeben
+werden. Bei einem Ordner werden automatisch alle darin enthaltenen .adl-Dateien
+verwendet.
 """
 
 from __future__ import annotations
@@ -100,6 +102,45 @@ def make_header(models: Iterable[AdlModel], version: str) -> str:
     return "\n".join(lines)
 
 
+def collect_adl_files(inputs: list[Path], output_path: Path | None = None) -> list[Path]:
+    """ADL-Dateien aus einzelnen Dateien und Ordnern sammeln."""
+    collected: list[Path] = []
+    output_resolved = output_path.resolve() if output_path is not None else None
+
+    for item in inputs:
+        if not item.exists():
+            raise ValueError(f"Eingabe wurde nicht gefunden: {item}")
+
+        if item.is_dir():
+            candidates = sorted(
+                (path for path in item.iterdir() if path.is_file() and path.suffix.casefold() == ".adl"),
+                key=lambda path: path.name.casefold(),
+            )
+            if not candidates:
+                raise ValueError(f"Keine ADL-Dateien im Ordner gefunden: {item}")
+            collected.extend(candidates)
+        elif item.is_file():
+            if item.suffix.casefold() != ".adl":
+                raise ValueError(f"Keine ADL-Datei: {item}")
+            collected.append(item)
+        else:
+            raise ValueError(f"Ungültige Eingabe: {item}")
+
+    unique: list[Path] = []
+    seen: set[Path] = set()
+    for path in collected:
+        resolved = path.resolve()
+        if output_resolved is not None and resolved == output_resolved:
+            continue
+        if resolved not in seen:
+            seen.add(resolved)
+            unique.append(path)
+
+    if not unique:
+        raise ValueError("Es wurden keine ADL-Eingabedateien gefunden.")
+    return unique
+
+
 def merge_adl_files(input_paths: list[Path], output_path: Path) -> list[AdlModel]:
     if not input_paths:
         raise ValueError("Es wurden keine Eingabedateien ausgewählt.")
@@ -176,7 +217,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Mehrere 4EM-ADL-Dateien zu einer Datei zusammenfügen."
     )
-    parser.add_argument("inputs", nargs="*", type=Path, help="Eingabe-ADL-Dateien")
+    parser.add_argument(
+        "inputs",
+        nargs="*",
+        type=Path,
+        help="Eingabe-ADL-Dateien oder Ordner mit ADL-Dateien",
+    )
     parser.add_argument("-o", "--output", type=Path, help="Ausgabe-ADL-Datei")
     return parser
 
@@ -188,7 +234,8 @@ def main() -> int:
         if args.inputs:
             if args.output is None:
                 raise ValueError("Im CLI-Modus ist --output erforderlich.")
-            inputs, output = args.inputs, args.output
+            output = args.output
+            inputs = collect_adl_files(args.inputs, output)
         else:
             inputs, output = choose_files_gui()
             if not inputs or output is None:

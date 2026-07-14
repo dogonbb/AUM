@@ -1,32 +1,22 @@
 #!/usr/bin/env python3
-# tcrm_to_adl.py
-#
-# Wandelt die LLM-Notation aus dem Prompt fuer das 4EM
-# Technical Components and Requirements Model in eine ADL-Datei um.
-#
-# Erwarteter Input:
-#   ELEMENTS
-#   Goal <name>
-#   Problem <name>
-#   IS Technical Component <name>
-#   IS Requirement <name>
-#
-#   CONNECTIONS
-#   A supports B
-#   A hinders B
-#   A contradicts B
-#   A has goal B
-#   A has requirement B
-#   A motivates B
-#   A, B, C AND D
-#   A, B, C OR D
-#   A, B, C AND/OR D
-#   A, B, C Partial-PartOF D
-#   A, B, C Total-PartOF D
-#
-# Aufruf:
-#   python tcrm_to_adl.py input.txt output.adl --model-name "My TCRM Model"
+"""Convert the LLM text notation for a 4EM Technical Components and
+Requirements Model into an ADL file.
 
+Usage:
+  python technical_components_requirements_to_adl.py input.txt output.adl \
+      --model-name "Generated Technical Components and Requirements Model"
+
+Accepted element declarations (aliases are accepted):
+  Information System Goal <name>
+  Information System Problem <name>
+  Information System Requirement <name>
+  Information System Functional Requirement <name>
+  Information System Non-Functional Requirement <name>
+  Technical Component <name>
+
+The generated ADL classes follow the supplied 4EM exports:
+  Goal, Problem, IS Requirement, IS Technical Component.
+"""
 from __future__ import annotations
 
 import argparse
@@ -36,46 +26,44 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-
-ELEMENT_TYPES = {"Goal", "Problem", "IS Technical Component", "IS Requirement"}
-DIRECT_CONNECTION_TYPES = {
-    "supports",
-    "hinders",
-    "contradicts",
-    "has goal",
-    "has requirement",
-    "motivates",
+# Longest aliases first.
+ELEMENT_ALIASES = {
+    "Information System Non-Functional Requirement": ("IS Requirement", "Non-Functional"),
+    "Information System Functional Requirement": ("IS Requirement", "Functional"),
+    "Information System Requirement": ("IS Requirement", "Functional"),
+    "Information System Problem": ("Problem", None),
+    "Information System Goal": ("Goal", None),
+    "IS Non-Functional Requirement": ("IS Requirement", "Non-Functional"),
+    "IS Functional Requirement": ("IS Requirement", "Functional"),
+    "IS Technical Component": ("IS Technical Component", None),
+    "IS Requirement": ("IS Requirement", "Functional"),
+    "Technical Component": ("IS Technical Component", None),
+    "Problem": ("Problem", None),
+    "Goal": ("Goal", None),
 }
-CONNECTOR_CONNECTION_TYPES = {"AND", "OR", "AND/OR", "Partial-PartOF", "Total-PartOF"}
-CONNECTION_TYPES = DIRECT_CONNECTION_TYPES | CONNECTOR_CONNECTION_TYPES
 
-# Laengere Tokens muessen vor kuerzeren Tokens stehen, weil Elementnamen
-# Leerzeichen enthalten duerfen und z.B. "AND/OR" vor "AND" erkannt werden muss.
-CONNECTION_TOKEN_RE = re.compile(
-    r"\s("
-    r"Partial-PartOF"
-    r"|Total-PartOF"
-    r"|AND/OR"
-    r"|has\s+requirement"
-    r"|has\s+goal"
-    r"|contradicts"
-    r"|supports"
-    r"|motivates"
-    r"|hinders"
-    r"|AND"
-    r"|OR"
-    r")\s",
+DIRECT_KINDS = {
+    "supports", "hinders", "contradicts", "motivates",
+    "has requirement", "has goal", "communicates", "relates_to",
+    "weakly conflicts", "moderately conflicts", "strongly conflicts",
+}
+CONNECTOR_KINDS = {"AND", "OR", "AND/OR", "Partial-PartOF", "Total-PartOF"}
+
+TOKEN_RE = re.compile(
+    r"\s(AND/OR|Partial-PartOF|Total-PartOF|moderately conflicts|strongly conflicts|"
+    r"weakly conflicts|has requirement|has goal|communicates|relates_to|contradicts|"
+    r"motivates|supports|hinders|AND|OR)\s",
     re.IGNORECASE,
 )
 
-
-@dataclass(frozen=True)
+@dataclass
 class Element:
-    type: str
+    input_type: str
     name: str
+    adl_class: str
+    requirement_type: str | None = None
 
-
-@dataclass(frozen=True)
+@dataclass
 class Connection:
     sources: List[str]
     kind: str
@@ -83,7 +71,6 @@ class Connection:
 
 
 def esc(value: str) -> str:
-    """Escaping fuer ADL-Werte in spitzen Klammern und Quotes."""
     return value.replace("\\", "\\\\").replace('"', '\\"').replace("<", "(").replace(">", ")")
 
 
@@ -95,12 +82,10 @@ def split_sections(text: str) -> Tuple[List[str], List[str]]:
     section = None
     elements: List[str] = []
     connections: List[str] = []
-
     for raw in text.splitlines():
         line = raw.strip()
         if not line or line.startswith("#"):
             continue
-
         upper = line.upper()
         if upper in {"ELEMENTS", "ELEMENTE"}:
             section = "elements"
@@ -108,371 +93,208 @@ def split_sections(text: str) -> Tuple[List[str], List[str]]:
         if upper in {"CONNECTIONS", "VERBINDUNGEN"}:
             section = "connections"
             continue
-
         if section == "elements":
             elements.append(line)
         elif section == "connections":
             connections.append(line)
-
+    if not elements:
+        raise ValueError("Keine Elemente gefunden. Erwartet wird ein Abschnitt ELEMENTS.")
     return elements, connections
 
 
 def parse_element_line(line: str) -> Element:
-    """
-    Elementtypen koennen aus mehreren Woertern bestehen, z.B.
-    "IS Technical Component". Deshalb wird gegen bekannte Praefixe geparst.
-    """
     normalized = normalize_spaces(line)
-    for etype in sorted(ELEMENT_TYPES, key=len, reverse=True):
-        prefix = etype + " "
-        if normalized.startswith(prefix):
+    for alias in sorted(ELEMENT_ALIASES, key=len, reverse=True):
+        prefix = alias + " "
+        if normalized.lower().startswith(prefix.lower()):
             name = normalize_spaces(normalized[len(prefix):])
             if not name:
                 raise ValueError(f"Elementname fehlt in Zeile: {line!r}")
-            return Element(etype, name)
-
+            adl_class, req_type = ELEMENT_ALIASES[alias]
+            return Element(alias, name, adl_class, req_type)
     raise ValueError(
-        f"Unbekannter Elementtyp in Zeile {line!r}. "
-        f"Erlaubt: {', '.join(sorted(ELEMENT_TYPES))}"
+        f"Unbekannter Elementtyp in {line!r}. Erlaubt: " + ", ".join(ELEMENT_ALIASES)
     )
 
 
-def normalize_connection_kind(raw_kind: str) -> str:
-    compact = normalize_spaces(raw_kind)
-    lower = compact.lower()
-
-    if lower == "supports":
-        return "supports"
-    if lower == "hinders":
-        return "hinders"
-    if lower == "contradicts":
-        return "contradicts"
-    if lower == "has goal":
-        return "has goal"
-    if lower == "has requirement":
-        return "has requirement"
-    if lower == "motivates":
-        return "motivates"
-    if lower == "and":
-        return "AND"
-    if lower == "or":
-        return "OR"
-    if lower == "and/or":
-        return "AND/OR"
-    if lower == "partial-partof":
-        return "Partial-PartOF"
-    if lower == "total-partof":
-        return "Total-PartOF"
-
-    raise ValueError(f"Unbekannte Verbindungsart: {raw_kind!r}")
+def normalize_kind(raw: str) -> str:
+    value = normalize_spaces(raw)
+    low = value.lower()
+    mapping = {
+        "and": "AND", "or": "OR", "and/or": "AND/OR",
+        "partial-partof": "Partial-PartOF", "total-partof": "Total-PartOF",
+    }
+    return mapping.get(low, low)
 
 
-def validate_allowed_pattern(kind: str, source_type: str, target_type: str, line: str) -> None:
-    """Validiert die im Prompt erlaubten Quell-/Ziel-Typen."""
-    if kind == "supports":
-        allowed = (source_type, target_type) in {
-            ("Goal", "Goal"),
-            ("IS Technical Component", "IS Technical Component"),
-        }
-    elif kind == "hinders":
-        allowed = (source_type, target_type) in {
-            ("Goal", "Goal"),
-            ("Problem", "Goal"),
-            ("IS Technical Component", "IS Technical Component"),
-        }
-    elif kind == "contradicts":
-        allowed = (source_type, target_type) == ("Goal", "Goal")
-    elif kind == "has goal":
-        allowed = (source_type, target_type) == ("IS Technical Component", "Goal")
-    elif kind == "has requirement":
-        allowed = (source_type, target_type) in {
-            ("Goal", "IS Technical Component"),
-            ("Goal", "IS Requirement"),
-            ("IS Technical Component", "IS Requirement"),
-        }
+def validate_pattern(conn: Connection, elements: Dict[str, Element], line: str) -> None:
+    source_classes = [elements[name].adl_class for name in conn.sources]
+    target_class = elements[conn.target].adl_class
+    kind = conn.kind
+
+    if kind in CONNECTOR_KINDS:
+        if len(conn.sources) < 2:
+            raise ValueError(f"{kind} benötigt mindestens zwei Quellen: {line!r}")
+        if kind in {"Partial-PartOF", "Total-PartOF"}:
+            if any(c != "IS Technical Component" for c in source_classes) or target_class != "IS Technical Component":
+                raise ValueError(f"{kind} ist nur zwischen technischen Komponenten erlaubt: {line!r}")
+        return
+
+    if len(conn.sources) != 1:
+        raise ValueError(f"Direkte Verbindung benötigt genau eine Quelle: {line!r}")
+    s = source_classes[0]
+    t = target_class
+
+    allowed = False
+    if kind in {"supports", "hinders"}:
+        allowed = ((s in {"Goal", "Problem", "IS Requirement", "IS Technical Component"} and t == "Goal") or
+                   (s == "IS Technical Component" and t in {"IS Technical Component", "IS Requirement"}))
+    elif kind in {"contradicts", "weakly conflicts", "moderately conflicts", "strongly conflicts"}:
+        allowed = s == "Goal" and t == "Goal"
     elif kind == "motivates":
-        allowed = (source_type, target_type) == ("Goal", "IS Technical Component")
-    elif kind in {"AND", "OR", "AND/OR"}:
-        allowed = source_type in ELEMENT_TYPES and target_type in ELEMENT_TYPES
-    elif kind in {"Partial-PartOF", "Total-PartOF"}:
-        allowed = (source_type, target_type) == (
-            "IS Technical Component",
-            "IS Technical Component",
-        )
-    else:
-        allowed = False
+        allowed = s == "Goal" and t in {"IS Technical Component", "IS Requirement"}
+    elif kind == "has requirement":
+        allowed = s in {"Goal", "IS Technical Component"} and t in {"IS Technical Component", "IS Requirement"}
+    elif kind == "has goal":
+        allowed = s == "IS Technical Component" and t == "Goal"
+    elif kind == "communicates":
+        allowed = s == "IS Technical Component" and t == "IS Technical Component"
+    elif kind == "relates_to":
+        allowed = s == "IS Technical Component" and t in {"Goal", "Problem", "IS Requirement"}
 
     if not allowed:
-        raise ValueError(
-            f"Nicht erlaubtes Verbindungsmuster in {line!r}: "
-            f"{source_type} {kind} {target_type}"
-        )
+        raise ValueError(f"Nicht erlaubtes Verbindungsmuster in {line!r}: {s} {kind} {t}")
 
 
-def parse_connection_line(line: str, elements_by_name: Dict[str, Element]) -> Connection:
-    """
-    Parst Verbindungen anhand bekannter Verbindungstokens, weil Elementnamen
-    Leerzeichen enthalten duerfen.
-    """
-    match = CONNECTION_TOKEN_RE.search(line)
+def parse_connection_line(line: str, elements: Dict[str, Element]) -> Connection:
+    match = TOKEN_RE.search(line)
     if not match:
-        allowed = ", ".join(sorted(CONNECTION_TYPES))
-        raise ValueError(f"Keine gueltige Verbindungsart gefunden in: {line!r}. Erlaubt: {allowed}")
-
-    kind = normalize_connection_kind(match.group(1))
+        raise ValueError(f"Keine gültige Verbindungsart gefunden in: {line!r}")
+    kind = normalize_kind(match.group(1))
     left = normalize_spaces(line[:match.start()])
     target = normalize_spaces(line[match.end():])
-
-    sources = [normalize_spaces(part) for part in left.split(",") if normalize_spaces(part)]
-    if not sources:
-        raise ValueError(f"Keine Quelle in Verbindung: {line!r}")
-
+    sources = [normalize_spaces(x) for x in left.split(",") if normalize_spaces(x)]
+    if not sources or not target:
+        raise ValueError(f"Unvollständige Verbindung: {line!r}")
     for source in sources:
-        if source not in elements_by_name:
+        if source not in elements:
             raise ValueError(f"Quelle {source!r} wurde nicht unter ELEMENTS definiert.")
-    if target not in elements_by_name:
+    if target not in elements:
         raise ValueError(f"Ziel {target!r} wurde nicht unter ELEMENTS definiert.")
-
-    if kind in DIRECT_CONNECTION_TYPES and len(sources) != 1:
-        raise ValueError(f"Direkte Verbindung {kind!r} darf genau eine Quelle haben: {line!r}")
-    if kind in CONNECTOR_CONNECTION_TYPES and len(sources) < 2:
-        raise ValueError(f"Connector-Verbindung {kind!r} sollte mindestens zwei Quellen haben: {line!r}")
-
-    for source in sources:
-        validate_allowed_pattern(kind, elements_by_name[source].type, elements_by_name[target].type, line)
-
-    return Connection(sources, kind, target)
+    conn = Connection(sources, kind, target)
+    validate_pattern(conn, elements, line)
+    return conn
 
 
 def parse_notation(text: str) -> Tuple[List[Element], List[Connection]]:
     element_lines, connection_lines = split_sections(text)
-    if not element_lines:
-        raise ValueError("Keine ELEMENTS-Sektion oder keine Elemente gefunden.")
-
     elements = [parse_element_line(line) for line in element_lines]
-    names = [element.name for element in elements]
-    duplicates = sorted({name for name in names if names.count(name) > 1})
-    if duplicates:
-        raise ValueError(f"Doppelte Elementnamen gefunden: {', '.join(duplicates)}")
-
-    elements_by_name = {element.name: element for element in elements}
-    connections = [parse_connection_line(line, elements_by_name) for line in connection_lines]
+    by_name: Dict[str, Element] = {}
+    for element in elements:
+        if element.name in by_name:
+            raise ValueError(f"Doppelter Elementname: {element.name!r}")
+        by_name[element.name] = element
+    connections = [parse_connection_line(line, by_name) for line in connection_lines]
     return elements, connections
 
 
-def adl_attributes_for(element: Element) -> str:
-    """ADL-Attribute fuer Technical Components and Requirements gemaess ADL-Beispielen."""
-    if element.type == "Goal":
+def attrs_for(element: Element) -> str:
+    if element.adl_class == "Goal":
         return '''
-\tATTRIBUTE <External tool coupling>
-\tVALUE ""
-
-\tATTRIBUTE <Description>
-\tVALUE ""
-
-\tATTRIBUTE <Criticality>
-\tVALUE "Low"
-
-\tATTRIBUTE <Priority>
-\tVALUE "Low"
-
-\tATTRIBUTE <Intermodel-Relations>
-\tVALUE
-
-\tATTRIBUTE <Decomposition>
-\tVALUE ""
-
-\tATTRIBUTE <Defined by>
-\tVALUE ""
-
-\tATTRIBUTE <Attributes>
-\tVALUE
+\tATTRIBUTE <External tool coupling>\n\tVALUE ""
+\n\tATTRIBUTE <Description>\n\tVALUE ""
+\n\tATTRIBUTE <Criticality>\n\tVALUE "Low"
+\n\tATTRIBUTE <Priority>\n\tVALUE "Low"
+\n\tATTRIBUTE <Intermodel-Relations>\n\tVALUE
+\n\tATTRIBUTE <Decomposition>\n\tVALUE ""
+\n\tATTRIBUTE <Defined by>\n\tVALUE ""
+\n\tATTRIBUTE <Attributes>\n\tVALUE
 '''
-
-    if element.type == "Problem":
+    if element.adl_class == "Problem":
         return '''
-\tATTRIBUTE <External tool coupling>
-\tVALUE ""
-
-\tATTRIBUTE <Intermodel-Relations>
-\tVALUE
-
-\tATTRIBUTE <Decomposition>
-\tVALUE ""
-
-\tATTRIBUTE <Attributes>
-\tVALUE
-
-\tATTRIBUTE <Defined by>
-\tVALUE ""
-
-\tATTRIBUTE <Priority>
-\tVALUE "Low"
-
-\tATTRIBUTE <Criticality>
-\tVALUE "Low"
-
-\tATTRIBUTE <Description>
-\tVALUE ""
-
-\tATTRIBUTE <type>
-\tVALUE "Problem"
+\tATTRIBUTE <External tool coupling>\n\tVALUE ""
+\n\tATTRIBUTE <Intermodel-Relations>\n\tVALUE
+\n\tATTRIBUTE <Decomposition>\n\tVALUE ""
+\n\tATTRIBUTE <Attributes>\n\tVALUE
+\n\tATTRIBUTE <Defined by>\n\tVALUE ""
+\n\tATTRIBUTE <Priority>\n\tVALUE "Low"
+\n\tATTRIBUTE <Criticality>\n\tVALUE "Low"
+\n\tATTRIBUTE <Description>\n\tVALUE ""
+\n\tATTRIBUTE <type>\n\tVALUE "Problem"
 '''
-
-    if element.type == "IS Technical Component":
+    if element.adl_class == "IS Technical Component":
         return '''
-\tATTRIBUTE <External tool coupling>
-\tVALUE ""
-
-\tATTRIBUTE <Description>
-\tVALUE ""
-
-\tATTRIBUTE <Intermodel-Relations>
-\tVALUE
-
-\tATTRIBUTE <Decomposition>
-\tVALUE ""
-
-\tATTRIBUTE <Location>
-\tVALUE ""
-
-\tATTRIBUTE <Quantity>
-\tVALUE 0
-
-\tATTRIBUTE <Attributes>
-\tVALUE
+\tATTRIBUTE <External tool coupling>\n\tVALUE ""
+\n\tATTRIBUTE <Description>\n\tVALUE ""
+\n\tATTRIBUTE <Intermodel-Relations>\n\tVALUE
+\n\tATTRIBUTE <Decomposition>\n\tVALUE ""
+\n\tATTRIBUTE <Location>\n\tVALUE ""
+\n\tATTRIBUTE <Quantity>\n\tVALUE 0
+\n\tATTRIBUTE <Attributes>\n\tVALUE
 '''
-
-    if element.type == "IS Requirement":
-        return '''
-\tATTRIBUTE <External tool coupling>
-\tVALUE ""
-
-\tATTRIBUTE <Description>
-\tVALUE ""
-
-\tATTRIBUTE <Type>
-\tVALUE "Functional"
-
-\tATTRIBUTE <Intermodel-Relations>
-\tVALUE
-
-\tATTRIBUTE <Decomposition>
-\tVALUE ""
-
-\tATTRIBUTE <Attributes>
-\tVALUE
+    if element.adl_class == "IS Requirement":
+        req_type = element.requirement_type or "Functional"
+        return f'''
+\tATTRIBUTE <External tool coupling>\n\tVALUE ""
+\n\tATTRIBUTE <Description>\n\tVALUE ""
+\n\tATTRIBUTE <Type>\n\tVALUE "{esc(req_type)}"
+\n\tATTRIBUTE <Intermodel-Relations>\n\tVALUE
+\n\tATTRIBUTE <Decomposition>\n\tVALUE ""
+\n\tATTRIBUTE <Attributes>\n\tVALUE
 '''
-
-    raise ValueError(f"Nicht unterstuetzter Elementtyp: {element.type}")
-
-
-def node_size_for(element_type: str) -> Tuple[float, float]:
-    if element_type in {"IS Technical Component", "IS Requirement"}:
-        return 4.0, 2.0
-    return 4.0, 1.5
+    raise ValueError(f"Nicht unterstützte ADL-Klasse: {element.adl_class}")
 
 
-def fallback_position(index: int) -> Tuple[float, float]:
-    col = index // 10
-    row = index % 10
-    return 2.5 + col * 9.5, 3.0 + row * 2.4
+def size_for(adl_class: str) -> Tuple[float, float]:
+    return (4.0, 2.0) if adl_class in {"IS Requirement", "IS Technical Component"} else (4.0, 1.5)
 
 
 def compute_layout(elements: List[Element], connections: List[Connection]) -> Dict[str, Tuple[float, float]]:
-    """Ein einfaches, reproduzierbares Layout mit Einflussquellen links und Zielen rechts."""
-    input_order = {element.name: index for index, element in enumerate(elements)}
-    base_layer = {
-        "Problem": 0,
-        "Goal": 1,
-        "IS Technical Component": 2,
-        "IS Requirement": 3,
-    }
-    layer: Dict[str, int] = {element.name: base_layer[element.type] for element in elements}
-
+    base = {"Problem": 0, "Goal": 1, "IS Requirement": 2, "IS Technical Component": 3}
+    layer = {e.name: base.get(e.adl_class, 1) for e in elements}
     for _ in range(len(elements)):
         changed = False
-        for conn in connections:
-            if conn.kind in {"Partial-PartOF", "Total-PartOF"}:
-                # Part-of-Beziehungen sollen Komponenten in der Naehe halten.
+        for c in connections:
+            if c.kind in CONNECTOR_KINDS:
                 continue
-            wanted = max(layer[source] for source in conn.sources) + 1
-            if layer[conn.target] < wanted:
-                layer[conn.target] = wanted
-                changed = True
+            for s in c.sources:
+                wanted = layer[s] + 1
+                if layer[c.target] < wanted:
+                    layer[c.target] = wanted
+                    changed = True
         if not changed:
             break
-
-    min_layer = min(layer.values()) if layer else 0
-    layer = {name: value - min_layer for name, value in layer.items()}
-
-    layers: Dict[int, List[str]] = {}
-    for element in elements:
-        layers.setdefault(layer[element.name], []).append(element.name)
-
-    for names in layers.values():
-        names.sort(key=lambda name: input_order[name])
-
+    minimum = min(layer.values(), default=0)
+    layer = {k: v - minimum for k, v in layer.items()}
+    grouped: Dict[int, List[str]] = {}
+    for e in elements:
+        grouped.setdefault(layer[e.name], []).append(e.name)
     positions: Dict[str, Tuple[float, float]] = {}
-    for layer_no, names in sorted(layers.items()):
+    for col, names in grouped.items():
         for row, name in enumerate(names):
-            positions[name] = (2.5 + layer_no * 8.5, 3.0 + row * 2.7)
+            positions[name] = (3.0 + col * 8.5, 2.5 + row * 2.8)
     return positions
 
 
-def junction_position(
-    sources: List[str],
-    target: str,
-    positions: Dict[str, Tuple[float, float]],
-    fallback_index: int,
-) -> Tuple[float, float]:
-    source_points = [positions[name] for name in sources if name in positions]
-    target_point = positions.get(target)
-    if not source_points or target_point is None:
-        return fallback_position(fallback_index)
-
-    sx = sum(point[0] for point in source_points) / len(source_points)
-    sy = sum(point[1] for point in source_points) / len(source_points)
-    tx, ty = target_point
-    return tx + (sx - tx) * 0.55, ty + (sy - ty) * 0.55
-
-
-def make_instance(
-    name: str,
-    adl_class: str,
-    attrs: str,
-    index: int,
-    x: float,
-    y: float,
-    w: float | None = None,
-    h: float | None = None,
-) -> str:
-    if w is None or h is None:
-        pos = f'NODE x:{x:g}cm y:{y:g}cm index:{index}'
-    else:
-        pos = f'NODE x:{x:g}cm y:{y:g}cm w:{w:g}cm h:{h:g}cm index:{index}'
-
-    return f'''INSTANCE <{esc(name)}> : <{esc(adl_class)}>
+def make_instance(name: str, cls: str, attrs: str, index: int, x: float, y: float,
+                  w: float | None = None, h: float | None = None) -> str:
+    pos = f"NODE x:{x:g}cm y:{y:g}cm index:{index}"
+    if w is not None and h is not None:
+        pos = f"NODE x:{x:g}cm y:{y:g}cm w:{w:g}cm h:{h:g}cm index:{index}"
+    return f'''INSTANCE <{esc(name)}> : <{esc(cls)}>
 
 \tATTRIBUTE <Position>
 \tVALUE "{pos}"{attrs}
 '''
 
 
-def make_relation(
-    src_name: str,
-    src_class: str,
-    dst_name: str,
-    dst_class: str,
-    edge_index: int,
-    rel_type: str = "",
-) -> str:
+def make_relation(src: str, src_cls: str, dst: str, dst_cls: str, index: int, rel_type: str) -> str:
     return f'''RELATION <4EM_Relation>
-\tFROM <{esc(src_name)}> : <{esc(src_class)}>
-\tTO <{esc(dst_name)}> : <{esc(dst_class)}>
+\tFROM <{esc(src)}> : <{esc(src_cls)}>
+\tTO <{esc(dst)}> : <{esc(dst_cls)}>
 
 \tATTRIBUTE <Positions>
-\tVALUE "EDGE 0 index:{edge_index}"
+\tVALUE "EDGE 0 index:{index}"
 
 \tATTRIBUTE <Type>
 \tVALUE "{esc(rel_type)}"
@@ -486,126 +308,81 @@ def make_relation(
 '''
 
 
-def relation_type_for(kind: str, source_type: str, target_type: str) -> str:
-    """Relationstexte so nah wie moeglich an den ADL-Beispielen."""
+def relation_type(conn: Connection, classes: Dict[str, str]) -> str:
+    kind = conn.kind
+    s = classes[conn.sources[0]]
+    t = classes[conn.target]
     if kind == "supports":
-        if (source_type, target_type) == ("IS Technical Component", "IS Technical Component"):
-            return "supports"
-        return "Supports"
+        return "supports" if s == "IS Technical Component" and t == "IS Technical Component" else "Supports"
     if kind == "hinders":
-        if (source_type, target_type) == ("IS Technical Component", "IS Technical Component"):
-            return "hinders"
-        return "Hinders"
-    if kind == "contradicts":
+        return "hinders" if s == "IS Technical Component" and t == "IS Technical Component" else "Hinders"
+    if kind in {"contradicts", "weakly conflicts", "moderately conflicts", "strongly conflicts"}:
         return "Contradicts"
-    if kind == "has goal":
-        return "has goal"
-    if kind == "has requirement":
-        return "has requirement"
-    if kind == "motivates":
-        return "motivates"
-    raise ValueError(f"Keine direkte Relation fuer {kind!r}")
-
-
-def connector_class_for(kind: str) -> str:
-    if kind not in CONNECTOR_CONNECTION_TYPES:
-        raise ValueError(f"{kind!r} ist kein Connector-Typ.")
     return kind
-
-
-def connector_name_for(kind: str, index: int) -> str:
-    safe = kind.replace("/", "_")
-    return f"{safe}-AUTO{index}"
 
 
 def generate_adl(elements: List[Element], connections: List[Connection], model_name: str) -> str:
     now = datetime.now()
     created = now.strftime("%d.%m.%Y, %H:%M")
     changed = now.strftime("%d.%m.%Y, %H:%M:%S")
-
     positions = compute_layout(elements, connections)
-    class_by_name: Dict[str, str] = {}
-    instance_blocks: List[str] = []
-
+    classes = {e.name: e.adl_class for e in elements}
+    instances: List[str] = []
+    relations: List[str] = []
     node_index = 1
-    for index, element in enumerate(elements):
-        adl_class = element.type
-        class_by_name[element.name] = adl_class
-        x, y = positions.get(element.name, fallback_position(index))
-        w, h = node_size_for(element.type)
-        instance_blocks.append(
-            make_instance(element.name, adl_class, adl_attributes_for(element), node_index, x, y, w, h)
-        )
+    for e in elements:
+        x, y = positions[e.name]
+        w, h = size_for(e.adl_class)
+        instances.append(make_instance(e.name, e.adl_class, attrs_for(e), node_index, x, y, w, h))
         node_index += 1
 
-    relation_blocks: List[str] = []
     edge_index = 1
-
     for c_idx, conn in enumerate(connections, start=1):
-        if conn.kind in CONNECTOR_CONNECTION_TYPES:
-            junction_class = connector_class_for(conn.kind)
-            junction_name = connector_name_for(conn.kind, c_idx)
-            x, y = junction_position(conn.sources, conn.target, positions, len(elements) + c_idx)
-            instance_blocks.append(
-                make_instance(
-                    junction_name,
-                    junction_class,
-                    '\n\tATTRIBUTE <External tool coupling>\n\tVALUE ""\n',
-                    node_index,
-                    x,
-                    y,
-                )
-            )
-            class_by_name[junction_name] = junction_class
+        if conn.kind in CONNECTOR_KINDS:
+            cls = conn.kind
+            junction = f"{cls}-AUTO{c_idx}"
+            pts = [positions[s] for s in conn.sources] + [positions[conn.target]]
+            x = sum(p[0] for p in pts) / len(pts)
+            y = sum(p[1] for p in pts) / len(pts)
+            instances.append(make_instance(junction, cls, '\n\tATTRIBUTE <External tool coupling>\n\tVALUE ""\n', node_index, x, y))
             node_index += 1
-
+            classes[junction] = cls
             for source in conn.sources:
-                relation_blocks.append(
-                    make_relation(source, class_by_name[source], junction_name, junction_class, edge_index, "")
-                )
+                relations.append(make_relation(source, classes[source], junction, cls, edge_index, ""))
                 edge_index += 1
-
-            relation_blocks.append(
-                make_relation(junction_name, junction_class, conn.target, class_by_name[conn.target], edge_index, "")
-            )
+            relations.append(make_relation(junction, cls, conn.target, classes[conn.target], edge_index, ""))
             edge_index += 1
-            continue
-
-        for source in conn.sources:
-            rel_type = relation_type_for(
-                conn.kind,
-                source_type=class_by_name[source],
-                target_type=class_by_name[conn.target],
-            )
-            relation_blocks.append(
-                make_relation(source, class_by_name[source], conn.target, class_by_name[conn.target], edge_index, rel_type)
-            )
+        else:
+            relations.append(make_relation(conn.sources[0], classes[conn.sources[0]], conn.target,
+                                           classes[conn.target], edge_index, relation_type(conn, classes)))
             edge_index += 1
 
-    type_counts = {etype: 0 for etype in ELEMENT_TYPES}
-    for element in elements:
-        type_counts[element.type] += 1
-
-    direct_counts = {kind: 0 for kind in DIRECT_CONNECTION_TYPES}
-    for conn in connections:
-        if conn.kind in DIRECT_CONNECTION_TYPES:
-            direct_counts[conn.kind] += len(conn.sources)
-
-    connector_counts = {kind: 0 for kind in CONNECTOR_CONNECTION_TYPES}
-    for conn in connections:
-        if conn.kind in CONNECTOR_CONNECTION_TYPES:
-            connector_counts[conn.kind] += 1
-
-    relation_count = sum(
-        len(conn.sources) + 1 if conn.kind in CONNECTOR_CONNECTION_TYPES else len(conn.sources)
-        for conn in connections
-    )
+    counts = {"Goal": 0, "Problem": 0, "IS Technical Component": 0, "IS Requirement": 0}
+    for e in elements:
+        counts[e.adl_class] += 1
+    rel_counts = {"Hinders": 0, "Supports": 0, "Contradicts": 0, "Motivates": 0,
+                  "has requirement": 0, "has goal": 0, "Others": 0}
+    relation_total = 0
+    for c in connections:
+        if c.kind in CONNECTOR_KINDS:
+            relation_total += len(c.sources) + 1
+            rel_counts["Others"] += len(c.sources) + 1
+        else:
+            relation_total += 1
+            typ = relation_type(c, classes)
+            if typ in {"Hinders", "hinders"}: rel_counts["Hinders"] += 1
+            elif typ in {"Supports", "supports"}: rel_counts["Supports"] += 1
+            elif typ == "Contradicts": rel_counts["Contradicts"] += 1
+            elif typ == "motivates": rel_counts["Motivates"] += 1
+            elif typ == "has requirement": rel_counts["has requirement"] += 1
+            elif typ == "has goal": rel_counts["has goal"] += 1
+            else: rel_counts["Others"] += 1
 
     header = f'''///////////////////////////////////////////////////////////////
 //
 // Date: {now.strftime("%d.%m.%Y  %H:%M")}
 //
-// Generated by tcrm_to_adl.py
+// Generated by technical_components_requirements_to_adl.py
 // Data version 4.0
 //
 ///////////////////////////////////////////////////////////////
@@ -623,160 +400,115 @@ BUSINESS PROCESS MODEL <{esc(model_name)}> : <4EM current>
 VERSION <>
 TYPE <Technical Components and Requirements Model>
 
-\tATTRIBUTE <Author>
-\tVALUE "Admin"
+\tATTRIBUTE <Author>\n\tVALUE "Admin"
 
-\tATTRIBUTE <Creation date>
-\tVALUE "{created}"
+\tATTRIBUTE <Creation date>\n\tVALUE "{created}"
 
-\tATTRIBUTE <Date last changed>
-\tVALUE "{changed}"
+\tATTRIBUTE <Date last changed>\n\tVALUE "{changed}"
 
-\tATTRIBUTE <Last user>
-\tVALUE "Admin"
+\tATTRIBUTE <Last user>\n\tVALUE "Admin"
 
-\tATTRIBUTE <Keywords>
-\tVALUE ""
+\tATTRIBUTE <Keywords>\n\tVALUE ""
 
-\tATTRIBUTE <Comment>
-\tVALUE ""
+\tATTRIBUTE <Comment>\n\tVALUE ""
 
-\tATTRIBUTE <Model type>
-\tVALUE "Current model"
+\tATTRIBUTE <Model type>\n\tVALUE "Current model"
 
-\tATTRIBUTE <State>
-\tVALUE "In process"
+\tATTRIBUTE <State>\n\tVALUE "In process"
 
-\tATTRIBUTE <Reviewed on>
-\tVALUE ""
+\tATTRIBUTE <Reviewed on>\n\tVALUE ""
 
-\tATTRIBUTE <Reviewed by>
-\tVALUE ""
+\tATTRIBUTE <Reviewed by>\n\tVALUE ""
 
-\tATTRIBUTE <Description>
-\tVALUE ""
+\tATTRIBUTE <Description>\n\tVALUE ""
 
-\tATTRIBUTE <World area>
-\tVALUE "w:80cm h:80cm minw:5cm minh:5cm"
+\tATTRIBUTE <World area>\n\tVALUE "w:80cm h:80cm minw:5cm minh:5cm"
 
-\tATTRIBUTE <Grid>
-\tVALUE ""
+\tATTRIBUTE <Grid>\n\tVALUE ""
 
-\tATTRIBUTE <Zoom>
-\tVALUE 100
+\tATTRIBUTE <Zoom>\n\tVALUE 100
 
-\tATTRIBUTE <Viewable area>
-\tVALUE "VIEW representation:graphic
+\tATTRIBUTE <Viewable area>\n\tVALUE "VIEW representation:graphic
 GRAPHIC x:0 y:0 w:1376 h:828 scale:1
 TABLE
 "
 
-\tATTRIBUTE <Current mode>
-\tVALUE ""
+\tATTRIBUTE <Current mode>\n\tVALUE ""
 
-\tATTRIBUTE <Access state>
-\tVALUE "write"
+\tATTRIBUTE <Access state>\n\tVALUE "write"
 
-\tATTRIBUTE <Current page layout>
-\tVALUE ""
+\tATTRIBUTE <Current page layout>\n\tVALUE ""
 
-\tATTRIBUTE <Connector marks>
-\tVALUE ""
+\tATTRIBUTE <Connector marks>\n\tVALUE ""
 
-\tATTRIBUTE <Change counter>
-\tVALUE 1
+\tATTRIBUTE <Change counter>\n\tVALUE 1
 
-\tATTRIBUTE <Font size>
-\tVALUE 0
+\tATTRIBUTE <Font size>\n\tVALUE 0
 
-\tATTRIBUTE <Context of version>
-\tVALUE ""
+\tATTRIBUTE <Context of version>\n\tVALUE ""
 
-\tATTRIBUTE <Position>
-\tVALUE ""
+\tATTRIBUTE <Position>\n\tVALUE ""
 
-\tATTRIBUTE <External tool coupling>
-\tVALUE ""
+\tATTRIBUTE <External tool coupling>\n\tVALUE ""
 
-\tATTRIBUTE <IteratorModeltype>
-\tVALUE ""
+\tATTRIBUTE <IteratorModeltype>\n\tVALUE ""
 
-\tATTRIBUTE <Iterator: Problem>
-\tVALUE {type_counts["Problem"]}
+\tATTRIBUTE <Iterator: Problem>\n\tVALUE {counts["Problem"]}
 
-\tATTRIBUTE <Iterator: Goal>
-\tVALUE {type_counts["Goal"]}
+\tATTRIBUTE <Iterator: Goal>\n\tVALUE {counts["Goal"]}
 
-\tATTRIBUTE <Iterator: IS Technical Component>
-\tVALUE {type_counts["IS Technical Component"]}
+\tATTRIBUTE <Iterator: Cause>\n\tVALUE 0
 
-\tATTRIBUTE <Iterator: IS Requirement>
-\tVALUE {type_counts["IS Requirement"]}
+\tATTRIBUTE <Iterator: Constraint>\n\tVALUE 0
 
-\tATTRIBUTE <Iterator: Relation>
-\tVALUE {relation_count}
+\tATTRIBUTE <Iterator: Opportunity>\n\tVALUE 0
 
-\tATTRIBUTE <Iterator: Hinders>
-\tVALUE {direct_counts["hinders"]}
+\tATTRIBUTE <Iterator: IS Technical Component>\n\tVALUE {counts["IS Technical Component"]}
 
-\tATTRIBUTE <Iterator: Supports>
-\tVALUE {direct_counts["supports"]}
+\tATTRIBUTE <Iterator: IS Requirement>\n\tVALUE {counts["IS Requirement"]}
 
-\tATTRIBUTE <Iterator: Contradicts>
-\tVALUE {direct_counts["contradicts"]}
+\tATTRIBUTE <Iterator: Component>\n\tVALUE 0
 
-\tATTRIBUTE <Iterator: Has goal>
-\tVALUE {direct_counts["has goal"]}
+\tATTRIBUTE <Iterator: Feature>\n\tVALUE 0
 
-\tATTRIBUTE <Iterator: Has requirement>
-\tVALUE {direct_counts["has requirement"]}
+\tATTRIBUTE <Iterator: Unspecific/Product/Service>\n\tVALUE 0
 
-\tATTRIBUTE <Iterator: Motivates>
-\tVALUE {direct_counts["motivates"]}
+\tATTRIBUTE <Iterator: Relation>\n\tVALUE {relation_total}
 
-\tATTRIBUTE <Iterator: AND>
-\tVALUE {connector_counts["AND"]}
+\tATTRIBUTE <Iterator: Hinders>\n\tVALUE {rel_counts["Hinders"]}
 
-\tATTRIBUTE <Iterator: OR>
-\tVALUE {connector_counts["OR"]}
+\tATTRIBUTE <Iterator: Supports>\n\tVALUE {rel_counts["Supports"]}
 
-\tATTRIBUTE <Iterator: AND/OR>
-\tVALUE {connector_counts["AND/OR"]}
+\tATTRIBUTE <Iterator: Contradicts>\n\tVALUE {rel_counts["Contradicts"]}
 
-\tATTRIBUTE <Iterator: Partial-PartOF>
-\tVALUE {connector_counts["Partial-PartOF"]}
+\tATTRIBUTE <Iterator: Causes>\n\tVALUE 0
 
-\tATTRIBUTE <Iterator: Total-PartOF>
-\tVALUE {connector_counts["Total-PartOF"]}
+\tATTRIBUTE <Iterator: Others>\n\tVALUE {rel_counts["Others"]}
+
+\tATTRIBUTE <Iterator: Motivates>\n\tVALUE {rel_counts["Motivates"]}
+
+\tATTRIBUTE <Iterator: Requires>\n\tVALUE 0
+
+\tATTRIBUTE <Iterator: has requirement>\n\tVALUE {rel_counts["has requirement"]}
+
+\tATTRIBUTE <Iterator: has goal>\n\tVALUE {rel_counts["has goal"]}
 
 '''
-
-    return header + "\n".join(instance_blocks) + "\n" + "\n".join(relation_blocks)
+    return header + "\n".join(instances) + "\n" + "\n".join(relations)
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description=(
-            "Konvertiert die Prompt-Ausgabe fuer ein 4EM Technical Components "
-            "and Requirements Model in eine ADL-Datei."
-        )
-    )
+    parser = argparse.ArgumentParser(description="Konvertiert die LLM-Notation eines 4EM Technical Components and Requirements Model in ADL.")
     parser.add_argument("input", help="Textdatei mit ELEMENTS und CONNECTIONS")
     parser.add_argument("output", help="Ausgabedatei .adl")
     parser.add_argument("--model-name", default="Generated Technical Components and Requirements Model")
     args = parser.parse_args()
-
     input_path = Path(args.input)
     output_path = Path(args.output)
-
-    text = input_path.read_text(encoding="utf-8")
-    elements, connections = parse_notation(text)
-    adl = generate_adl(elements, connections, args.model_name)
-    output_path.write_text(adl, encoding="utf-8")
-
+    elements, connections = parse_notation(input_path.read_text(encoding="utf-8"))
+    output_path.write_text(generate_adl(elements, connections, args.model_name), encoding="utf-8")
     print(f"OK: {len(elements)} Elemente und {len(connections)} Notations-Verbindungen gelesen.")
     print(f"ADL geschrieben nach: {output_path}")
-
 
 if __name__ == "__main__":
     main()

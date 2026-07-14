@@ -1,0 +1,168 @@
+SLM Runtime Report
+================================================================================
+
+Startzeit:              2026-07-14 10:32:47
+Endzeit:                2026-07-14 10:33:03
+Gesamtdauer:            16.37 Sekunden
+
+Konfiguration
+--------------------------------------------------------------------------------
+Modellordner:           C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel
+Szenarioordner:         C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\scenarios
+Modell:                 6TechnicalComponentsandRequirementsModel
+Ollama URL:             http://localhost:11434
+Thinking-Wert:          true
+Thinking gespeichert:   Nein
+Thinking in Konsole:    Nein
+num_ctx:                Ollama-Standard
+temperature:            Ollama-Standard
+top_p:                  Ollama-Standard
+seed:                   kein fester Seed
+num_predict:            Ollama-Standard
+
+Zusammenfassung
+--------------------------------------------------------------------------------
+Gesamtanzahl:           8
+Erfolgreich:            0
+Übersprungen:           0
+Fehler:                 8
+SLM-Gesamtzeit:         0.00 Sekunden
+ADL-Gesamtzeit:         0.00 Sekunden
+Scenario-Gesamtzeit:    16.37 Sekunden
+
+Durchschnitt
+--------------------------------------------------------------------------------
+Ø Gesamtzeit pro Datei: 2.05 Sekunden
+Ø SLM-Zeit pro Datei:   0.00 Sekunden
+Ø ADL-Zeit pro Datei:   0.00 Sekunden
+
+Details pro Scenario
+================================================================================
+
+1. controlled_scenario_technical_requirement_phase1.txt
+--------------------------------------------------------------------------------
+Status:                 ERROR
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_slm\controlled_scenario_technical_requirement_phase1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_adl\controlled_scenario_technical_requirement_phase1__adl.adl
+SLM-Output-Zeichen:     0
+SLM-Zeit:               0.00 Sekunden
+ADL-Zeit:               0.00 Sekunden
+Gesamtzeit:             2.11 Sekunden
+
+Fehler:
+Ollama konnte nicht erreicht werden.
+URL: http://localhost:11434/api/generate
+Prüfe, ob Ollama läuft und das Modell installiert ist.
+Details: HTTP Error 404: Not Found
+
+2. controlled_scenario_technical_requirement_phase2.txt
+--------------------------------------------------------------------------------
+Status:                 ERROR
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_slm\controlled_scenario_technical_requirement_phase2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_adl\controlled_scenario_technical_requirement_phase2__adl.adl
+SLM-Output-Zeichen:     0
+SLM-Zeit:               0.00 Sekunden
+ADL-Zeit:               0.00 Sekunden
+Gesamtzeit:             2.03 Sekunden
+
+Fehler:
+Ollama konnte nicht erreicht werden.
+URL: http://localhost:11434/api/generate
+Prüfe, ob Ollama läuft und das Modell installiert ist.
+Details: HTTP Error 404: Not Found
+
+3. controlled_scenario_technical_requirement_phase3.txt
+--------------------------------------------------------------------------------
+Status:                 ERROR
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_slm\controlled_scenario_technical_requirement_phase3__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_adl\controlled_scenario_technical_requirement_phase3__adl.adl
+SLM-Output-Zeichen:     0
+SLM-Zeit:               0.00 Sekunden
+ADL-Zeit:               0.00 Sekunden
+Gesamtzeit:             2.03 Sekunden
+
+Fehler:
+Ollama konnte nicht erreicht werden.
+URL: http://localhost:11434/api/generate
+Prüfe, ob Ollama läuft und das Modell installiert ist.
+Details: HTTP Error 404: Not Found
+
+4. controlled_scenario_technical_requirement_phase4.txt
+--------------------------------------------------------------------------------
+Status:                 ERROR
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_slm\controlled_scenario_technical_requirement_phase4__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_adl\controlled_scenario_technical_requirement_phase4__adl.adl
+SLM-Output-Zeichen:     0
+SLM-Zeit:               0.00 Sekunden
+ADL-Zeit:               0.00 Sekunden
+Gesamtzeit:             2.03 Sekunden
+
+Fehler:
+Ollama konnte nicht erreicht werden.
+URL: http://localhost:11434/api/generate
+Prüfe, ob Ollama läuft und das Modell installiert ist.
+Details: HTTP Error 404: Not Found
+
+5. organized_scenario_technical_requirement_phase1.txt
+--------------------------------------------------------------------------------
+Status:                 ERROR
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_slm\organized_scenario_technical_requirement_phase1__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_adl\organized_scenario_technical_requirement_phase1__adl.adl
+SLM-Output-Zeichen:     0
+SLM-Zeit:               0.00 Sekunden
+ADL-Zeit:               0.00 Sekunden
+Gesamtzeit:             2.04 Sekunden
+
+Fehler:
+Ollama konnte nicht erreicht werden.
+URL: http://localhost:11434/api/generate
+Prüfe, ob Ollama läuft und das Modell installiert ist.
+Details: HTTP Error 404: Not Found
+
+6. organized_scenario_technical_requirement_phase2.txt
+--------------------------------------------------------------------------------
+Status:                 ERROR
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_slm\organized_scenario_technical_requirement_phase2__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_adl\organized_scenario_technical_requirement_phase2__adl.adl
+SLM-Output-Zeichen:     0
+SLM-Zeit:               0.00 Sekunden
+ADL-Zeit:               0.00 Sekunden
+Gesamtzeit:             2.03 Sekunden
+
+Fehler:
+Ollama konnte nicht erreicht werden.
+URL: http://localhost:11434/api/generate
+Prüfe, ob Ollama läuft und das Modell installiert ist.
+Details: HTTP Error 404: Not Found
+
+7. organized_scenario_technical_requirement_phase3.txt
+--------------------------------------------------------------------------------
+Status:                 ERROR
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_slm\organized_scenario_technical_requirement_phase3__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_adl\organized_scenario_technical_requirement_phase3__adl.adl
+SLM-Output-Zeichen:     0
+SLM-Zeit:               0.00 Sekunden
+ADL-Zeit:               0.00 Sekunden
+Gesamtzeit:             2.05 Sekunden
+
+Fehler:
+Ollama konnte nicht erreicht werden.
+URL: http://localhost:11434/api/generate
+Prüfe, ob Ollama läuft und das Modell installiert ist.
+Details: HTTP Error 404: Not Found
+
+8. organized_scenario_technical_requirement_phase4.txt
+--------------------------------------------------------------------------------
+Status:                 ERROR
+SLM-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_slm\organized_scenario_technical_requirement_phase4__slm.txt
+ADL-Output-Datei:       C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\Modelle\6TechnicalComponentsandRequirementsModel\output_adl\organized_scenario_technical_requirement_phase4__adl.adl
+SLM-Output-Zeichen:     0
+SLM-Zeit:               0.00 Sekunden
+ADL-Zeit:               0.00 Sekunden
+Gesamtzeit:             2.06 Sekunden
+
+Fehler:
+Ollama konnte nicht erreicht werden.
+URL: http://localhost:11434/api/generate
+Prüfe, ob Ollama läuft und das Modell installiert ist.
+Details: HTTP Error 404: Not Found

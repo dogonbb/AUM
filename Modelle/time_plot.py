@@ -74,7 +74,7 @@ def main():
         if not unterordner.is_dir():
             continue
 
-        report_datei = unterordner / "output_slm" / "slm_runtime_report.txt"
+        report_datei = unterordner / "slm_runtime_report.txt"
 
         ordnernamen.append(unterordner.name)
 

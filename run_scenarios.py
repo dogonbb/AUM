@@ -595,7 +595,7 @@ def process_scenarios(
     output_slm_dir.mkdir(exist_ok=True)
     output_adl_dir.mkdir(exist_ok=True)
 
-    report_file = output_slm_dir / "slm_runtime_report.txt"
+    report_file = base_dir / "slm_runtime_report.txt"
 
     base_prompt = read_text_file(prompt_file)
 

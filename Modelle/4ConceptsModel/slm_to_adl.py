@@ -192,8 +192,8 @@ def parse_connection_line(line: str, elements_by_name: Dict[str, Element]) -> Co
 
     if kind in DIRECT_CONNECTION_TYPES and len(sources) != 1:
         raise ValueError(f"Direkte Verbindung {kind!r} darf genau eine Quelle haben: {line!r}")
-    if kind in CONNECTOR_CONNECTION_TYPES and len(sources) < 2:
-        raise ValueError(f"Connector-Verbindung {kind!r} sollte mindestens zwei Quellen haben: {line!r}")
+    # Connector-Verbindungen sind auch mit genau einer Quelle gueltig.
+    # Eine fehlende Quelle wird bereits weiter oben abgefangen.
 
     for source in sources:
         validate_allowed_pattern(kind, elements_by_name[source].type, elements_by_name[target].type, line)

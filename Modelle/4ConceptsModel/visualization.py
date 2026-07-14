@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 BASE_DIR = Path(__file__).resolve().parent
-REPORT_FILE = BASE_DIR / "output_slm" / "slm_runtime_report.txt"
+REPORT_FILE = BASE_DIR / "slm_runtime_report.txt"
 SCENARIOS_DIR = BASE_DIR / "scenarios"
 
 OUTPUT_PLOT_1 = BASE_DIR / "plot_zeit_zu_woertern.png"

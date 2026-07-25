@@ -1,0 +1,18 @@
+ELEMENTS
+Goal Goal - 1
+Problem Problem - 1
+Goal Subgoal-1
+Goal Subgoal-2
+Constraint Constraint - 1
+Goal Subgoal-11
+Goal Subgoal-12
+Problem Problem - 2
+Problem Problem - 3
+
+CONNECTIONS
+Subgoal-1, Subgoal-2 AND Goal - 1
+Subgoal-11, Subgoal-12 OR Subgoal-1
+Problem - 1 hinders Goal - 1
+Constraint - 1 hinders Subgoal-2
+Problem - 2 hinders Subgoal-11
+Problem - 3 hinders Subgoal-12

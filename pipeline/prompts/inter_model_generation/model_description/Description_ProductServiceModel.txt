@@ -1,0 +1,67 @@
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Product / Service Model
+
+## Purpose of the model
+
+The Product / Service Model describes the products and services offered by the enterprise. It represents products, services, their components, and customer-relevant features. The model also describes composition, specialisation, variants, alternatives, and dependencies among these elements.
+
+## Element types
+
+- Product
+- Service
+- Component
+- Feature
+
+## Meaning of element types
+
+- Product: An offering provided to customers. A Product may be physical, digital, virtual, or service-related and may provide attributes, benefits, functions, or uses that satisfy customer needs.
+- Service: A specialisation of Product that is offered as a service and is created or delivered through a process.
+- Component: A distinguishable part of a Product or Service that is supplied by a partner or produced within the enterprise.
+- Feature: A characteristic, capability, or function of a Product or Service that provides value to customers or target groups.
+
+## Internal connection types
+
+Direct connections:
+
+- part_of
+- is_a
+- requires
+
+Connector-based connections:
+
+- PartOF (AND)
+- PartOF (OR)
+- PartOF (XOR)
+- Total-ISA
+- Partial-ISA
+
+## Meaning of internal connections
+
+- A part_of B: A is a part, component, feature, or sub-product of B.
+- A is_a B: A is a specialisation, version, variant, or subtype of B.
+- A requires B: A depends on or needs B in order to work.
+- A, B, C PartOF (AND) D: A, B, and C are all parts of D.
+- A, B, C PartOF (OR) D: One or more of A, B, and C may be parts of D.
+- A, B, C PartOF (XOR) D: Exactly one of A, B, and C may be part of D.
+- A, B, C Total-ISA D: A, B, and C are specialisations of D and together form the complete set of variants.
+- A, B, C Partial-ISA D: A, B, and C are specialisations of D, but the listed variants are not necessarily complete.
+
+## Structural rules
+
+- Products represent offerings or product variants.
+- Services represent explicitly described service offerings.
+- Components represent physical or technical parts of Products or Services.
+- Features represent functions, capabilities, or measurable customer-relevant characteristics.
+- PartOF connections represent composition.
+- ISA connections represent specialisation or variants and are normally used between elements of the same type.
+- Requires represents a dependency, especially a Feature dependency on a Component, Product, or Service.
+- AND, OR, and XOR distinguish mandatory, optional, and mutually exclusive compositions.
+- Total-ISA and Partial-ISA distinguish complete and incomplete variant sets.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, actors, roles, resources, concepts, technical requirements, business processes, markets, or business rules as model elements.

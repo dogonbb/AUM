@@ -1,0 +1,152 @@
+Create intermodel relationships between two existing 4EM models.
+
+## Purpose
+
+Intermodel relationships connect elements from different 4EM models.
+
+They express meaningful dependencies, responsibilities, activities, definitions, or other semantic relationships between elements that were created in separate models but describe the same enterprise case.
+
+The purpose of this task is not to modify the two models. The purpose is only to identify meaningful relationships between their existing elements.
+
+## Models
+
+The source model is:
+
+<ModelName1>
+
+The purpose and modeling semantics of <ModelName1> are:
+
+<Model1Descr>
+
+The target model is:
+
+<ModelName2>
+
+The purpose and modeling semantics of <ModelName2> are:
+
+<Model2Descr>
+
+## How the models were generated
+
+The two models have already been generated independently from the same enterprise case description.
+
+Each model was created using a separate 4EM-specific generation prompt. Each generation prompt:
+
+- defined the purpose of the respective model;
+- restricted the model to its allowed element types;
+- defined the meanings of those element types;
+- restricted the model to its allowed internal connection types;
+- required all elements to be grounded in the provided case description;
+- prohibited unsupported or invented elements;
+- required a structured output containing an ELEMENTS section and a CONNECTIONS section;
+- required connections to use element names without including their element types.
+
+As a result, the two models may describe related parts of the same enterprise case, even though they were generated independently.
+
+Do not create new model elements.
+Do not rename existing model elements.
+Do not modify or reproduce the internal connections of either model.
+
+## Existing source model
+
+<ModelName1> contains the following elements:
+
+<Model1Elements>
+
+The model was generated from the following case description:
+
+<Model1Description>
+
+## Existing target model
+
+<ModelName2> contains the following elements:
+
+<Model2Elements>
+
+The model was generated from the following case description:
+
+<Model2Description>
+
+## Task
+
+Identify all semantically meaningful intermodel relationships from elements of <ModelName1> to elements of <ModelName2>.
+
+For this task, every element of <ModelName1> may potentially be connected to every element of <ModelName2>.
+
+However, create a relationship only when it is supported by the meanings of the two elements and by the provided case descriptions.
+
+Do not create a relationship merely because the two elements contain similar words.
+Do not create speculative relationships that are not supported by the available information.
+Do not create relationships between two elements belonging to the same model.
+
+## Allowed connectors
+
+Use only the following connectors:
+
+- play
+- empty
+- defines
+- is_responsible_for
+- performs
+
+Use the connectors as follows:
+
+- play:
+  Use when the source element plays, assumes, or fulfills the target element in the described enterprise context.
+
+- empty:
+  Use for a meaningful generic intermodel relationship when a relationship clearly exists but none of the more specific allowed connectors accurately describes it.
+
+- defines:
+  Use when the source element specifies, determines, describes, or gives a more precise meaning to the target element.
+
+- is_responsible_for:
+  Use when the source element has responsibility or accountability for the target element.
+
+- performs:
+  Use when the source element executes, carries out, or performs the target element.
+
+Use the most specific applicable connector.
+Use empty only when none of the other allowed connectors is semantically appropriate.
+
+## Direction
+
+Every returned relationship must start with an element from <ModelName1> and end with an element from <ModelName2>.
+
+Do not reverse the direction.
+
+## Output format
+
+Return only the intermodel relationships.
+
+Write exactly one relationship per line using the following syntax:
+
+<ElementNameFromModel1> <Connector> <ElementNameFromModel2>
+
+Use only the exact element names contained in <Model1Elements> and <Model2Elements>.
+
+Do not include the element type before or after an element name.
+
+Correct:
+
+Customer Service Representative performs Process Customer Request
+
+Incorrect:
+
+Role Customer Service Representative performs Process Process Customer Request
+
+## Output rules
+
+1. Return relationships only.
+2. Do not return an ELEMENTS section.
+3. Do not return a CONNECTIONS heading.
+4. Do not reproduce internal model relationships.
+5. Do not create new elements.
+6. Do not rename, shorten, translate, or normalize element names.
+7. Do not include element types in the relationships.
+8. Use only the allowed connectors.
+9. Do not include explanations, comments, bullet points, numbering, Markdown, or code fences.
+10. Do not return duplicate relationships.
+11. If no meaningful intermodel relationship can be identified, return exactly:
+
+NO_INTERMODEL_RELATIONSHIPS

@@ -1,0 +1,76 @@
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Technical Components and Requirements Model
+
+## Purpose of the model
+
+The Technical Components and Requirements Model describes the information system and technical environment needed to support enterprise goals, processes, actors, products, services, and business activities. It represents information-system goals, problems, functional and non-functional requirements, general requirements, and technical components. The model also captures support, conflict, hindrance, communication, refinement, and technical relevance.
+
+## Element types
+
+- Information System Goal
+- Information System Problem
+- Information System Requirement
+- Information System Functional Requirement
+- Information System Non-Functional Requirement
+- Technical Component
+
+## Meaning of element types
+
+- Information System Goal: A high-level desired state, aim, vision, direction, or objective concerning an information system, subsystem, or technical component.
+- Information System Problem: An undesirable state or problematic fact concerning the current or planned information system.
+- Information System Requirement: A required property of the information system that is not clearly classified as functional or non-functional.
+- Information System Functional Requirement: A definite requirement concerning system behaviour, functionality, services, operations, interfaces, or data processing.
+- Information System Non-Functional Requirement: A quality requirement, constraint, restriction, standard, technology requirement, or other non-functional property such as performance, security, usability, reliability, maintainability, or compatibility.
+- Technical Component: An IT-related system, subsystem, application, software service, information resource, computing component, or other technical asset relevant to the enterprise.
+
+## Internal connection types
+
+Direct connections:
+
+- supports
+- weakly conflicts
+- moderately conflicts
+- strongly conflicts
+- hinders
+- communicates
+- relates_to
+
+Connector-based connections:
+
+- AND
+- OR
+
+## Meaning of internal connections
+
+- A supports B: A enables, fulfils, contributes to, or positively influences B.
+- A weakly conflicts B: A has a minor negative conflict with B.
+- A moderately conflicts B: A has a medium-strength negative conflict with B.
+- A strongly conflicts B: A has a major or fundamental negative conflict with B.
+- A hinders B: A obstructs, prevents, weakens, or negatively influences B without necessarily constituting a conflict.
+- A communicates B: Technical Component A exchanges information or technically interacts with Technical Component B.
+- A relates_to B: Technical Component A is associated with, implements, or is relevant to an Information System Goal, Information System Problem, or requirement.
+- A, B, C AND D: A, B, and C jointly decompose, refine, or contribute to D, and all are required.
+- A, B, C OR D: A, B, and C are alternative decompositions, refinements, or contributions to D.
+
+## Structural rules
+
+- High-level technical objectives are represented as Information System Goals.
+- Undesirable technical states are represented as Information System Problems.
+- Unclassified required system properties are represented as Information System Requirements.
+- Behaviour and functionality are represented as Information System Functional Requirements.
+- Quality attributes, restrictions, standards, and constraints are represented as Information System Non-Functional Requirements.
+- IT systems, applications, services, subsystems, and technical assets are represented as Technical Components.
+- Supports represents positive contribution or fulfilment.
+- Conflict connections represent explicitly supported conflict strengths.
+- Hinders represents negative influence without a specified conflict.
+- Communicates is used between Technical Components.
+- Relates_to associates a Technical Component with a goal, problem, or requirement.
+- AND and OR represent grouped decompositions, refinements, or alternatives.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent human actors, organisational roles, business processes, products, services, concepts, attributes, business rules, markets, or non-technical enterprise elements as model elements.

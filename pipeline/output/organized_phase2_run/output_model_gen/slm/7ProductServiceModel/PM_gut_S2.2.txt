@@ -1,0 +1,15 @@
+ELEMENTS
+Product Unspecific/Product/Service - 1
+Component Component - 1
+Component Component - 2
+Feature Feature - 1
+Product Unspecific/Product/Service - 2
+Component Component - 3
+Component Component - 4
+Feature Feature - 2
+
+CONNECTIONS
+Component - 1, Component - 2 PartOF (AND) Unspecific/Product/Service - 1
+Component - 3, Component - 4 PartOF (AND) Component - 2
+Feature - 1 requires Unspecific/Product/Service - 1
+Feature - 2 requires Component - 3

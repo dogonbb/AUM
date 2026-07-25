@@ -1,0 +1,7 @@
+Important concepts we have to understand are
+    • Energy-efficiency: is calculated as the energy output for heating divided by the energy consumption
+    • Energy consumption: is measured in kilowatt-hours (kWh) per year
+    • Customer survey: summarizes what expectations the customers have regarding the next version of the company products
+    • Feature: is a characteristic of the product visible for the customer
+    • Target feature: is a feature to be implemented in the next version of the product
+    • Specification document: defines the functional and non-functional characteristics to be achieved by a product

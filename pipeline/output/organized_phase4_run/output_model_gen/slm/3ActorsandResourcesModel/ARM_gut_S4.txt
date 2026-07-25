@@ -1,0 +1,28 @@
+ELEMENTS
+Role Role - 1
+Organizational Unit Organizational Unit - 1
+Role Role - 2
+Organizational Unit Organizational Unit - 2
+Organizational Unit Organizational Unit - 3
+Organizational Unit Organizational Unit - 4
+Organizational Unit Organizational Unit - 5
+Organizational Unit Organizational Unit - 6
+Resource Resource - 2
+Role Role - 3
+Role Role - 4
+Role Role - 5
+Role Role - 6
+Role Role - 7
+
+CONNECTIONS
+Organizational Unit - 1, Organizational Unit - 2, Organizational Unit - 4 Total-PartOF Organizational Unit - 3
+Organizational Unit - 5, Organizational Unit - 6 Total-PartOF Organizational Unit - 4
+Role - 1 works in Organizational Unit - 1
+Role - 2 works in Organizational Unit - 2
+Resource - 2 belongs to Organizational Unit - 6
+Role - 3 works in Organizational Unit - 6
+Role - 4 works in Organizational Unit - 6
+Role - 4 relation Resource - 2
+Role - 5 works in Organizational Unit - 5
+Role - 6 works in Organizational Unit - 5
+Role - 7 works in Organizational Unit - 3

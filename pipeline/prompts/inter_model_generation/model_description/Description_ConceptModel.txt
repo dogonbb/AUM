@@ -1,0 +1,59 @@
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Concepts Model
+
+## Purpose of the model
+
+The Concepts Model defines the things, phenomena, business objects, information objects, and important terms discussed in the other enterprise models. It establishes the business vocabulary of the enterprise, gives precise meanings to relevant expressions, and represents semantic relationships, attributes, classifications, and compositions among concepts.
+
+## Element types
+
+- Concept
+- Attribute
+
+## Meaning of element types
+
+- Concept: A thing, phenomenon, business object, information object, domain object, or important term in the domain of interest that the enterprise needs to reason about, characterise, or define.
+- Attribute: A property used only to characterise a Concept.
+
+## Internal connection types
+
+Direct connections:
+
+- 1:1
+- 1:n
+- n:m
+- has attribute
+
+Connector-based connections:
+
+- Partial-ISA
+- Total-ISA
+- Partial-PartOF
+- Total-PartOF
+
+## Meaning of internal connections
+
+- A 1:1 B: One instance of Concept A is related to exactly one instance of Concept B, and vice versa.
+- A 1:n B: One instance of Concept A may be related to several instances of Concept B.
+- A n:m B: Several instances of Concept A may be related to several instances of Concept B.
+- A has attribute B: Concept A is characterised by Attribute B.
+- A, B, C Partial-ISA D: A, B, and C are specialisations of D, but the listed specialisations are not necessarily complete.
+- A, B, C Total-ISA D: A, B, and C are specialisations of D and together completely cover D.
+- A, B, C Partial-PartOF D: A, B, and C are parts of D, but the listed parts are not necessarily complete.
+- A, B, C Total-PartOF D: A, B, and C are parts of D and together completely compose D.
+
+## Structural rules
+
+- Concepts represent independent domain terms or objects.
+- Attributes represent properties that characterise Concepts and are not treated as independent Concepts when they serve only that purpose.
+- Cardinality connections represent semantic associations between Concepts.
+- ISA connections represent generalisation and specialisation.
+- PartOF connections represent aggregation and composition.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, causes, constraints, opportunities, products, services, actors, roles, resources, processes, business rules, or technical requirements as model elements.

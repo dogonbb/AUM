@@ -1,0 +1,69 @@
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Business Process Model
+
+## Purpose of the model
+
+The Business Process Model describes enterprise processes, their interactions, and the flow of information between them. It represents internal processes, relevant external processes, information sets, and branching or joining structures. The model explains how information is consumed as input, produced as output, and transferred between process elements.
+
+## Element types
+
+- Process
+- External Process
+- Information Set
+- Split (AND)
+- Join (AND)
+- Split (OR)
+- Join (OR)
+
+## Meaning of element types
+
+- Process: A collection of activities within the enterprise or problem domain that consumes input, produces output, is controlled by rules, may have a performer or responsible actor, and uses resources and time.
+- External Process: A collection of activities outside the organisational scope that communicates with processes in the problem domain and may act as a source or destination of information.
+- Information Set: A set of information transferred from one Process or External Process to another.
+- Split (AND): A branching connector in which all outgoing branches apply.
+- Join (AND): A joining connector in which all incoming branches apply.
+- Split (OR): A branching connector that represents alternatives.
+- Join (OR): A joining connector that combines alternative incoming branches.
+
+## Internal connection types
+
+Direct connections:
+
+- relation
+- Input
+- Output
+
+Connector-based connections:
+
+- Split (AND)
+- Join (AND)
+- Split (OR)
+- Join (OR)
+
+## Meaning of internal connections
+
+- A relation B: A is directly connected to B by an unlabeled business-process relation.
+- A Input B: Information Set A is used as input by Process or External Process B.
+- A Output B: Process or External Process A produces Information Set B as output.
+- A Split (AND) B, C, D: A branches to B, C, and D, and all branches apply.
+- A Split (OR) B, C, D: A branches to B, C, and D as alternatives.
+- A, B, C Join (AND) D: A, B, and C are joined before D, and all incoming branches apply.
+- A, B, C Join (OR) D: A, B, and C are alternative incoming branches joined before D.
+
+## Structural rules
+
+- Internal enterprise activities are represented as Process.
+- Activities outside the organisational scope are represented as External Process.
+- Transferred information is represented as Information Set.
+- Input connections lead from Information Sets to Processes or External Processes.
+- Output connections lead from Processes or External Processes to Information Sets.
+- AND connectors represent parallel or jointly required branches.
+- OR connectors represent alternative branches.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, causes, constraints, opportunities, actors, roles, organisational units, products, services, concepts, business rules, or technical requirements as model elements.

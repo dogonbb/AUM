@@ -1,0 +1,17 @@
+ELEMENTS
+Process Process - 1
+Process Process - 2
+Process Process - 3
+Process Process - 4
+Information Set Information Set - 1
+Information Set Information Set - 2
+Information Set Information Set - 3
+Information Set Information Set - 4
+
+CONNECTIONS
+Information Set - 2 Split (AND) Process - 2, Process - 3
+Process - 2, Process - 3 Join (AND) Information Set - 3
+Process - 1 Output Information Set - 2
+Process - 4 Output Information Set - 4
+Information Set - 1 Input Process - 1
+Information Set - 3 Input Process - 4

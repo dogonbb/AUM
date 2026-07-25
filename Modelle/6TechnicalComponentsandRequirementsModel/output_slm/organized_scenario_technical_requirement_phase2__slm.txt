@@ -1,0 +1,10 @@
+ELEMENTS
+Technical Component Production System
+Technical Component Version Management System
+Technical Component Database System
+Technical Component Transaction Middleware
+Technical Component User Interface
+
+CONNECTIONS
+Version Management System supports Production System
+Database System, Transaction Middleware, User Interface AND Production System

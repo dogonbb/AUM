@@ -1,0 +1,19 @@
+ELEMENTS
+External Process External Process - 1
+Information Set Information Set - 1
+Process Process - 1
+Information Set Information Set - 2
+Information Set Information Set - 3
+Process Process - 2
+Process Process - 3
+Information Set Information Set - 4
+Process Process - 4
+
+CONNECTIONS
+Process - 1 Split (OR) Information Set - 3, Information Set - 2
+External Process - 1 Output Information Set - 1
+Information Set - 1 Input Process - 1
+Information Set - 2 Input Process - 3
+Information Set - 3 Input Process - 2
+Process - 2 Output Information Set - 4
+Information Set - 4 Input Process - 4

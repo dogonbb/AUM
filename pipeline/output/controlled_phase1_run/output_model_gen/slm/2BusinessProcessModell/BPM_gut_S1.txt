@@ -1,0 +1,12 @@
+ELEMENTS
+Process Process - 1
+Information Set Information Set - 1
+Information Set Information Set - 2
+Process Process - 2
+Information Set Information Set - 3
+
+CONNECTIONS
+Process - 1 Output Information Set - 2
+Information Set - 1 Input Process - 1
+Information Set - 2 Input Process - 2
+Process - 2 Output Information Set - 3

@@ -1,0 +1,385 @@
+{
+  "execution": {
+    "mode": "intermodel_only",
+    "overwrite": false,
+    "continue_after_failure": true,
+    "selected_scenario": "controlled_phase1"
+  },
+  "slm": {
+    "provider": "ollama",
+    "base_url": "http://localhost:11434",
+    "model": "gemma4:26b",
+    "thinking": true,
+    "timeout_seconds": 3600,
+    "keep_alive": "5m",
+    "options": {
+      "temperature": 0.2,
+      "num_ctx": 131072,
+      "top_p": 0.9,
+      "seed": 42,
+      "num_predict": 131072
+    }
+  },
+  "retry": {
+    "restart_after_error": true,
+    "max_timeout_restarts": 5,
+    "max_python_error_restarts": 0
+  },
+  "paths": {
+    "scenarios_root": "scenarios",
+    "output_root": "output",
+    "scenario_run_directory_template": "{scenario_name}_{timestamp}",
+    "timestamp_format": "%Y-%m-%dT%H-%M-%S",
+    "model_slm_directory": "output_model_gen/slm",
+    "model_adl_directory": "output_model_gen/adl",
+    "artifact_manifest_file": "output_model_gen/artifacts.json",
+    "merged_adl_file": "output_model_gen/complete_adl_file_here.adl",
+    "intermodel_slm_directory": "output_intermodel/slm",
+    "intermodel_aggregate_slm_file": "output_intermodel/intermodel_relations.slm",
+    "final_adl_file": "output_intermodel/complete_adl_with_inter_here.adl",
+    "report_directory": "output/runtime_reports",
+    "report_json_filename": "pipeline_{timestamp}.json",
+    "report_text_filename": "pipeline_{timestamp}.txt",
+    "event_log_filename": "pipeline_{timestamp}.jsonl"
+  },
+  "files": {
+    "scenario_extensions": [
+      ".txt"
+    ]
+  },
+  "prompts": {
+    "intermodel_template": "prompts/inter_model_generation/inter_model_connections_descriptions/inter_model_gen_connections_template.txt"
+  },
+  "tools": {
+    "python_executable": "",
+    "default_python_timeout_seconds": 600,
+    "slm_restart": {
+      "enabled": true,
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "command": [
+        "powershell",
+        "-File",
+        "scripts/restart_slm.ps1",
+        "-Reason",
+        "{reason}",
+        "-TaskId",
+        "{task_id}"
+      ]
+    },
+    "adl_merger": {
+      "path": "scripts/adl_model_merger.py",
+      "cwd": ".",
+      "timeout_seconds": 600,
+      "command": [
+        "{python}",
+        "{merger_path}",
+        "{input_files}",
+        "--output",
+        "{output_adl}"
+      ]
+    },
+    "intermodel_integrator": {
+      "path": "scripts/add_intermodel_relations_slm.py",
+      "cwd": ".",
+      "timeout_seconds": 600,
+      "command": [
+        "{python}",
+        "{integrator_path}",
+        "{input_adl}",
+        "{relations_slm}",
+        "--output",
+        "{output_adl}",
+        "--overwrite"
+      ]
+    }
+  },
+  "models": [
+    {
+      "id": "GoalModel",
+      "enabled": true,
+      "scenario_folder": "1GoalModel",
+      "display_name": "Goal Model",
+      "model_type": "Goal Model",
+      "prompt_path": "prompts/model_generation/Prompt_GoalModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_GoalModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.slm",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_GoalModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    },
+    {
+      "id": "BusinessProcessModel",
+      "enabled": true,
+      "scenario_folder": "2BusinessProcessModell",
+      "display_name": "Business Process Model",
+      "model_type": "Business Process Model",
+      "prompt_path": "prompts/model_generation/Prompt_BusinessProcessModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_BusinessProcessModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.slm",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_BusinessProcessModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    },
+    {
+      "id": "ActorsResourcesModel",
+      "enabled": true,
+      "scenario_folder": "3ActorsandResourcesModel",
+      "display_name": "Actors and Resources Model",
+      "model_type": "Actors and Resources Model",
+      "prompt_path": "prompts/model_generation/Prompt_ActorsResourcesModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_ActorsResourcesModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.slm",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    },
+    {
+      "id": "ConceptsModel",
+      "enabled": true,
+      "scenario_folder": "4ConceptsModel",
+      "display_name": "Concepts Model",
+      "model_type": "Concepts Model",
+      "prompt_path": "prompts/model_generation/Prompt_ConceptModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_ConceptModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.slm",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_ConceptModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    },
+    {
+      "id": "TechnicalComponentsRequirementsModel",
+      "enabled": true,
+      "scenario_folder": "6TechnicalComponentsandRequirementsModel",
+      "display_name": "Technical Components and Requirements Model",
+      "model_type": "Technical Components and Requirements Model",
+      "prompt_path": "prompts/model_generation/Prompt_TechnicalComponentsandRequirementsModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_TechnicalComponentsandRequirementsModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.slm",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_TechnicalComponentsandRequirementsModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    },
+    {
+      "id": "ProductServiceModel",
+      "enabled": true,
+      "scenario_folder": "7ProductServiceModel",
+      "display_name": "Product / Service Model",
+      "model_type": "Product / Service Model",
+      "prompt_path": "prompts/model_generation/Prompt_ProductServiceModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_ProductServiceModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.slm",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    }
+  ],
+  "intermodel": {
+    "enabled": true,
+    "output_filename_template": "intermodel_{source_adl_model_name}__{target_adl_model_name}.slm",
+    "no_relationship_marker": "NO_INTERMODEL_RELATIONSHIPS",
+    "pairs": [
+      [
+        "GoalModel",
+        "ConceptsModel"
+      ],
+      [
+        "GoalModel",
+        "BusinessProcessModel"
+      ],
+      [
+        "GoalModel",
+        "TechnicalComponentsRequirementsModel"
+      ],
+      [
+        "GoalModel",
+        "ProductServiceModel"
+      ],
+      [
+        "ActorsResourcesModel",
+        "GoalModel"
+      ],
+      [
+        "ActorsResourcesModel",
+        "BusinessProcessModel"
+      ],
+      [
+        "ActorsResourcesModel",
+        "TechnicalComponentsRequirementsModel"
+      ],
+      [
+        "ActorsResourcesModel",
+        "ProductServiceModel"
+      ],
+      [
+        "BusinessProcessModel",
+        "ConceptsModel"
+      ],
+      [
+        "BusinessProcessModel",
+        "TechnicalComponentsRequirementsModel"
+      ],
+      [
+        "TechnicalComponentsRequirementsModel",
+        "ConceptsModel"
+      ],
+      [
+        "ProductServiceModel",
+        "ConceptsModel"
+      ],
+      [
+        "ProductServiceModel",
+        "BusinessProcessModel"
+      ],
+      [
+        "ProductServiceModel",
+        "TechnicalComponentsRequirementsModel"
+      ]
+    ]
+  },
+  "intermodel_only": {
+    "jobs": [
+      {
+        "enabled": true,
+        "scenario_name": "controlled_phase1",
+        "scenario_directory": "scenarios/controlled_phase1",
+        "artifact_manifest": "output/controlled_phase1_run/output_model_gen/artifacts.json",
+        "input_adl": "output/controlled_phase1_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/controlled_phase1_run"
+      },
+      {
+        "enabled": true,
+        "scenario_name": "controlled_phase2",
+        "scenario_directory": "scenarios/controlled_phase2",
+        "artifact_manifest": "output/controlled_phase2_run/output_model_gen/artifacts.json",
+        "input_adl": "output/controlled_phase2_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/controlled_phase2_run"
+      },
+      {
+        "enabled": true,
+        "scenario_name": "controlled_phase3",
+        "scenario_directory": "scenarios/controlled_phase3",
+        "artifact_manifest": "output/controlled_phase3_run/output_model_gen/artifacts.json",
+        "input_adl": "output/controlled_phase3_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/controlled_phase3_run"
+      },
+      {
+        "enabled": true,
+        "scenario_name": "controlled_phase4",
+        "scenario_directory": "scenarios/controlled_phase4",
+        "artifact_manifest": "output/controlled_phase4_run/output_model_gen/artifacts.json",
+        "input_adl": "output/controlled_phase4_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/controlled_phase4_run"
+      },
+      {
+        "enabled": true,
+        "scenario_name": "organized_phase1",
+        "scenario_directory": "scenarios/organized_phase1",
+        "artifact_manifest": "output/organized_phase1_run/output_model_gen/artifacts.json",
+        "input_adl": "output/organized_phase1_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/organized_phase1_run"
+      },
+      {
+        "enabled": true,
+        "scenario_name": "organized_phase2",
+        "scenario_directory": "scenarios/organized_phase2",
+        "artifact_manifest": "output/organized_phase2_run/output_model_gen/artifacts.json",
+        "input_adl": "output/organized_phase2_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/organized_phase2_run"
+      },
+      {
+        "enabled": true,
+        "scenario_name": "organized_phase3",
+        "scenario_directory": "scenarios/organized_phase3",
+        "artifact_manifest": "output/organized_phase3_run/output_model_gen/artifacts.json",
+        "input_adl": "output/organized_phase3_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/organized_phase3_run"
+      },
+      {
+        "enabled": true,
+        "scenario_name": "organized_phase4",
+        "scenario_directory": "scenarios/organized_phase4",
+        "artifact_manifest": "output/organized_phase4_run/output_model_gen/artifacts.json",
+        "input_adl": "output/organized_phase4_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/organized_phase4_run"
+      }
+    ]
+  },
+  "report": {
+    "include_prompt_text": false,
+    "include_slm_output_text": false,
+    "include_command_output": true
+  }
+}

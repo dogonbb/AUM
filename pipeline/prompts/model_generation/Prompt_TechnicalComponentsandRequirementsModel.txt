@@ -1,0 +1,186 @@
+Create a Technical Components and Requirements Model according to 4EM for the given case.
+
+## Purpose of the model
+
+The Technical Components and Requirements Model helps define requirements for the development of an information system.
+It focuses on the technical system needed to support the goals, processes, actors, and business activities of the enterprise.
+It defines the overall structure and properties of the information system and structures it into subsystems or technical components.
+
+## Allowed element types
+
+Use only the following element types:
+
+- Information System Goal
+- Information System Problem
+- Information System Requirement
+- Information System Functional Requirement
+- Information System Non-Functional Requirement
+- Technical Component
+
+Do not use any other element types.
+Do not create elements such as Goal, Problem, Cause, Constraint, Opportunity, Product, Service, Feature, Actor, Role, Resource, Concept, Attribute, Process, Activity, Business Rule, or Market.
+
+## Allowed direct connection types
+
+Use only the following direct connection types:
+
+- supports
+- weakly conflicts
+- moderately conflicts
+- strongly conflicts
+- hinders
+- communicates
+- relates_to
+
+## Allowed connector types
+
+Use only the following connector-based connections:
+
+- AND
+- OR
+
+## Meaning of element types
+
+- Information System Goal: a high-level desired state, aim, vision, direction, or measurable or non-measurable objective concerning the information system, one of its subsystems, or one of its technical components.
+- Information System Problem: an undesirable state of the business or environment, or a problematic fact about the current situation concerning the information system to be developed.
+- Information System Requirement: a requirement for a particular property of the information system to be designed, when the case does not clearly classify it as functional or non-functional.
+- Information System Functional Requirement: a definite requirement concerning a function or functional property of the information system or one of its subsystems.
+- Information System Non-Functional Requirement: a quality requirement, constraint, restriction, or other non-functional requirement concerning the information system or the process of building it.
+- Technical Component: an IT-related enterprise resource relevant to business processes, business rules, products, or services. It may be a computing system, subsystem, IT application, software service, information resource, or another IT-related asset.
+
+## Meaning of direct connections
+
+Use direct connections only for simple one-to-one relations.
+
+- A supports B
+  means that A contributes to, enables, fulfils, or positively influences B.
+
+- A weakly conflicts B
+  means that A has a minor negative conflict with B.
+
+- A moderately conflicts B
+  means that A has a medium-strength negative conflict with B.
+
+- A strongly conflicts B
+  means that A has a major or fundamental negative conflict with B.
+
+- A hinders B
+  means that A obstructs, prevents, weakens, or negatively influences B.
+
+- A communicates B
+  means that technical component A exchanges information or interacts technically with technical component B.
+
+- A relates_to B
+  means that a technical component is associated with, implements, or is relevant to an information system requirement, goal, or problem.
+
+## Meaning of connector-based connections
+
+Use connector-based connections when multiple elements are connected by one AND or OR connector.
+
+- A, B, C AND D
+  means that A, B, and C jointly decompose, refine, or contribute to D and all of them are required.
+
+- A, B, C OR D
+  means that A, B, and C are alternative decompositions, refinements, or contributions to D and one or more alternatives may be sufficient.
+
+## Allowed connection patterns
+
+For supports:
+
+- Information System Goal supports Information System Goal
+- Information System Requirement supports Information System Goal
+- Information System Functional Requirement supports Information System Goal
+- Information System Non-Functional Requirement supports Information System Goal
+- Information System Functional Requirement supports Information System Requirement
+- Information System Non-Functional Requirement supports Information System Requirement
+- Technical Component supports Information System Goal
+- Technical Component supports Information System Requirement
+- Technical Component supports Information System Functional Requirement
+- Technical Component supports Information System Non-Functional Requirement
+
+For weakly conflicts, moderately conflicts, and strongly conflicts:
+
+- Information System Goal conflicts with Information System Goal
+- Information System Requirement conflicts with Information System Requirement
+- Information System Functional Requirement conflicts with Information System Functional Requirement
+- Information System Non-Functional Requirement conflicts with Information System Non-Functional Requirement
+- Information System Functional Requirement conflicts with Information System Non-Functional Requirement
+- Technical Component conflicts with Information System Goal
+- Technical Component conflicts with Information System Requirement
+- Technical Component conflicts with Information System Functional Requirement
+- Technical Component conflicts with Information System Non-Functional Requirement
+
+For hinders:
+
+- Information System Problem hinders Information System Goal
+- Information System Problem hinders Information System Requirement
+- Information System Problem hinders Information System Functional Requirement
+- Information System Problem hinders Information System Non-Functional Requirement
+- Technical Component hinders Information System Goal
+- Technical Component hinders Information System Requirement
+- Technical Component hinders Information System Functional Requirement
+- Technical Component hinders Information System Non-Functional Requirement
+
+For communicates:
+
+- Technical Component communicates Technical Component
+
+For relates_to:
+
+- Technical Component relates_to Information System Goal
+- Technical Component relates_to Information System Problem
+- Technical Component relates_to Information System Requirement
+- Technical Component relates_to Information System Functional Requirement
+- Technical Component relates_to Information System Non-Functional Requirement
+
+For AND and OR connectors:
+
+- Information System Goal, Information System Problem, Information System Requirement, Information System Functional Requirement, Information System Non-Functional Requirement, and Technical Component may be connected with elements of the same type or with other allowed element types when the case explicitly describes a decomposition, refinement, grouping, or alternative.
+
+## Modeling rules
+
+1. Use Information System Goal only for high-level objectives, aims, visions, directions, or desired properties of the information system, a subsystem, or a technical component.
+2. Use Information System Problem only for undesirable states or problematic facts concerning the information system to be developed.
+3. Use Information System Requirement when a required system property is stated but the case does not clearly identify it as functional or non-functional.
+4. Use Information System Functional Requirement for behavior, functionality, services, operations, interfaces, data processing, or other definite functional properties.
+5. Use Information System Non-Functional Requirement for quality attributes, constraints, restrictions, standards, technologies, performance, security, usability, reliability, maintainability, compatibility, or restrictions on the development process.
+6. Use Technical Component only for concrete or planned IT-related systems, subsystems, applications, software services, information resources, or other technical assets.
+7. Do not model human actors, organizational roles, business processes, products, services, concepts, or business rules as Technical Components.
+8. If a statement contains both a functional and a non-functional requirement, split it into two elements.
+9. If a statement contains both an information system goal and a requirement, split it into two elements when the case distinguishes the desired outcome from the required system property.
+10. Use supports only when the source positively contributes to or fulfils the target.
+11. Use weakly conflicts, moderately conflicts, or strongly conflicts only when the case explicitly indicates a conflict and its strength can be determined. If no strength is supported by the case, do not invent one.
+12. Use hinders only when the source negatively affects or obstructs the target without being described as a conflict.
+13. Use communicates only between Technical Components that exchange information or technically interact.
+14. Use relates_to only to associate a Technical Component with an Information System Goal, Information System Problem, or requirement.
+15. Use connector-based connections when the case explicitly describes grouped, decomposed, refined, or alternative elements.
+16. Every element used in CONNECTIONS must be listed exactly once in ELEMENTS.
+17. Do not invent elements, components, requirements, conflict strengths, or connections that are not supported by the case text.
+18. Do not write explanations, comments, descriptions, bullet points, or any text outside the required output sections.
+
+## Output format
+
+Output the model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> supports <element name>
+<element name> weakly conflicts <element name>
+<element name> moderately conflicts <element name>
+<element name> strongly conflicts <element name>
+<element name> hinders <element name>
+<element name> communicates <element name>
+<element name> relates_to <element name>
+<element name_1>, <element name_2>, <element name_3> AND <element name>
+<element name_1>, <element name_2>, <element name_3> OR <element name>
+
+Note that for connections, you shouldn’t include the ElementType in the Connection.
+
+Task:
+
+Apply the rules to the following text:

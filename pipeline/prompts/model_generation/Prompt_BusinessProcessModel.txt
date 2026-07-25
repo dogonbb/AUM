@@ -1,0 +1,165 @@
+Create a Business Process Model according to 4EM for the given case.
+
+## Purpose of the model
+
+The Business Process Model is used to define enterprise processes, the way they interact, and the way they handle information.
+It shows processes together with external processes and information sets.
+It also explains how information is used as input and output between processes and external processes.
+
+## Allowed element types
+
+Use only the following element types:
+
+- Process
+- External Process
+- Information Set
+- Split (AND)
+- Join (AND)
+- Split (OR)
+- Join (OR)
+
+Do not use any other element types.
+Do not create elements such as Goal, Problem, Cause, Constraint, Opportunity, Product, Service, Component, Feature, Actor, Role, Resource, Concept, Technical Component, Requirement, Market, or Business Rule.
+
+## Allowed direct connection types
+
+Use only the following direct connection types:
+
+- relation
+- Input
+- Output
+
+## Allowed connector types
+
+Use only the following connector-based connections:
+
+- Split (AND)
+- Join (AND)
+- Split (OR)
+- Join (OR)
+
+## Meaning of element types
+
+- Process: a collection of activities that consumes input and produces output in terms of information, is controlled by rules, may have a performer or responsible actor or resource, and consumes a finite amount of resources and time when initiated.
+- External Process: a collection of activities located outside the scope of the organisational activity area, communicating with processes or activities of the problem domain area, and essential to document. External processes can be sources or terminators for information flows.
+- Information Set: a set of information sent from one Process or External Process to another.
+- Split (AND): a connector that splits one incoming relation into several outgoing relations that all apply.
+- Join (AND): a connector that joins several incoming relations into one outgoing relation where all incoming relations apply.
+- Split (OR): a connector that splits one incoming relation into several alternative outgoing relations.
+- Join (OR): a connector that joins several alternative incoming relations into one outgoing relation.
+  
+## Meaning of direct connections
+
+Use direct connections only for simple one-to-one relations.
+
+- A relation B  
+  means that A is directly connected to B by an unlabeled business process relation.
+
+- A Input B  
+  means that A is used as input for B.
+
+- A Output B  
+  means that A is produced or provided as output by B.
+
+## Meaning of connector-based connections
+
+Use connector-based connections when multiple elements are connected by one Split (AND), Join (AND), Split (OR), or Join (OR) connector.
+
+- A Split (AND) B, C, D  
+  means that A is connected to B, C, and D by a Split (AND) connector.
+
+- A Split (OR) B, C, D  
+  means that A is connected to B, C, and D by a Split (OR) connector.
+
+- A, B, C Join (AND) D  
+  means that A, B, and C are connected to D by a Join (AND) connector.
+
+- A, B, C Join (OR) D  
+  means that A, B, and C are connected to D by a Join (OR) connector.
+
+## Allowed connection patterns
+
+For relation:
+
+- Process relation External Process
+- External Process relation Process
+- Process relation Split (AND)
+- Process relation Join (AND)
+- Process relation Split (OR)
+- Process relation Join (OR)
+- External Process relation Split (AND)
+- External Process relation Join (AND)
+- External Process relation Split (OR)
+- External Process relation Join (OR)
+- Information Set relation Split (AND)
+- Information Set relation Join (AND)
+- Information Set relation Split (OR)
+- Information Set relation Join (OR)
+- Split (AND) relation Process
+- Split (AND) relation External Process
+- Split (AND) relation Information Set
+- Join (AND) relation Process
+- Join (AND) relation External Process
+- Join (AND) relation Information Set
+- Split (OR) relation Process
+- Split (OR) relation External Process
+- Split (OR) relation Information Set
+- Join (OR) relation Process
+- Join (OR) relation External Process
+- Join (OR) relation Information Set
+
+For Input:
+
+- Information Set Input Process
+- Information Set Input External Process
+
+For Output:
+
+- Process Output Information Set
+- External Process Output Information Set
+
+For Split (AND), Join (AND), Split (OR), and Join (OR) connectors:
+
+- Process, External Process, and Information Set may be connected with Process, External Process, and Information Set.
+
+## Modeling rules
+
+1. Use Process for activities inside the enterprise or problem domain that consume input and produce output.
+2. Use External Process for activities outside the organisational activity area that communicate with processes or activities of the problem domain area.
+3. Use Information Set for information that is sent from one Process or External Process to another.
+4. Use Split (AND) only when one element branches into several elements that all apply.
+5. Use Join (AND) only when several elements are joined into one element and all incoming elements apply.
+6. Use Split (OR) only when one element branches into several alternative elements.
+7. Use Join (OR) only when several alternative elements are joined into one element.
+8. Use Input only when an Information Set is used as input for a Process or External Process.
+9. Use Output only when a Process or External Process produces or provides an Information Set.
+10. Use relation only for unlabeled direct connections between allowed Business Process Model elements or connector elements.
+11. Use connector-based connections when the case describes grouped, branching, joining, or alternative process relations.
+12. Every element used in CONNECTIONS must be listed exactly once in ELEMENTS.
+13. Do not invent elements that are not supported by the case text.
+14. Do not write explanations, comments, descriptions, bullet points, or any text outside the required output sections.
+
+## Output format
+
+Output the model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> relation <element name>
+<element name> Input <element name>
+<element name> Output <element name>
+<element name> Split (AND) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>
+<element name> Split (OR) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (OR) <element name>
+
+
+Note that for connections, you shouldn’t include the ElementType in the Connection.
+
+Task:
+Apply the rules to the following text:

@@ -54,7 +54,7 @@
     "python_executable": "",
     "default_python_timeout_seconds": 600,
     "slm_restart": {
-      "enabled": true,
+      "enabled": false,
       "cwd": ".",
       "timeout_seconds": 120,
       "command": [

@@ -35,7 +35,7 @@
     "artifact_manifest_file": "output_model_gen/artifacts.json",
     "merged_adl_file": "output_model_gen/complete_adl_file_here.adl",
     "intermodel_slm_directory": "output_intermodel/slm",
-    "intermodel_aggregate_slm_file": "output_intermodel/intermodel_relations.slm",
+    "intermodel_aggregate_slm_file": "output_intermodel/intermodel_relations.txt",
     "final_adl_file": "output_intermodel/complete_adl_with_inter_here.adl",
     "report_directory": "output/runtime_reports",
     "report_json_filename": "pipeline_{timestamp}.json",
@@ -104,7 +104,7 @@
       "prompt_path": "prompts/model_generation/Prompt_GoalModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_GoalModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
-      "slm_filename_template": "{source_stem}.slm",
+      "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
       "converter": {
         "path": "scripts/slm_to_adl/slm_to_adl_GoalModel.py",
@@ -129,7 +129,7 @@
       "prompt_path": "prompts/model_generation/Prompt_BusinessProcessModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_BusinessProcessModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
-      "slm_filename_template": "{source_stem}.slm",
+      "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
       "converter": {
         "path": "scripts/slm_to_adl/slm_to_adl_BusinessProcessModel.py",
@@ -154,7 +154,7 @@
       "prompt_path": "prompts/model_generation/Prompt_ActorsResourcesModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_ActorsResourcesModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
-      "slm_filename_template": "{source_stem}.slm",
+      "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
       "converter": {
         "path": "scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py",
@@ -179,7 +179,7 @@
       "prompt_path": "prompts/model_generation/Prompt_ConceptModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_ConceptModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
-      "slm_filename_template": "{source_stem}.slm",
+      "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
       "converter": {
         "path": "scripts/slm_to_adl/slm_to_adl_ConceptModel.py",
@@ -204,7 +204,7 @@
       "prompt_path": "prompts/model_generation/Prompt_TechnicalComponentsandRequirementsModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_TechnicalComponentsandRequirementsModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
-      "slm_filename_template": "{source_stem}.slm",
+      "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
       "converter": {
         "path": "scripts/slm_to_adl/slm_to_adl_TechnicalComponentsandRequirementsModel.py",
@@ -229,7 +229,7 @@
       "prompt_path": "prompts/model_generation/Prompt_ProductServiceModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_ProductServiceModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
-      "slm_filename_template": "{source_stem}.slm",
+      "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
       "converter": {
         "path": "scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py",
@@ -248,7 +248,7 @@
   ],
   "intermodel": {
     "enabled": true,
-    "output_filename_template": "intermodel_{source_adl_model_name}__{target_adl_model_name}.slm",
+    "output_filename_template": "intermodel_{source_adl_model_name}__{target_adl_model_name}.txt",
     "no_relationship_marker": "NO_INTERMODEL_RELATIONSHIPS",
     "pairs": [
       [

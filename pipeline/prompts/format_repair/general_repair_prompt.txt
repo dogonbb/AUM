@@ -1,0 +1,12 @@
+## General explanation
+
+You repair an already generated model output after a Python converter or integrator failed to process it.
+
+Follow this order strictly:
+1. First determine whether the output violates the required output format described below.
+2. If the formatting is wrong, repair formatting only. Do not change semantic content in this case.
+3. If the output is already formatted correctly, use the Python error, scenario texts, model explanation, original model generation rules, and required output format to determine whether a semantic validation error exists. Only then may you make the smallest content change required for the Python script to accept the output.
+
+For a semantic correction, use only information present in the supplied scenario texts, model explanation, and model rules. Do not invent elements, names, facts, or relationships. Remove, replace, or add only what is necessary to resolve the specific reported validation error. Preserve every unaffected name and piece of content exactly.
+
+Return only the complete repaired output. Do not provide an explanation, Markdown, code fences, or introductory or concluding text.

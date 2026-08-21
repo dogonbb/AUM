@@ -13,20 +13,12 @@ The Business Process Model describes enterprise processes, their interactions, a
 - Process
 - External Process
 - Information Set
-- Split (AND)
-- Join (AND)
-- Split (OR)
-- Join (OR)
 
 ## Meaning of element types
 
 - Process: A collection of activities within the enterprise or problem domain that consumes input, produces output, is controlled by rules, may have a performer or responsible actor, and uses resources and time.
 - External Process: A collection of activities outside the organisational scope that communicates with processes in the problem domain and may act as a source or destination of information.
 - Information Set: A set of information transferred from one Process or External Process to another.
-- Split (AND): A branching connector in which all outgoing branches apply.
-- Join (AND): A joining connector in which all incoming branches apply.
-- Split (OR): A branching connector that represents alternatives.
-- Join (OR): A joining connector that combines alternative incoming branches.
 
 ## Internal connection types
 

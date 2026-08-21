@@ -1,0 +1,24 @@
+Output the repaired model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> supports <element name>
+<element name> weakly conflicts <element name>
+<element name> moderately conflicts <element name>
+<element name> strongly conflicts <element name>
+<element name> hinders <element name>
+<element name> communicates <element name>
+<element name> relates_to <element name>
+<element name_1>, <element name_2>, <element name_3> AND <element name>
+<element name_1>, <element name_2>, <element name_3> OR <element name>
+
+Replace every placeholder in angle brackets with an actual existing name; do not output the angle brackets themselves. Replace `ElementType` with exactly one allowed type: `Information System Goal`, `Information System Problem`, `Information System Requirement`, `Information System Functional Requirement`, `Information System Non-Functional Requirement`, or `Technical Component`.
+
+Write `ELEMENTS` and `CONNECTIONS` exactly as shown and in this order. Write one element or connection per line. Direct connections have exactly one source and one target. AND and OR connections have at least two source names, separated by a comma followed by one space, and exactly one target.
+
+Do not include element types in `CONNECTIONS`. Every referenced name must exactly match one declaration in `ELEMENTS`, and every element name must be declared exactly once. Preserve spaces, underscores, slashes, hyphens, spelling, and capitalization exactly as shown. Output plain text only: no Markdown fences, bullets, numbering, comments, explanations, or additional sections.

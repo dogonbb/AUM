@@ -128,12 +128,12 @@ def parse_element_line(line: str) -> Element:
         if line == etype or line.startswith(prefix):
             name = normalize_spaces(line[len(etype):])
             if not name:
-                raise ValueError(f"Element ohne Namen: {line!r}")
+                raise ValueError(f"Element has no name: {line!r}")
             return Element(etype, name)
 
     raise ValueError(
-        f"Unbekannter Elementtyp in Zeile {line!r}. "
-        f"Erlaubt: {', '.join(sorted(ELEMENT_TYPES))}"
+        f"Unknown element type in line {line!r}. "
+        f"Allowed: {', '.join(sorted(ELEMENT_TYPES))}"
     )
 
 
@@ -159,7 +159,7 @@ def normalize_connection_kind(raw_kind: str) -> str:
     }
     if lower in mapping:
         return mapping[lower]
-    raise ValueError(f"Unbekannte Verbindungsart: {raw_kind!r}")
+    raise ValueError(f"Unknown connection type: {raw_kind!r}")
 
 
 def validate_allowed_pattern(kind: str, source_type: str, target_type: str, line: str) -> None:
@@ -206,7 +206,7 @@ def validate_allowed_pattern(kind: str, source_type: str, target_type: str, line
 
     if not allowed:
         raise ValueError(
-            f"Nicht erlaubtes Verbindungsmuster in {line!r}: "
+            f"Disallowed connection pattern in {line!r}: "
             f"{source_type} {kind} {target_type}"
         )
 
@@ -215,7 +215,7 @@ def parse_connection_line(line: str, elements_by_name: Dict[str, Element]) -> Co
     match = CONNECTION_TOKEN_RE.search(line)
     if not match:
         allowed = ", ".join(sorted(CONNECTION_TYPES))
-        raise ValueError(f"Keine gueltige Verbindungsart gefunden in: {line!r}. Erlaubt: {allowed}")
+        raise ValueError(f"No valid connection type found in: {line!r}. Allowed: {allowed}")
 
     kind = normalize_connection_kind(match.group(1))
     left = normalize_spaces(line[:match.start()])
@@ -223,16 +223,16 @@ def parse_connection_line(line: str, elements_by_name: Dict[str, Element]) -> Co
 
     sources = [normalize_spaces(x) for x in left.split(",") if normalize_spaces(x)]
     if not sources:
-        raise ValueError(f"Keine Quelle in Verbindung: {line!r}")
+        raise ValueError(f"Connection has no source: {line!r}")
 
     for source in sources:
         if source not in elements_by_name:
-            raise ValueError(f"Quelle {source!r} wurde nicht unter ELEMENTS definiert.")
+            raise ValueError(f"Source {source!r} is not defined under ELEMENTS.")
     if target not in elements_by_name:
-        raise ValueError(f"Ziel {target!r} wurde nicht unter ELEMENTS definiert.")
+        raise ValueError(f"Target {target!r} is not defined under ELEMENTS.")
 
     if kind in DIRECT_CONNECTION_TYPES and len(sources) != 1:
-        raise ValueError(f"Direkte Verbindung {kind!r} darf genau eine Quelle haben: {line!r}")
+        raise ValueError(f"Direct connection {kind!r} must have exactly one source: {line!r}")
     for source in sources:
         validate_allowed_pattern(kind, elements_by_name[source].type, elements_by_name[target].type, line)
 
@@ -246,7 +246,7 @@ def parse_notation(text: str) -> Tuple[List[Element], List[Connection]]:
     names = [element.name for element in elements]
     duplicates = sorted({name for name in names if names.count(name) > 1})
     if duplicates:
-        raise ValueError(f"Doppelte Elementnamen gefunden: {', '.join(duplicates)}")
+        raise ValueError(f"Duplicate element names found: {', '.join(duplicates)}")
 
     elements_by_name = {element.name: element for element in elements}
     connections = [parse_connection_line(line, elements_by_name) for line in connection_lines]
@@ -342,7 +342,7 @@ def adl_attributes_for(element: Element) -> str:
 \tVALUE
 '''
 
-    raise ValueError(f"Nicht unterstuetzter Elementtyp: {element.type}")
+    raise ValueError(f"Unsupported element type: {element.type}")
 
 
 def layout_position(index: int) -> Tuple[float, float]:
@@ -432,7 +432,7 @@ def node_size_for(element_type: str) -> Tuple[float, float]:
 def connector_class_for(conn: Connection) -> str:
     if conn.kind in CONNECTOR_CONNECTION_TYPES:
         return conn.kind
-    raise ValueError(f"Verbindung {conn.kind!r} ist kein Connector.")
+    raise ValueError(f"Connection {conn.kind!r} is not a connector.")
 
 
 def relation_type_for(kind: str) -> str:
@@ -551,7 +551,7 @@ def generate_adl(elements: List[Element], connections: List[Connection], model_n
                 )
                 edge_index += 1
         else:
-            raise ValueError(f"Nicht unterstuetzte Verbindung: {conn.kind}")
+            raise ValueError(f"Unsupported connection: {conn.kind}")
 
     type_counts = {element_type: 0 for element_type in ELEMENT_TYPES}
     for element in elements:
@@ -728,10 +728,10 @@ TABLE
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Konvertiert Actors-and-Resources-Model-Notation mit direkten Verbindungen und 4EM-Connectoren in eine ADL-Datei."
+        description="Convert Actors and Resources Model notation with direct connections and 4EM connectors to an ADL file."
     )
-    parser.add_argument("input", help="Textdatei mit ELEMENTS und CONNECTIONS")
-    parser.add_argument("output", help="Ausgabedatei .adl")
+    parser.add_argument("input", help="Text file containing ELEMENTS and CONNECTIONS")
+    parser.add_argument("output", help="Output .adl file")
     parser.add_argument("--model-name", default="Generated Actors and Resources Model")
     args = parser.parse_args()
 
@@ -743,8 +743,8 @@ def main() -> None:
     adl = generate_adl(elements, connections, args.model_name)
     output_path.write_text(adl, encoding="utf-8")
 
-    print(f"OK: {len(elements)} Elemente und {len(connections)} Notations-Verbindungen gelesen.")
-    print(f"ADL geschrieben nach: {output_path}")
+    print(f"OK: read {len(elements)} elements and {len(connections)} notation connections.")
+    print(f"ADL written to: {output_path}")
 
 
 if __name__ == "__main__":

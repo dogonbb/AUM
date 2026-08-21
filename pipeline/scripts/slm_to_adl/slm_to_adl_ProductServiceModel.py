@@ -105,13 +105,13 @@ def split_sections(text: str) -> Tuple[List[str], List[str]]:
 def parse_element_line(line: str) -> Element:
     parts = line.split(maxsplit=1)
     if len(parts) != 2:
-        raise ValueError(f"Ungueltige Element-Zeile: {line!r}")
+        raise ValueError(f"Invalid element line: {line!r}")
 
     etype, name = parts[0], normalize_spaces(parts[1])
     if etype not in ELEMENT_TYPES:
         raise ValueError(
-            f"Unbekannter Elementtyp {etype!r} in Zeile {line!r}. "
-            f"Erlaubt: {', '.join(sorted(ELEMENT_TYPES))}"
+            f"Unknown element type {etype!r} in line {line!r}. "
+            f"Allowed: {', '.join(sorted(ELEMENT_TYPES))}"
         )
     return Element(etype, name)
 
@@ -136,7 +136,7 @@ def normalize_connection_kind(raw_kind: str) -> str:
     if partof_match:
         return f"PartOF ({partof_match.group(1).upper()})"
 
-    raise ValueError(f"Unbekannte Verbindungsart: {raw_kind!r}")
+    raise ValueError(f"Unknown connection type: {raw_kind!r}")
 
 
 def parse_connection_line(line: str, element_names: List[str]) -> Connection:
@@ -157,7 +157,7 @@ def parse_connection_line(line: str, element_names: List[str]) -> Connection:
     match = CONNECTION_TOKEN_RE.search(line)
     if not match:
         allowed = ", ".join(sorted(CONNECTION_TYPES))
-        raise ValueError(f"Keine gueltige Verbindungsart gefunden in: {line!r}. Erlaubt: {allowed}")
+        raise ValueError(f"No valid connection type found in: {line!r}. Allowed: {allowed}")
 
     kind = normalize_connection_kind(match.group(1))
     left = normalize_spaces(line[:match.start()])
@@ -165,17 +165,17 @@ def parse_connection_line(line: str, element_names: List[str]) -> Connection:
 
     sources = [normalize_spaces(x) for x in left.split(",") if normalize_spaces(x)]
     if not sources:
-        raise ValueError(f"Keine Quelle in Verbindung: {line!r}")
+        raise ValueError(f"Connection has no source: {line!r}")
 
     known = set(element_names)
     for source in sources:
         if source not in known:
-            raise ValueError(f"Quelle {source!r} wurde nicht unter ELEMENTS definiert.")
+            raise ValueError(f"Source {source!r} is not defined under ELEMENTS.")
     if target not in known:
-        raise ValueError(f"Ziel {target!r} wurde nicht unter ELEMENTS definiert.")
+        raise ValueError(f"Target {target!r} is not defined under ELEMENTS.")
 
     if kind not in CONNECTION_TYPES:
-        raise ValueError(f"Unbekannte Verbindungsart: {kind}")
+        raise ValueError(f"Unknown connection type: {kind}")
 
     return Connection(sources, kind, target)
 
@@ -187,7 +187,7 @@ def parse_notation(text: str) -> Tuple[List[Element], List[Connection]]:
     names = [element.name for element in elements]
     duplicates = sorted({name for name in names if names.count(name) > 1})
     if duplicates:
-        raise ValueError(f"Doppelte Elementnamen gefunden: {', '.join(duplicates)}")
+        raise ValueError(f"Duplicate element names found: {', '.join(duplicates)}")
 
     connections = [parse_connection_line(line, names) for line in connection_lines]
     return elements, connections
@@ -256,7 +256,7 @@ def adl_class_and_attributes(element: Element) -> Tuple[str, str]:
 '''
         return "Component", attrs
 
-    raise ValueError(f"Nicht unterstuetzter Elementtyp: {element.type}")
+    raise ValueError(f"Unsupported element type: {element.type}")
 
 
 def layout_position(index: int) -> Tuple[float, float]:
@@ -461,7 +461,7 @@ def connector_class_for(conn: Connection) -> str:
         return conn.kind
     if conn.kind == "part_of" and len(conn.sources) > 1:
         return "PartOF (AND)"
-    raise ValueError(f"Verbindung {conn.kind!r} ist kein Connector.")
+    raise ValueError(f"Connection {conn.kind!r} is not a connector.")
 
 
 def make_instance(
@@ -587,7 +587,7 @@ def generate_adl(elements: List[Element], connections: List[Connection], model_n
                 )
                 edge_index += 1
         else:
-            raise ValueError(f"Nicht unterstuetzte Verbindung: {conn.kind}")
+            raise ValueError(f"Unsupported connection: {conn.kind}")
 
     component_count = sum(1 for element in elements if element.type == "Component")
     feature_count = sum(1 for element in elements if element.type == "Feature")
@@ -712,10 +712,10 @@ TABLE
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Konvertiert Product/Service-Notation mit direkten Verbindungen und Connectoren in eine 4EM-ADL-Datei."
+        description="Convert Product/Service notation with direct connections and connectors to a 4EM ADL file."
     )
-    parser.add_argument("input", help="Textdatei mit ELEMENTS und CONNECTIONS")
-    parser.add_argument("output", help="Ausgabedatei .adl")
+    parser.add_argument("input", help="Text file containing ELEMENTS and CONNECTIONS")
+    parser.add_argument("output", help="Output .adl file")
     parser.add_argument("--model-name", default="Generated Product Service Model")
     args = parser.parse_args()
 
@@ -727,8 +727,8 @@ def main() -> None:
     adl = generate_adl(elements, connections, args.model_name)
     output_path.write_text(adl, encoding="utf-8")
 
-    print(f"OK: {len(elements)} Elemente und {len(connections)} Notations-Verbindungen gelesen.")
-    print(f"ADL geschrieben nach: {output_path}")
+    print(f"OK: read {len(elements)} elements and {len(connections)} notation connections.")
+    print(f"ADL written to: {output_path}")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,0 @@
-ELEMENTS
-Process Process - 1
-
-CONNECTIONS

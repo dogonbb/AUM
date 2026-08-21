@@ -46,7 +46,7 @@ def read_text(path: Path) -> str:
             return raw.decode(encoding)
         except UnicodeDecodeError:
             continue
-    raise ValueError(f"Kodierung von {path} konnte nicht erkannt werden.")
+    raise ValueError(f"Could not detect the encoding of {path}.")
 
 
 def parse_adl_file(path: Path) -> tuple[str, list[AdlModel]]:
@@ -55,12 +55,12 @@ def parse_adl_file(path: Path) -> tuple[str, list[AdlModel]]:
 
     version_match = GLOBAL_VERSION_RE.search(text)
     if not version_match:
-        raise ValueError(f"Keine globale VERSION-Zeile in {path.name} gefunden.")
+        raise ValueError(f"No global VERSION line found in {path.name}.")
     version = version_match.group(1).strip()
 
     starts = list(MODEL_START_RE.finditer(text))
     if not starts:
-        raise ValueError(f"Kein Modellblock in {path.name} gefunden.")
+        raise ValueError(f"No model block found in {path.name}.")
 
     models: list[AdlModel] = []
     for index, match in enumerate(starts):
@@ -109,7 +109,7 @@ def collect_adl_files(inputs: list[Path], output_path: Path | None = None) -> li
 
     for item in inputs:
         if not item.exists():
-            raise ValueError(f"Eingabe wurde nicht gefunden: {item}")
+            raise ValueError(f"Input not found: {item}")
 
         if item.is_dir():
             candidates = sorted(
@@ -117,14 +117,14 @@ def collect_adl_files(inputs: list[Path], output_path: Path | None = None) -> li
                 key=lambda path: path.name.casefold(),
             )
             if not candidates:
-                raise ValueError(f"Keine ADL-Dateien im Ordner gefunden: {item}")
+                raise ValueError(f"No ADL files found in directory: {item}")
             collected.extend(candidates)
         elif item.is_file():
             if item.suffix.casefold() != ".adl":
-                raise ValueError(f"Keine ADL-Datei: {item}")
+                raise ValueError(f"Not an ADL file: {item}")
             collected.append(item)
         else:
-            raise ValueError(f"Ungültige Eingabe: {item}")
+            raise ValueError(f"Invalid input: {item}")
 
     unique: list[Path] = []
     seen: set[Path] = set()
@@ -137,13 +137,13 @@ def collect_adl_files(inputs: list[Path], output_path: Path | None = None) -> li
             unique.append(path)
 
     if not unique:
-        raise ValueError("Es wurden keine ADL-Eingabedateien gefunden.")
+        raise ValueError("No ADL input files were found.")
     return unique
 
 
 def merge_adl_files(input_paths: list[Path], output_path: Path) -> list[AdlModel]:
     if not input_paths:
-        raise ValueError("Es wurden keine Eingabedateien ausgewählt.")
+        raise ValueError("No input files were selected.")
 
     versions: set[str] = set()
     all_models: list[AdlModel] = []
@@ -156,8 +156,8 @@ def merge_adl_files(input_paths: list[Path], output_path: Path) -> list[AdlModel
     if len(versions) != 1:
         details = ", ".join(sorted(versions))
         raise ValueError(
-            "Die Dateien verwenden unterschiedliche ADL-Datenversionen "
-            f"({details}) und werden deshalb nicht automatisch vermischt."
+            "The files use different ADL data versions "
+            f"({details}) and therefore cannot be merged automatically."
         )
 
     # Doppelte Modellnamen können in 4EM zu Konflikten führen.
@@ -172,7 +172,7 @@ def merge_adl_files(input_paths: list[Path], output_path: Path) -> list[AdlModel
         else:
             seen[key] = model.source
     if duplicates:
-        raise ValueError("Doppelte Modellnamen gefunden:\n- " + "\n- ".join(duplicates))
+        raise ValueError("Duplicate model names found:\n- " + "\n- ".join(duplicates))
 
     version = next(iter(versions))
     result = make_header(all_models, version)
@@ -189,25 +189,25 @@ def choose_files_gui() -> tuple[list[Path], Path | None]:
         import tkinter as tk
         from tkinter import filedialog
     except ImportError as exc:
-        raise RuntimeError("Tkinter ist nicht installiert; bitte CLI-Modus verwenden.") from exc
+        raise RuntimeError("Tkinter is not installed; use CLI mode instead.") from exc
 
     root = tk.Tk()
     root.withdraw()
     root.update()
 
     selected = filedialog.askopenfilenames(
-        title="ADL-Modelldateien auswählen",
-        filetypes=[("4EM ADL-Dateien", "*.adl"), ("Alle Dateien", "*.*")],
+        title="Select ADL model files",
+        filetypes=[("4EM ADL files", "*.adl"), ("All files", "*.*")],
     )
     if not selected:
         root.destroy()
         return [], None
 
     output = filedialog.asksaveasfilename(
-        title="Zusammengefügte ADL-Datei speichern",
+        title="Save merged ADL file",
         defaultextension=".adl",
         initialfile="Controlled_S3_merged.adl",
-        filetypes=[("4EM ADL-Dateien", "*.adl"), ("Alle Dateien", "*.*")],
+        filetypes=[("4EM ADL files", "*.adl"), ("All files", "*.*")],
     )
     root.destroy()
     return [Path(item) for item in selected], Path(output) if output else None
@@ -215,15 +215,15 @@ def choose_files_gui() -> tuple[list[Path], Path | None]:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Mehrere 4EM-ADL-Dateien zu einer Datei zusammenfügen."
+        description="Merge multiple 4EM ADL files into one file."
     )
     parser.add_argument(
         "inputs",
         nargs="*",
         type=Path,
-        help="Eingabe-ADL-Dateien oder Ordner mit ADL-Dateien",
+        help="Input ADL files or directories containing ADL files",
     )
-    parser.add_argument("-o", "--output", type=Path, help="Ausgabe-ADL-Datei")
+    parser.add_argument("-o", "--output", type=Path, help="Output ADL file")
     return parser
 
 
@@ -239,17 +239,17 @@ def main() -> int:
         else:
             inputs, output = choose_files_gui()
             if not inputs or output is None:
-                print("Abgebrochen: keine Dateien ausgewählt.")
+                print("Cancelled: no files selected.")
                 return 0
 
         models = merge_adl_files(inputs, output)
-        print(f"Erstellt: {output}")
-        print(f"Zusammengefügte Modelle: {len(models)}")
+        print(f"Created: {output}")
+        print(f"Merged models: {len(models)}")
         for model in models:
             print(f"  - {model.kind} <{model.name}> ({model.source.name})")
         return 0
     except Exception as exc:
-        print(f"Fehler: {exc}", file=sys.stderr)
+        print(f"Error: {exc}", file=sys.stderr)
         return 1
 
 

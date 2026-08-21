@@ -106,6 +106,7 @@ class ModelDefinition:
     model_type: str
     prompt_path: Path
     description_path: Path
+    format_prompt_path: Path
     converter_path: Path
     converter_command: list[str]
     converter_cwd: Path
@@ -353,6 +354,16 @@ def load_parameter_file(path: Path) -> dict[str, Any]:
     if provider != "ollama":
         raise PipelineError("This pipeline currently supports slm.provider='ollama'.")
 
+    timeout_seconds = dotted_get(config, "slm.timeout_seconds", 3600)
+    if not isinstance(timeout_seconds, (int, float)) or timeout_seconds <= 0:
+        raise PipelineError("slm.timeout_seconds must be a positive number.")
+    max_restart = dotted_get(config, "retry.max_restart", 0)
+    if not isinstance(max_restart, int) or isinstance(max_restart, bool) or max_restart < 0:
+        raise PipelineError("retry.max_restart must be a non-negative integer.")
+    max_repairs = dotted_get(config, "format_repair.max_attempts", 0)
+    if not isinstance(max_repairs, int) or isinstance(max_repairs, bool) or max_repairs < 0:
+        raise PipelineError("format_repair.max_attempts must be a non-negative integer.")
+
     selected_scenario = dotted_get(config, "execution.selected_scenario")
     if not isinstance(selected_scenario, str) or not selected_scenario.strip():
         raise PipelineError(
@@ -421,6 +432,9 @@ def parse_model_definitions(ctx: RunContext) -> list[ModelDefinition]:
                 description_path=resolve_path(
                     ctx.project_root, require(raw, "description_path")
                 ),
+                format_prompt_path=resolve_path(
+                    ctx.project_root, require(raw, "format_prompt_path")
+                ),
                 converter_path=resolve_path(
                     ctx.project_root, require(converter, "path")
                 ),
@@ -466,6 +480,7 @@ def validate_static_paths(ctx: RunContext, models: Sequence[ModelDefinition]) ->
             [
                 (f"Prompt for {model.model_id}", model.prompt_path),
                 (f"Description for {model.model_id}", model.description_path),
+                (f"Format prompt for {model.model_id}", model.format_prompt_path),
                 (f"Converter for {model.model_id}", model.converter_path),
             ]
         )
@@ -488,6 +503,41 @@ def validate_static_paths(ctx: RunContext, models: Sequence[ModelDefinition]) ->
         )
         paths_to_check.extend(
             [("Intermodel prompt template", template), ("Intermodel integrator", integrator)]
+        )
+
+    if bool(dotted_get(ctx.config, "format_repair.enabled", False)):
+        paths_to_check.append(
+            (
+                "General format repair prompt",
+                resolve_path(
+                    ctx.project_root,
+                    require(ctx.config, "format_repair.general_prompt_path"),
+                ),
+            )
+        )
+        if mode in {"full", "intermodel_only"}:
+            paths_to_check.append(
+                (
+                    "Intermodel format prompt",
+                    resolve_path(
+                        ctx.project_root,
+                        require(ctx.config, "intermodel.format_prompt_path"),
+                    ),
+                )
+            )
+
+    if enabled_setting(
+        dotted_get(ctx.config, "visualization.enabled", "off"),
+        "visualization.enabled",
+    ):
+        paths_to_check.append(
+            (
+                "Runtime visualization script",
+                resolve_path(
+                    ctx.project_root,
+                    require(ctx.config, "visualization.script_path"),
+                ),
+            )
         )
 
     missing = [f"{label}: {path}" for label, path in paths_to_check if not path.is_file()]
@@ -597,6 +647,18 @@ def normalize_thinking(value: Any) -> bool | str:
     if lowered in {"low", "medium", "high"}:
         return lowered
     raise PipelineError("slm.thinking must be true, false, low, medium, or high.")
+
+
+def enabled_setting(value: Any, name: str) -> bool:
+    """Read a boolean switch that may also be written as 'on' or 'off'."""
+    if isinstance(value, bool):
+        return value
+    lowered = str(value).strip().casefold()
+    if lowered in {"on", "true", "1"}:
+        return True
+    if lowered in {"off", "false", "0"}:
+        return False
+    raise PipelineError(f"{name} must be on, off, true, or false.")
 
 
 def ollama_worker(
@@ -793,6 +855,8 @@ def restart_slm_service(
         "project_root": ctx.project_root,
         "reason": reason,
         "task_id": task_id,
+        "model": str(require(ctx.config, "slm.model")),
+        "base_url": str(require(ctx.config, "slm.base_url")),
     }
     result = run_external_command(
         command,
@@ -809,6 +873,187 @@ def restart_slm_service(
         result=command_report(ctx, result),
     )
     return result
+
+
+def call_slm_with_restart(
+    ctx: RunContext,
+    prompt: str,
+    task_id: str,
+) -> tuple[SLMResult, list[dict[str, Any]]]:
+    """Call the SLM with one total timeout and at most retry.max_restart restarts."""
+    max_restart = int(dotted_get(ctx.config, "retry.max_restart", 0))
+    attempts: list[dict[str, Any]] = []
+    for attempt_number in range(1, max_restart + 2):
+        started = time.perf_counter()
+        attempt: dict[str, Any] = {
+            "attempt_number": attempt_number,
+            "started_at": iso_now(),
+        }
+        attempts.append(attempt)
+        try:
+            result = call_slm(ctx, prompt)
+            attempt.update(
+                {
+                    "status": "OK",
+                    "slm": slm_report(ctx, result, prompt),
+                    "finished_at": iso_now(),
+                    "duration_seconds": time.perf_counter() - started,
+                }
+            )
+            return result, attempts
+        except SLMTimeoutError as exc:
+            attempt.update(
+                {
+                    "status": "TIMEOUT",
+                    "error_type": type(exc).__name__,
+                    "error_message": str(exc),
+                    "finished_at": iso_now(),
+                    "duration_seconds": time.perf_counter() - started,
+                }
+            )
+            if attempt_number > max_restart:
+                setattr(exc, "slm_attempts", attempts)
+                raise
+            restart_result = restart_slm_service(ctx, "timeout", task_id)
+            attempt["model_restart"] = (
+                command_report(ctx, restart_result) if restart_result else None
+            )
+        except Exception as exc:
+            attempt.update(
+                {
+                    "status": "FAILED_SLM",
+                    "error_type": type(exc).__name__,
+                    "error_message": str(exc),
+                    "finished_at": iso_now(),
+                    "duration_seconds": time.perf_counter() - started,
+                }
+            )
+            setattr(exc, "slm_attempts", attempts)
+            raise
+    raise AssertionError("unreachable")
+
+
+def build_format_repair_prompt(
+    ctx: RunContext,
+    context_description: str,
+    format_prompt_path: Path,
+    malformed_output: str,
+    python_error: str,
+    model_description: str = "",
+    model_generation_rules: str = "",
+) -> str:
+    general_path = resolve_path(
+        ctx.project_root, require(ctx.config, "format_repair.general_prompt_path")
+    )
+    sections = [
+        read_text(general_path).rstrip(),
+        "## Scenario texts\n\n" + context_description.strip(),
+    ]
+    if model_description.strip():
+        sections.append("## Model explanation\n\n" + model_description.strip())
+    if model_generation_rules.strip():
+        sections.append(
+            "## Original model generation rules\n\n"
+            + model_generation_rules.strip()
+        )
+    sections.extend(
+        [
+            "## Required output format\n\n" + read_text(format_prompt_path).strip(),
+            "## Python error\n\n" + python_error.strip(),
+            "## Output to repair\n\n" + malformed_output.strip(),
+        ]
+    )
+    return "\n\n".join(sections) + "\n"
+
+
+def model_generation_rules(prompt_path: Path) -> str:
+    """Return the reusable model rules without the original generation task suffix."""
+    prompt = read_text(prompt_path).rstrip()
+    return re.split(r"(?m)^Task:\s*$", prompt, maxsplit=1)[0].rstrip()
+
+
+def build_model_repair_context(
+    scenario: ScenarioRun,
+    model: ModelDefinition,
+    source_file: Path,
+) -> str:
+    return read_text(source_file).strip()
+
+
+def build_intermodel_repair_context(ctx: RunContext, scenario: ScenarioRun) -> str:
+    extensions = {
+        normalized_extension(str(item)).casefold()
+        for item in dotted_get(ctx.config, "files.scenario_extensions", [".txt"])
+    }
+    source_files = sorted(
+        path
+        for path in scenario.scenario_directory.rglob("*")
+        if path.is_file() and path.suffix.casefold() in extensions
+    )
+    return "\n\n---\n\n".join(read_text(path).strip() for path in source_files)
+
+
+def build_intermodel_model_description(ctx: RunContext) -> str:
+    sections = [
+        "The output describes relationships between elements of existing 4EM models."
+    ]
+    for model_config in dotted_get(ctx.config, "models", []):
+        description_path = model_config.get("description_path")
+        if model_config.get("enabled", True) and description_path:
+            sections.append(
+                read_text(resolve_path(ctx.project_root, description_path)).strip()
+            )
+    return "\n\n".join(sections)
+
+
+def repair_format(
+    ctx: RunContext,
+    input_path: Path,
+    format_prompt_path: Path,
+    context_description: str,
+    python_error: str,
+    repair_directory: Path,
+    attempt_number: int,
+    task_id: str,
+    model_description: str = "",
+    model_generation_rules_text: str = "",
+) -> tuple[str, dict[str, Any]]:
+    """Repair formatting first, otherwise validation content; preserve the input."""
+    repair_directory.mkdir(parents=True, exist_ok=True)
+    original = read_text(input_path)
+    original_path = repair_directory / "original_output.txt"
+    if not original_path.exists():
+        write_text_atomic(original_path, original)
+    error_path = repair_directory / f"attempt_{attempt_number}_python_error.txt"
+    write_text_atomic(error_path, python_error)
+    prompt = build_format_repair_prompt(
+        ctx,
+        context_description,
+        format_prompt_path,
+        original,
+        python_error,
+        model_description,
+        model_generation_rules_text,
+    )
+    prompt_path = repair_directory / f"attempt_{attempt_number}_prompt.txt"
+    write_text_atomic(prompt_path, prompt)
+    result, slm_attempts = call_slm_with_restart(
+        ctx, prompt, f"format_repair:{task_id}:attempt:{attempt_number}"
+    )
+    candidate = clean_slm_answer(result.answer).strip()
+    candidate_path = repair_directory / f"attempt_{attempt_number}_repaired.txt"
+    write_text_atomic(candidate_path, candidate + ("\n" if candidate else ""))
+    report = {
+        "attempt_number": attempt_number,
+        "status": "GENERATED",
+        "input": file_info(input_path),
+        "preserved_original": file_info(original_path),
+        "python_error": file_info(error_path),
+        "prompt": file_info(prompt_path),
+        "output": file_info(candidate_path),
+        "slm_attempts": slm_attempts,
+    }
+    return candidate, report
 
 
 # ---------------------------------------------------------------------------
@@ -1054,7 +1299,7 @@ def run_model_task(
         "adl_model_name": adl_model_name,
         "started_at": iso_now(),
         "attempts": [],
-        "restart_counts": {"timeout": 0, "python_error": 0},
+        "format_repairs": [],
     }
 
     overwrite = bool(dotted_get(ctx.config, "execution.overwrite", False))
@@ -1077,10 +1322,6 @@ def run_model_task(
         source_file,
     )
 
-    retry_enabled = bool(dotted_get(ctx.config, "retry.restart_after_error", True))
-    max_timeout_restarts = int(dotted_get(ctx.config, "retry.max_timeout_restarts", 3))
-    max_python_restarts = int(dotted_get(ctx.config, "retry.max_python_error_restarts", 3))
-
     attempt_number = 0
     while True:
         attempt_number += 1
@@ -1094,11 +1335,13 @@ def run_model_task(
         ctx.event("model_attempt_started", task_id=task_id, attempt=attempt_number)
 
         try:
-            slm_result = call_slm(ctx, prompt)
+            slm_result, slm_attempts = call_slm_with_restart(ctx, prompt, task_id)
+            attempt["slm_attempts"] = slm_attempts
             attempt["slm"] = slm_report(ctx, slm_result, prompt)
             write_text_atomic(slm_file, slm_result.answer)
             attempt["slm_output"] = file_info(slm_file)
         except SLMTimeoutError as exc:
+            attempt["slm_attempts"] = getattr(exc, "slm_attempts", [])
             attempt.update(
                 {
                     "failure_reason": "timeout",
@@ -1108,13 +1351,6 @@ def run_model_task(
                     "duration_seconds": time.perf_counter() - attempt_started_perf,
                 }
             )
-            if retry_enabled and task_report["restart_counts"]["timeout"] < max_timeout_restarts:
-                task_report["restart_counts"]["timeout"] += 1
-                restart_result = restart_slm_service(ctx, "timeout", task_id)
-                attempt["service_restart"] = (
-                    command_report(ctx, restart_result) if restart_result else None
-                )
-                continue
             artifact.status = "FAILED_TIMEOUT"
             task_report.update(
                 {
@@ -1126,6 +1362,7 @@ def run_model_task(
             )
             return artifact, task_report
         except Exception as exc:
+            attempt["slm_attempts"] = getattr(exc, "slm_attempts", [])
             artifact.status = "FAILED_SLM"
             attempt.update(
                 {
@@ -1205,13 +1442,67 @@ def run_model_task(
             }
         )
 
-        if retry_enabled and task_report["restart_counts"]["python_error"] < max_python_restarts:
-            task_report["restart_counts"]["python_error"] += 1
-            restart_result = restart_slm_service(ctx, "python_error", task_id)
-            attempt["service_restart"] = (
-                command_report(ctx, restart_result) if restart_result else None
+        repair_enabled = bool(dotted_get(ctx.config, "format_repair.enabled", False))
+        max_repairs = int(dotted_get(ctx.config, "format_repair.max_attempts", 0))
+        repair_directory = slm_file.parent / "format_repair" / safe_name(slm_file.stem)
+        for repair_number in range(1, max_repairs + 1 if repair_enabled else 1):
+            python_error = "\n".join(
+                part for part in [error_message, converter_result.stdout, converter_result.stderr] if part
             )
-            continue
+            try:
+                repaired, repair_report = repair_format(
+                    ctx,
+                    slm_file,
+                    model.format_prompt_path,
+                    build_model_repair_context(scenario, model, source_file),
+                    python_error,
+                    repair_directory,
+                    repair_number,
+                    task_id,
+                    read_text(model.description_path),
+                    model_generation_rules(model.prompt_path),
+                )
+            except Exception as exc:
+                task_report["format_repairs"].append(
+                    {
+                        "attempt_number": repair_number,
+                        "status": "FAILED_SLM",
+                        "error_type": type(exc).__name__,
+                        "error_message": str(exc),
+                        "slm_attempts": getattr(exc, "slm_attempts", []),
+                    }
+                )
+                break
+            write_text_atomic(slm_file, repaired + ("\n" if repaired else ""))
+            if adl_file.exists():
+                adl_file.unlink()
+            converter_result = run_external_command(
+                model.converter_command,
+                command_values,
+                model.converter_cwd,
+                model.converter_timeout_seconds,
+            )
+            repair_report["converter"] = command_report(ctx, converter_result)
+            task_report["format_repairs"].append(repair_report)
+            if converter_result.ok and adl_file.is_file():
+                repair_report["status"] = "OK"
+                artifact.status = "OK_AFTER_FORMAT_REPAIR"
+                task_report.update(
+                    {
+                        "status": artifact.status,
+                        "finished_at": iso_now(),
+                        "duration_seconds": time.perf_counter() - task_started_perf,
+                        "slm_output": file_info(slm_file),
+                        "adl_output": file_info(adl_file),
+                    }
+                )
+                return artifact, task_report
+            repair_report["status"] = "FAILED_PYTHON"
+            error_message = (
+                "The SLM-to-ADL converter failed after format repair."
+                if not converter_result.ok
+                else "The converter created no ADL output after format repair."
+            )
 
         artifact.status = "FAILED_PYTHON"
         task_report.update(
@@ -1265,7 +1556,7 @@ def run_adl_merger(
         {
             artifact.adl_file.resolve()
             for artifact in artifacts
-            if artifact.status in {"OK", "SKIPPED_EXISTING", "EXISTING"}
+            if artifact.status in {"OK", "OK_AFTER_FORMAT_REPAIR", "SKIPPED_EXISTING", "EXISTING"}
             and artifact.adl_file.is_file()
         }
     )
@@ -1412,7 +1703,7 @@ def intermodel_tasks(
         artifact
         for artifact in artifacts
         if artifact.slm_file.is_file()
-        and artifact.status in {"OK", "SKIPPED_EXISTING", "EXISTING"}
+        and artifact.status in {"OK", "OK_AFTER_FORMAT_REPAIR", "SKIPPED_EXISTING", "EXISTING"}
     ]
     by_model: dict[str, list[ModelArtifact]] = {}
     for artifact in available:
@@ -1480,7 +1771,6 @@ def run_intermodel_task(
         "output_file": str(output_file),
         "started_at": iso_now(),
         "attempts": [],
-        "restart_counts": {"timeout": 0},
     }
 
     overwrite = bool(dotted_get(ctx.config, "execution.overwrite", False))
@@ -1498,9 +1788,6 @@ def run_intermodel_task(
     prompt = render_intermodel_prompt(
         ctx, prompt_template, source, target, model_by_id
     )
-    retry_enabled = bool(dotted_get(ctx.config, "retry.restart_after_error", True))
-    max_timeout_restarts = int(dotted_get(ctx.config, "retry.max_timeout_restarts", 3))
-
     attempt_number = 0
     while True:
         attempt_number += 1
@@ -1512,7 +1799,8 @@ def run_intermodel_task(
         }
         report["attempts"].append(attempt)
         try:
-            result = call_slm(ctx, prompt)
+            result, slm_attempts = call_slm_with_restart(ctx, prompt, task_id)
+            attempt["slm_attempts"] = slm_attempts
             attempt["slm"] = slm_report(ctx, result, prompt)
             write_text_atomic(output_file, result.answer)
             attempt.update(
@@ -1532,6 +1820,7 @@ def run_intermodel_task(
             )
             return output_file, report
         except SLMTimeoutError as exc:
+            attempt["slm_attempts"] = getattr(exc, "slm_attempts", [])
             attempt.update(
                 {
                     "failure_reason": "timeout",
@@ -1541,13 +1830,6 @@ def run_intermodel_task(
                     "duration_seconds": time.perf_counter() - attempt_started_perf,
                 }
             )
-            if retry_enabled and report["restart_counts"]["timeout"] < max_timeout_restarts:
-                report["restart_counts"]["timeout"] += 1
-                restart_result = restart_slm_service(ctx, "timeout", task_id)
-                attempt["service_restart"] = (
-                    command_report(ctx, restart_result) if restart_result else None
-                )
-                continue
             report.update(
                 {
                     "status": "FAILED_TIMEOUT",
@@ -1558,6 +1840,7 @@ def run_intermodel_task(
             )
             return None, report
         except Exception as exc:
+            attempt["slm_attempts"] = getattr(exc, "slm_attempts", [])
             attempt.update(
                 {
                     "failure_reason": "slm_error",
@@ -1616,7 +1899,6 @@ def run_intermodel_stage(
         "input_adl": file_info(input_adl),
         "final_adl": str(scenario.final_adl),
         "batches": [],
-        "python_error_restart_count": 0,
     }
 
     if not bool(dotted_get(ctx.config, "intermodel.enabled", True)):
@@ -1669,8 +1951,6 @@ def run_intermodel_stage(
             + ", ".join(sorted(unknown_pair_models))
         )
 
-    retry_enabled = bool(dotted_get(ctx.config, "retry.restart_after_error", True))
-    max_python_restarts = int(dotted_get(ctx.config, "retry.max_python_error_restarts", 3))
     force_regenerate = False
     batch_number = 0
 
@@ -1727,6 +2007,70 @@ def run_intermodel_stage(
             else float(dotted_get(ctx.config, "tools.default_python_timeout_seconds", 600)),
         )
 
+        format_repairs: list[dict[str, Any]] = []
+        repair_enabled = bool(dotted_get(ctx.config, "format_repair.enabled", False))
+        max_repairs = int(dotted_get(ctx.config, "format_repair.max_attempts", 0))
+        intermodel_format_prompt = resolve_path(
+            ctx.project_root, require(ctx.config, "intermodel.format_prompt_path")
+        )
+        repair_directory = scenario.intermodel_aggregate_slm.parent / "format_repair"
+        for repair_number in range(1, max_repairs + 1 if repair_enabled else 1):
+            if integration_result.ok and scenario.final_adl.is_file():
+                break
+            python_error = "\n".join(
+                part
+                for part in [
+                    "The intermodel integration script failed.",
+                    integration_result.stdout,
+                    integration_result.stderr,
+                ]
+                if part
+            )
+            try:
+                repaired, repair_report = repair_format(
+                    ctx,
+                    scenario.intermodel_aggregate_slm,
+                    intermodel_format_prompt,
+                    build_intermodel_repair_context(ctx, scenario),
+                    python_error,
+                    repair_directory,
+                    repair_number,
+                    f"intermodel:{scenario.scenario_name}",
+                    build_intermodel_model_description(ctx),
+                )
+            except Exception as exc:
+                format_repairs.append(
+                    {
+                        "attempt_number": repair_number,
+                        "status": "FAILED_SLM",
+                        "error_type": type(exc).__name__,
+                        "error_message": str(exc),
+                        "slm_attempts": getattr(exc, "slm_attempts", []),
+                    }
+                )
+                break
+            write_text_atomic(
+                scenario.intermodel_aggregate_slm,
+                repaired + ("\n" if repaired else ""),
+            )
+            if scenario.final_adl.exists():
+                scenario.final_adl.unlink()
+            integration_result = run_external_command(
+                command,
+                values,
+                resolve_path(ctx.project_root, integrator.get("cwd", ".")),
+                float(integrator["timeout_seconds"])
+                if integrator.get("timeout_seconds") is not None
+                else float(dotted_get(ctx.config, "tools.default_python_timeout_seconds", 600)),
+            )
+            repair_report["integration_command"] = command_report(ctx, integration_result)
+            repair_report["status"] = (
+                "OK"
+                if integration_result.ok and scenario.final_adl.is_file()
+                else "FAILED_PYTHON"
+            )
+            format_repairs.append(repair_report)
+
         batch = {
             "batch_number": batch_number,
             "started_at": iso_now(),
@@ -1741,6 +2085,7 @@ def run_intermodel_stage(
             ],
             "aggregate_slm": file_info(scenario.intermodel_aggregate_slm),
             "integration_command": command_report(ctx, integration_result),
+            "format_repairs": format_repairs,
             "duration_seconds": time.perf_counter() - batch_started_perf,
         }
         stage["batches"].append(batch)
@@ -1769,17 +2114,6 @@ def run_intermodel_stage(
             if not integration_result.ok
             else "The integration script returned success but created no final ADL."
         )
-
-        if retry_enabled and stage["python_error_restart_count"] < max_python_restarts:
-            stage["python_error_restart_count"] += 1
-            restart_result = restart_slm_service(
-                ctx, "python_error", f"intermodel:{scenario.scenario_name}:batch:{batch_number}"
-            )
-            batch["service_restart"] = (
-                command_report(ctx, restart_result) if restart_result else None
-            )
-            force_regenerate = True
-            continue
 
         stage.update(
             {
@@ -1881,8 +2215,8 @@ def create_intermodel_only_scenario(
 
 def summarize_attempts(task_reports: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     statuses: dict[str, int] = {}
-    timeout_restarts = 0
-    python_restarts = 0
+    model_restarts = 0
+    format_repairs = 0
     attempts = 0
     prompt_tokens = 0
     output_tokens = 0
@@ -1892,11 +2226,11 @@ def summarize_attempts(task_reports: Sequence[Mapping[str, Any]]) -> dict[str, A
     for task in task_reports:
         status = str(task.get("status", "UNKNOWN"))
         statuses[status] = statuses.get(status, 0) + 1
-        restarts = task.get("restart_counts", {})
-        timeout_restarts += int(restarts.get("timeout", 0))
-        python_restarts += int(restarts.get("python_error", 0))
         for attempt in task.get("attempts", []):
             attempts += 1
+            model_restarts += sum(
+                1 for item in attempt.get("slm_attempts", []) if item.get("model_restart") is not None
+            )
             slm = attempt.get("slm")
             if slm:
                 metadata = slm.get("metadata", {})
@@ -1906,12 +2240,27 @@ def summarize_attempts(task_reports: Sequence[Mapping[str, Any]]) -> dict[str, A
             converter = attempt.get("converter")
             if converter:
                 python_seconds += float(converter.get("duration_seconds") or 0.0)
+        for repair in task.get("format_repairs", []):
+            format_repairs += 1
+            model_restarts += sum(
+                1 for item in repair.get("slm_attempts", []) if item.get("model_restart") is not None
+            )
+            for slm_attempt in repair.get("slm_attempts", []):
+                slm = slm_attempt.get("slm")
+                if slm:
+                    metadata = slm.get("metadata", {})
+                    prompt_tokens += int(metadata.get("prompt_eval_count") or 0)
+                    output_tokens += int(metadata.get("eval_count") or 0)
+                    slm_seconds += float(slm.get("wall_seconds") or 0.0)
+            converter = repair.get("converter") or repair.get("integration_command")
+            if converter:
+                python_seconds += float(converter.get("duration_seconds") or 0.0)
 
     return {
         "statuses": statuses,
         "attempt_count": attempts,
-        "timeout_restarts": timeout_restarts,
-        "python_error_restarts": python_restarts,
+        "model_restarts": model_restarts,
+        "format_repair_attempts": format_repairs,
         "prompt_tokens": prompt_tokens,
         "output_tokens": output_tokens,
         "total_tokens": prompt_tokens + output_tokens,
@@ -1925,7 +2274,7 @@ def complete_run_summary(report: Mapping[str, Any]) -> dict[str, Any]:
     intermodel_tasks: list[Mapping[str, Any]] = []
     merger_seconds = 0.0
     intermodel_integration_seconds = 0.0
-    intermodel_python_restarts = 0
+    intermodel_format_repairs = 0
 
     for scenario in report.get("scenarios", []):
         model_tasks.extend(scenario.get("model_generation", {}).get("tasks", []))
@@ -1933,14 +2282,12 @@ def complete_run_summary(report: Mapping[str, Any]) -> dict[str, Any]:
             scenario.get("adl_merge", {}).get("duration_seconds") or 0.0
         )
         intermodel = scenario.get("intermodel", {})
-        intermodel_python_restarts += int(
-            intermodel.get("python_error_restart_count") or 0
-        )
         for batch in intermodel.get("batches", []):
             intermodel_tasks.extend(batch.get("task_reports", []))
             intermodel_integration_seconds += float(
                 batch.get("integration_command", {}).get("duration_seconds") or 0.0
             )
+            intermodel_format_repairs += len(batch.get("format_repairs", []))
 
     model_summary = summarize_attempts(model_tasks)
     intermodel_summary = summarize_attempts(intermodel_tasks)
@@ -1954,10 +2301,11 @@ def complete_run_summary(report: Mapping[str, Any]) -> dict[str, Any]:
         + intermodel_summary["output_tokens"],
         "all_tokens": model_summary["total_tokens"]
         + intermodel_summary["total_tokens"],
-        "all_timeout_restarts": model_summary["timeout_restarts"]
-        + intermodel_summary["timeout_restarts"],
-        "all_python_error_restarts": model_summary["python_error_restarts"]
-        + intermodel_python_restarts,
+        "all_model_restarts": model_summary["model_restarts"]
+        + intermodel_summary["model_restarts"],
+        "all_format_repair_attempts": model_summary["format_repair_attempts"]
+        + intermodel_summary["format_repair_attempts"]
+        + intermodel_format_repairs,
         "adl_merger_seconds": merger_seconds,
         "intermodel_integration_seconds": intermodel_integration_seconds,
     }
@@ -1992,8 +2340,8 @@ def write_text_report(path: Path, report: Mapping[str, Any]) -> None:
         f"Prompt tokens:                  {summary.get('all_prompt_tokens', 0)}",
         f"Output tokens:                  {summary.get('all_output_tokens', 0)}",
         f"Total tokens:                   {summary.get('all_tokens', 0)}",
-        f"Timeout restarts:               {summary.get('all_timeout_restarts', 0)}",
-        f"Python-error restarts:          {summary.get('all_python_error_restarts', 0)}",
+        f"Model restarts after timeout:   {summary.get('all_model_restarts', 0)}",
+        f"Format repair attempts:         {summary.get('all_format_repair_attempts', 0)}",
         f"ADL merger seconds:             {float(summary.get('adl_merger_seconds') or 0.0):.3f}",
         f"Intermodel integration seconds: {float(summary.get('intermodel_integration_seconds') or 0.0):.3f}",
         f"Model statuses:                 {dotted_get(summary, 'model_generation.statuses', {})}",
@@ -2022,7 +2370,7 @@ def write_text_report(path: Path, report: Mapping[str, Any]) -> None:
             lines.append(
                 f"  MODEL {task.get('task_id')} | status={task.get('status')} | "
                 f"seconds={float(task.get('duration_seconds') or 0.0):.3f} | "
-                f"restarts={task.get('restart_counts')}"
+                f"format_repairs={len(task.get('format_repairs', []))}"
             )
             for attempt in task.get("attempts", []):
                 metadata = dotted_get(attempt, "slm.metadata", {}) or {}
@@ -2043,7 +2391,12 @@ def write_text_report(path: Path, report: Mapping[str, Any]) -> None:
                 lines.append(
                     f"    {task.get('task_id')} | status={task.get('status')} | "
                     f"seconds={float(task.get('duration_seconds') or 0.0):.3f} | "
-                    f"restarts={task.get('restart_counts')}"
+                    f"attempts={len(task.get('attempts', []))}"
+                )
+            for repair in batch.get("format_repairs", []):
+                lines.append(
+                    f"    FORMAT REPAIR attempt={repair.get('attempt_number')} "
+                    f"status={repair.get('status')}"
                 )
 
     lines.extend(
@@ -2210,23 +2563,7 @@ def prepare_context(parameter_path: Path, config: dict[str, Any]) -> RunContext:
     timestamp_format = str(dotted_get(config, "paths.timestamp_format", "%Y-%m-%dT%H-%M-%S"))
     timestamp = datetime.now().strftime(timestamp_format)
 
-    report_directory = resolve_path(project_root, require(config, "paths.report_directory"))
-    report_values = {"timestamp": timestamp, "run_id": "pending"}
     run_id = str(uuid.uuid4())
-    report_values["run_id"] = run_id
-
-    report_json = report_directory / render_string(
-        str(require(config, "paths.report_json_filename")), report_values
-    )
-    report_text = report_directory / render_string(
-        str(require(config, "paths.report_text_filename")), report_values
-    )
-    event_log = report_directory / render_string(
-        str(require(config, "paths.event_log_filename")), report_values
-    )
-    report_directory.mkdir(parents=True, exist_ok=True)
-    if event_log.exists():
-        event_log.unlink()
 
     ctx = RunContext(
         parameter_path=parameter_path,
@@ -2236,9 +2573,9 @@ def prepare_context(parameter_path: Path, config: dict[str, Any]) -> RunContext:
         timestamp=timestamp,
         started_at=iso_now(),
         started_perf=time.perf_counter(),
-        report_json=report_json,
-        report_text=report_text,
-        event_log=event_log,
+        report_json=Path(),
+        report_text=Path(),
+        event_log=Path(),
     )
     ctx.report = {
         "run_id": run_id,
@@ -2263,8 +2600,60 @@ def prepare_context(parameter_path: Path, config: dict[str, Any]) -> RunContext:
         "scenarios": [],
         "unhandled_errors": [],
     }
-    ctx.event("pipeline_started", mode=ctx.report["mode"], parameter_file=parameter_path)
     return ctx
+
+
+def configure_runtime_report_paths(ctx: RunContext, report_directory: Path) -> None:
+    """Store all runtime report files directly in the selected report directory."""
+    report_values = {"timestamp": ctx.timestamp, "run_id": ctx.run_id}
+
+    def report_path(config_key: str) -> Path:
+        rendered_name = render_string(
+            str(require(ctx.config, config_key)),
+            report_values,
+        )
+        filename = Path(rendered_name)
+        if filename.is_absolute() or len(filename.parts) != 1:
+            raise PipelineError(
+                f"{config_key} must be a filename without directory components, "
+                f"got {rendered_name!r}."
+            )
+        return report_directory / filename
+
+    report_directory.mkdir(parents=True, exist_ok=True)
+    ctx.report_json = report_path("paths.report_json_filename")
+    ctx.report_text = report_path("paths.report_text_filename")
+    ctx.event_log = report_path("paths.event_log_filename")
+    if ctx.event_log.exists():
+        ctx.event_log.unlink()
+
+
+def resolve_intermodel_report_directory(
+    ctx: RunContext,
+    job: Mapping[str, Any],
+) -> Path:
+    """
+    Return the output_intermodel directory used by the selected job.
+
+    The intermodel SLM directory normally ends in output_intermodel/slm.
+    Runtime reports are stored in its parent so archiving output_intermodel
+    automatically includes the JSON, TXT, and JSONL report files.
+    """
+    output_run_directory = resolve_path(
+        ctx.project_root,
+        require(job, "output_run_directory"),
+    )
+    raw_slm_directory = job.get("intermodel_slm_directory")
+    if raw_slm_directory is not None:
+        intermodel_slm_directory = resolve_path(
+            ctx.project_root,
+            raw_slm_directory,
+        )
+    else:
+        intermodel_slm_directory = output_run_directory / str(
+            require(ctx.config, "paths.intermodel_slm_directory")
+        )
+    return intermodel_slm_directory.parent
 
 
 def finalize_context(ctx: RunContext, status: str) -> None:
@@ -2272,13 +2661,65 @@ def finalize_context(ctx: RunContext, status: str) -> None:
     ctx.report["finished_at"] = iso_now()
     ctx.report["duration_seconds"] = time.perf_counter() - ctx.started_perf
     ctx.report["summary"] = complete_run_summary(ctx.report)
+    report_values = {"timestamp": ctx.timestamp, "run_id": ctx.run_id}
+    visualization_enabled = enabled_setting(
+        dotted_get(ctx.config, "visualization.enabled", "off"),
+        "visualization.enabled",
+    )
+    visualization_path: Path | None = None
+    if visualization_enabled:
+        rendered = render_string(
+            str(require(ctx.config, "visualization.filename")), report_values
+        )
+        filename = Path(rendered)
+        if filename.is_absolute() or len(filename.parts) != 1:
+            raise PipelineError(
+                "visualization.filename must be a filename without directory components."
+            )
+        visualization_path = ctx.report_json.parent / filename
+
     ctx.report["report_files"] = {
         "json": str(ctx.report_json),
         "text": str(ctx.report_text),
         "events": str(ctx.event_log),
+        "visualization": str(visualization_path) if visualization_path else None,
     }
     write_json_atomic(ctx.report_json, ctx.report)
     write_text_report(ctx.report_text, ctx.report)
+
+    if visualization_path is not None:
+        script_path = resolve_path(
+            ctx.project_root, require(ctx.config, "visualization.script_path")
+        )
+        python_executable = str(
+            dotted_get(ctx.config, "tools.python_executable", "") or sys.executable
+        )
+        visualization_result = run_external_command(
+            ["{python}", "{script}", "{report_json}", "--output", "{output}"],
+            {
+                "python": python_executable,
+                "script": script_path,
+                "report_json": ctx.report_json,
+                "output": visualization_path,
+            },
+            ctx.project_root,
+            float(dotted_get(ctx.config, "visualization.timeout_seconds", 120)),
+        )
+        ctx.report["visualization"] = {
+            "enabled": True,
+            "status": (
+                "OK"
+                if visualization_result.ok and visualization_path.is_file()
+                else "FAILED"
+            ),
+            "output": file_info(visualization_path),
+            "command": command_report(ctx, visualization_result),
+        }
+        write_json_atomic(ctx.report_json, ctx.report)
+        write_text_report(ctx.report_text, ctx.report)
+    else:
+        ctx.report["visualization"] = {"enabled": False, "status": "DISABLED"}
+        write_json_atomic(ctx.report_json, ctx.report)
     ctx.event(
         "pipeline_finished",
         status=status,
@@ -2321,6 +2762,9 @@ def main() -> int:
         print(f"ERROR: Parameter file does not exist: {parameter_path}", file=sys.stderr)
         return 2
 
+    scenario_directory: Path | None = None
+    intermodel_only_job: Mapping[str, Any] | None = None
+
     try:
         config = load_parameter_file(parameter_path)
         if args.mode is not None:
@@ -2332,6 +2776,25 @@ def main() -> int:
                 "selected_scenario"
             ] = args.scenario.strip()
         ctx = prepare_context(parameter_path, config)
+        mode = dotted_get(config, "execution.mode", "full")
+        if mode in {"full", "models_only"}:
+            scenario_directory = resolve_selected_scenario_directory(ctx)
+            report_directory = create_scenario_run(
+                ctx,
+                scenario_directory,
+            ).run_directory
+        else:
+            intermodel_only_job = resolve_selected_intermodel_only_job(ctx)
+            report_directory = resolve_intermodel_report_directory(
+                ctx,
+                intermodel_only_job,
+            )
+        configure_runtime_report_paths(ctx, report_directory)
+        ctx.event(
+            "pipeline_started",
+            mode=ctx.report["mode"],
+            parameter_file=parameter_path,
+        )
         model_definitions = parse_model_definitions(ctx)
         validate_static_paths(ctx, model_definitions)
     except Exception as exc:
@@ -2346,7 +2809,8 @@ def main() -> int:
     try:
         mode = dotted_get(config, "execution.mode", "full")
         if mode in {"full", "models_only"}:
-            scenario_directory = resolve_selected_scenario_directory(ctx)
+            if scenario_directory is None:
+                raise PipelineError("No scenario directory was resolved for this run.")
             try:
                 scenario_report = process_full_scenario(
                     ctx, scenario_directory, model_definitions
@@ -2382,10 +2846,11 @@ def main() -> int:
                 if not continue_after_failure:
                     raise
         else:
-            job = resolve_selected_intermodel_only_job(ctx)
+            if intermodel_only_job is None:
+                raise PipelineError("No intermodel-only job was resolved for this run.")
             try:
                 scenario_report = process_intermodel_only_job(
-                    ctx, job, model_definitions
+                    ctx, intermodel_only_job, model_definitions
                 )
                 ctx.report["scenarios"].append(scenario_report)
                 if scenario_report.get("status") != "OK":
@@ -2394,7 +2859,7 @@ def main() -> int:
                 final_status = "COMPLETED_WITH_ERRORS"
                 ctx.report["scenarios"].append(
                     {
-                        "scenario_name": job.get(
+                        "scenario_name": intermodel_only_job.get(
                             "scenario_name",
                             "unknown",
                         ),
@@ -2434,6 +2899,9 @@ def main() -> int:
     print(f"JSON report: {ctx.report_json}")
     print(f"Text report: {ctx.report_text}")
     print(f"Event log: {ctx.event_log}")
+    visualization_file = dotted_get(ctx.report, "report_files.visualization")
+    if visualization_file:
+        print(f"Visualization: {visualization_file}")
     return 0 if final_status == "OK" else 1
 
 

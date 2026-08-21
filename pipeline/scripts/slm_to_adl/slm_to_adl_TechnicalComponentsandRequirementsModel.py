@@ -98,7 +98,7 @@ def split_sections(text: str) -> Tuple[List[str], List[str]]:
         elif section == "connections":
             connections.append(line)
     if not elements:
-        raise ValueError("Keine Elemente gefunden. Erwartet wird ein Abschnitt ELEMENTS.")
+        raise ValueError("No elements found. An ELEMENTS section is required.")
     return elements, connections
 
 
@@ -109,11 +109,11 @@ def parse_element_line(line: str) -> Element:
         if normalized.lower().startswith(prefix.lower()):
             name = normalize_spaces(normalized[len(prefix):])
             if not name:
-                raise ValueError(f"Elementname fehlt in Zeile: {line!r}")
+                raise ValueError(f"Element name is missing in line: {line!r}")
             adl_class, req_type = ELEMENT_ALIASES[alias]
             return Element(alias, name, adl_class, req_type)
     raise ValueError(
-        f"Unbekannter Elementtyp in {line!r}. Erlaubt: " + ", ".join(ELEMENT_ALIASES)
+        f"Unknown element type in {line!r}. Allowed: " + ", ".join(ELEMENT_ALIASES)
     )
 
 
@@ -134,14 +134,14 @@ def validate_pattern(conn: Connection, elements: Dict[str, Element], line: str) 
 
     if kind in CONNECTOR_KINDS:
         if len(conn.sources) < 2:
-            raise ValueError(f"{kind} benötigt mindestens zwei Quellen: {line!r}")
+            raise ValueError(f"{kind} requires at least two sources: {line!r}")
         if kind in {"Partial-PartOF", "Total-PartOF"}:
             if any(c != "IS Technical Component" for c in source_classes) or target_class != "IS Technical Component":
-                raise ValueError(f"{kind} ist nur zwischen technischen Komponenten erlaubt: {line!r}")
+                raise ValueError(f"{kind} is allowed only between technical components: {line!r}")
         return
 
     if len(conn.sources) != 1:
-        raise ValueError(f"Direkte Verbindung benötigt genau eine Quelle: {line!r}")
+        raise ValueError(f"A direct connection requires exactly one source: {line!r}")
     s = source_classes[0]
     t = target_class
 
@@ -163,24 +163,24 @@ def validate_pattern(conn: Connection, elements: Dict[str, Element], line: str) 
         allowed = s == "IS Technical Component" and t in {"Goal", "Problem", "IS Requirement"}
 
     if not allowed:
-        raise ValueError(f"Nicht erlaubtes Verbindungsmuster in {line!r}: {s} {kind} {t}")
+        raise ValueError(f"Disallowed connection pattern in {line!r}: {s} {kind} {t}")
 
 
 def parse_connection_line(line: str, elements: Dict[str, Element]) -> Connection:
     match = TOKEN_RE.search(line)
     if not match:
-        raise ValueError(f"Keine gültige Verbindungsart gefunden in: {line!r}")
+        raise ValueError(f"No valid connection type found in: {line!r}")
     kind = normalize_kind(match.group(1))
     left = normalize_spaces(line[:match.start()])
     target = normalize_spaces(line[match.end():])
     sources = [normalize_spaces(x) for x in left.split(",") if normalize_spaces(x)]
     if not sources or not target:
-        raise ValueError(f"Unvollständige Verbindung: {line!r}")
+        raise ValueError(f"Incomplete connection: {line!r}")
     for source in sources:
         if source not in elements:
-            raise ValueError(f"Quelle {source!r} wurde nicht unter ELEMENTS definiert.")
+            raise ValueError(f"Source {source!r} is not defined under ELEMENTS.")
     if target not in elements:
-        raise ValueError(f"Ziel {target!r} wurde nicht unter ELEMENTS definiert.")
+        raise ValueError(f"Target {target!r} is not defined under ELEMENTS.")
     conn = Connection(sources, kind, target)
     validate_pattern(conn, elements, line)
     return conn
@@ -192,7 +192,7 @@ def parse_notation(text: str) -> Tuple[List[Element], List[Connection]]:
     by_name: Dict[str, Element] = {}
     for element in elements:
         if element.name in by_name:
-            raise ValueError(f"Doppelter Elementname: {element.name!r}")
+            raise ValueError(f"Duplicate element name: {element.name!r}")
         by_name[element.name] = element
     connections = [parse_connection_line(line, by_name) for line in connection_lines]
     return elements, connections
@@ -242,7 +242,7 @@ def attrs_for(element: Element) -> str:
 \n\tATTRIBUTE <Decomposition>\n\tVALUE ""
 \n\tATTRIBUTE <Attributes>\n\tVALUE
 '''
-    raise ValueError(f"Nicht unterstützte ADL-Klasse: {element.adl_class}")
+    raise ValueError(f"Unsupported ADL class: {element.adl_class}")
 
 
 def size_for(adl_class: str) -> Tuple[float, float]:
@@ -318,6 +318,22 @@ def relation_type(conn: Connection, classes: Dict[str, str]) -> str:
         return "hinders" if s == "IS Technical Component" and t == "IS Technical Component" else "Hinders"
     if kind in {"contradicts", "weakly conflicts", "moderately conflicts", "strongly conflicts"}:
         return "Contradicts"
+    if kind == "relates_to":
+        # "relates_to" is accepted in the compact SLM notation, but it is not
+        # an enumeration value supported by the 4EM ADL metamodel.
+        if t == "Goal":
+            return "has goal"
+        if t == "IS Requirement":
+            return "has requirement"
+        # A generic component-to-problem association has no more specific
+        # enumeration in the reference exports.
+        return ""
+    if kind == "communicates":
+        # The compact notation distinguishes communication semantically, but
+        # the 4EM Relation <Type> enumeration for technical-component edges
+        # does not contain "communicates". Reference exports store these
+        # edges with an empty Type value.
+        return ""
     return kind
 
 
@@ -498,17 +514,17 @@ TABLE
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Konvertiert die LLM-Notation eines 4EM Technical Components and Requirements Model in ADL.")
-    parser.add_argument("input", help="Textdatei mit ELEMENTS und CONNECTIONS")
-    parser.add_argument("output", help="Ausgabedatei .adl")
+    parser = argparse.ArgumentParser(description="Convert 4EM Technical Components and Requirements Model LLM notation to ADL.")
+    parser.add_argument("input", help="Text file containing ELEMENTS and CONNECTIONS")
+    parser.add_argument("output", help="Output .adl file")
     parser.add_argument("--model-name", default="Generated Technical Components and Requirements Model")
     args = parser.parse_args()
     input_path = Path(args.input)
     output_path = Path(args.output)
     elements, connections = parse_notation(input_path.read_text(encoding="utf-8"))
     output_path.write_text(generate_adl(elements, connections, args.model_name), encoding="utf-8")
-    print(f"OK: {len(elements)} Elemente und {len(connections)} Notations-Verbindungen gelesen.")
-    print(f"ADL geschrieben nach: {output_path}")
+    print(f"OK: read {len(elements)} elements and {len(connections)} notation connections.")
+    print(f"ADL written to: {output_path}")
 
 if __name__ == "__main__":
     main()

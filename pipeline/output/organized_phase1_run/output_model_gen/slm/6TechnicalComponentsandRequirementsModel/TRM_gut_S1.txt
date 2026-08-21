@@ -1,6 +1,0 @@
-ELEMENTS
-Technical Component IS Technical Component - 1
-Technical Component IS Technical Component - 2
-
-CONNECTIONS
-IS Technical Component - 2 supports IS Technical Component - 1

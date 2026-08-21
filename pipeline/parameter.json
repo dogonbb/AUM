@@ -1,6 +1,6 @@
 {
   "execution": {
-    "mode": "intermodel_only",
+    "mode": "full",
     "overwrite": false,
     "continue_after_failure": true,
     "selected_scenario": "controlled_phase1"
@@ -8,7 +8,7 @@
   "slm": {
     "provider": "ollama",
     "base_url": "http://localhost:11434",
-    "model": "gemma4:26b",
+    "model": "gemma4:e4b",
     "thinking": true,
     "timeout_seconds": 3600,
     "keep_alive": "5m",
@@ -21,9 +21,12 @@
     }
   },
   "retry": {
-    "restart_after_error": true,
-    "max_timeout_restarts": 5,
-    "max_python_error_restarts": 0
+    "max_restart": 3
+  },
+  "format_repair": {
+    "enabled": true,
+    "max_attempts": 3,
+    "general_prompt_path": "prompts/format_repair/general_repair_prompt.txt"
   },
   "paths": {
     "scenarios_root": "scenarios",
@@ -54,17 +57,16 @@
     "python_executable": "",
     "default_python_timeout_seconds": 600,
     "slm_restart": {
-      "enabled": false,
+      "enabled": true,
       "cwd": ".",
       "timeout_seconds": 120,
       "command": [
-        "powershell",
-        "-File",
-        "scripts/restart_slm.ps1",
-        "-Reason",
-        "{reason}",
-        "-TaskId",
-        "{task_id}"
+        "{python}",
+        "scripts/restart_ollama_model.py",
+        "--model",
+        "{model}",
+        "--base-url",
+        "{base_url}"
       ]
     },
     "adl_merger": {
@@ -103,6 +105,7 @@
       "model_type": "Goal Model",
       "prompt_path": "prompts/model_generation/Prompt_GoalModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_GoalModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_GoalModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
       "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
@@ -128,6 +131,7 @@
       "model_type": "Business Process Model",
       "prompt_path": "prompts/model_generation/Prompt_BusinessProcessModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_BusinessProcessModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_BusinessProcessModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
       "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
@@ -153,6 +157,7 @@
       "model_type": "Actors and Resources Model",
       "prompt_path": "prompts/model_generation/Prompt_ActorsResourcesModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_ActorsResourcesModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_ActorsResourcesModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
       "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
@@ -178,6 +183,7 @@
       "model_type": "Concepts Model",
       "prompt_path": "prompts/model_generation/Prompt_ConceptModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_ConceptModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_ConceptModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
       "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
@@ -203,6 +209,7 @@
       "model_type": "Technical Components and Requirements Model",
       "prompt_path": "prompts/model_generation/Prompt_TechnicalComponentsandRequirementsModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_TechnicalComponentsandRequirementsModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_TechnicalComponentsRequirementsModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
       "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
@@ -228,6 +235,7 @@
       "model_type": "Product / Service Model",
       "prompt_path": "prompts/model_generation/Prompt_ProductServiceModel.txt",
       "description_path": "prompts/inter_model_generation/model_description/Description_ProductServiceModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_ProductServiceModel.txt",
       "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
       "slm_filename_template": "{source_stem}.txt",
       "adl_filename_template": "{source_stem}.adl",
@@ -248,6 +256,7 @@
   ],
   "intermodel": {
     "enabled": true,
+    "format_prompt_path": "prompts/format_repair/Format_IntermodelRelationships.txt",
     "output_filename_template": "intermodel_{source_adl_model_name}__{target_adl_model_name}.txt",
     "no_relationship_marker": "NO_INTERMODEL_RELATIONSHIPS",
     "pairs": [
@@ -381,5 +390,11 @@
     "include_prompt_text": false,
     "include_slm_output_text": false,
     "include_command_output": true
+  },
+  "visualization": {
+    "enabled": "on",
+    "script_path": "scripts/visualize_runtime_report.py",
+    "filename": "pipeline_{timestamp}_visualization.html",
+    "timeout_seconds": 120
   }
 }

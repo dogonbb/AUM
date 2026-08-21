@@ -1,0 +1,23 @@
+Output the repaired model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> 1:1 <element name>
+<element name> 1:n <element name>
+<element name> n:m <element name>
+<element name> has attribute <element name>
+<element name_1>, <element name_2>, <element name_3> Partial-ISA <element name>
+<element name_1>, <element name_2>, <element name_3> Total-ISA <element name>
+<element name_1>, <element name_2>, <element name_3> Partial-PartOF <element name>
+<element name_1>, <element name_2>, <element name_3> Total-PartOF <element name>
+
+Replace every placeholder in angle brackets with an actual existing name; do not output the angle brackets themselves. Replace `ElementType` with exactly one allowed type: `Concept` or `Attribute`.
+
+Write `ELEMENTS` and `CONNECTIONS` exactly as shown and in this order. Write one element or connection per line. Direct connections have exactly one source and one target. For connector connections, separate multiple source names with a comma followed by one space and use exactly one target.
+
+Do not include element types in `CONNECTIONS`. Every referenced name must exactly match one declaration in `ELEMENTS`, and every element name must be declared exactly once. Preserve `1:1`, `1:n`, `n:m`, `has attribute`, and connector capitalization exactly as shown. Output plain text only: no Markdown fences, bullets, numbering, comments, explanations, or additional sections.

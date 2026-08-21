@@ -1,9 +1,0 @@
-ELEMENTS
-Goal Goal - 1
-Problem Problem - 1
-Goal Goal - 2
-Goal Goal - 3
-
-CONNECTIONS
-Goal - 2, Goal - 3 AND Goal - 1
-Problem - 1 hinders Goal - 1

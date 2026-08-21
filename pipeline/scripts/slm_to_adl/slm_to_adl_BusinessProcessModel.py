@@ -118,16 +118,16 @@ def parse_element_line(line: str) -> Element:
     for etype in ELEMENT_TYPE_PREFIXES:
         prefix = etype + " "
         if compact == etype:
-            raise ValueError(f"Elementname fehlt in Zeile: {line!r}")
+            raise ValueError(f"Element name is missing in line: {line!r}")
         if compact.startswith(prefix):
             name = normalize_spaces(compact[len(prefix):])
             if not name:
-                raise ValueError(f"Elementname fehlt in Zeile: {line!r}")
+                raise ValueError(f"Element name is missing in line: {line!r}")
             return Element(etype, name)
 
     raise ValueError(
-        f"Unbekannter Elementtyp in Zeile {line!r}. "
-        f"Erlaubt: {', '.join(sorted(ELEMENT_TYPES))}"
+        f"Unknown element type in line {line!r}. "
+        f"Allowed: {', '.join(sorted(ELEMENT_TYPES))}"
     )
 
 
@@ -150,7 +150,7 @@ def normalize_connection_kind(raw_kind: str) -> str:
     if lower == "join(or)":
         return "Join (OR)"
 
-    raise ValueError(f"Unbekannte Verbindungsart: {raw_kind!r}")
+    raise ValueError(f"Unknown connection type: {raw_kind!r}")
 
 
 def is_bpm_node(element_type: str) -> bool:
@@ -188,7 +188,7 @@ def validate_allowed_pattern(kind: str, source_type: str, target_type: str, line
 
     if not allowed:
         raise ValueError(
-            f"Nicht erlaubtes Verbindungsmuster in {line!r}: "
+            f"Disallowed connection pattern in {line!r}: "
             f"{source_type} {kind} {target_type}"
         )
 
@@ -210,7 +210,7 @@ def parse_connection_line(line: str, elements_by_name: Dict[str, Element]) -> Co
     match = CONNECTION_TOKEN_RE.search(line)
     if not match:
         allowed = ", ".join(sorted(CONNECTION_TYPES))
-        raise ValueError(f"Keine gueltige Verbindungsart gefunden in: {line!r}. Erlaubt: {allowed}")
+        raise ValueError(f"No valid connection type found in: {line!r}. Allowed: {allowed}")
 
     kind = normalize_connection_kind(match.group(1))
     left = normalize_spaces(line[:match.start()])
@@ -219,26 +219,26 @@ def parse_connection_line(line: str, elements_by_name: Dict[str, Element]) -> Co
     sources = split_csv_names(left)
     targets = split_csv_names(right)
     if not sources:
-        raise ValueError(f"Keine Quelle in Verbindung: {line!r}")
+        raise ValueError(f"Connection has no source: {line!r}")
     if not targets:
-        raise ValueError(f"Kein Ziel in Verbindung: {line!r}")
+        raise ValueError(f"Connection has no target: {line!r}")
 
     for source in sources:
         if source not in elements_by_name:
-            raise ValueError(f"Quelle {source!r} wurde nicht unter ELEMENTS definiert.")
+            raise ValueError(f"Source {source!r} is not defined under ELEMENTS.")
     for target in targets:
         if target not in elements_by_name:
-            raise ValueError(f"Ziel {target!r} wurde nicht unter ELEMENTS definiert.")
+            raise ValueError(f"Target {target!r} is not defined under ELEMENTS.")
 
     if kind in DIRECT_CONNECTION_TYPES:
         if len(sources) != 1 or len(targets) != 1:
-            raise ValueError(f"Direkte Verbindung {kind!r} braucht genau eine Quelle und genau ein Ziel: {line!r}")
+            raise ValueError(f"Direct connection {kind!r} requires exactly one source and one target: {line!r}")
     elif kind.startswith("Split"):
         if len(sources) != 1 or len(targets) < 2:
-            raise ValueError(f"{kind!r} braucht genau eine Quelle und mindestens zwei Ziele: {line!r}")
+            raise ValueError(f"{kind!r} requires exactly one source and at least two targets: {line!r}")
     elif kind.startswith("Join"):
         if len(sources) < 2 or len(targets) != 1:
-            raise ValueError(f"{kind!r} braucht mindestens zwei Quellen und genau ein Ziel: {line!r}")
+            raise ValueError(f"{kind!r} requires at least two sources and exactly one target: {line!r}")
 
     for source in sources:
         for target in targets:
@@ -250,13 +250,13 @@ def parse_connection_line(line: str, elements_by_name: Dict[str, Element]) -> Co
 def parse_notation(text: str) -> Tuple[List[Element], List[Connection]]:
     element_lines, connection_lines = split_sections(text)
     if not element_lines:
-        raise ValueError("Keine ELEMENTS-Sektion oder keine Elemente gefunden.")
+        raise ValueError("No ELEMENTS section or no elements found.")
 
     elements = [parse_element_line(line) for line in element_lines]
     names = [element.name for element in elements]
     duplicates = sorted({name for name in names if names.count(name) > 1})
     if duplicates:
-        raise ValueError(f"Doppelte Elementnamen gefunden: {', '.join(duplicates)}")
+        raise ValueError(f"Duplicate element names found: {', '.join(duplicates)}")
 
     elements_by_name = {element.name: element for element in elements}
     connections = [parse_connection_line(line, elements_by_name) for line in connection_lines]
@@ -349,7 +349,7 @@ def adl_attributes_for(element_type: str) -> str:
 \tVALUE ""
 '''
 
-    raise ValueError(f"Nicht unterstuetzter Elementtyp: {element_type}")
+    raise ValueError(f"Unsupported element type: {element_type}")
 
 
 def node_size_for(element_type: str) -> Tuple[float | None, float | None]:
@@ -778,10 +778,10 @@ TABLE
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Konvertiert Business-Process-Model-Notation mit relation/Input/Output und Split-/Join-Connectoren in eine 4EM-ADL-Datei."
+        description="Convert Business Process Model notation with relation/Input/Output and split/join connectors to a 4EM ADL file."
     )
-    parser.add_argument("input", help="Textdatei mit ELEMENTS und CONNECTIONS")
-    parser.add_argument("output", help="Ausgabedatei .adl")
+    parser.add_argument("input", help="Text file containing ELEMENTS and CONNECTIONS")
+    parser.add_argument("output", help="Output .adl file")
     parser.add_argument("--model-name", default="Generated Business Process Model")
     args = parser.parse_args()
 
@@ -794,8 +794,8 @@ def main() -> None:
     output_path.write_text(adl, encoding="utf-8")
 
     generated_relations = adl.count("RELATION <4EM_Relation>")
-    print(f"OK: {len(elements)} Elemente und {len(connections)} Notations-Verbindungen gelesen.")
-    print(f"ADL geschrieben nach: {output_path}")
+    print(f"OK: read {len(elements)} elements and {len(connections)} notation connections.")
+    print(f"ADL written to: {output_path}")
     print(f"Generierte ADL-Relationen: {generated_relations}")
 
 

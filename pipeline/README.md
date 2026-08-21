@@ -37,7 +37,7 @@ pipeline/
 │       ├── inter_model_connections_descriptions/
 │       └── model_description/
 ├── scripts/
-│   ├── restart_slm.ps1
+│   ├── restart_ollama_model.py
 │   ├── adl_model_merger.py
 │   ├── add_intermodel_relations_slm.py
 │   └── slm_to_adl/
@@ -121,29 +121,33 @@ Important fields:
 - `num_ctx`: context size
 - `seed`: improves reproducibility
 
-### 3.3 Restart Only After an SLM Timeout
+### 3.3 Total SLM Timeout and Model Restart
 
 ```json
 "retry": {
-  "restart_after_error": true,
-  "max_timeout_restarts": 1,
-  "max_python_error_restarts": 0
+  "max_restart": 3
 }
 ```
+
+`slm.timeout_seconds` is one total wall-clock limit for a complete SLM call. It
+includes connection setup, thinking, and answer generation. There is no
+separate thinking timeout.
 
 Behavior:
 
 ```text
-SLM timeout
-→ restart SLM service
-→ retry once
+SLM total timeout
+→ abort request
+→ unload the configured Ollama model
+→ retry the identical request
+→ repeat at most retry.max_restart times
 ```
 
 ```text
-Python converter failure
-→ no restart
-→ no new SLM request
-→ task ends as FAILED_PYTHON
+Python converter/integrator failure
+→ no model restart
+→ optional format-first validation repair
+→ run the same Python script again
 ```
 
 The restart command must be enabled:
@@ -155,19 +159,48 @@ The restart command must be enabled:
     "cwd": ".",
     "timeout_seconds": 120,
     "command": [
-      "powershell",
-      "-File",
-      "scripts/restart_slm.ps1",
-      "-Reason",
-      "{reason}",
-      "-TaskId",
-      "{task_id}"
+        "{python}",
+        "scripts/restart_ollama_model.py",
+        "--model",
+        "{model}",
+        "--base-url",
+        "{base_url}"
     ]
   }
 }
 ```
 
-### 3.4 Output Paths
+### 3.4 Format-first Validation Repair
+
+```json
+"format_repair": {
+  "enabled": true,
+  "max_attempts": 2,
+  "general_prompt_path": "prompts/format_repair/general_repair_prompt.txt"
+}
+```
+
+If a model converter or the intermodel integrator fails, the pipeline sends
+the malformed output, Python error, scenario source content, model
+explanation, generation rules, and its exact formatting specification to the
+SLM. For a model task, the matching scenario source text is included; for
+intermodel integration, all scenario source texts are included. Scenario and
+source-file names are omitted. The SLM must first check the formatting.
+If formatting is wrong, it may repair formatting only. If formatting is
+already correct, it may make the smallest content change needed to resolve the
+reported validation error, without inventing scenario information. Original
+and repaired files are preserved below a `format_repair` directory and every
+attempt is included in the runtime JSON.
+
+The complete repair prompt and all model-specific explanations are in English.
+It reuses each model's configured `description_path` and, for regular model
+repairs, the rules from its original generation prompt (without the original
+task suffix). Its generated sections are `General explanation`, `Scenario
+texts`, `Model explanation`, `Original model generation rules`, `Required
+output format`, `Python error`, and `Output to repair`. The scenario directory
+name itself is intentionally not included.
+
+### 3.5 Output Paths
 
 ```json
 "paths": {
@@ -192,7 +225,7 @@ Using:
 
 creates a separate folder for every run.
 
-### 3.5 Enable or Disable Models
+### 3.6 Enable or Disable Models
 
 Each model contains:
 
@@ -213,7 +246,7 @@ TechnicalComponentsRequirementsModel
 ProductServiceModel
 ```
 
-### 3.6 Intermodel-Only Jobs
+### 3.7 Intermodel-Only Jobs
 
 ```json
 "intermodel_only": {
@@ -231,6 +264,34 @@ ProductServiceModel
 ```
 
 This maps the selected scenario to its scenario descriptions, artifacts, input ADL, and output folder.
+
+### 3.8 Runtime Visualization
+
+```json
+"visualization": {
+  "enabled": "on",
+  "script_path": "scripts/visualize_runtime_report.py",
+  "filename": "pipeline_{timestamp}_visualization.html",
+  "timeout_seconds": 120
+}
+```
+
+Set `enabled` to `"on"` or `"off"` to switch automatic visualization on or
+off. Boolean `true` and `false` are also accepted. When enabled, every completed pipeline run creates a standalone HTML
+dashboard next to its JSON and text reports. It shows total runtime, prompt and
+output tokens, total tokens, SLM calls, timeout restarts, format repairs, and a
+row for every individual SLM call and retry.
+
+An existing JSON report can also be visualized manually:
+
+```powershell
+python scripts/visualize_runtime_report.py `
+    output/path/to/pipeline_<timestamp>.json `
+    --output output/path/to/pipeline_visualization.html
+```
+
+Open the generated HTML file directly in a browser. It has no external
+JavaScript or library dependency.
 
 ## 4. Important Commands
 
@@ -496,7 +557,7 @@ Reduce:
 Enable:
 
 ```json
-"max_timeout_restarts": 1
+"max_restart": 1
 ```
 
 and verify:
@@ -514,7 +575,7 @@ and verify:
 Set:
 
 ```json
-"max_python_error_restarts": 0
+"format_repair": { "enabled": false, "max_attempts": 0 }
 ```
 
 This prevents a restart and a new SLM request after a converter failure.

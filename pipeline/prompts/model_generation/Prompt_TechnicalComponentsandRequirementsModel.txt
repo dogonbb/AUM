@@ -182,5 +182,4 @@ CONNECTIONS
 Note that for connections, you shouldn’t include the ElementType in the Connection.
 
 Task:
-
 Apply the rules to the following text:

@@ -25,12 +25,11 @@ Do not create elements such as Goal, Problem, Cause, Constraint, Opportunity, Pr
 Use only the following direct connection types:
 
 - supports
-- weakly conflicts
-- moderately conflicts
-- strongly conflicts
 - hinders
-- communicates
-- relates_to
+- contradicts
+- motivates
+- has requirement
+- has goal
 
 ## Allowed connector types
 
@@ -38,6 +37,9 @@ Use only the following connector-based connections:
 
 - AND
 - OR
+- AND/OR
+- Partial-PartOF
+- Total-PartOF
 
 ## Meaning of element types
 
@@ -55,27 +57,24 @@ Use direct connections only for simple one-to-one relations.
 - A supports B
   means that A contributes to, enables, fulfils, or positively influences B.
 
-- A weakly conflicts B
-  means that A has a minor negative conflict with B.
-
-- A moderately conflicts B
-  means that A has a medium-strength negative conflict with B.
-
-- A strongly conflicts B
-  means that A has a major or fundamental negative conflict with B.
-
 - A hinders B
   means that A obstructs, prevents, weakens, or negatively influences B.
 
-- A communicates B
-  means that technical component A exchanges information or interacts technically with technical component B.
+- A contradicts B
+  means that goal A conflicts with goal B.
 
-- A relates_to B
-  means that a technical component is associated with, implements, or is relevant to an information system requirement, goal, or problem.
+- A motivates B
+  means that information system goal A motivates technical component B.
+
+- A has requirement B
+  means that goal or technical component A has B as a technical component or information system requirement.
+
+- A has goal B
+  means that technical component A has information system goal B.
 
 ## Meaning of connector-based connections
 
-Use connector-based connections when multiple elements are connected by one AND or OR connector.
+Use connector-based connections when multiple elements are connected by an AND, OR, AND/OR, Partial-PartOF, or Total-PartOF connector.
 
 - A, B, C AND D
   means that A, B, and C jointly decompose, refine, or contribute to D and all of them are required.
@@ -83,59 +82,57 @@ Use connector-based connections when multiple elements are connected by one AND 
 - A, B, C OR D
   means that A, B, and C are alternative decompositions, refinements, or contributions to D and one or more alternatives may be sufficient.
 
+- A, B, C AND/OR D
+  means that A, B, and C form a mixed mandatory or optional decomposition of D.
+
+- A, B, C Partial-PartOF D
+  means that technical components A, B, and C are an incomplete set of parts of technical component D.
+
+- A, B, C Total-PartOF D
+  means that technical components A, B, and C together completely compose technical component D.
+
 ## Allowed connection patterns
 
 For supports:
 
 - Information System Goal supports Information System Goal
-- Information System Requirement supports Information System Goal
-- Information System Functional Requirement supports Information System Goal
-- Information System Non-Functional Requirement supports Information System Goal
-- Information System Functional Requirement supports Information System Requirement
-- Information System Non-Functional Requirement supports Information System Requirement
-- Technical Component supports Information System Goal
-- Technical Component supports Information System Requirement
-- Technical Component supports Information System Functional Requirement
-- Technical Component supports Information System Non-Functional Requirement
-
-For weakly conflicts, moderately conflicts, and strongly conflicts:
-
-- Information System Goal conflicts with Information System Goal
-- Information System Requirement conflicts with Information System Requirement
-- Information System Functional Requirement conflicts with Information System Functional Requirement
-- Information System Non-Functional Requirement conflicts with Information System Non-Functional Requirement
-- Information System Functional Requirement conflicts with Information System Non-Functional Requirement
-- Technical Component conflicts with Information System Goal
-- Technical Component conflicts with Information System Requirement
-- Technical Component conflicts with Information System Functional Requirement
-- Technical Component conflicts with Information System Non-Functional Requirement
+- Technical Component supports Technical Component
 
 For hinders:
 
+- Information System Goal hinders Information System Goal
 - Information System Problem hinders Information System Goal
-- Information System Problem hinders Information System Requirement
-- Information System Problem hinders Information System Functional Requirement
-- Information System Problem hinders Information System Non-Functional Requirement
-- Technical Component hinders Information System Goal
-- Technical Component hinders Information System Requirement
-- Technical Component hinders Information System Functional Requirement
-- Technical Component hinders Information System Non-Functional Requirement
+- Technical Component hinders Technical Component
 
-For communicates:
+For contradicts:
 
-- Technical Component communicates Technical Component
+- Information System Goal contradicts Information System Goal
 
-For relates_to:
+For motivates:
 
-- Technical Component relates_to Information System Goal
-- Technical Component relates_to Information System Problem
-- Technical Component relates_to Information System Requirement
-- Technical Component relates_to Information System Functional Requirement
-- Technical Component relates_to Information System Non-Functional Requirement
+- Information System Goal motivates Technical Component
 
-For AND and OR connectors:
+For has requirement:
+
+- Information System Goal has requirement Technical Component
+- Information System Goal has requirement Information System Requirement
+- Information System Goal has requirement Information System Functional Requirement
+- Information System Goal has requirement Information System Non-Functional Requirement
+- Technical Component has requirement Information System Requirement
+- Technical Component has requirement Information System Functional Requirement
+- Technical Component has requirement Information System Non-Functional Requirement
+
+For has goal:
+
+- Technical Component has goal Information System Goal
+
+For AND, OR, and AND/OR connectors:
 
 - Information System Goal, Information System Problem, Information System Requirement, Information System Functional Requirement, Information System Non-Functional Requirement, and Technical Component may be connected with elements of the same type or with other allowed element types when the case explicitly describes a decomposition, refinement, grouping, or alternative.
+
+For Partial-PartOF and Total-PartOF connectors:
+
+- Only Technical Components may be sources and targets.
 
 ## Modeling rules
 
@@ -149,14 +146,15 @@ For AND and OR connectors:
 8. If a statement contains both a functional and a non-functional requirement, split it into two elements.
 9. If a statement contains both an information system goal and a requirement, split it into two elements when the case distinguishes the desired outcome from the required system property.
 10. Use supports only when the source positively contributes to or fulfils the target.
-11. Use weakly conflicts, moderately conflicts, or strongly conflicts only when the case explicitly indicates a conflict and its strength can be determined. If no strength is supported by the case, do not invent one.
-12. Use hinders only when the source negatively affects or obstructs the target without being described as a conflict.
-13. Use communicates only between Technical Components that exchange information or technically interact.
-14. Use relates_to only to associate a Technical Component with an Information System Goal, Information System Problem, or requirement.
-15. Use connector-based connections when the case explicitly describes grouped, decomposed, refined, or alternative elements.
+11. Use hinders only for the supported Goal-to-Goal, Problem-to-Goal, or Technical-Component-to-Technical-Component patterns.
+12. Use contradicts only for a conflict between two Information System Goals.
+13. Use motivates only when an Information System Goal motivates a Technical Component.
+14. Use has requirement and has goal only for the allowed patterns listed above.
+15. Use connector-based connections when the case explicitly describes grouped, decomposed, refined, alternative, or part-of elements.
 16. Every element used in CONNECTIONS must be listed exactly once in ELEMENTS.
-17. Do not invent elements, components, requirements, conflict strengths, or connections that are not supported by the case text.
+17. Do not invent elements, components, requirements, or connections that are not supported by the case text.
 18. Do not write explanations, comments, descriptions, bullet points, or any text outside the required output sections.
+19. Create at most one connection between any two elements. Do not connect the same pair of elements more than once, even with different connection types or in the opposite direction. Choose the single most specific semantically appropriate connection type.
 
 ## Output format
 
@@ -170,14 +168,16 @@ ElementType <name_3>
 
 CONNECTIONS
 <element name> supports <element name>
-<element name> weakly conflicts <element name>
-<element name> moderately conflicts <element name>
-<element name> strongly conflicts <element name>
 <element name> hinders <element name>
-<element name> communicates <element name>
-<element name> relates_to <element name>
+<element name> contradicts <element name>
+<element name> motivates <element name>
+<element name> has requirement <element name>
+<element name> has goal <element name>
 <element name_1>, <element name_2>, <element name_3> AND <element name>
 <element name_1>, <element name_2>, <element name_3> OR <element name>
+<element name_1>, <element name_2>, <element name_3> AND/OR <element name>
+<element name_1>, <element name_2>, <element name_3> Partial-PartOF <element name>
+<element name_1>, <element name_2>, <element name_3> Total-PartOF <element name>
 
 Note that for connections, you shouldn’t include the ElementType in the Connection.
 

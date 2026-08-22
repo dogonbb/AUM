@@ -155,6 +155,7 @@ For maintains:
 For Partial-ISA, Total-ISA, Partial-PartOF, and Total-PartOF connectors:
 
 - Individual, Role, Resource, and Organizational Unit may be connected with Individual, Role, Resource, and Organizational Unit.
+- A connector connection must have at least two sources and exactly one target.
 
 ## Modeling rules
 

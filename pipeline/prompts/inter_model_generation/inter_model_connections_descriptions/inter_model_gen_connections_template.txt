@@ -146,7 +146,7 @@ Role Customer Service Representative performs Process Process Customer Request
 7. Do not include element types in the relationships.
 8. Use only the allowed connectors.
 9. Do not include explanations, comments, bullet points, numbering, Markdown, or code fences.
-10. Do not return duplicate relationships.
+10. Create at most one relationship between any pair of elements. Do not connect the same source and target elements more than once, even with different connectors. Choose the single most specific applicable connector.
 11. If no meaningful intermodel relationship can be identified, return exactly:
 
 NO_INTERMODEL_RELATIONSHIPS

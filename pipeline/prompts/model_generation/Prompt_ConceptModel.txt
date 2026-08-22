@@ -57,7 +57,7 @@ Use direct connections only for simple one-to-one relations.
 
 ## Meaning of connector-based connections
 
-Use connector-based connections when multiple elements are connected by one Partial-ISA, Total-ISA, Partial-PartOF, or Total-PartOF connector.
+Use connector-based connections when one or more elements are connected by one Partial-ISA, Total-ISA, Partial-PartOF, or Total-PartOF connector. A connector with exactly one source and one target is valid.
 
 - A, B, C Partial-ISA D  
   means that A, B, and C are specific concepts or attributes connected to the more generic concept or attribute D by a partial ISA connector.
@@ -110,6 +110,7 @@ For Partial-ISA, Total-ISA, Partial-PartOF, and Total-PartOF connectors:
 13. Every element used in CONNECTIONS must be listed exactly once in ELEMENTS.
 14. Do not invent elements that are not supported by the case text.
 15. Do not write explanations, comments, descriptions, bullet points, or any text outside the required output sections.
+16. An element must never be both a source and the target of the same connection. In particular, do not repeat the connector target in the source list of Partial-ISA, Total-ISA, Partial-PartOF, or Total-PartOF.
 
 ## Output format
 

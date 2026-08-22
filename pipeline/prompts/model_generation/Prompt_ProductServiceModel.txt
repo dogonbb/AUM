@@ -51,17 +51,17 @@ Use only the following connector-based connections:
 Use direct connections only for simple one-to-one relations.
 
 - A part_of B  
-  means that A is a part, component, feature, or sub-product of B.
+  means that Component A is a direct part of Product or Service B.
 
 - A is_a B  
-  means that A is a specialization, version, variant, or subtype of B.
+  means that Product or Service A is a specialization, version, variant, or subtype of Product or Service B.
 
 - A requires B  
-  means that A depends on B or needs B in order to work.
+  means that Feature A depends on Component, Product, or Service B in order to work.
 
 ## Meaning of connector-based connections
 
-Use connector-based connections when multiple elements are connected to one target or when the relation expresses AND, OR, XOR, or ISA grouping.
+Use connector-based connections when one or more elements are connected to one target or when the relation expresses AND, OR, XOR, or ISA grouping. A connector with exactly one source and one target is valid and is required when that class combination is not allowed as a direct `part_of` or `is_a` connection.
 
 - A, B, C PartOF (AND) D  
   means that A, B, and C are all parts of D.
@@ -82,31 +82,19 @@ Use connector-based connections when multiple elements are connected to one targ
 
 For part_of and PartOF connectors:
 
-- Product part_of Product
-- Product part_of Service
-- Product part_of Component
-- Product part_of Feature
-- Service part_of Product
-- Service part_of Service
-- Service part_of Component
-- Service part_of Feature
 - Component part_of Product
 - Component part_of Service
-- Component part_of Component
-- Component part_of Feature
-- Feature part_of Product
-- Feature part_of Service
-- Feature part_of Component
-- Feature part_of Feature
 
-For is_a and ISA connectors:
+For is_a:
 
 - Product is_a Product
+- Product is_a Service
+- Service is_a Product
 - Service is_a Service
-- Component is_a Component
-- Feature is_a Feature
 
-Use ISA relations preferably only between elements of the same type.
+For PartOF and ISA connectors:
+
+- Product, Service, Component, and Feature may be connected with Product, Service, Component, and Feature.
 
 For requires:
 

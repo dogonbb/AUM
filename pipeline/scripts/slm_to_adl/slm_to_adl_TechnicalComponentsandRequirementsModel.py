@@ -24,7 +24,14 @@ import re
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Set, Tuple
+
+try:
+    from scripts.slm_to_adl.hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from scripts.slm_to_adl.validation import parse_lines_collect, raise_validation_errors, validate_references
+except ModuleNotFoundError:
+    from hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from validation import parse_lines_collect, raise_validation_errors, validate_references
 
 # Longest aliases first.
 ELEMENT_ALIASES = {
@@ -43,15 +50,12 @@ ELEMENT_ALIASES = {
 }
 
 DIRECT_KINDS = {
-    "supports", "hinders", "contradicts", "motivates",
-    "has requirement", "has goal", "communicates", "relates_to",
-    "weakly conflicts", "moderately conflicts", "strongly conflicts",
+    "supports", "hinders", "contradicts", "motivates", "has requirement", "has goal",
 }
 CONNECTOR_KINDS = {"AND", "OR", "AND/OR", "Partial-PartOF", "Total-PartOF"}
 
 TOKEN_RE = re.compile(
-    r"\s(AND/OR|Partial-PartOF|Total-PartOF|moderately conflicts|strongly conflicts|"
-    r"weakly conflicts|has requirement|has goal|communicates|relates_to|contradicts|"
+    r"\s(AND/OR|Partial-PartOF|Total-PartOF|has requirement|has goal|contradicts|"
     r"motivates|supports|hinders|AND|OR)\s",
     re.IGNORECASE,
 )
@@ -146,21 +150,24 @@ def validate_pattern(conn: Connection, elements: Dict[str, Element], line: str) 
     t = target_class
 
     allowed = False
-    if kind in {"supports", "hinders"}:
-        allowed = ((s in {"Goal", "Problem", "IS Requirement", "IS Technical Component"} and t == "Goal") or
-                   (s == "IS Technical Component" and t in {"IS Technical Component", "IS Requirement"}))
-    elif kind in {"contradicts", "weakly conflicts", "moderately conflicts", "strongly conflicts"}:
+    if kind == "supports":
+        allowed = (s, t) in {("Goal", "Goal"), ("IS Technical Component", "IS Technical Component")}
+    elif kind == "hinders":
+        allowed = (s, t) in {
+            ("Goal", "Goal"), ("Problem", "Goal"),
+            ("IS Technical Component", "IS Technical Component"),
+        }
+    elif kind == "contradicts":
         allowed = s == "Goal" and t == "Goal"
     elif kind == "motivates":
         allowed = s == "Goal" and t in {"IS Technical Component", "IS Requirement"}
     elif kind == "has requirement":
-        allowed = s in {"Goal", "IS Technical Component"} and t in {"IS Technical Component", "IS Requirement"}
+        allowed = (
+            (s == "Goal" and t in {"IS Technical Component", "IS Requirement"})
+            or (s == "IS Technical Component" and t == "IS Requirement")
+        )
     elif kind == "has goal":
         allowed = s == "IS Technical Component" and t == "Goal"
-    elif kind == "communicates":
-        allowed = s == "IS Technical Component" and t == "IS Technical Component"
-    elif kind == "relates_to":
-        allowed = s == "IS Technical Component" and t in {"Goal", "Problem", "IS Requirement"}
 
     if not allowed:
         raise ValueError(f"Disallowed connection pattern in {line!r}: {s} {kind} {t}")
@@ -176,11 +183,7 @@ def parse_connection_line(line: str, elements: Dict[str, Element]) -> Connection
     sources = [normalize_spaces(x) for x in left.split(",") if normalize_spaces(x)]
     if not sources or not target:
         raise ValueError(f"Incomplete connection: {line!r}")
-    for source in sources:
-        if source not in elements:
-            raise ValueError(f"Source {source!r} is not defined under ELEMENTS.")
-    if target not in elements:
-        raise ValueError(f"Target {target!r} is not defined under ELEMENTS.")
+    validate_references(sources, [target], elements)
     conn = Connection(sources, kind, target)
     validate_pattern(conn, elements, line)
     return conn
@@ -188,13 +191,34 @@ def parse_connection_line(line: str, elements: Dict[str, Element]) -> Connection
 
 def parse_notation(text: str) -> Tuple[List[Element], List[Connection]]:
     element_lines, connection_lines = split_sections(text)
-    elements = [parse_element_line(line) for line in element_lines]
+    elements, errors = parse_lines_collect(element_lines, parse_element_line, "ELEMENTS")
     by_name: Dict[str, Element] = {}
     for element in elements:
         if element.name in by_name:
-            raise ValueError(f"Duplicate element name: {element.name!r}")
+            errors.append(f"Duplicate element name: {element.name!r}")
         by_name[element.name] = element
-    connections = [parse_connection_line(line, by_name) for line in connection_lines]
+    indexed_connections = []
+    for line_number, line in enumerate(connection_lines, start=1):
+        try:
+            indexed_connections.append((line_number, line, parse_connection_line(line, by_name)))
+        except ValueError as exc:
+            errors.append(f"CONNECTIONS line {line_number}: {exc}")
+    connections = [connection for _, _, connection in indexed_connections]
+    seen_pairs: Dict[frozenset[str], Tuple[int, str]] = {}
+    for line_number, line, connection in indexed_connections:
+        for source in connection.sources:
+            pair = frozenset((source, connection.target))
+            previous = seen_pairs.get(pair)
+            if previous is not None:
+                previous_line, previous_kind = previous
+                errors.append(
+                    "More than one connection between the same two elements: "
+                    f"{source!r} and {connection.target!r}. "
+                    f"Earlier CONNECTIONS line {previous_line} uses {previous_kind!r}; "
+                    f"line {line_number} uses {connection.kind!r}: {line!r}"
+                )
+            seen_pairs[pair] = (line_number, connection.kind)
+    raise_validation_errors(errors)
     return elements, connections
 
 
@@ -234,10 +258,18 @@ def attrs_for(element: Element) -> str:
 '''
     if element.adl_class == "IS Requirement":
         req_type = element.requirement_type or "Functional"
+        # The 4EM reference exports prove "Functional" as an enumeration value.
+        # "Non-Functional" is not part of the importer enumeration and causes
+        # "Wrong enumeration value"; an empty enumeration is rejected as well.
+        # Omit the optional attribute instead of misclassifying the requirement.
+        type_attribute = (
+            '\n\tATTRIBUTE <Type>\n\tVALUE "Functional"\n'
+            if req_type == "Functional" else ""
+        )
         return f'''
 \tATTRIBUTE <External tool coupling>\n\tVALUE ""
 \n\tATTRIBUTE <Description>\n\tVALUE ""
-\n\tATTRIBUTE <Type>\n\tVALUE "{esc(req_type)}"
+{type_attribute}
 \n\tATTRIBUTE <Intermodel-Relations>\n\tVALUE
 \n\tATTRIBUTE <Decomposition>\n\tVALUE ""
 \n\tATTRIBUTE <Attributes>\n\tVALUE
@@ -249,30 +281,255 @@ def size_for(adl_class: str) -> Tuple[float, float]:
     return (4.0, 2.0) if adl_class in {"IS Requirement", "IS Technical Component"} else (4.0, 1.5)
 
 
-def compute_layout(elements: List[Element], connections: List[Connection]) -> Dict[str, Tuple[float, float]]:
-    base = {"Problem": 0, "Goal": 1, "IS Requirement": 2, "IS Technical Component": 3}
-    layer = {e.name: base.get(e.adl_class, 1) for e in elements}
-    for _ in range(len(elements)):
-        changed = False
-        for c in connections:
-            if c.kind in CONNECTOR_KINDS:
+def connector_layout_name(connection_index: int, kind: str) -> str:
+    return f"{kind}-AUTO{connection_index}"
+
+
+def layout_components(elements: List[Element], connections: List[Connection]) -> List[List[str]]:
+    """Analyse weakly connected components including visible connector nodes."""
+    nodes = [element.name for element in elements]
+    adjacency: Dict[str, Set[str]] = {name: set() for name in nodes}
+
+    def link(left: str, right: str) -> None:
+        adjacency.setdefault(left, set()).add(right)
+        adjacency.setdefault(right, set()).add(left)
+
+    for index, connection in enumerate(connections, start=1):
+        if connection.kind in CONNECTOR_KINDS:
+            connector = connector_layout_name(index, connection.kind)
+            nodes.append(connector)
+            adjacency[connector] = set()
+            link(connection.target, connector)
+            for source in connection.sources:
+                link(connector, source)
+        else:
+            for source in connection.sources:
+                link(connection.target, source)
+
+    components: List[List[str]] = []
+    visited: Set[str] = set()
+    for root in nodes:
+        if root in visited:
+            continue
+        stack = [root]
+        visited.add(root)
+        component: List[str] = []
+        while stack:
+            current = stack.pop()
+            component.append(current)
+            for neighbor in reversed(nodes):
+                if neighbor in adjacency[current] and neighbor not in visited:
+                    visited.add(neighbor)
+                    stack.append(neighbor)
+        components.append(component)
+    return components
+
+
+def move_long_edges_around_nodes(
+    positions: Dict[str, Tuple[float, float]],
+    edges: List[Tuple[str, str, int]],
+    rank: Dict[str, int],
+    real_nodes: Set[str],
+) -> None:
+    """Shift long-edge targets so straight ADL edges do not cross nodes."""
+    outgoing: Dict[str, Set[str]] = {}
+    for source, target, _ in edges:
+        outgoing.setdefault(source, set()).add(target)
+
+    def descendants(start: str) -> Set[str]:
+        found = {start}
+        stack = list(outgoing.get(start, set()))
+        while stack:
+            node = stack.pop()
+            if node in found:
                 continue
-            for s in c.sources:
-                wanted = layer[s] + 1
-                if layer[c.target] < wanted:
-                    layer[c.target] = wanted
-                    changed = True
+            found.add(node)
+            stack.extend(outgoing.get(node, set()))
+        return {node for node in found if node in positions}
+
+    for _ in range(4):
+        changed = False
+        for source, target, _ in edges:
+            if source not in positions or target not in positions:
+                continue
+            if rank[target] - rank[source] <= 2:
+                continue
+            source_x, source_y = positions[source]
+            target_x, target_y = positions[target]
+            left_limit = target_x
+            right_limit = target_x
+            collision = False
+            for blocker in real_nodes:
+                if (
+                    blocker in {source, target}
+                    or blocker not in positions
+                    or not rank[source] < rank[blocker] < rank[target]
+                ):
+                    continue
+                blocker_x, blocker_y = positions[blocker]
+                fraction = (blocker_y - source_y) / (target_y - source_y)
+                if not 0.0 < fraction < 1.0:
+                    continue
+                edge_x = source_x + (target_x - source_x) * fraction
+                if abs(edge_x - blocker_x) > 3.0:
+                    continue
+                collision = True
+                left_limit = min(
+                    left_limit,
+                    source_x + (blocker_x - 3.5 - source_x) / fraction,
+                )
+                right_limit = max(
+                    right_limit,
+                    source_x + (blocker_x + 3.5 - source_x) / fraction,
+                )
+            if not collision:
+                continue
+            shift_left = left_limit - target_x
+            shift_right = right_limit - target_x
+            shift = shift_left if abs(shift_left) <= abs(shift_right) else shift_right
+            for node in descendants(target):
+                x, y = positions[node]
+                positions[node] = (x + shift, y)
+            changed = True
         if not changed:
             break
-    minimum = min(layer.values(), default=0)
-    layer = {k: v - minimum for k, v in layer.items()}
-    grouped: Dict[int, List[str]] = {}
-    for e in elements:
-        grouped.setdefault(layer[e.name], []).append(e.name)
+
+
+def compute_layout(elements: List[Element], connections: List[Connection]) -> Dict[str, Tuple[float, float]]:
+    """Create a top-down forest with connectors on intermediate half-levels."""
+    if not elements:
+        return {}
+
+    layout_nodes = [LayoutNode(element.name, *size_for(element.adl_class)) for element in elements]
+    layout_edges: List[LayoutEdge] = []
+    branches: List[str] = []
+    for index, connection in enumerate(connections, start=1):
+        if connection.kind in CONNECTOR_KINDS:
+            connector = connector_layout_name(index, connection.kind)
+            layout_nodes.append(LayoutNode(connector, 1.0, 1.0, True))
+            branches.append(connector)
+            layout_edges.append(LayoutEdge(connection.target, connector, 1))
+            layout_edges.extend(LayoutEdge(connector, source, 1) for source in connection.sources)
+        else:
+            layout_edges.extend(
+                LayoutEdge(connection.target, source, 2, True) for source in connection.sources
+            )
+    return compute_hierarchical_layout(
+        layout_nodes, layout_edges, branch_nodes=branches,
+        options=LayoutOptions(x_start=3.0, y_start=2.5, node_gap=6.5, half_level_gap=3.2),
+    )
+
+    node_order = {element.name: index for index, element in enumerate(elements)}
+    all_nodes = [element.name for element in elements]
+    raw_edges: List[Tuple[str, str, int]] = []
+    for index, connection in enumerate(connections, start=1):
+        if connection.kind in CONNECTOR_KINDS:
+            connector = connector_layout_name(index, connection.kind)
+            node_order[connector] = len(node_order)
+            all_nodes.append(connector)
+            raw_edges.append((connection.target, connector, 1))
+            raw_edges.extend((connector, source, 1) for source in connection.sources)
+        else:
+            raw_edges.extend((connection.target, source, 2) for source in connection.sources)
+
+    # Cyclic/backward relations remain in ADL but cannot inflate the hierarchy.
+    accepted: List[Tuple[str, str, int]] = []
+    outgoing: Dict[str, Set[str]] = {name: set() for name in all_nodes}
+
+    def reaches(start: str, wanted: str) -> bool:
+        stack = [start]
+        visited: Set[str] = set()
+        while stack:
+            current = stack.pop()
+            if current == wanted:
+                return True
+            if current in visited:
+                continue
+            visited.add(current)
+            stack.extend(outgoing[current])
+        return False
+
+    for source, target, distance in raw_edges:
+        if source == target or reaches(target, source):
+            continue
+        if target not in outgoing[source]:
+            outgoing[source].add(target)
+            accepted.append((source, target, distance))
+
     positions: Dict[str, Tuple[float, float]] = {}
-    for col, names in grouped.items():
-        for row, name in enumerate(names):
-            positions[name] = (3.0 + col * 8.5, 2.5 + row * 2.8)
+    component_x = 3.0
+    half_level_gap = 3.2
+    node_gap = 6.5
+    for component_index, component in enumerate(layout_components(elements, connections)):
+        component_set = set(component)
+        edges = [edge for edge in accepted if edge[0] in component_set and edge[1] in component_set]
+        rank = {name: 0 for name in component}
+        for _ in component:
+            changed = False
+            for source, target, distance in edges:
+                wanted = rank[source] + distance
+                if rank[target] < wanted:
+                    rank[target] = wanted
+                    changed = True
+            if not changed:
+                break
+
+        layout_nodes = list(component)
+        virtual_nodes: Set[str] = set()
+        layout_edges: List[Tuple[str, str]] = []
+        for edge_index, (source, target, _) in enumerate(edges):
+            previous = source
+            for virtual_rank in range(rank[source] + 1, rank[target]):
+                virtual = f"__TM_ROUTE_{component_index}_{edge_index}_{virtual_rank}"
+                layout_nodes.append(virtual)
+                virtual_nodes.add(virtual)
+                rank[virtual] = virtual_rank
+                node_order[virtual] = len(node_order)
+                layout_edges.append((previous, virtual))
+                previous = virtual
+            layout_edges.append((previous, target))
+
+        adjacency: Dict[str, Set[str]] = {name: set() for name in layout_nodes}
+        for source, target in layout_edges:
+            adjacency[source].add(target)
+            adjacency[target].add(source)
+        rows: Dict[int, List[str]] = {}
+        for name in layout_nodes:
+            rows.setdefault(rank[name], []).append(name)
+        for names in rows.values():
+            names.sort(key=lambda name: node_order[name])
+
+        order = {name: float(index) for names in rows.values() for index, name in enumerate(names)}
+        for _ in range(8):
+            for level in sorted(rows):
+                rows[level].sort(key=lambda name: (
+                    sum(order[n] for n in adjacency[name]) / len(adjacency[name])
+                    if adjacency[name] else order[name],
+                    node_order[name],
+                ))
+                for index, name in enumerate(rows[level]):
+                    order[name] = float(index)
+
+        widest = max((len(names) for names in rows.values()), default=1)
+        component_width = max(7.0, (widest - 1) * node_gap + 5.0)
+        center_x = component_x + component_width / 2.0
+        for level, names in rows.items():
+            start_x = center_x - (len(names) - 1) * node_gap / 2.0
+            for index, name in enumerate(names):
+                if name not in virtual_nodes:
+                    positions[name] = (start_x + index * node_gap, 2.5 + level * half_level_gap)
+        real_component_nodes = {name for name in component if name in positions}
+        move_long_edges_around_nodes(positions, edges, rank, real_component_nodes)
+        minimum_x = min((positions[name][0] for name in real_component_nodes), default=component_x)
+        if minimum_x < component_x:
+            correction = component_x - minimum_x
+            for name in real_component_nodes:
+                x, y = positions[name]
+                positions[name] = (x + correction, y)
+        component_x = max(
+            (positions[name][0] for name in real_component_nodes),
+            default=component_x + component_width,
+        ) + 7.0
     return positions
 
 
@@ -316,24 +573,8 @@ def relation_type(conn: Connection, classes: Dict[str, str]) -> str:
         return "supports" if s == "IS Technical Component" and t == "IS Technical Component" else "Supports"
     if kind == "hinders":
         return "hinders" if s == "IS Technical Component" and t == "IS Technical Component" else "Hinders"
-    if kind in {"contradicts", "weakly conflicts", "moderately conflicts", "strongly conflicts"}:
+    if kind == "contradicts":
         return "Contradicts"
-    if kind == "relates_to":
-        # "relates_to" is accepted in the compact SLM notation, but it is not
-        # an enumeration value supported by the 4EM ADL metamodel.
-        if t == "Goal":
-            return "has goal"
-        if t == "IS Requirement":
-            return "has requirement"
-        # A generic component-to-problem association has no more specific
-        # enumeration in the reference exports.
-        return ""
-    if kind == "communicates":
-        # The compact notation distinguishes communication semantically, but
-        # the 4EM Relation <Type> enumeration for technical-component edges
-        # does not contain "communicates". Reference exports store these
-        # edges with an empty Type value.
-        return ""
     return kind
 
 
@@ -342,6 +583,8 @@ def generate_adl(elements: List[Element], connections: List[Connection], model_n
     created = now.strftime("%d.%m.%Y, %H:%M")
     changed = now.strftime("%d.%m.%Y, %H:%M:%S")
     positions = compute_layout(elements, connections)
+    world_width = max(80, int(max((x for x, _ in positions.values()), default=70.0) + 10.0))
+    world_height = max(80, int(max((y for _, y in positions.values()), default=70.0) + 10.0))
     classes = {e.name: e.adl_class for e in elements}
     instances: List[str] = []
     relations: List[str] = []
@@ -356,10 +599,8 @@ def generate_adl(elements: List[Element], connections: List[Connection], model_n
     for c_idx, conn in enumerate(connections, start=1):
         if conn.kind in CONNECTOR_KINDS:
             cls = conn.kind
-            junction = f"{cls}-AUTO{c_idx}"
-            pts = [positions[s] for s in conn.sources] + [positions[conn.target]]
-            x = sum(p[0] for p in pts) / len(pts)
-            y = sum(p[1] for p in pts) / len(pts)
+            junction = connector_layout_name(c_idx, cls)
+            x, y = positions[junction]
             instances.append(make_instance(junction, cls, '\n\tATTRIBUTE <External tool coupling>\n\tVALUE ""\n', node_index, x, y))
             node_index += 1
             classes[junction] = cls
@@ -438,7 +679,7 @@ TYPE <Technical Components and Requirements Model>
 
 \tATTRIBUTE <Description>\n\tVALUE ""
 
-\tATTRIBUTE <World area>\n\tVALUE "w:80cm h:80cm minw:5cm minh:5cm"
+\tATTRIBUTE <World area>\n\tVALUE "w:{world_width}cm h:{world_height}cm minw:5cm minh:5cm"
 
 \tATTRIBUTE <Grid>\n\tVALUE ""
 
@@ -522,6 +763,10 @@ def main() -> None:
     input_path = Path(args.input)
     output_path = Path(args.output)
     elements, connections = parse_notation(input_path.read_text(encoding="utf-8"))
+    components = layout_components(elements, connections)
+    element_names = {element.name for element in elements}
+    sizes = ", ".join(str(sum(name in element_names for name in component)) for component in components)
+    print(f"Graph analysis: {len(components)} connected component(s) (element counts: {sizes}).")
     output_path.write_text(generate_adl(elements, connections, args.model_name), encoding="utf-8")
     print(f"OK: read {len(elements)} elements and {len(connections)} notation connections.")
     print(f"ADL written to: {output_path}")

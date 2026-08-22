@@ -349,18 +349,22 @@ def parse_relationship_text(text: str, model_lookup: dict[str, str]) -> list[Rel
         )
 
     unique: list[Relation] = []
-    seen: set[tuple[str, str, str, str, str]] = set()
+    seen: dict[frozenset[tuple[str, str]], Relation] = {}
     for relation in relations:
-        key = (
-            relation.source_model,
-            normalize(relation.source_element),
-            relation.connector,
-            relation.target_model,
-            normalize(relation.target_element),
-        )
-        if key not in seen:
-            seen.add(key)
-            unique.append(relation)
+        key = frozenset((
+            (relation.source_model, normalize(relation.source_element)),
+            (relation.target_model, normalize(relation.target_element)),
+        ))
+        previous = seen.get(key)
+        if previous is not None:
+            raise MergeError(
+                "More than one intermodel relationship between the same two elements: "
+                f"lines {previous.line_number} and {relation.line_number} connect "
+                f"'{relation.source_element}' and '{relation.target_element}' "
+                f"using '{previous.connector}' and '{relation.connector}'."
+            )
+        seen[key] = relation
+        unique.append(relation)
     return unique
 
 

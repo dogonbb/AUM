@@ -26,7 +26,13 @@ import re
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Set, Tuple
+try:
+    from scripts.slm_to_adl.hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from scripts.slm_to_adl.validation import parse_lines_collect, raise_validation_errors, validate_references
+except ModuleNotFoundError:
+    from hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from validation import parse_lines_collect, raise_validation_errors, validate_references
 
 
 ELEMENT_TYPES = {"Concept", "Attribute"}
@@ -184,16 +190,16 @@ def parse_connection_line(line: str, elements_by_name: Dict[str, Element]) -> Co
     if not sources:
         raise ValueError(f"Connection has no source: {line!r}")
 
-    for source in sources:
-        if source not in elements_by_name:
-            raise ValueError(f"Source {source!r} is not defined under ELEMENTS.")
-    if target not in elements_by_name:
-        raise ValueError(f"Target {target!r} is not defined under ELEMENTS.")
+    validate_references(sources, [target], elements_by_name)
+    if target in sources:
+        raise ValueError(
+            f"Connection target {target!r} must not also occur in its source list: {line!r}"
+        )
 
     if kind in DIRECT_CONNECTION_TYPES and len(sources) != 1:
         raise ValueError(f"Direct connection {kind!r} must have exactly one source: {line!r}")
-    # Connector-Verbindungen sind auch mit genau einer Quelle gueltig.
-    # Eine fehlende Quelle wird bereits weiter oben abgefangen.
+    if len(set(sources)) != len(sources):
+        raise ValueError(f"Connection contains duplicate source names: {line!r}")
 
     for source in sources:
         validate_allowed_pattern(kind, elements_by_name[source].type, elements_by_name[target].type, line)
@@ -203,18 +209,25 @@ def parse_connection_line(line: str, elements_by_name: Dict[str, Element]) -> Co
 
 def parse_notation(text: str) -> Tuple[List[Element], List[Connection]]:
     element_lines, connection_lines = split_sections(text)
+    errors = []
     if not element_lines:
-        raise ValueError("No ELEMENTS section or no elements found.")
-
-    elements = [parse_element_line(line) for line in element_lines]
+        errors.append("No ELEMENTS section or no elements found.")
+    elements, element_errors = parse_lines_collect(element_lines, parse_element_line, "ELEMENTS")
+    errors.extend(element_errors)
 
     names = [element.name for element in elements]
     duplicates = sorted({name for name in names if names.count(name) > 1})
     if duplicates:
-        raise ValueError(f"Duplicate element names found: {', '.join(duplicates)}")
+        errors.append(f"Duplicate element names found: {', '.join(duplicates)}")
 
     elements_by_name = {element.name: element for element in elements}
-    connections = [parse_connection_line(line, elements_by_name) for line in connection_lines]
+    connections, connection_errors = parse_lines_collect(
+        connection_lines,
+        lambda line: parse_connection_line(line, elements_by_name),
+        "CONNECTIONS",
+    )
+    errors.extend(connection_errors)
+    raise_validation_errors(errors)
     return elements, connections
 
 
@@ -280,99 +293,433 @@ def layout_position(index: int) -> Tuple[float, float]:
     return x, y
 
 
+def concept_components(
+    elements: List[Element], connections: List[Connection]
+) -> List[List[str]]:
+    """Return weakly connected concept components in deterministic order.
+
+    Attributes do not connect concept components.  A ``has attribute`` edge only
+    assigns an attribute to the visual block of its owning concept.
+    """
+    concepts = [element.name for element in elements if element.type == "Concept"]
+    concept_set = set(concepts)
+    adjacency: Dict[str, Set[str]] = {name: set() for name in concepts}
+
+    for conn in connections:
+        if conn.kind == "has attribute" or conn.target not in concept_set:
+            continue
+        for source in conn.sources:
+            if source in concept_set:
+                adjacency[source].add(conn.target)
+                adjacency[conn.target].add(source)
+
+    components: List[List[str]] = []
+    visited: Set[str] = set()
+    for root in concepts:
+        if root in visited:
+            continue
+        component: List[str] = []
+        stack = [root]
+        visited.add(root)
+        while stack:
+            current = stack.pop()
+            component.append(current)
+            for neighbor in reversed(concepts):
+                if neighbor in adjacency[current] and neighbor not in visited:
+                    visited.add(neighbor)
+                    stack.append(neighbor)
+        components.append(component)
+    return components
+
+
+def _forward_concept_edges(
+    concept_names: List[str], connections: List[Connection]
+) -> List[Tuple[str, str]]:
+    """Keep a stable acyclic main direction for hierarchical placement."""
+    concept_set = set(concept_names)
+    accepted: List[Tuple[str, str]] = []
+    outgoing: Dict[str, Set[str]] = {name: set() for name in concept_names}
+
+    def reaches(start: str, wanted: str) -> bool:
+        stack = [start]
+        seen: Set[str] = set()
+        while stack:
+            current = stack.pop()
+            if current == wanted:
+                return True
+            if current in seen:
+                continue
+            seen.add(current)
+            stack.extend(outgoing[current])
+        return False
+
+    for conn in connections:
+        if conn.kind == "has attribute" or conn.target not in concept_set:
+            continue
+        for source in conn.sources:
+            if source not in concept_set or source == conn.target:
+                continue
+            # Feedback relations remain in the ADL, but do not invert or inflate
+            # the visual hierarchy.
+            if reaches(conn.target, source):
+                continue
+            if conn.target not in outgoing[source]:
+                outgoing[source].add(conn.target)
+                accepted.append((source, conn.target))
+    return accepted
+
+
+def _segment_intersects_box(
+    start: Tuple[float, float],
+    end: Tuple[float, float],
+    center: Tuple[float, float],
+    width: float,
+    height: float,
+    margin: float = 0.35,
+) -> bool:
+    """Return whether a line segment enters an expanded axis-aligned node box."""
+    left = center[0] - width / 2.0 - margin
+    right = center[0] + width / 2.0 + margin
+    top = center[1] - height / 2.0 - margin
+    bottom = center[1] + height / 2.0 + margin
+    dx = end[0] - start[0]
+    dy = end[1] - start[1]
+    lower, upper = 0.0, 1.0
+    for p, q in ((-dx, start[0] - left), (dx, right - start[0]),
+                 (-dy, start[1] - top), (dy, bottom - start[1])):
+        if abs(p) < 1e-9:
+            if q < 0:
+                return False
+            continue
+        ratio = q / p
+        if p < 0:
+            lower = max(lower, ratio)
+        else:
+            upper = min(upper, ratio)
+        if lower > upper:
+            return False
+    return True
+
+
 def compute_layout(elements: List[Element], connections: List[Connection]) -> Dict[str, Tuple[float, float]]:
-    """Berechnet ein einfaches, strukturorientiertes Layout."""
+    """Lay out concept components top-down and attach attributes below owners.
+
+    The graph is analysed as weakly connected components before placement.  Only
+    concept-to-concept relations define hierarchy levels.  Attributes are placed
+    in compact rows below their concept, with a clear vertical connection corridor
+    through the centre of the concept block.
+    """
     if not elements:
         return {}
 
-    input_order = {element.name: i for i, element in enumerate(elements)}
-    layer: Dict[str, int] = {element.name: 0 for element in elements}
+    # Concepts and attributes use the same shared hierarchy rules as every
+    # other model. ``has attribute`` is a normal parent-to-child edge; only
+    # parsing, element sizes and ADL classes remain concept-specific.
+    normal_nodes = [LayoutNode(element.name, *node_size_for(element.type)) for element in elements]
+    normal_edges: List[LayoutEdge] = []
+    normal_branches: List[str] = []
+    for index, connection in enumerate(connections, start=1):
+        if connection.kind in CONNECTOR_CONNECTION_TYPES:
+            connector = f"{connection.kind}-AUTO{index}"
+            normal_nodes.append(LayoutNode(connector, 1.0, 1.0, True))
+            normal_branches.append(connector)
+            normal_edges.extend(
+                LayoutEdge(source, connector, 1) for source in connection.sources
+            )
+            normal_edges.append(LayoutEdge(connector, connection.target, 1))
+        else:
+            normal_edges.extend(
+                LayoutEdge(source, connection.target, 2) for source in connection.sources
+            )
+    return compute_hierarchical_layout(
+        normal_nodes,
+        normal_edges,
+        branch_nodes=normal_branches,
+        options=LayoutOptions(
+            x_start=3.0,
+            y_start=2.5,
+            node_gap=9.0,
+            half_level_gap=4.5,
+        ),
+    )
 
-    for _ in range(len(elements)):
-        changed = False
-        for conn in connections:
-            # Quellen werden links vom Ziel platziert.
-            wanted_target = max(layer[source] + 1 for source in conn.sources)
-            if layer[conn.target] < wanted_target:
-                layer[conn.target] = wanted_target
-                changed = True
-        if not changed:
-            break
-
-    min_layer = min(layer.values())
-    if min_layer != 0:
-        layer = {name: value - min_layer for name, value in layer.items()}
-
-    adjacency: Dict[str, Dict[str, float]] = {element.name: {} for element in elements}
-
-    def add_edge(a: str, b: str, weight: float) -> None:
-        adjacency[a][b] = adjacency[a].get(b, 0.0) + weight
-        adjacency[b][a] = adjacency[b].get(a, 0.0) + weight
-
-    for conn in connections:
-        weight = 4.0 if conn.kind in CONNECTOR_CONNECTION_TYPES else 2.5
-        for source in conn.sources:
-            add_edge(source, conn.target, weight)
-        if len(conn.sources) > 1:
-            for i, a in enumerate(conn.sources):
-                for b in conn.sources[i + 1:]:
-                    add_edge(a, b, weight * 0.75)
-
-    component_id: Dict[str, int] = {}
-    next_component_id = 0
-    for element in elements:
-        if element.name in component_id:
+    attributes = {e.name for e in elements if e.type == "Attribute"}
+    concepts = [e for e in elements if e.type != "Attribute"]
+    nodes = [LayoutNode(e.name, *node_size_for(e.type)) for e in concepts]
+    edges: List[LayoutEdge] = []
+    branches: List[str] = []
+    owned_attributes: Dict[str, List[str]] = {}
+    owned: Set[str] = set()
+    for index, connection in enumerate(connections, start=1):
+        if connection.kind == "has attribute":
+            if connection.target in attributes and connection.sources:
+                owned_attributes.setdefault(connection.sources[0], []).append(connection.target)
+                owned.add(connection.target)
             continue
-        stack = [element.name]
-        component_id[element.name] = next_component_id
-        while stack:
-            current = stack.pop()
-            for neighbor in adjacency[current]:
-                if neighbor not in component_id:
-                    component_id[neighbor] = next_component_id
-                    stack.append(neighbor)
-        next_component_id += 1
+        if connection.kind in CONNECTOR_CONNECTION_TYPES:
+            connector = f"{connection.kind}-AUTO{index}"
+            nodes.append(LayoutNode(connector, 1.0, 1.0, True))
+            branches.append(connector)
+            edges.append(LayoutEdge(connection.target, connector, 1))
+            edges.extend(LayoutEdge(connector, source, 1) for source in connection.sources)
+        else:
+            edges.extend(LayoutEdge(source, connection.target, 2) for source in connection.sources)
+    positions = compute_hierarchical_layout(nodes, edges, branch_nodes=branches,
+        options=LayoutOptions(
+            x_start=3.0, y_start=2.5, node_gap=9.0, half_level_gap=4.5,
+            component_bottom_reserve=3.5,
+        ))
 
-    layers: Dict[int, List[str]] = {}
-    for element in elements:
-        layers.setdefault(layer[element.name], []).append(element.name)
+    # Attributes remain attachments, not hierarchy nodes. Place them on the
+    # less occupied side of their owner and outside all concept-edge corridors.
+    for owner, attrs in owned_attributes.items():
+        if owner not in positions:
+            continue
+        owner_x, owner_y = positions[owner]
+        attribute_y = owner_y + 2.6
+        crossings: List[float] = []
+        for edge in edges:
+            if edge.source not in positions or edge.target not in positions:
+                continue
+            start, end = positions[edge.source], positions[edge.target]
+            if abs(end[1] - start[1]) < 1e-9:
+                continue
+            ratio = (attribute_y - start[1]) / (end[1] - start[1])
+            if 0.0 <= ratio <= 1.0:
+                crossings.append(start[0] + ratio * (end[0] - start[0]))
+        left = max(4.0, owner_x - min(crossings, default=owner_x) + 3.8)
+        right = max(4.0, max(crossings, default=owner_x) - owner_x + 3.8)
+        direction = -1.0 if left <= right else 1.0
+        distance = min(left, right)
+        for attribute in attrs:
+            positions[attribute] = (owner_x + direction * distance, attribute_y)
+            distance = (distance + 3.2) / ((2.6 - 0.85) / 2.6)
 
-    for names in layers.values():
-        names.sort(key=lambda name: (component_id[name], input_order[name]))
+    # Re-pack complete concept trees by their actual rectangles. Attribute
+    # attachments may extend far beyond a concept centre, so packing only the
+    # hierarchy nodes is insufficient to guarantee separation.
+    element_by_name = {element.name: element for element in elements}
+    connector_names = {
+        f"{connection.kind}-AUTO{index}"
+        for index, connection in enumerate(connections, start=1)
+        if connection.kind in CONNECTOR_CONNECTION_TYPES
+    }
+    packed_groups: List[Set[str]] = []
+    for component in concept_components(elements, connections):
+        group = set(component)
+        for owner in component:
+            group.update(owned_attributes.get(owner, []))
+        for connector in connector_names:
+            if connector in positions:
+                # A connector belongs to the component containing any endpoint.
+                connection_index = int(connector.rsplit("AUTO", 1)[1]) - 1
+                connection = connections[connection_index]
+                if connection.target in group or any(source in group for source in connection.sources):
+                    group.add(connector)
+        packed_groups.append({name for name in group if name in positions})
 
-    order_value: Dict[str, float] = {}
-    for names in layers.values():
-        for row, name in enumerate(names):
-            order_value[name] = float(row)
+    pack_x = 3.0
+    pack_y = 2.5
+    row_bottom = pack_y
+    for group_index, group in enumerate(packed_groups):
+        def size(name: str) -> Tuple[float, float]:
+            if name in connector_names:
+                return 1.0, 1.0
+            return node_size_for(element_by_name[name].type)
 
-    for _ in range(10):
-        for layer_no in sorted(layers):
-            names = layers[layer_no]
+        left = min(positions[name][0] - size(name)[0] / 2 for name in group)
+        top = min(positions[name][1] - size(name)[1] / 2 for name in group)
+        shift_x = pack_x - left
+        shift_y = pack_y - top
+        for name in group:
+            x, y = positions[name]
+            positions[name] = (x + shift_x, y + shift_y)
+        right = max(positions[name][0] + size(name)[0] / 2 for name in group)
+        bottom = max(positions[name][1] + size(name)[1] / 2 for name in group)
+        row_bottom = max(row_bottom, bottom)
+        if (group_index + 1) % 3 == 0:
+            pack_x = 3.0
+            pack_y = row_bottom + 8.0
+            row_bottom = pack_y
+        else:
+            pack_x = right + 8.0
 
-            def sort_key(name: str) -> Tuple[int, float, int]:
-                weighted_sum = 0.0
-                total_weight = 0.0
-                for neighbor, weight in adjacency[name].items():
-                    factor = 1.0 if layer[neighbor] != layer[name] else 0.35
-                    weighted_sum += order_value.get(neighbor, 0.0) * weight * factor
-                    total_weight += weight * factor
+    orphan_x = max((x for x, _ in positions.values()), default=3.0) + 8.0
+    for index, element in enumerate(e for e in elements if e.name in attributes - owned):
+        positions[element.name] = (orphan_x + (index % 4) * 5.8, 2.5 + (index // 4) * 1.55)
+    minimum_x = min((positions[e.name][0] - node_size_for(e.type)[0] / 2 for e in elements), default=2.0)
+    if minimum_x < 2.0:
+        shift = 2.0 - minimum_x
+        positions = {name: (x + shift, y) for name, (x, y) in positions.items()}
+    return positions
 
-                barycenter = weighted_sum / total_weight if total_weight else order_value[name]
-                return (component_id[name], barycenter, input_order[name])
-
-            names.sort(key=sort_key)
-            for row, name in enumerate(names):
-                order_value[name] = float(row)
-
-    x_start = 3.0
-    y_start = 2.5
-    x_gap = 10.5
-    y_gap = 2.4
-
+    input_order = {element.name: i for i, element in enumerate(elements)}
     positions: Dict[str, Tuple[float, float]] = {}
-    for layer_no, names in layers.items():
-        for row, name in enumerate(names):
-            positions[name] = (x_start + layer_no * x_gap, y_start + row * y_gap)
+
+    attributes = {element.name for element in elements if element.type == "Attribute"}
+    owned_attributes: Dict[str, List[str]] = {}
+    attribute_owner: Dict[str, str] = {}
+    for conn in connections:
+        if conn.kind != "has attribute" or conn.target not in attributes:
+            continue
+        owner = conn.sources[0]
+        if conn.target not in attribute_owner:
+            attribute_owner[conn.target] = owner
+            owned_attributes.setdefault(owner, []).append(conn.target)
+
+    components = concept_components(elements, connections)
+    component_x = 3.0
+    concept_y = 2.5
+    concept_gap = 9.0
+    attribute_y_gap = 1.55
+    attribute_x_gap = 5.8
+    component_gap = 8.0
+
+    for component in components:
+        forward_edges = _forward_concept_edges(component, connections)
+        layer = {name: 0 for name in component}
+        for _ in component:
+            changed = False
+            for source, target in forward_edges:
+                wanted = layer[source] + 1
+                if layer[target] < wanted:
+                    layer[target] = wanted
+                    changed = True
+            if not changed:
+                break
+
+        predecessors: Dict[str, List[str]] = {name: [] for name in component}
+        successors: Dict[str, List[str]] = {name: [] for name in component}
+        for source, target in forward_edges:
+            predecessors[target].append(source)
+            successors[source].append(target)
+
+        rows: Dict[int, List[str]] = {}
+        for name in component:
+            rows.setdefault(layer[name], []).append(name)
+
+        order = {name: float(input_order[name]) for name in component}
+        # Alternating barycentric sweeps reduce crossings between adjacent rows.
+        for _ in range(8):
+            for level in sorted(rows):
+                rows[level].sort(
+                    key=lambda name: (
+                        sum(order[p] for p in predecessors[name]) / len(predecessors[name])
+                        if predecessors[name] else order[name],
+                        input_order[name],
+                    )
+                )
+                for index, name in enumerate(rows[level]):
+                    order[name] = float(index)
+            for level in sorted(rows, reverse=True):
+                rows[level].sort(
+                    key=lambda name: (
+                        sum(order[s] for s in successors[name]) / len(successors[name])
+                        if successors[name] else order[name],
+                        input_order[name],
+                    )
+                )
+                for index, name in enumerate(rows[level]):
+                    order[name] = float(index)
+
+        max_row_width = 7.0
+        for names in rows.values():
+            widths = []
+            for name in names:
+                count = len(owned_attributes.get(name, []))
+                columns = min(4, max(1, count))
+                widths.append(max(7.0, columns * attribute_x_gap + 2.0 if count else 7.0))
+            max_row_width = max(max_row_width, sum(widths) + 3.0 * max(0, len(widths) - 1))
+
+        component_center = component_x + max_row_width / 2.0
+        for level, names in rows.items():
+            block_widths: List[float] = []
+            for name in names:
+                count = len(owned_attributes.get(name, []))
+                columns = min(4, max(1, count))
+                block_widths.append(max(7.0, columns * attribute_x_gap + 2.0 if count else 7.0))
+            row_width = sum(block_widths) + 3.0 * max(0, len(names) - 1)
+            cursor = component_center - row_width / 2.0
+            for name, block_width in zip(names, block_widths):
+                center_x = cursor + block_width / 2.0
+                positions[name] = (center_x, concept_y + level * concept_gap)
+                cursor += block_width + 3.0
+        component_x += max_row_width + component_gap
+
+    concept_set = {element.name for element in elements if element.type == "Concept"}
+    concept_edges = [
+        (source, conn.target)
+        for conn in connections
+        if conn.kind != "has attribute" and conn.target in concept_set
+        for source in conn.sources
+        if source in concept_set and source != conn.target
+    ]
+
+    # Attributes return to a simple row below their concept. The whole row is put
+    # outside the horizontal corridor occupied by tree edges at that height. On
+    # one side, distances grow sufficiently fast that an edge to an outer
+    # attribute cannot pass through an inner attribute box.
+    for owner, attrs in owned_attributes.items():
+        if owner not in positions:
+            continue
+        owner_x, owner_y = positions[owner]
+        attribute_y = owner_y + 2.6
+        edge_x_values: List[float] = []
+        for source, target in concept_edges:
+            start = positions[source]
+            end = positions[target]
+            if abs(end[1] - start[1]) < 1e-9:
+                continue
+            for sample_y in (attribute_y - 0.95, attribute_y, attribute_y + 0.95):
+                ratio = (sample_y - start[1]) / (end[1] - start[1])
+                if 0.0 <= ratio <= 1.0:
+                    edge_x_values.append(start[0] + ratio * (end[0] - start[0]))
+
+        left_clearance = max(
+            4.0,
+            owner_x - min(edge_x_values, default=owner_x) + 3.8,
+        )
+        right_clearance = max(
+            4.0,
+            max(edge_x_values, default=owner_x) - owner_x + 3.8,
+        )
+        direction = -1.0 if left_clearance <= right_clearance else 1.0
+        distance = min(left_clearance, right_clearance)
+        # At the upper edge of an attribute node, an attribute line has travelled
+        # this fraction of the way from its owner. This recurrence guarantees the
+        # next outer line clears the previous attribute rectangle.
+        arrival_fraction = (2.6 - 0.85) / 2.6
+        for attribute in attrs:
+            positions[attribute] = (owner_x + direction * distance, attribute_y)
+            distance = (distance + 3.2) / arrival_fraction
+
+    # Orphan attributes form compact blocks after all concept components.
+    orphan_attributes = [
+        element.name
+        for element in elements
+        if element.type == "Attribute" and element.name not in attribute_owner
+    ]
+    for index, name in enumerate(orphan_attributes):
+        positions[name] = (
+            component_x + (index % 4) * attribute_x_gap,
+            concept_y + (index // 4) * attribute_y_gap,
+        )
+
+    # Attribute rows may extend beyond the initial canvas origin. Translate
+    # the complete drawing together so every node remains importable and visible.
+    minimum_x = min((point[0] - node_size_for(next(
+        element.type for element in elements if element.name == name
+    ))[0] / 2.0 for name, point in positions.items()), default=0.0)
+    minimum_y = min((point[1] - node_size_for(next(
+        element.type for element in elements if element.name == name
+    ))[1] / 2.0 for name, point in positions.items()), default=0.0)
+    shift_x = max(0.0, 2.0 - minimum_x)
+    shift_y = max(0.0, 2.0 - minimum_y)
+    if shift_x or shift_y:
+        positions = {
+            name: (point[0] + shift_x, point[1] + shift_y)
+            for name, point in positions.items()
+        }
 
     return positions
 
@@ -488,6 +835,8 @@ def generate_adl(elements: List[Element], connections: List[Connection], model_n
     class_by_name: Dict[str, str] = {}
     instance_blocks: List[str] = []
     positions = compute_layout(elements, connections)
+    world_width = max(80, int(max((x for x, _ in positions.values()), default=70.0) + 10.0))
+    world_height = max(80, int(max((y for _, y in positions.values()), default=70.0) + 10.0))
 
     node_index = 1
     for index, element in enumerate(elements):
@@ -509,7 +858,10 @@ def generate_adl(elements: List[Element], connections: List[Connection], model_n
             # A, B, C Partial-ISA D -> A -> Partial-ISA, B -> Partial-ISA, C -> Partial-ISA, Partial-ISA -> D
             junction_class = connector_class_for(conn)
             junction_name = f"{junction_class}-AUTO{c_idx}"
-            x, y = junction_position(conn.sources, conn.target, positions, len(elements) + c_idx)
+            x, y = positions.get(
+                junction_name,
+                junction_position(conn.sources, conn.target, positions, len(elements) + c_idx),
+            )
             instance_blocks.append(
                 make_instance(
                     junction_name,
@@ -613,7 +965,7 @@ TYPE <Concepts Model>
 \tVALUE ""
 
 \tATTRIBUTE <World area>
-\tVALUE "w:80cm h:80cm minw:5cm minh:5cm"
+\tVALUE "w:{world_width}cm h:{world_height}cm minw:5cm minh:5cm"
 
 \tATTRIBUTE <Grid>
 \tVALUE ""
@@ -730,6 +1082,12 @@ def main() -> None:
 
     text = input_path.read_text(encoding="utf-8")
     elements, connections = parse_notation(text)
+    components = concept_components(elements, connections)
+    if len(components) == 1:
+        print(f"Graph analysis: one connected concept component ({len(components[0])} concepts).")
+    else:
+        sizes = ", ".join(str(len(component)) for component in components) or "none"
+        print(f"Graph analysis: {len(components)} connected concept components (sizes: {sizes}).")
     adl = generate_adl(elements, connections, args.model_name)
     output_path.write_text(adl, encoding="utf-8")
 

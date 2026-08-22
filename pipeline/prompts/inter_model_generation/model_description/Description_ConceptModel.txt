@@ -49,6 +49,7 @@ Connector-based connections:
 
 - Concepts represent independent domain terms or objects.
 - Attributes represent properties that characterise Concepts and are not treated as independent Concepts when they serve only that purpose.
+- Connector-based connections may have one or more sources; a single-source connector is valid.
 - Cardinality connections represent semantic associations between Concepts.
 - ISA connections represent generalisation and specialisation.
 - PartOF connections represent aggregation and composition.

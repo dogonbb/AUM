@@ -26,7 +26,13 @@ import re
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Set, Tuple
+try:
+    from scripts.slm_to_adl.hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from scripts.slm_to_adl.validation import parse_lines_collect, raise_validation_errors, validate_references
+except ModuleNotFoundError:
+    from hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from validation import parse_lines_collect, raise_validation_errors, validate_references
 
 
 # Der neue Prompt erlaubt Product, Service, Component und Feature.
@@ -139,7 +145,7 @@ def normalize_connection_kind(raw_kind: str) -> str:
     raise ValueError(f"Unknown connection type: {raw_kind!r}")
 
 
-def parse_connection_line(line: str, element_names: List[str]) -> Connection:
+def parse_connection_line(line: str, elements_by_name: Dict[str, Element]) -> Connection:
     """
     Erwartete Syntax:
       A part_of C
@@ -167,29 +173,48 @@ def parse_connection_line(line: str, element_names: List[str]) -> Connection:
     if not sources:
         raise ValueError(f"Connection has no source: {line!r}")
 
-    known = set(element_names)
-    for source in sources:
-        if source not in known:
-            raise ValueError(f"Source {source!r} is not defined under ELEMENTS.")
-    if target not in known:
-        raise ValueError(f"Target {target!r} is not defined under ELEMENTS.")
+    known = set(elements_by_name)
+    validate_references(sources, [target], known)
 
     if kind not in CONNECTION_TYPES:
         raise ValueError(f"Unknown connection type: {kind}")
+    if kind in DIRECT_CONNECTION_TYPES and len(sources) != 1:
+        raise ValueError(f"Direct connection {kind!r} requires exactly one source: {line!r}")
+    if kind in DIRECT_CONNECTION_TYPES:
+        source_type = elements_by_name[sources[0]].type
+        target_type = elements_by_name[target].type
+        product_service_types = {"Product", "Service", "ProductService"}
+        if kind == "part_of":
+            allowed = source_type == "Component" and target_type in product_service_types
+        elif kind == "is_a":
+            allowed = source_type in product_service_types and target_type in product_service_types
+        else:  # requires
+            allowed = source_type == "Feature" and target_type in product_service_types | {"Component"}
+        if not allowed:
+            raise ValueError(
+                f"Disallowed connection pattern in {line!r}: "
+                f"{source_type} {kind} {target_type}"
+            )
 
     return Connection(sources, kind, target)
 
 
 def parse_notation(text: str) -> Tuple[List[Element], List[Connection]]:
     element_lines, connection_lines = split_sections(text)
-    elements = [parse_element_line(line) for line in element_lines]
+    elements, errors = parse_lines_collect(element_lines, parse_element_line, "ELEMENTS")
 
     names = [element.name for element in elements]
     duplicates = sorted({name for name in names if names.count(name) > 1})
     if duplicates:
-        raise ValueError(f"Duplicate element names found: {', '.join(duplicates)}")
+        errors.append(f"Duplicate element names found: {', '.join(duplicates)}")
 
-    connections = [parse_connection_line(line, names) for line in connection_lines]
+    connections, connection_errors = parse_lines_collect(
+        connection_lines,
+        lambda line: parse_connection_line(line, {element.name: element for element in elements}),
+        "CONNECTIONS",
+    )
+    errors.extend(connection_errors)
+    raise_validation_errors(errors)
     return elements, connections
 
 
@@ -268,135 +293,279 @@ def layout_position(index: int) -> Tuple[float, float]:
     return x, y
 
 
-def compute_layout(elements: List[Element], connections: List[Connection]) -> Dict[str, Tuple[float, float]]:
-    """
-    Berechnet ein einfaches, strukturorientiertes Layout.
+def connector_layout_name(connection_index: int, connector_class: str) -> str:
+    return f"{connector_class}-AUTO{connection_index}"
 
-    Direkte part_of-Verbindungen, PartOF-Connectoren und ISA-Connectoren werden
-    als Hierarchie interpretiert: Quellen/Spezialisierungen liegen rechts vom Ziel.
-    requires-Beziehungen verschieben benoetigte Elemente vorsichtig nach rechts.
-    """
-    if not elements:
-        return {}
 
-    input_order = {element.name: i for i, element in enumerate(elements)}
+def segment_intersects_node(
+    start: Tuple[float, float],
+    end: Tuple[float, float],
+    center: Tuple[float, float],
+    width: float,
+    height: float,
+    margin: float = 0.2,
+) -> bool:
+    """Check a straight ADL edge against an expanded node rectangle."""
+    left, right = center[0] - width / 2 - margin, center[0] + width / 2 + margin
+    top, bottom = center[1] - height / 2 - margin, center[1] + height / 2 + margin
+    dx, dy = end[0] - start[0], end[1] - start[1]
+    lower, upper = 0.0, 1.0
+    for p, q in ((-dx, start[0] - left), (dx, right - start[0]),
+                 (-dy, start[1] - top), (dy, bottom - start[1])):
+        if abs(p) < 1e-9:
+            if q < 0:
+                return False
+            continue
+        ratio = q / p
+        if p < 0:
+            lower = max(lower, ratio)
+        else:
+            upper = min(upper, ratio)
+        if lower > upper:
+            return False
+    return True
 
-    base_layer_by_type = {
-        "ProductService": 0,
-        "Product": 1,
-        "Service": 1,
-        "Feature": 2,
-        "Component": 3,
-    }
-    layer: Dict[str, int] = {
-        element.name: base_layer_by_type.get(element.type, 2)
-        for element in elements
-    }
 
-    hierarchical_kinds = {"part_of", "is_a"} | PARTOF_CONNECTOR_TYPES | ISA_CONNECTOR_TYPES
+def layout_components(
+    elements: List[Element], connections: List[Connection]
+) -> List[List[str]]:
+    """Return weakly connected PM components, including connector layout nodes."""
+    nodes = [element.name for element in elements]
+    adjacency: Dict[str, Set[str]] = {name: set() for name in nodes}
 
-    for _ in range(len(elements)):
-        changed = False
-        for conn in connections:
-            if conn.kind not in hierarchical_kinds:
-                continue
-            target_layer = layer[conn.target]
+    def link(left: str, right: str) -> None:
+        adjacency.setdefault(left, set()).add(right)
+        adjacency.setdefault(right, set()).add(left)
+
+    for index, conn in enumerate(connections, start=1):
+        if is_connector_connection(conn):
+            connector = connector_layout_name(index, connector_class_for(conn))
+            if connector not in adjacency:
+                nodes.append(connector)
+                adjacency[connector] = set()
+            link(conn.target, connector)
             for source in conn.sources:
-                wanted = target_layer + 1
-                if layer[source] < wanted:
-                    layer[source] = wanted
-                    changed = True
-        if not changed:
-            break
+                link(connector, source)
+        else:
+            for source in conn.sources:
+                link(source, conn.target)
 
-    for conn in connections:
-        if conn.kind != "requires":
+    components: List[List[str]] = []
+    visited: Set[str] = set()
+    for root in nodes:
+        if root in visited:
             continue
-        for source in conn.sources:
-            if layer[conn.target] <= layer[source]:
-                layer[conn.target] = layer[source] + 1
-
-    min_layer = min(layer.values())
-    if min_layer != 0:
-        layer = {name: value - min_layer for name, value in layer.items()}
-
-    adjacency: Dict[str, Dict[str, float]] = {element.name: {} for element in elements}
-
-    def add_edge(a: str, b: str, weight: float) -> None:
-        adjacency[a][b] = adjacency[a].get(b, 0.0) + weight
-        adjacency[b][a] = adjacency[b].get(a, 0.0) + weight
-
-    for conn in connections:
-        if conn.kind in ({"part_of"} | PARTOF_CONNECTOR_TYPES):
-            weight = 4.0
-        elif conn.kind == "requires":
-            weight = 2.5
-        else:  # is_a, Total-ISA, Partial-ISA
-            weight = 2.0
-
-        for source in conn.sources:
-            add_edge(source, conn.target, weight)
-
-        if len(conn.sources) > 1:
-            for i, a in enumerate(conn.sources):
-                for b in conn.sources[i + 1:]:
-                    add_edge(a, b, weight * 0.75)
-
-    component_id: Dict[str, int] = {}
-    next_component_id = 0
-    for element in elements:
-        if element.name in component_id:
-            continue
-        stack = [element.name]
-        component_id[element.name] = next_component_id
+        stack = [root]
+        visited.add(root)
+        component: List[str] = []
         while stack:
             current = stack.pop()
-            for neighbor in adjacency[current]:
-                if neighbor not in component_id:
-                    component_id[neighbor] = next_component_id
+            component.append(current)
+            for neighbor in reversed(nodes):
+                if neighbor in adjacency[current] and neighbor not in visited:
+                    visited.add(neighbor)
                     stack.append(neighbor)
-        next_component_id += 1
+        components.append(component)
+    return components
 
-    layers: Dict[int, List[str]] = {}
-    for element in elements:
-        layers.setdefault(layer[element.name], []).append(element.name)
 
-    for names in layers.values():
-        names.sort(key=lambda name: (component_id[name], input_order[name]))
+def compute_layout(elements: List[Element], connections: List[Connection]) -> Dict[str, Tuple[float, float]]:
+    """Create a component-aware top-down tree with connector intermediate rows."""
+    if not elements:
+        return {}
+    nodes = [LayoutNode(e.name, *node_size_for(e.type)) for e in elements]
+    edges: List[LayoutEdge] = []
+    branches: List[str] = []
+    for index, connection in enumerate(connections, start=1):
+        if is_connector_connection(connection):
+            connector = connector_layout_name(index, connector_class_for(connection))
+            nodes.append(LayoutNode(connector, 1.0, 1.0, True))
+            branches.append(connector)
+            edges.append(LayoutEdge(connection.target, connector, 1))
+            edges.extend(LayoutEdge(connector, source, 1) for source in connection.sources)
+        else:
+            primary = connection.kind in {"part_of", "is_a"}
+            edges.extend(LayoutEdge(connection.target, source, 2, primary) for source in connection.sources)
+    return compute_hierarchical_layout(nodes, edges, branch_nodes=branches,
+        options=LayoutOptions(x_start=4.0, y_start=3.0, node_gap=7.0, half_level_gap=3.4))
 
-    order_value: Dict[str, float] = {}
-    for names in layers.values():
-        for row, name in enumerate(names):
-            order_value[name] = float(row)
+    input_order = {element.name: i for i, element in enumerate(elements)}
+    node_order = dict(input_order)
+    directed_edges: List[Tuple[str, str, int]] = []
+    all_nodes = [element.name for element in elements]
+    for index, conn in enumerate(connections, start=1):
+        if is_connector_connection(conn):
+            connector = connector_layout_name(index, connector_class_for(conn))
+            node_order[connector] = len(node_order)
+            all_nodes.append(connector)
+            directed_edges.append((conn.target, connector, 1))
+            directed_edges.extend((connector, source, 1) for source in conn.sources)
+        elif conn.kind in {"part_of", "is_a"}:
+            directed_edges.extend((conn.target, source, 2) for source in conn.sources)
+        else:
+            # The required element must visually precede the feature that needs
+            # it: "Digital Payment requires Payment Adapter" means Adapter first.
+            directed_edges.extend((conn.target, source, 2) for source in conn.sources)
 
-    for _ in range(10):
-        for layer_no in sorted(layers):
-            names = layers[layer_no]
+    # Preserve input direction but omit feedback edges only from ranking.
+    accepted: List[Tuple[str, str, int]] = []
+    outgoing: Dict[str, Set[str]] = {name: set() for name in all_nodes}
 
-            def sort_key(name: str) -> Tuple[int, float, int]:
-                weighted_sum = 0.0
-                total_weight = 0.0
-                for neighbor, weight in adjacency[name].items():
-                    factor = 1.0 if layer[neighbor] != layer[name] else 0.35
-                    weighted_sum += order_value.get(neighbor, 0.0) * weight * factor
-                    total_weight += weight * factor
+    def reaches(start: str, wanted: str) -> bool:
+        stack = [start]
+        visited: Set[str] = set()
+        while stack:
+            current = stack.pop()
+            if current == wanted:
+                return True
+            if current in visited:
+                continue
+            visited.add(current)
+            stack.extend(outgoing[current])
+        return False
 
-                barycenter = weighted_sum / total_weight if total_weight else order_value[name]
-                return (component_id[name], barycenter, input_order[name])
-
-            names.sort(key=sort_key)
-            for row, name in enumerate(names):
-                order_value[name] = float(row)
-
-    x_start = 4.0
-    y_start = 3.0
-    x_gap = 9.0
-    y_gap = 4.2
+    for source, target, distance in directed_edges:
+        if source == target or reaches(target, source):
+            continue
+        if target not in outgoing[source]:
+            outgoing[source].add(target)
+            accepted.append((source, target, distance))
 
     positions: Dict[str, Tuple[float, float]] = {}
-    for layer_no, names in layers.items():
-        for row, name in enumerate(names):
-            positions[name] = (x_start + layer_no * x_gap, y_start + row * y_gap)
+    element_type = {element.name: element.type for element in elements}
+    component_x = 4.0
+    half_level_gap = 3.4
+    node_gap = 7.0
+    for component_index, component in enumerate(layout_components(elements, connections)):
+        component_set = set(component)
+        component_edges = [edge for edge in accepted if edge[0] in component_set and edge[1] in component_set]
+        rank = {name: 0 for name in component}
+        for _ in component:
+            changed = False
+            for source, target, distance in component_edges:
+                wanted = rank[source] + distance
+                if rank[target] < wanted:
+                    rank[target] = wanted
+                    changed = True
+            if not changed:
+                break
+
+        connector_groups = []
+        for connection_index, conn in enumerate(connections, start=1):
+            if not is_connector_connection(conn):
+                continue
+            connector = connector_layout_name(connection_index, connector_class_for(conn))
+            if connector in component_set:
+                connector_groups.append((connector, conn.sources))
+
+        # If one child of a connector is pushed down by a dependency, move the
+        # complete connector block with it. Siblings remain on one row and the
+        # connector remains exactly one half-level above them.
+        for _ in range(max(1, len(component) * 2)):
+            changed = False
+            for source, target, distance in component_edges:
+                wanted = rank[source] + distance
+                if rank[target] < wanted:
+                    rank[target] = wanted
+                    changed = True
+            for connector, children in connector_groups:
+                child_level = max(rank[child] for child in children)
+                wanted_connector = child_level - 1
+                if rank[connector] < wanted_connector:
+                    rank[connector] = wanted_connector
+                    changed = True
+                aligned_child_level = rank[connector] + 1
+                for child in children:
+                    if rank[child] < aligned_child_level:
+                        rank[child] = aligned_child_level
+                        changed = True
+            if not changed:
+                break
+
+        # Split every long edge into one-rank segments using invisible nodes.
+        # These nodes reserve an empty straight corridor on every skipped row;
+        # only the real endpoints are emitted to ADL.
+        layout_nodes = list(component)
+        virtual_nodes: Set[str] = set()
+        layout_edges: List[Tuple[str, str]] = []
+        for edge_index, (source, target, _) in enumerate(component_edges):
+            previous = source
+            for virtual_rank in range(rank[source] + 1, rank[target]):
+                virtual = f"__PM_ROUTE_{component_index}_{edge_index}_{virtual_rank}"
+                layout_nodes.append(virtual)
+                virtual_nodes.add(virtual)
+                rank[virtual] = virtual_rank
+                node_order[virtual] = len(node_order)
+                layout_edges.append((previous, virtual))
+                previous = virtual
+            layout_edges.append((previous, target))
+
+        layout_adjacency: Dict[str, Set[str]] = {name: set() for name in layout_nodes}
+        for source, target in layout_edges:
+            layout_adjacency[source].add(target)
+            layout_adjacency[target].add(source)
+
+        rows: Dict[int, List[str]] = {}
+        for name in layout_nodes:
+            rows.setdefault(rank[name], []).append(name)
+        for names in rows.values():
+            names.sort(key=lambda name: node_order[name])
+
+        order = {name: float(index) for names in rows.values() for index, name in enumerate(names)}
+        for _ in range(8):
+            for level in sorted(rows):
+                names = rows[level]
+                names.sort(key=lambda name: (
+                    sum(order[n] for n in layout_adjacency[name]) / len(layout_adjacency[name])
+                    if layout_adjacency[name] else order[name],
+                    node_order[name],
+                ))
+                for index, name in enumerate(names):
+                    order[name] = float(index)
+
+        widest_row = max((len(names) for names in rows.values()), default=1)
+        component_width = max(8.0, (widest_row - 1) * node_gap + 5.0)
+        center_x = component_x + component_width / 2.0
+        for level, names in rows.items():
+            row_width = (len(names) - 1) * node_gap
+            start_x = center_x - row_width / 2.0
+            for index, name in enumerate(names):
+                if name not in virtual_nodes:
+                    positions[name] = (start_x + index * node_gap, 3.0 + level * half_level_gap)
+
+        def visual_size(name: str) -> Tuple[float, float]:
+            return node_size_for(element_type[name]) if name in element_type else (1.4, 1.4)
+
+        # A semantic edge may skip rows because another relation placed its
+        # endpoint deeper. Move that endpoint into a free side corridor when the
+        # resulting straight ADL edge would otherwise pass through a real node.
+        for source, target, _ in component_edges:
+            if rank[target] - rank[source] <= 2:
+                continue
+
+            def blocked(candidate: Tuple[float, float]) -> bool:
+                return any(
+                    name not in {source, target}
+                    and segment_intersects_node(
+                        positions[source], candidate, positions[name], *visual_size(name)
+                    )
+                    for name in component
+                    if name in positions
+                )
+
+            original = positions[target]
+            if not blocked(original):
+                continue
+            for step in range(1, len(component) + 3):
+                candidates = [
+                    (original[0] + step * node_gap, original[1]),
+                    (original[0] - step * node_gap, original[1]),
+                ]
+                chosen = next((candidate for candidate in candidates if not blocked(candidate)), None)
+                if chosen is not None:
+                    positions[target] = chosen
+                    break
+        component_x += component_width + 7.0
 
     return positions
 
@@ -524,6 +693,8 @@ def generate_adl(elements: List[Element], connections: List[Connection], model_n
     class_by_name: Dict[str, str] = {}
     instance_blocks: List[str] = []
     positions = compute_layout(elements, connections)
+    world_width = max(80, int(max((x for x, _ in positions.values()), default=70.0) + 10.0))
+    world_height = max(80, int(max((y for _, y in positions.values()), default=70.0) + 10.0))
 
     node_index = 1
     for index, element in enumerate(elements):
@@ -544,8 +715,11 @@ def generate_adl(elements: List[Element], connections: List[Connection], model_n
             # A, B PartOF (XOR) C  ->  A -> PartOF(XOR), B -> PartOF(XOR), PartOF(XOR) -> C
             # A, B Total-ISA C     ->  A -> Total-ISA,  B -> Total-ISA,  Total-ISA  -> C
             junction_class = connector_class_for(conn)
-            junction_name = f"{junction_class}-AUTO{c_idx}"
-            x, y = junction_position(conn.sources, conn.target, positions, len(elements) + c_idx)
+            junction_name = connector_layout_name(c_idx, junction_class)
+            x, y = positions.get(
+                junction_name,
+                junction_position(conn.sources, conn.target, positions, len(elements) + c_idx),
+            )
             junction_attrs = connector_attributes(junction_class)
             instance_blocks.append(make_instance(junction_name, junction_class, junction_attrs, node_index, x, y))
             node_index += 1
@@ -649,7 +823,7 @@ TYPE <Product-Service-Model>
 \tVALUE ""
 
 \tATTRIBUTE <World area>
-\tVALUE "w:80cm h:80cm minw:5cm minh:5cm"
+\tVALUE "w:{world_width}cm h:{world_height}cm minw:5cm minh:5cm"
 
 \tATTRIBUTE <Grid>
 \tVALUE ""
@@ -724,6 +898,10 @@ def main() -> None:
 
     text = input_path.read_text(encoding="utf-8")
     elements, connections = parse_notation(text)
+    components = layout_components(elements, connections)
+    sizes = ", ".join(str(sum(name in {element.name for element in elements} for name in component))
+                      for component in components)
+    print(f"Graph analysis: {len(components)} connected component(s) (element counts: {sizes}).")
     adl = generate_adl(elements, connections, args.model_name)
     output_path.write_text(adl, encoding="utf-8")
 

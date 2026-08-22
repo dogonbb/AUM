@@ -18,6 +18,8 @@ CONNECTIONS
 
 Replace every placeholder in angle brackets with an actual existing name; do not output the angle brackets themselves. Replace `ElementType` with exactly one allowed type: `Product`, `Service`, `Component`, or `Feature`.
 
-Write `ELEMENTS` and `CONNECTIONS` exactly as shown and in this order. Write one element or connection per line. Direct connections have exactly one source and one target. For connector connections, separate multiple source names with a comma followed by one space and use exactly one target.
+Write `ELEMENTS` and `CONNECTIONS` exactly as shown and in this order. Write one element or connection per line. Direct connections have exactly one source and one target. Connector connections have one or more sources and exactly one target; a single-source connector is valid. Separate multiple source names with a comma followed by one space.
+
+For direct connections, allow only `Component part_of Product/Service`, `Product/Service is_a Product/Service`, and `Feature requires Component/Product/Service`. Connector connections may use Product, Service, Component, or Feature on either side.
 
 Do not include element types in `CONNECTIONS`. Every referenced name must exactly match one declaration in `ELEMENTS`, and every element name must be declared exactly once. Preserve underscores, hyphens, parentheses, spelling, and capitalization exactly as shown. Output plain text only: no Markdown fences, bullets, numbering, comments, explanations, or additional sections.

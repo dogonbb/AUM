@@ -25,7 +25,7 @@
   },
   "format_repair": {
     "enabled": true,
-    "max_attempts": 3,
+    "max_attempts": 10,
     "general_prompt_path": "prompts/format_repair/general_repair_prompt.txt"
   },
   "paths": {
@@ -36,10 +36,10 @@
     "model_slm_directory": "output_model_gen/slm",
     "model_adl_directory": "output_model_gen/adl",
     "artifact_manifest_file": "output_model_gen/artifacts.json",
-    "merged_adl_file": "output_model_gen/complete_adl_file_here.adl",
+    "merged_adl_file": "output_model_gen/{scenario_name}_models.adl",
     "intermodel_slm_directory": "output_intermodel/slm",
     "intermodel_aggregate_slm_file": "output_intermodel/intermodel_relations.txt",
-    "final_adl_file": "output_intermodel/complete_adl_with_inter_here.adl",
+    "final_adl_file": "output_intermodel/{scenario_name}_with_intermodel_relations.adl",
     "report_directory": "output/runtime_reports",
     "report_json_filename": "pipeline_{timestamp}.json",
     "report_text_filename": "pipeline_{timestamp}.txt",

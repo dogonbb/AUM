@@ -966,6 +966,25 @@ def build_format_repair_prompt(
     return "\n\n".join(sections) + "\n"
 
 
+def concise_command_error(result: ExternalCommandResult, fallback: str) -> str:
+    """Extract the final exception message without sending a traceback to repair."""
+    output = "\n".join(part.strip() for part in (result.stderr, result.stdout) if part.strip())
+    if not output:
+        return fallback
+    exception_matches = list(re.finditer(
+        r"(?m)^(?:[A-Za-z_]\w*\.)*[A-Za-z_]\w*(?:Error|Exception):[ \t]*",
+        output,
+    ))
+    if exception_matches:
+        return output[exception_matches[-1].end():].strip()
+    error_matches = list(re.finditer(r"(?mi)^ERROR:[ \t]*", output))
+    if error_matches:
+        return output[error_matches[-1].end():].strip()
+    # Non-Python tools sometimes emit only one useful diagnostic line.
+    lines = [line.strip() for line in output.splitlines() if line.strip()]
+    return lines[-1] if lines else fallback
+
+
 def model_generation_rules(prompt_path: Path) -> str:
     """Return the reusable model rules without the original generation task suffix."""
     prompt = read_text(prompt_path).rstrip()
@@ -1164,9 +1183,16 @@ def create_scenario_run(ctx: RunContext, scenario_directory: Path) -> ScenarioRu
         },
     )
     run_directory = output_root / run_name
+    path_values = {
+        "scenario_name": scenario_directory.name,
+        "timestamp": ctx.timestamp,
+        "run_id": ctx.run_id,
+    }
 
     def relative_output(config_key: str) -> Path:
-        return run_directory / str(require(ctx.config, config_key))
+        return run_directory / render_string(
+            str(require(ctx.config, config_key)), path_values
+        )
 
     return ScenarioRun(
         scenario_name=scenario_directory.name,
@@ -1446,9 +1472,7 @@ def run_model_task(
         max_repairs = int(dotted_get(ctx.config, "format_repair.max_attempts", 0))
         repair_directory = slm_file.parent / "format_repair" / safe_name(slm_file.stem)
         for repair_number in range(1, max_repairs + 1 if repair_enabled else 1):
-            python_error = "\n".join(
-                part for part in [error_message, converter_result.stdout, converter_result.stderr] if part
-            )
+            python_error = concise_command_error(converter_result, error_message)
             try:
                 repaired, repair_report = repair_format(
                     ctx,
@@ -2017,14 +2041,8 @@ def run_intermodel_stage(
         for repair_number in range(1, max_repairs + 1 if repair_enabled else 1):
             if integration_result.ok and scenario.final_adl.is_file():
                 break
-            python_error = "\n".join(
-                part
-                for part in [
-                    "The intermodel integration script failed.",
-                    integration_result.stdout,
-                    integration_result.stderr,
-                ]
-                if part
+            python_error = concise_command_error(
+                integration_result, "The intermodel integration script failed."
             )
             try:
                 repaired, repair_report = repair_format(
@@ -2170,13 +2188,22 @@ def create_intermodel_only_scenario(
     scenario_name = str(require(job, "scenario_name"))
     scenario_directory = resolve_path(ctx.project_root, require(job, "scenario_directory"))
     run_directory = resolve_path(ctx.project_root, require(job, "output_run_directory"))
+    path_values = {
+        "scenario_name": scenario_name,
+        "timestamp": ctx.timestamp,
+        "run_id": ctx.run_id,
+    }
 
     def output_path(job_key: str, global_key: str) -> Path:
         raw = job.get(job_key)
+        rendered = render_string(
+            str(raw if raw is not None else require(ctx.config, global_key)),
+            path_values,
+        )
         return (
-            resolve_path(ctx.project_root, raw)
+            resolve_path(ctx.project_root, rendered)
             if raw is not None
-            else run_directory / str(require(ctx.config, global_key))
+            else run_directory / rendered
         )
 
     scenario = ScenarioRun(

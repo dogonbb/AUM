@@ -40,6 +40,71 @@ class LayoutOptions:
     component_bottom_reserve: float = 0.0
 
 
+@dataclass(frozen=True)
+class UniformLayoutConfig:
+    """The complete set of model-dependent inputs accepted by the layout.
+
+    Relation names deliberately do not occur here.  Once a converter has
+    normalized its notation to nodes and edges, every edge is treated alike.
+    """
+
+    orientation: str = "top_down"
+    x_start: float = 4.0
+    y_start: float = 2.5
+    node_gap: float = 8.0
+    level_gap: float = 3.2
+    component_gap: float = 8.0
+    collision_margin: float = 1.0
+    spacing_scale: float = 1.2
+
+
+def compute_uniform_layout(
+    nodes: Iterable[LayoutNode],
+    edges: Iterable[LayoutEdge],
+    *,
+    branch_nodes: Iterable[str] = (),
+    config: UniformLayoutConfig = UniformLayoutConfig(),
+) -> Dict[str, Tuple[float, float]]:
+    """Apply one relation-agnostic layout algorithm to any 4EM model.
+
+    ``orientation`` only changes the visual direction.  It never reverses or
+    prioritizes individual edges based on their label.  Connector nodes are
+    ordinary graph nodes with a smaller caller-supplied geometry.
+    """
+    if config.orientation not in {"top_down", "bottom_up"}:
+        raise ValueError("orientation must be 'top_down' or 'bottom_up'")
+    if config.spacing_scale <= 0:
+        raise ValueError("spacing_scale must be greater than zero")
+
+    # Geometry is the only node-specific input. Even connector nodes take part
+    # in exactly the same ordering and collision rules as normal elements.
+    node_list = [LayoutNode(node.name, node.width, node.height, False) for node in nodes]
+    # Remove both the primary/secondary distinction and caller-supplied edge
+    # distances. Every graph edge advances exactly one common hierarchy level.
+    edge_list = [LayoutEdge(edge.source, edge.target, 1, True) for edge in edges]
+    positions = compute_hierarchical_layout(
+        node_list,
+        edge_list,
+        branch_nodes=(),
+        options=LayoutOptions(
+            x_start=config.x_start,
+            y_start=config.y_start,
+            node_gap=config.node_gap * config.spacing_scale,
+            half_level_gap=config.level_gap * config.spacing_scale,
+            component_gap=config.component_gap * config.spacing_scale,
+            collision_margin=config.collision_margin,
+        ),
+    )
+    if config.orientation == "bottom_up" and positions:
+        minimum_y = min(y for _, y in positions.values())
+        maximum_y = max(y for _, y in positions.values())
+        positions = {
+            name: (x, minimum_y + maximum_y - y)
+            for name, (x, y) in positions.items()
+        }
+    return positions
+
+
 def _components(names: Sequence[str], edges: Sequence[LayoutEdge]) -> List[List[str]]:
     adjacency = {name: set() for name in names}
     for edge in edges:
@@ -62,6 +127,165 @@ def _components(names: Sequence[str], edges: Sequence[LayoutEdge]) -> List[List[
                     stack.append(neighbor)
         result.append(component)
     return result
+
+
+def _segments_cross(
+    first_start: Tuple[float, float],
+    first_end: Tuple[float, float],
+    second_start: Tuple[float, float],
+    second_end: Tuple[float, float],
+) -> bool:
+    """Return whether two straight edge segments cross away from endpoints."""
+    def orientation(
+        start: Tuple[float, float],
+        end: Tuple[float, float],
+        point: Tuple[float, float],
+    ) -> float:
+        return ((end[0] - start[0]) * (point[1] - start[1])
+                - (end[1] - start[1]) * (point[0] - start[0]))
+
+    return (
+        orientation(first_start, first_end, second_start)
+        * orientation(first_start, first_end, second_end) < -1e-9
+        and orientation(second_start, second_end, first_start)
+        * orientation(second_start, second_end, first_end) < -1e-9
+    )
+
+
+def _edge_crossing_count(
+    positions: Dict[str, Tuple[float, float]],
+    edges: Sequence[LayoutEdge],
+) -> int:
+    visible_edges = [
+        edge for edge in edges
+        if edge.source in positions and edge.target in positions
+    ]
+    crossings = 0
+    for index, first in enumerate(visible_edges):
+        for second in visible_edges[index + 1:]:
+            if {first.source, first.target} & {second.source, second.target}:
+                continue
+            if _segments_cross(
+                positions[first.source], positions[first.target],
+                positions[second.source], positions[second.target],
+            ):
+                crossings += 1
+    return crossings
+
+
+def _reduce_final_edge_crossings(
+    positions: Dict[str, Tuple[float, float]],
+    edges: Sequence[LayoutEdge],
+) -> None:
+    """Swap adjacent nodes on a row when that strictly reduces crossings."""
+    rows: Dict[float, List[str]] = {}
+    for name, (_, y) in positions.items():
+        rows.setdefault(y, []).append(name)
+    for row in rows.values():
+        row.sort(key=lambda name: positions[name][0])
+
+    for _ in range(8):
+        changed = False
+        baseline = _edge_crossing_count(positions, edges)
+        for row in rows.values():
+            for index in range(len(row) - 1):
+                left, right = row[index:index + 2]
+                left_point, right_point = positions[left], positions[right]
+                positions[left] = (right_point[0], left_point[1])
+                positions[right] = (left_point[0], right_point[1])
+                candidate = _edge_crossing_count(positions, edges)
+                # Preserve established grouping for cosmetic one-crossing
+                # changes. A swap is worthwhile only when it removes a real
+                # crossing cluster (as in long edges spanning several levels).
+                if candidate <= baseline - 2:
+                    row[index:index + 2] = [right, left]
+                    baseline = candidate
+                    changed = True
+                else:
+                    positions[left], positions[right] = left_point, right_point
+        if not changed:
+            break
+
+
+def _separate_final_row_overlaps(
+    positions: Dict[str, Tuple[float, float]],
+    nodes: Dict[str, LayoutNode],
+    margin: float,
+) -> None:
+    """Guarantee that final centering passes cannot leave same-row overlaps."""
+    rows: Dict[float, List[str]] = {}
+    for name, (_, y) in positions.items():
+        rows.setdefault(y, []).append(name)
+    for row in rows.values():
+        row.sort(key=lambda name: positions[name][0])
+        for index in range(1, len(row)):
+            previous, current = row[index - 1], row[index]
+            required = ((nodes[previous].width + nodes[current].width) / 2.0
+                        + margin)
+            minimum_x = positions[previous][0] + required
+            if positions[current][0] < minimum_x:
+                positions[current] = (minimum_x, positions[current][1])
+
+
+def _enforce_final_one_to_one_alignment(
+    positions: Dict[str, Tuple[float, float]],
+    edges: Sequence[LayoutEdge],
+    nodes: Dict[str, LayoutNode],
+    rank: Dict[str, int],
+    margin: float,
+) -> None:
+    """Put the predecessor of every pure 1:1 edge on the target's x-axis.
+
+    This deliberately runs after all cosmetic layout passes. Other nodes on
+    the predecessor's row are packed to either side of the fixed predecessor,
+    so preserving the vertical line cannot introduce a node overlap.
+    """
+    incoming: Dict[str, Set[str]] = {}
+    outgoing: Dict[str, Set[str]] = {}
+    for edge in edges:
+        outgoing.setdefault(edge.source, set()).add(edge.target)
+        incoming.setdefault(edge.target, set()).add(edge.source)
+
+    candidates = [
+        edge for edge in edges
+        if len(outgoing.get(edge.source, set())) == 1
+        and len(incoming.get(edge.target, set())) == 1
+        and rank.get(edge.source) != rank.get(edge.target)
+    ]
+    # Work from the target end of a chain backwards. This makes A->B->C share
+    # one x-coordinate rather than preserving only the last processed pair.
+    candidates.sort(key=lambda edge: rank[edge.target], reverse=True)
+    for edge in candidates:
+        if edge.source not in positions or edge.target not in positions:
+            continue
+        fixed_x = positions[edge.target][0]
+        source_y = positions[edge.source][1]
+        positions[edge.source] = (fixed_x, source_y)
+
+        row = [
+            name for name, (_, y) in positions.items()
+            if name != edge.source and abs(y - source_y) < 1e-9
+        ]
+        left = sorted(
+            (name for name in row if positions[name][0] < fixed_x),
+            key=lambda name: positions[name][0],
+            reverse=True,
+        )
+        cursor = fixed_x - nodes[edge.source].width / 2.0 - margin
+        for name in left:
+            x = min(positions[name][0], cursor - nodes[name].width / 2.0)
+            positions[name] = (x, source_y)
+            cursor = x - nodes[name].width / 2.0 - margin
+
+        right = sorted(
+            (name for name in row if positions[name][0] >= fixed_x),
+            key=lambda name: positions[name][0],
+        )
+        cursor = fixed_x + nodes[edge.source].width / 2.0 + margin
+        for name in right:
+            x = max(positions[name][0], cursor + nodes[name].width / 2.0)
+            positions[name] = (x, source_y)
+            cursor = x + nodes[name].width / 2.0 + margin
 
 
 def _acyclic_edges(names: Sequence[str], edges: Sequence[LayoutEdge]) -> List[LayoutEdge]:
@@ -464,6 +688,34 @@ def compute_hierarchical_layout(
             if not changed:
                 break
 
+        # Use tight layering for every edge, independent of its original
+        # relation name. A root that directly points to a deep node is moved
+        # onto the level immediately before that node instead of producing a
+        # long edge through unrelated intermediate rows.
+        outgoing_edges: Dict[str, List[LayoutEdge]] = {}
+        for edge in component_edges:
+            outgoing_edges.setdefault(edge.source, []).append(edge)
+        for _ in component:
+            changed = False
+            for name in sorted(component, key=lambda item: rank[item], reverse=True):
+                outgoing = outgoing_edges.get(name, [])
+                if not outgoing:
+                    continue
+                upper = min(rank[edge.target] - edge.distance for edge in outgoing)
+                lower = max(
+                    (rank[source] + edge.distance
+                     for edge in component_edges
+                     for source in [edge.source]
+                     if edge.target == name),
+                    default=0,
+                )
+                wanted = max(lower, upper)
+                if wanted > rank[name]:
+                    rank[name] = wanted
+                    changed = True
+            if not changed:
+                break
+
         # Connector children describe one grouped decomposition and must share
         # a row. Raise the connector directly above its deepest child and then
         # align all children below it; repeat with edge relaxation until stable.
@@ -595,6 +847,21 @@ def compute_hierarchical_layout(
                 options.node_gap,
             )
             _center_branch_parents(positions, component_edges)
+
+        # Every earlier collision pass can be invalidated by the final
+        # centering/grouping operations above. Optimize the visible order once
+        # more, then enforce node-size-aware spacing as the last layout rule.
+        _reduce_final_edge_crossings(positions, component_edges)
+        _separate_final_row_overlaps(
+            positions, node_by_name, options.collision_margin
+        )
+        _enforce_final_one_to_one_alignment(
+            positions,
+            component_edges,
+            node_by_name,
+            rank,
+            options.collision_margin,
+        )
 
         real_component = [name for name in component if name in positions]
         minimum = min(positions[name][0] - node_by_name[name].width / 2 for name in real_component)

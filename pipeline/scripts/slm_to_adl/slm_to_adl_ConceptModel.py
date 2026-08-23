@@ -28,10 +28,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
 try:
-    from scripts.slm_to_adl.hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from scripts.slm_to_adl.hierarchical_layout import LayoutEdge, LayoutNode, UniformLayoutConfig, compute_uniform_layout
     from scripts.slm_to_adl.validation import parse_lines_collect, raise_validation_errors, validate_references
 except ModuleNotFoundError:
-    from hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from hierarchical_layout import LayoutEdge, LayoutNode, UniformLayoutConfig, compute_uniform_layout
     from validation import parse_lines_collect, raise_validation_errors, validate_references
 
 
@@ -431,15 +431,16 @@ def compute_layout(elements: List[Element], connections: List[Connection]) -> Di
             normal_edges.extend(
                 LayoutEdge(source, connection.target, 2) for source in connection.sources
             )
-    return compute_hierarchical_layout(
+    return compute_uniform_layout(
         normal_nodes,
         normal_edges,
         branch_nodes=normal_branches,
-        options=LayoutOptions(
+        config=UniformLayoutConfig(
+            orientation="top_down",
             x_start=3.0,
             y_start=2.5,
             node_gap=9.0,
-            half_level_gap=4.5,
+            level_gap=4.5,
         ),
     )
 

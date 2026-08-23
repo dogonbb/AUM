@@ -27,10 +27,10 @@ from pathlib import Path
 from typing import Dict, List, Set, Tuple
 
 try:
-    from scripts.slm_to_adl.hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from scripts.slm_to_adl.hierarchical_layout import LayoutEdge, LayoutNode, UniformLayoutConfig, compute_uniform_layout
     from scripts.slm_to_adl.validation import parse_lines_collect, raise_validation_errors, validate_references
 except ModuleNotFoundError:
-    from hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from hierarchical_layout import LayoutEdge, LayoutNode, UniformLayoutConfig, compute_uniform_layout
     from validation import parse_lines_collect, raise_validation_errors, validate_references
 
 # Longest aliases first.
@@ -408,15 +408,16 @@ def compute_layout(elements: List[Element], connections: List[Connection]) -> Di
             connector = connector_layout_name(index, connection.kind)
             layout_nodes.append(LayoutNode(connector, 1.0, 1.0, True))
             branches.append(connector)
-            layout_edges.append(LayoutEdge(connection.target, connector, 1))
-            layout_edges.extend(LayoutEdge(connector, source, 1) for source in connection.sources)
+            layout_edges.extend(LayoutEdge(source, connector, 1) for source in connection.sources)
+            layout_edges.append(LayoutEdge(connector, connection.target, 1))
         else:
             layout_edges.extend(
-                LayoutEdge(connection.target, source, 2, True) for source in connection.sources
+                LayoutEdge(source, connection.target, 2) for source in connection.sources
             )
-    return compute_hierarchical_layout(
+    return compute_uniform_layout(
         layout_nodes, layout_edges, branch_nodes=branches,
-        options=LayoutOptions(x_start=3.0, y_start=2.5, node_gap=6.5, half_level_gap=3.2),
+        config=UniformLayoutConfig(orientation="bottom_up", x_start=3.0,
+                                   y_start=2.5, node_gap=6.5, level_gap=3.2),
     )
 
     node_order = {element.name: index for index, element in enumerate(elements)}

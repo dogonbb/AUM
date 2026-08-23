@@ -28,10 +28,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Tuple
 try:
-    from scripts.slm_to_adl.hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from scripts.slm_to_adl.hierarchical_layout import LayoutEdge, LayoutNode, UniformLayoutConfig, compute_uniform_layout
     from scripts.slm_to_adl.validation import parse_lines_collect, raise_validation_errors, validate_references
 except ModuleNotFoundError:
-    from hierarchical_layout import LayoutEdge, LayoutNode, LayoutOptions, compute_hierarchical_layout
+    from hierarchical_layout import LayoutEdge, LayoutNode, UniformLayoutConfig, compute_uniform_layout
     from validation import parse_lines_collect, raise_validation_errors, validate_references
 
 
@@ -486,15 +486,13 @@ def compute_layout(elements: List[Element], connections: List[Connection]) -> Di
             connector = connector_layout_name(index, connection.kind)
             nodes.append(LayoutNode(connector, 1.0, 1.0, True))
             branches.append(connector)
-            edges.append(LayoutEdge(connection.target, connector, 1))
-            edges.extend(LayoutEdge(connector, source, 1) for source in connection.sources)
+            edges.extend(LayoutEdge(source, connector, 1) for source in connection.sources)
+            edges.append(LayoutEdge(connector, connection.target, 1))
         else:
-            edges.extend(LayoutEdge(connection.target, source, 2) for source in connection.sources)
-    return compute_hierarchical_layout(nodes, edges, branch_nodes=branches,
-        options=LayoutOptions(
-            x_start=4.0, y_start=2.5, node_gap=6.5, half_level_gap=3.2,
-            center_shared_children=True, enforce_final_branch_grouping=True,
-        ))
+            edges.extend(LayoutEdge(source, connection.target, 2) for source in connection.sources)
+    return compute_uniform_layout(nodes, edges, branch_nodes=branches,
+        config=UniformLayoutConfig(orientation="bottom_up", x_start=4.0,
+                                   y_start=2.5, node_gap=6.5, level_gap=3.2))
 
     real_names = [element.name for element in elements]
     real_set = set(real_names)

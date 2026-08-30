@@ -32,7 +32,7 @@
   },
   "format_repair": {
     "enabled": true,
-    "max_attempts": 10,
+    "max_attempts": 5,
     "general_prompt_path": "prompts/format_repair/general_repair_prompt.txt"
   },
   "paths": {

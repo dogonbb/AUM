@@ -14,8 +14,8 @@
     "log_thinking": false,
     "thinking_repetition_enabled": true,
     "thinking_repetition_limit": 10,
-    "thinking_repetition_min_block_chars": 30,
-    "show_stream_output": true,
+    "thinking_repetition_min_block_chars": 40,
+    "show_stream_output": false,
     "keep_alive": "5m",
     "options": {
       "temperature": 0.2,

@@ -27,9 +27,10 @@ Supported execution modes
     manifest, merged ADL file, and output directory.
 
 The script calls Ollama's native ``/api/generate`` endpoint. A generation is
-hard-stopped after the configured timeout by running it in a separate process.
-The model request is then started again when retry handling permits it.
-An optional service restart command can also be configured.
+hard-stopped after the configured total timeout or when streamed thinking text
+repeats beyond the configured limit. The model request is then started again
+when retry handling permits it. An optional service restart command can also
+be configured.
 """
 
 from __future__ import annotations
@@ -43,6 +44,7 @@ import os
 import platform
 import queue
 import re
+import secrets
 import shlex
 import socket
 import subprocess
@@ -55,7 +57,7 @@ import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any, Iterable, Mapping, Sequence, TextIO
 
 
 VALID_MODES = {"full", "models_only", "intermodel_only"}
@@ -67,6 +69,10 @@ class PipelineError(RuntimeError):
 
 class SLMTimeoutError(TimeoutError):
     """Raised when one SLM request exceeds its hard timeout."""
+
+
+class SLMRepetitionError(PipelineError):
+    """Raised when streamed SLM thinking is stuck in a repetition loop."""
 
 
 @dataclass
@@ -357,9 +363,54 @@ def load_parameter_file(path: Path) -> dict[str, Any]:
     timeout_seconds = dotted_get(config, "slm.timeout_seconds", 3600)
     if not isinstance(timeout_seconds, (int, float)) or timeout_seconds <= 0:
         raise PipelineError("slm.timeout_seconds must be a positive number.")
+    enabled_setting(
+        dotted_get(config, "slm.thinking_repetition_enabled", True),
+        "slm.thinking_repetition_enabled",
+    )
+    enabled_setting(
+        dotted_get(config, "slm.log_thinking", False),
+        "slm.log_thinking",
+    )
+    thinking_repetition_limit = dotted_get(
+        config, "slm.thinking_repetition_limit", 5
+    )
+    if (
+        not isinstance(thinking_repetition_limit, int)
+        or isinstance(thinking_repetition_limit, bool)
+        or thinking_repetition_limit < 2
+    ):
+        raise PipelineError(
+            "slm.thinking_repetition_limit must be an integer of at least 2."
+        )
+    thinking_repetition_min_block_chars = dotted_get(
+        config, "slm.thinking_repetition_min_block_chars", 0
+    )
+    if (
+        not isinstance(thinking_repetition_min_block_chars, int)
+        or isinstance(thinking_repetition_min_block_chars, bool)
+        or thinking_repetition_min_block_chars < 0
+    ):
+        raise PipelineError(
+            "slm.thinking_repetition_min_block_chars must be a non-negative integer."
+        )
+    configured_seed = dotted_get(config, "slm.options.seed")
+    if configured_seed is not None and configured_seed is not False and (
+        not isinstance(configured_seed, int) or isinstance(configured_seed, bool)
+    ):
+        raise PipelineError("slm.options.seed must be an integer or false.")
     max_restart = dotted_get(config, "retry.max_restart", 0)
     if not isinstance(max_restart, int) or isinstance(max_restart, bool) or max_restart < 0:
         raise PipelineError("retry.max_restart must be a non-negative integer.")
+    seed_mode = str(dotted_get(config, "retry.seed_mode", "incremental")).casefold()
+    if seed_mode not in {"incremental", "random"}:
+        raise PipelineError("retry.seed_mode must be 'incremental' or 'random'.")
+    seed_increment = dotted_get(config, "retry.seed_increment", 1)
+    if (
+        not isinstance(seed_increment, int)
+        or isinstance(seed_increment, bool)
+        or seed_increment <= 0
+    ):
+        raise PipelineError("retry.seed_increment must be a positive integer.")
     max_repairs = dotted_get(config, "format_repair.max_attempts", 0)
     if not isinstance(max_repairs, int) or isinstance(max_repairs, bool) or max_repairs < 0:
         raise PipelineError("format_repair.max_attempts must be a non-negative integer.")
@@ -676,13 +727,43 @@ def ollama_worker(
             headers={"Content-Type": "application/json"},
             method="POST",
         )
+        response_parts: list[str] = []
+        thinking_parts: list[str] = []
+        response_json: dict[str, Any] | None = None
         with urllib.request.urlopen(request, timeout=socket_timeout_seconds) as response:
-            raw_response = response.read().decode("utf-8")
-        response_json = json.loads(raw_response)
-        if "error" in response_json:
-            raise RuntimeError(str(response_json["error"]))
+            for raw_line in response:
+                if not raw_line.strip():
+                    continue
+                chunk = json.loads(raw_line.decode("utf-8"))
+                if "error" in chunk:
+                    raise RuntimeError(str(chunk["error"]))
+
+                response_text = str(chunk.get("response", ""))
+                thinking_text = str(chunk.get("thinking", ""))
+                response_parts.append(response_text)
+                thinking_parts.append(thinking_text)
+                response_json = chunk
+
+                # A non-empty response or thinking chunk represents token
+                # activity and resets the idle timeout in the parent process.
+                if response_text or thinking_text:
+                    result_queue.put(
+                        {
+                            "type": "token",
+                            "response": response_text,
+                            "thinking": thinking_text,
+                        }
+                    )
+
+        if response_json is None:
+            raise RuntimeError("The Ollama response stream was empty.")
+        if not response_json.get("done", False):
+            raise RuntimeError("The Ollama response stream ended without done=true.")
+        response_json["response"] = "".join(response_parts)
+        response_json["thinking"] = "".join(thinking_parts)
         result_queue.put(
             {
+                "type": "result",
                 "ok": True,
                 "started_at": started_at,
                 "finished_at": iso_now(),
@@ -693,6 +774,7 @@ def ollama_worker(
     except Exception as exc:
         result_queue.put(
             {
+                "type": "result",
                 "ok": False,
                 "started_at": started_at,
                 "finished_at": iso_now(),
@@ -704,24 +786,180 @@ def ollama_worker(
         )
 
 
-def call_slm(ctx: RunContext, prompt: str) -> SLMResult:
+def wait_for_slm_worker(
+    result_queue: mp.Queue,
+    process: mp.Process,
+    timeout_seconds: float,
+    thinking_repetition_limit: int,
+    show_stream_output: bool = False,
+    thinking_repetition_enabled: bool = True,
+    thinking_log_handle: TextIO | None = None,
+    thinking_repetition_min_block_chars: int = 0,
+) -> dict[str, Any] | None:
+    """Wait for Ollama while enforcing total time and thinking repetition."""
+    started_perf = time.perf_counter()
+    total_deadline = started_perf + timeout_seconds
+    thinking_header_shown = False
+    response_header_shown = False
+    stream_text_shown = False
+    thinking_line_buffer = ""
+    thinking_block_lines: list[str] = []
+    thinking_block_counts: dict[str, int] = {}
+
+    def finish_stream_line() -> None:
+        if show_stream_output and stream_text_shown:
+            print(flush=True)
+
+    def count_thinking_block() -> None:
+        nonlocal thinking_block_lines
+        if not thinking_block_lines:
+            return
+        block = "".join(thinking_block_lines)
+        thinking_block_lines = []
+        # Structured model-output sections may legitimately be emitted more
+        # than once while the model assembles its answer. Ignore those blocks,
+        # but keep monitoring all other thinking blocks for repetition loops.
+        block_start = block.lstrip()
+        if re.match(r"(?:ELEMENTS|CONNECTIONS)(?:\s|$)", block_start) is not None:
+            return
+        if len(block.strip()) < thinking_repetition_min_block_chars:
+            return
+        count = thinking_block_counts.get(block, 0) + 1
+        thinking_block_counts[block] = count
+        if count >= thinking_repetition_limit:
+            finish_stream_line()
+            excerpt = re.sub(r"\s+", " ", block).strip()[:160]
+            raise SLMRepetitionError(
+                "The same thinking block was generated "
+                f"{count} times: {excerpt!r}"
+            )
+
+    def inspect_thinking_blocks(text: str) -> None:
+        nonlocal thinking_line_buffer
+        thinking_line_buffer += text
+        lines = thinking_line_buffer.splitlines(keepends=True)
+        thinking_line_buffer = ""
+        for line in lines:
+            if not line.endswith(("\n", "\r")):
+                thinking_line_buffer = line
+                continue
+            if not line.strip():
+                count_thinking_block()
+                continue
+            thinking_block_lines.append(line)
+
+    def finish_thinking_blocks() -> None:
+        nonlocal thinking_line_buffer
+        if thinking_line_buffer:
+            if thinking_line_buffer.strip():
+                thinking_block_lines.append(thinking_line_buffer)
+            thinking_line_buffer = ""
+        count_thinking_block()
+
+    while True:
+        now = time.perf_counter()
+        total_remaining = total_deadline - now
+        if total_remaining <= 0:
+            finish_stream_line()
+            raise SLMTimeoutError(
+                "The SLM request exceeded the configured total limit of "
+                f"{timeout_seconds:.2f} seconds."
+            )
+        try:
+            message = result_queue.get(timeout=min(0.25, total_remaining))
+        except queue.Empty:
+            if process.is_alive():
+                continue
+            try:
+                message = result_queue.get_nowait()
+            except queue.Empty:
+                finish_stream_line()
+                return None
+
+        if message.get("type") == "token":
+            thinking_text = str(message.get("thinking", ""))
+            response_text = str(message.get("response", ""))
+            if thinking_text and thinking_log_handle is not None:
+                thinking_log_handle.write(thinking_text)
+                thinking_log_handle.flush()
+            if show_stream_output:
+                if thinking_text:
+                    if not thinking_header_shown:
+                        print("\n[SLM THINKING]", flush=True)
+                        thinking_header_shown = True
+                    print(thinking_text, end="", flush=True)
+                    stream_text_shown = True
+                if response_text:
+                    if not response_header_shown:
+                        print("\n[SLM OUTPUT]", flush=True)
+                        response_header_shown = True
+                    print(response_text, end="", flush=True)
+                    stream_text_shown = True
+            if thinking_text and thinking_repetition_enabled:
+                inspect_thinking_blocks(thinking_text)
+            continue
+        if thinking_repetition_enabled:
+            finish_thinking_blocks()
+        finish_stream_line()
+        return message
+
+
+def stop_process(process: mp.Process) -> None:
+    """Stop a worker that is still waiting on an Ollama response."""
+    if not process.is_alive():
+        return
+    process.terminate()
+    process.join(timeout=10)
+    if process.is_alive():
+        process.kill()
+        process.join(timeout=5)
+
+
+def call_slm(
+    ctx: RunContext,
+    prompt: str,
+    seed_override: int | None = None,
+    thinking_log_path: Path | None = None,
+) -> SLMResult:
     slm = require(ctx.config, "slm")
     if not isinstance(slm, dict):
         raise PipelineError("slm must be an object.")
 
     timeout_seconds = float(slm.get("timeout_seconds", 3600))
+    thinking_repetition_enabled = enabled_setting(
+        slm.get("thinking_repetition_enabled", True),
+        "slm.thinking_repetition_enabled",
+    )
+    thinking_repetition_limit = int(
+        slm.get("thinking_repetition_limit", 5)
+    )
+    thinking_repetition_min_block_chars = int(
+        slm.get("thinking_repetition_min_block_chars", 0)
+    )
+    show_stream_output = enabled_setting(
+        slm.get("show_stream_output", False), "slm.show_stream_output"
+    )
     endpoint = str(require(slm, "base_url")).rstrip("/") + "/api/generate"
 
     payload: dict[str, Any] = {
         "model": str(require(slm, "model")),
         "prompt": prompt,
-        "stream": False,
+        "stream": True,
         "think": normalize_thinking(slm.get("thinking", False)),
     }
-    options = slm.get("options", {})
+    options = copy.deepcopy(slm.get("options", {}))
     if options:
         if not isinstance(options, dict):
             raise PipelineError("slm.options must be an object.")
+    # JSON false explicitly disables Ollama's seed option. This is distinct
+    # from seed=0 and takes precedence over retry.seed_mode.
+    if isinstance(options, dict) and options.get("seed") is False:
+        options.pop("seed")
+    if seed_override is not None:
+        if not isinstance(options, dict):
+            raise PipelineError("slm.options must be an object.")
+        options["seed"] = seed_override
+    if options:
         payload["options"] = options
     if slm.get("keep_alive") is not None:
         payload["keep_alive"] = slm["keep_alive"]
@@ -734,7 +972,7 @@ def call_slm(ctx: RunContext, prompt: str) -> SLMResult:
     }
 
     context = mp.get_context("spawn")
-    result_queue: mp.Queue = context.Queue(maxsize=1)
+    result_queue: mp.Queue = context.Queue()
     process = context.Process(
         target=ollama_worker,
         args=(result_queue, endpoint, payload, timeout_seconds),
@@ -743,32 +981,33 @@ def call_slm(ctx: RunContext, prompt: str) -> SLMResult:
 
     started_at = iso_now()
     started_perf = time.perf_counter()
-    process.start()
-    deadline = started_perf + timeout_seconds
-    message: dict[str, Any] | None = None
-
-    while time.perf_counter() < deadline:
-        remaining = max(0.01, deadline - time.perf_counter())
-        try:
-            message = result_queue.get(timeout=min(0.25, remaining))
-            break
-        except queue.Empty:
-            if not process.is_alive():
-                try:
-                    message = result_queue.get_nowait()
-                except queue.Empty:
-                    message = None
-                break
-
-    if message is None and process.is_alive():
-        process.terminate()
-        process.join(timeout=10)
-        if process.is_alive():
-            process.kill()
-            process.join(timeout=5)
-        raise SLMTimeoutError(
-            f"The SLM request exceeded the configured limit of {timeout_seconds:.2f} seconds."
+    thinking_log_handle: TextIO | None = None
+    process_started = False
+    try:
+        if thinking_log_path is not None:
+            thinking_log_path.parent.mkdir(parents=True, exist_ok=True)
+            thinking_log_handle = thinking_log_path.open(
+                "w", encoding="utf-8", newline=""
+            )
+        process.start()
+        process_started = True
+        message = wait_for_slm_worker(
+            result_queue,
+            process,
+            timeout_seconds,
+            thinking_repetition_limit,
+            show_stream_output,
+            thinking_repetition_enabled,
+            thinking_log_handle,
+            thinking_repetition_min_block_chars,
         )
+    except BaseException:
+        if process_started:
+            stop_process(process)
+        raise
+    finally:
+        if thinking_log_handle is not None:
+            thinking_log_handle.close()
 
     process.join(timeout=5)
     if message is None:
@@ -875,46 +1114,153 @@ def restart_slm_service(
     return result
 
 
+def slm_thinking_log_path(
+    ctx: RunContext,
+    task_id: str,
+    attempt_number: int,
+    seed: int | None,
+) -> Path | None:
+    """Return the per-attempt streamed thinking log inside the current run."""
+    if not enabled_setting(
+        dotted_get(ctx.config, "slm.log_thinking", False),
+        "slm.log_thinking",
+    ):
+        return None
+
+    configured_directory = str(
+        dotted_get(ctx.config, "paths.thinking_log_directory", "thinking_logs")
+    ).strip()
+    relative_directory = Path(configured_directory)
+    if (
+        not configured_directory
+        or relative_directory.is_absolute()
+        or ".." in relative_directory.parts
+    ):
+        raise PipelineError(
+            "paths.thinking_log_directory must be a non-empty relative path "
+            "without '..'."
+        )
+
+    task_slug = safe_name(task_id)
+    if len(task_slug) > 100:
+        task_hash = hashlib.sha256(task_id.encode("utf-8")).hexdigest()[:12]
+        task_slug = f"{task_slug[:80]}_{task_hash}"
+    seed_label = str(seed) if seed is not None else "none"
+    return (
+        ctx.report_json.parent
+        / relative_directory
+        / task_slug
+        / f"attempt_{attempt_number:02d}_seed_{seed_label}.thinking.txt"
+    )
+
+
 def call_slm_with_restart(
     ctx: RunContext,
     prompt: str,
     task_id: str,
 ) -> tuple[SLMResult, list[dict[str, Any]]]:
-    """Call the SLM with one total timeout and at most retry.max_restart restarts."""
+    """Call the SLM and restart it after a timeout or thinking loop."""
     max_restart = int(dotted_get(ctx.config, "retry.max_restart", 0))
+    seed_mode = str(
+        dotted_get(ctx.config, "retry.seed_mode", "incremental")
+    ).casefold()
+    seed_increment = int(dotted_get(ctx.config, "retry.seed_increment", 1))
+    configured_seed = dotted_get(ctx.config, "slm.options.seed")
+    seed_disabled = configured_seed is False
+    base_seed = (
+        int(configured_seed)
+        if configured_seed is not None and not seed_disabled
+        else None
+    )
     attempts: list[dict[str, Any]] = []
+    used_seeds: set[int] = set()
     for attempt_number in range(1, max_restart + 2):
         started = time.perf_counter()
+        if seed_disabled:
+            attempt_seed = None
+        elif seed_mode == "random":
+            attempt_seed = secrets.randbelow(2**31)
+            while attempt_seed in used_seeds:
+                attempt_seed = secrets.randbelow(2**31)
+            used_seeds.add(attempt_seed)
+        else:
+            attempt_seed = (
+                base_seed + (attempt_number - 1) * seed_increment
+                if base_seed is not None
+                else None
+            )
         attempt: dict[str, Any] = {
             "attempt_number": attempt_number,
             "started_at": iso_now(),
+            "seed": attempt_seed,
         }
+        thinking_log_path = slm_thinking_log_path(
+            ctx, task_id, attempt_number, attempt_seed
+        )
+        attempt["thinking_log"] = (
+            str(thinking_log_path) if thinking_log_path is not None else None
+        )
         attempts.append(attempt)
+        ctx.event(
+            "slm_request_started",
+            task_id=task_id,
+            attempt_number=attempt_number,
+            seed=attempt_seed,
+            thinking_log=thinking_log_path,
+        )
         try:
-            result = call_slm(ctx, prompt)
+            result = call_slm(
+                ctx,
+                prompt,
+                seed_override=attempt_seed,
+                thinking_log_path=thinking_log_path,
+            )
             attempt.update(
                 {
                     "status": "OK",
                     "slm": slm_report(ctx, result, prompt),
+                    "thinking_log_file": (
+                        file_info(thinking_log_path)
+                        if thinking_log_path is not None
+                        else None
+                    ),
                     "finished_at": iso_now(),
                     "duration_seconds": time.perf_counter() - started,
                 }
             )
             return result, attempts
-        except SLMTimeoutError as exc:
+        except (SLMTimeoutError, SLMRepetitionError) as exc:
+            repetition_detected = isinstance(exc, SLMRepetitionError)
             attempt.update(
                 {
-                    "status": "TIMEOUT",
+                    "status": "REPETITION" if repetition_detected else "TIMEOUT",
                     "error_type": type(exc).__name__,
                     "error_message": str(exc),
+                    "thinking_log_file": (
+                        file_info(thinking_log_path)
+                        if thinking_log_path is not None
+                        else None
+                    ),
                     "finished_at": iso_now(),
                     "duration_seconds": time.perf_counter() - started,
                 }
             )
+            restart_reason = "thinking_repetition" if repetition_detected else "timeout"
+            ctx.event(
+                "slm_attempt_aborted",
+                reason=restart_reason,
+                task_id=task_id,
+                attempt_number=attempt_number,
+                seed=attempt_seed,
+                error_type=type(exc).__name__,
+                error_message=str(exc),
+                thinking_log=thinking_log_path,
+                will_restart=attempt_number <= max_restart,
+            )
             if attempt_number > max_restart:
                 setattr(exc, "slm_attempts", attempts)
                 raise
-            restart_result = restart_slm_service(ctx, "timeout", task_id)
+            restart_result = restart_slm_service(ctx, restart_reason, task_id)
             attempt["model_restart"] = (
                 command_report(ctx, restart_result) if restart_result else None
             )
@@ -924,6 +1270,11 @@ def call_slm_with_restart(
                     "status": "FAILED_SLM",
                     "error_type": type(exc).__name__,
                     "error_message": str(exc),
+                    "thinking_log_file": (
+                        file_info(thinking_log_path)
+                        if thinking_log_path is not None
+                        else None
+                    ),
                     "finished_at": iso_now(),
                     "duration_seconds": time.perf_counter() - started,
                 }
@@ -2359,6 +2710,10 @@ def write_text_report(path: Path, report: Mapping[str, Any]) -> None:
         f"Model:                          {dotted_get(report, 'configuration.slm.model')}",
         f"Thinking:                       {dotted_get(report, 'configuration.slm.thinking')}",
         f"Timeout seconds:                {dotted_get(report, 'configuration.slm.timeout_seconds')}",
+        f"Thinking repetition enabled:    {dotted_get(report, 'configuration.slm.thinking_repetition_enabled', True)}",
+        f"Thinking repetition limit:      {dotted_get(report, 'configuration.slm.thinking_repetition_limit')}",
+        f"Thinking minimum block chars:   {dotted_get(report, 'configuration.slm.thinking_repetition_min_block_chars', 0)}",
+        f"Seed mode:                      {dotted_get(report, 'configuration.retry.seed_mode', 'incremental')}",
         f"Temperature:                    {dotted_get(report, 'configuration.slm.options.temperature')}",
         "",
         "TOTALS",
@@ -2367,7 +2722,7 @@ def write_text_report(path: Path, report: Mapping[str, Any]) -> None:
         f"Prompt tokens:                  {summary.get('all_prompt_tokens', 0)}",
         f"Output tokens:                  {summary.get('all_output_tokens', 0)}",
         f"Total tokens:                   {summary.get('all_tokens', 0)}",
-        f"Model restarts after timeout:   {summary.get('all_model_restarts', 0)}",
+        f"Model restarts:                 {summary.get('all_model_restarts', 0)}",
         f"Format repair attempts:         {summary.get('all_format_repair_attempts', 0)}",
         f"ADL merger seconds:             {float(summary.get('adl_merger_seconds') or 0.0):.3f}",
         f"Intermodel integration seconds: {float(summary.get('intermodel_integration_seconds') or 0.0):.3f}",
@@ -2377,6 +2732,20 @@ def write_text_report(path: Path, report: Mapping[str, Any]) -> None:
         "SCENARIOS",
         "=" * 100,
     ]
+
+    def append_slm_attempts(container: Mapping[str, Any], indent: str) -> None:
+        for slm_attempt in container.get("slm_attempts", []):
+            error = re.sub(
+                r"\s+", " ", str(slm_attempt.get("error_message") or "")
+            ).strip()
+            lines.append(
+                f"{indent}slm_attempt={slm_attempt.get('attempt_number')} "
+                f"status={slm_attempt.get('status')} "
+                f"seed={slm_attempt.get('seed')} "
+                f"seconds={float(slm_attempt.get('duration_seconds') or 0.0):.3f} "
+                f"restart={'yes' if 'model_restart' in slm_attempt else 'no'}"
+                + (f" error={error}" if error else "")
+            )
 
     for scenario in report.get("scenarios", []):
         lines.extend(
@@ -2408,6 +2777,13 @@ def write_text_report(path: Path, report: Mapping[str, Any]) -> None:
                     f"prompt_tokens={metadata.get('prompt_eval_count', 0)} "
                     f"output_tokens={metadata.get('eval_count', 0)}"
                 )
+                append_slm_attempts(attempt, "      ")
+            for repair in task.get("format_repairs", []):
+                lines.append(
+                    f"    FORMAT REPAIR attempt={repair.get('attempt_number')} "
+                    f"status={repair.get('status')}"
+                )
+                append_slm_attempts(repair, "      ")
         for batch in scenario.get("intermodel", {}).get("batches", []):
             lines.append(
                 f"  INTERMODEL BATCH {batch.get('batch_number')} | "
@@ -2420,11 +2796,14 @@ def write_text_report(path: Path, report: Mapping[str, Any]) -> None:
                     f"seconds={float(task.get('duration_seconds') or 0.0):.3f} | "
                     f"attempts={len(task.get('attempts', []))}"
                 )
+                for attempt in task.get("attempts", []):
+                    append_slm_attempts(attempt, "      ")
             for repair in batch.get("format_repairs", []):
                 lines.append(
                     f"    FORMAT REPAIR attempt={repair.get('attempt_number')} "
                     f"status={repair.get('status')}"
                 )
+                append_slm_attempts(repair, "      ")
 
     lines.extend(
         [

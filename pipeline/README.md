@@ -63,12 +63,12 @@ output/<run_name>/
 │   ├── adl/
 │   │   └── generated model ADL files
 │   ├── artifacts.json
-│   └── complete_adl_file_here.adl
+│   └── <scenario_name>_models.adl
 └── output_intermodel/
     ├── slm/
     │   └── individual intermodel TXT files
     ├── intermodel_relations.txt
-    └── complete_adl_with_inter_here.adl
+    └── <scenario_name>_with_intermodel_relations.adl
 ```
 
 ## 3. Important Configuration Settings
@@ -100,12 +100,17 @@ The main configuration file is `parameter.json`. It must be located next to `pip
   "model": "qwen3.5:9b",
   "thinking": true,
   "timeout_seconds": 3600,
+  "log_thinking": true,
+  "thinking_repetition_enabled": true,
+  "thinking_repetition_limit": 5,
+  "thinking_repetition_min_block_chars": 20,
+  "show_stream_output": true,
   "keep_alive": "5m",
   "options": {
     "temperature": 0.2,
     "num_ctx": 131072,
     "top_p": 0.9,
-    "seed": 42,
+    "seed": false,
     "num_predict": 131072
   }
 }
@@ -117,21 +122,51 @@ Important fields:
 - `model`: Ollama model name
 - `thinking`: enables or disables thinking output
 - `timeout_seconds`: maximum duration of one SLM request
+- `log_thinking`: continuously save the thinking stream of every SLM attempt under the run's `thinking_logs` directory
+- `thinking_repetition_enabled`: enable or disable automatic restarts caused by repeated thinking blocks
+- `thinking_repetition_limit`: restart when the exact same complete thinking block has appeared this many times (only when repetition detection is enabled)
+- `thinking_repetition_min_block_chars`: ignore blocks with fewer characters after surrounding whitespace is removed; `0` disables the length filter
+- `show_stream_output`: print streamed thinking and answer text live in the terminal
 - `temperature`: randomness
 - `num_ctx`: context size
-- `seed`: improves reproducibility
+- `seed`: an integer improves reproducibility; `false` sends no seed to Ollama
 
 ### 3.3 Total SLM Timeout and Model Restart
 
 ```json
 "retry": {
-  "max_restart": 3
+  "max_restart": 3,
+  "seed_mode": "random",
+  "seed_increment": 1
 }
 ```
 
+With `retry.seed_mode` set to `random`, every SLM attempt, including the first,
+uses a new random 31-bit seed. Seeds are unique within one call and are stored
+in every attempt report, so a result can be reproduced later. Set the mode to
+`incremental` to use `slm.options.seed` for the first attempt and increase it
+by `retry.seed_increment` for each retry (for example `42`, `43`, `44`, `45`).
+Set `slm.options.seed` to `false` to omit the seed from every Ollama request;
+this takes precedence over `retry.seed_mode`.
+
 `slm.timeout_seconds` is one total wall-clock limit for a complete SLM call. It
-includes connection setup, thinking, and answer generation. There is no
-separate thinking timeout.
+includes connection setup, thinking, and answer generation. When
+`slm.thinking_repetition_enabled` is `true`, empty or whitespace-only lines
+separate complete thinking blocks. Blocks whose first non-whitespace text is
+`ELEMENTS` or `CONNECTIONS` are ignored; all other blocks are counted. The
+pipeline compares eligible blocks using exact, case-sensitive text equality. Whitespace, punctuation,
+capitalization, and internal line endings must all match. When a complete block reaches
+`slm.thinking_repetition_limit`, the current request is aborted and restarted.
+Consecutive empty blocks are ignored.
+Set `slm.thinking_repetition_enabled` to `false` for diagnostic runs that must
+continue even when the model repeats its thinking.
+Repeated blocks are also detected when other blocks occur between them.
+
+When `slm.log_thinking` is enabled, every initial request and retry receives a
+separate file under `thinking_logs/<task>/`. The file is flushed as chunks
+arrive, so partial thinking remains available after a repetition abort, total
+timeout, or Ctrl+C. Its filename contains the attempt number and seed, and the
+same path is recorded in the JSON/JSONL runtime logs.
 
 Behavior:
 
@@ -142,6 +177,8 @@ SLM total timeout
 → retry the identical request
 → repeat at most retry.max_restart times
 ```
+
+The same restart sequence is used when a thinking repetition is detected.
 
 ```text
 Python converter/integrator failure
@@ -210,10 +247,10 @@ name itself is intentionally not included.
   "model_slm_directory": "output_model_gen/slm",
   "model_adl_directory": "output_model_gen/adl",
   "artifact_manifest_file": "output_model_gen/artifacts.json",
-  "merged_adl_file": "output_model_gen/complete_adl_file_here.adl",
+  "merged_adl_file": "output_model_gen/{scenario_name}_models.adl",
   "intermodel_slm_directory": "output_intermodel/slm",
   "intermodel_aggregate_slm_file": "output_intermodel/intermodel_relations.txt",
-  "final_adl_file": "output_intermodel/complete_adl_with_inter_here.adl"
+  "final_adl_file": "output_intermodel/{scenario_name}_with_intermodel_relations.adl"
 }
 ```
 
@@ -256,7 +293,7 @@ ProductServiceModel
       "scenario_name": "controlled_phase1",
       "scenario_directory": "scenarios/controlled_phase1",
       "artifact_manifest": "output/controlled_phase1_run/output_model_gen/artifacts.json",
-      "input_adl": "output/controlled_phase1_run/output_model_gen/complete_adl_file_here.adl",
+      "input_adl": "output/controlled_phase1_run/output_model_gen/controlled_phase1_models.adl",
       "output_run_directory": "output/controlled_phase1_run"
     }
   ]
@@ -439,7 +476,7 @@ Each saved run contains:
 output_intermodel/
 ├── slm/
 ├── intermodel_relations.txt
-└── complete_adl_with_inter_here.adl
+└── controlled_phase1_with_intermodel_relations.adl
 ```
 
 The folder name includes the run number, timestamp, and status, so runs are not overwritten.
@@ -448,9 +485,9 @@ The folder name includes the run number, timestamp, and status, so runs are not 
 
 ```powershell
 python scripts/add_intermodel_relations_slm.py `
-    output/controlled_phase1_run/output_model_gen/complete_adl_file_here.adl `
+    output/controlled_phase1_run/output_model_gen/controlled_phase1_models.adl `
     output/controlled_phase1_run/output_intermodel/intermodel_relations.txt `
-    --output output/controlled_phase1_run/output_intermodel/complete_adl_with_inter_here.adl `
+    --output output/controlled_phase1_run/output_intermodel/controlled_phase1_with_intermodel_relations.adl `
     --overwrite
 ```
 
@@ -493,7 +530,7 @@ output_model_gen/artifacts.json
 Mapping between scenario files, model TXT files, ADL files, model IDs, and ADL model names.
 
 ```text
-output_model_gen/complete_adl_file_here.adl
+output_model_gen/<scenario_name>_models.adl
 ```
 
 Merged ADL without intermodel relationships.
@@ -511,7 +548,7 @@ output_intermodel/intermodel_relations.txt
 Aggregated intermodel relationships.
 
 ```text
-output_intermodel/complete_adl_with_inter_here.adl
+output_intermodel/<scenario_name>_with_intermodel_relations.adl
 ```
 
 Final ADL with integrated intermodel relationships.
@@ -594,4 +631,23 @@ Use:
 
 ```json
 "scenario_run_directory_template": "{scenario_name}_{timestamp}"
+```
+
+## 13. Concepts Model Layout
+
+`slm_to_adl_ConceptModel.py` analyses the weakly connected concept graph before
+placing nodes. One connected graph is laid out as one top-down hierarchy;
+multiple components receive separate horizontal areas.
+
+- Only concept-to-concept relations determine hierarchy levels.
+- Attributes are placed in one row below their owning concept. The row uses the
+  free side outside the tree-edge corridor, and its spacing prevents attribute
+  arrows from running through sibling attributes.
+- Feedback relations remain in the ADL but are ignored for hierarchy ranking.
+- The ADL world area grows automatically for wide or deep models.
+
+Generate the included simulation with:
+
+```powershell
+python scripts\slm_to_adl\slm_to_adl_ConceptModel.py examples\simulated_concept_layout.txt examples\output\simulated_concept_layout.adl --model-name Simulated_Concept_Layout
 ```

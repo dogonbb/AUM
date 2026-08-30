@@ -8,9 +8,14 @@
   "slm": {
     "provider": "ollama",
     "base_url": "http://localhost:11434",
-    "model": "gemma4:e4b",
+    "model": "qwen3.5:4b",
     "thinking": true,
-    "timeout_seconds": 3600,
+    "timeout_seconds": 1800,
+    "log_thinking": false,
+    "thinking_repetition_enabled": true,
+    "thinking_repetition_limit": 10,
+    "thinking_repetition_min_block_chars": 30,
+    "show_stream_output": true,
     "keep_alive": "5m",
     "options": {
       "temperature": 0.2,
@@ -21,7 +26,9 @@
     }
   },
   "retry": {
-    "max_restart": 3
+    "max_restart": 5,
+    "seed_mode": "incremental",
+    "seed_increment": 1
   },
   "format_repair": {
     "enabled": true,
@@ -33,6 +40,7 @@
     "output_root": "output",
     "scenario_run_directory_template": "{scenario_name}_{timestamp}",
     "timestamp_format": "%Y-%m-%dT%H-%M-%S",
+    "thinking_log_directory": "thinking_logs",
     "model_slm_directory": "output_model_gen/slm",
     "model_adl_directory": "output_model_gen/adl",
     "artifact_manifest_file": "output_model_gen/artifacts.json",

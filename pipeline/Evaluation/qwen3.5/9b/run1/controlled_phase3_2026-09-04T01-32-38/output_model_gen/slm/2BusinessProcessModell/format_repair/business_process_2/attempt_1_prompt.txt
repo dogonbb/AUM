@@ -1,0 +1,617 @@
+## General explanation
+
+You repair an already generated model output after a Python converter or integrator failed to process it.
+
+Follow this order strictly:
+1. Review the complete generated output and the complete Python error before making changes.
+2. Correct every reported formatting violation throughout the file, while preserving semantic content wherever possible.
+3. Correct every reported semantic validation error using the scenario texts, model explanation, original model generation rules, and required output format. Make only the smallest content changes required for the Python script to accept the output.
+
+The Python error may contain a numbered `Multiple validation errors` list, including multiple errors for one line. Resolve every listed error in one repaired output. Do not stop after fixing the first item. Check every line named in the error list and keep all element names in `CONNECTIONS` exactly consistent with their declarations in `ELEMENTS`.
+
+For a semantic correction, use only information present in the supplied scenario texts, model explanation, and model rules. Do not invent elements, names, facts, or relationships. Remove, replace, or add only what is necessary to resolve the reported validation errors. Preserve every unaffected name and piece of content exactly.
+
+Return only the complete repaired output. Do not provide an explanation, Markdown, code fences, or introductory or concluding text.
+
+## Scenario texts
+
+The marketing campaign process can be decomposed into four processes: plan marketing campaign, run social media campaign, run print media campaign and supervise campaign results. “Plan marketing campaign” receives the campaign target document as input information and produces the campaign plan as output. What follows are two processes in parallel, which means that there is a split into two processes: “run social media campaign” and “run print media campaign”. Both receive the campaign plan as input and produce the campaign statistics as output. After the completion of both processes, the process “supervise campaign results” follows and produces the campaign result document as output. The marketing department is responsible for all four processes that are part of the marketing campaign process.
+
+## Model explanation
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Business Process Model
+
+## Purpose of the model
+
+The Business Process Model describes enterprise processes, their interactions, and the flow of information between them. It represents internal processes, relevant external processes, information sets, and branching or joining structures. The model explains how information is consumed as input, produced as output, and transferred between process elements.
+
+## Element types
+
+- Process
+- External Process
+- Information Set
+
+## Meaning of element types
+
+- Process: A collection of activities within the enterprise or problem domain that consumes input, produces output, is controlled by rules, may have a performer or responsible actor, and uses resources and time.
+- External Process: A collection of activities outside the organisational scope that communicates with processes in the problem domain and may act as a source or destination of information.
+- Information Set: A set of information transferred from one Process or External Process to another.
+
+## Internal connection types
+
+Direct connections:
+
+- relation
+- Input
+- Output
+
+Connector-based connections:
+
+- Split (AND)
+- Join (AND)
+- Split (OR)
+- Join (OR)
+
+## Meaning of internal connections
+
+- A relation B: A is directly connected to B by an unlabeled business-process relation.
+- A Input B: Information Set A is used as input by Process or External Process B.
+- A Output B: Process or External Process A produces Information Set B as output.
+- A Split (AND) B, C, D: A branches to B, C, and D, and all branches apply.
+- A Split (OR) B, C, D: A branches to B, C, and D as alternatives.
+- A, B, C Join (AND) D: A, B, and C are joined before D, and all incoming branches apply.
+- A, B, C Join (OR) D: A, B, and C are alternative incoming branches joined before D.
+
+## Structural rules
+
+- Internal enterprise activities are represented as Process.
+- Activities outside the organisational scope are represented as External Process.
+- Transferred information is represented as Information Set.
+- Input connections lead from Information Sets to Processes or External Processes.
+- Output connections lead from Processes or External Processes to Information Sets.
+- AND connectors represent parallel or jointly required branches.
+- OR connectors represent alternative branches.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, causes, constraints, opportunities, actors, roles, organisational units, products, services, concepts, business rules, or technical requirements as model elements.
+
+## Original model generation rules
+
+Create a Business Process Model according to 4EM for the given case.
+
+## Purpose of the model
+
+The Business Process Model is used to define enterprise processes, the way they interact, and the way they handle information.
+It shows processes together with external processes and information sets.
+It also explains how information is used as input and output between processes and external processes.
+
+## Allowed element types
+
+Use only the following element types:
+
+- Process
+- External Process
+- Information Set
+
+Do not use any other element types.
+Do not create elements such as Goal, Problem, Cause, Constraint, Opportunity, Product, Service, Component, Feature, Actor, Role, Resource, Concept, Technical Component, Requirement, Market, or Business Rule.
+
+## Allowed direct connection types
+
+Use only the following direct connection types:
+
+- relation
+- Input
+- Output
+
+## Allowed connector types
+
+Use only the following connector-based connections:
+
+- Split (AND)
+- Join (AND)
+- Split (OR)
+- Join (OR)
+
+## Meaning of element types
+
+- Process: a collection of activities that consumes input and produces output in terms of information, is controlled by rules, may have a performer or responsible actor or resource, and consumes a finite amount of resources and time when initiated.
+- External Process: a collection of activities located outside the scope of the organisational activity area, communicating with processes or activities of the problem domain area, and essential to document. External processes can be sources or terminators for information flows.
+- Information Set: a set of information sent from one Process or External Process to another.
+  
+## Meaning of direct connections
+
+Use direct connections only for simple one-to-one relations.
+
+- A relation B  
+  means that A is directly connected to B by an unlabeled business process relation.
+
+- A Input B  
+  means that A is used as input for B.
+
+- A Output B  
+  means that A is produced or provided as output by B.
+
+## Meaning of connector-based connections
+
+Use connector-based connections when multiple elements are connected by one Split (AND), Join (AND), Split (OR), or Join (OR) connector.
+
+- A Split (AND) B, C, D  
+  means that A is connected to B, C, and D by a Split (AND) connector.
+
+- A Split (OR) B, C, D  
+  means that A is connected to B, C, and D by a Split (OR) connector.
+
+- A, B, C Join (AND) D  
+  means that A, B, and C are connected to D by a Join (AND) connector.
+
+- A, B, C Join (OR) D  
+  means that A, B, and C are connected to D by a Join (OR) connector.
+
+## Allowed connection patterns
+
+For relation:
+
+- Process relation External Process
+- External Process relation Process
+
+For Input:
+
+- Information Set Input Process
+- Information Set Input External Process
+
+For Output:
+
+- Process Output Information Set
+- External Process Output Information Set
+
+For Split (AND), Join (AND), Split (OR), and Join (OR) connectors:
+
+- Process, External Process, and Information Set may be connected with Process, External Process, and Information Set.
+
+## Modeling rules
+
+1. Use Process for activities inside the enterprise or problem domain that consume input and produce output.
+2. Use External Process for activities outside the organisational activity area that communicate with processes or activities of the problem domain area.
+3. Use Information Set for information that is sent from one Process or External Process to another.
+4. Use Split (AND) only when one element branches into several elements that all apply.
+5. Use Join (AND) only when several elements are joined into one element and all incoming elements apply.
+6. Use Split (OR) only when one element branches into several alternative elements.
+7. Use Join (OR) only when several alternative elements are joined into one element.
+8. Use Input only when an Information Set is used as input for a Process or External Process.
+9. Use Output only when a Process or External Process produces or provides an Information Set.
+10. Use relation only for unlabeled direct connections between Process and External Process in one of the allowed connection patterns.
+11. Use connector-based connections when the case describes grouped, branching, joining, or alternative process relations.
+12. Every element used in CONNECTIONS must be listed exactly once in ELEMENTS.
+13. Do not invent elements that are not supported by the case text.
+14. Do not write explanations, comments, descriptions, bullet points, or any text outside the required output sections.
+
+## Output format
+
+Output the model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> relation <element name>
+<element name> Input <element name>
+<element name> Output <element name>
+<element name> Split (AND) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>
+<element name> Split (OR) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (OR) <element name>
+
+
+Note that for connections, you shouldn’t include the ElementType in the Connection.
+
+## Required output format
+
+Output the repaired model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> relation <element name>
+<element name> Input <element name>
+<element name> Output <element name>
+<element name> Split (AND) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>
+<element name> Split (OR) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (OR) <element name>
+
+Replace every placeholder in angle brackets with an actual existing name; do not output the angle brackets themselves. Replace `ElementType` with exactly one allowed type: `Process`, `External Process`, or `Information Set`. Split and Join are connection operators, not element types, and must never be declared under `ELEMENTS`.
+
+Write `ELEMENTS` and `CONNECTIONS` exactly as shown and in this order. Write one element or connection per line. Separate multiple sources or targets with a comma followed by one space. Split has exactly one source and at least two targets. Join has at least two sources and exactly one target. A direct relation, Input, or Output connection has exactly one source and one target.
+
+Do not include element types in `CONNECTIONS`. Every referenced name must exactly match one declaration in `ELEMENTS`, and every element name must be declared exactly once. Preserve the exact spelling and capitalization of `relation`, `Input`, `Output`, `Split`, `Join`, `AND`, and `OR`. Output plain text only: no Markdown fences, bullets, numbering, comments, explanations, or additional sections.
+
+## Python error
+
+Multiple validation errors (92):
+  1. Duplicate element names found: campaign plan, campaign result document, campaign statistics, campaign target document, plan marketing campaign, run print media campaign, run social media campaign, supervise campaign results
+  2. CONNECTIONS line 6: 'Join (AND)' requires at least two sources and exactly one target: 'run social media campaign Join (AND) run print media campaign, supervise campaign results'
+  3. CONNECTIONS line 7: 'Join (AND)' requires at least two sources and exactly one target: 'run print media campaign Join (AND) run social media campaign, supervise campaign results'
+  4. CONNECTIONS line 10: Multiple validation errors (5):
+  1. Source 'Wait' is not defined under ELEMENTS.
+  2. Source 'I need to check the Join syntax again. `<element name_1>' is not defined under ELEMENTS.
+  3. Source '<element name_2>' is not defined under ELEMENTS.
+  4. Source '<element name_3>' is not defined under ELEMENTS.
+  5. Target '<element name>`.' is not defined under ELEMENTS.
+  5. CONNECTIONS line 11: Multiple validation errors (3):
+  1. Source 'My previous draft: `run social media campaign' is not defined under ELEMENTS.
+  2. Target 'supervise campaign results`. This is wrong. It should be `run social media campaign`' is not defined under ELEMENTS.
+  3. Target '`run print media campaign` Join (AND) `supervise campaign results`.' is not defined under ELEMENTS.
+  6. CONNECTIONS line 12: Multiple validation errors (3):
+  1. Source 'Correct syntax: `<element name_1>' is not defined under ELEMENTS.
+  2. Source '<element name_2>' is not defined under ELEMENTS.
+  3. Target '<element name>`.' is not defined under ELEMENTS.
+  7. CONNECTIONS line 13: Multiple validation errors (2):
+  1. Source 'So: `run social media campaign' is not defined under ELEMENTS.
+  2. Target 'supervise campaign results`.' is not defined under ELEMENTS.
+  8. CONNECTIONS line 14: Multiple validation errors (3):
+  1. Source 'Also check Split syntax: `<element name>' is not defined under ELEMENTS.
+  2. Target '<element name_1>' is not defined under ELEMENTS.
+  3. Target '<element name_2>`.' is not defined under ELEMENTS.
+  9. CONNECTIONS line 15: Multiple validation errors (2):
+  1. Source 'So: `campaign plan' is not defined under ELEMENTS.
+  2. Target 'run print media campaign`.' is not defined under ELEMENTS.
+  10. CONNECTIONS line 16: No valid connection type found in: 'Wait, I need to ensure the element names in CONNECTIONS match exactly.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  11. CONNECTIONS line 17: No valid connection type found in: 'Also, check if I should use Input/Output for `campaign plan` as well as Split?'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  12. CONNECTIONS line 18: Multiple validation errors (3):
+  1. Source 'If I use Split' is not defined under ELEMENTS.
+  2. Source 'it connects `campaign plan` to the processes. Do I need `campaign plan`' is not defined under ELEMENTS.
+  3. Target '`run social media campaign`?' is not defined under ELEMENTS.
+  13. CONNECTIONS line 19: Multiple validation errors (4):
+  1. Source 'Usually' is not defined under ELEMENTS.
+  2. Source 'Split replaces the direct connection for that branch. I will omit the direct' is not defined under ELEMENTS.
+  3. Target 'connection for the split branch to avoid redundancy' is not defined under ELEMENTS.
+  4. Target 'relying on the Split connector.' is not defined under ELEMENTS.
+  14. CONNECTIONS line 20: No valid connection type found in: 'However, for `campaign statistics`, since they produce it and Supervise consumes it, I need Output/Input connections.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  15. CONNECTIONS line 21: Multiple validation errors (3):
+  1. Source 'For `campaign plan`' is not defined under ELEMENTS.
+  2. Source '`plan marketing campaign`' is not defined under ELEMENTS.
+  3. Target '`campaign plan`. Then `campaign plan` Split (AND) ...' is not defined under ELEMENTS.
+  16. CONNECTIONS line 22: No valid connection type found in: 'This seems correct.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  17. CONNECTIONS line 23: Multiple validation errors (5):
+  1. Source 'Wait' is not defined under ELEMENTS.
+  2. Source 'check the Join syntax again. `<element name_1>' is not defined under ELEMENTS.
+  3. Source '<element name_2>' is not defined under ELEMENTS.
+  4. Source '<element name_3>' is not defined under ELEMENTS.
+  5. Target '<element name>`.' is not defined under ELEMENTS.
+  18. CONNECTIONS line 24: Multiple validation errors (2):
+  1. Source 'So: `run social media campaign' is not defined under ELEMENTS.
+  2. Target 'supervise campaign results`.' is not defined under ELEMENTS.
+  19. CONNECTIONS line 25: Multiple validation errors (2):
+  1. Source 'One more check: "Use' is not defined under ELEMENTS.
+  2. Target 'only when an Information Set is used as input".' is not defined under ELEMENTS.
+  20. CONNECTIONS line 26: No valid connection type found in: 'If I use Split/Join connectors, do they count as Input? No, they are Connector-based connections.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  21. CONNECTIONS line 27: No valid connection type found in: 'So for `campaign plan` -> Processes, I use Split.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  22. CONNECTIONS line 28: No valid connection type found in: 'For `Processes` -> `supervise`, I use Join.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  23. CONNECTIONS line 29: No valid connection type found in: 'For `campaign statistics` -> `supervise`, I use Input.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  24. CONNECTIONS line 30: No valid connection type found in: 'This is allowed.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  25. CONNECTIONS line 31: No valid connection type found in: 'Wait, check if `campaign plan` needs to be connected via Input/Output as well?'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  26. CONNECTIONS line 32: Multiple validation errors (3):
+  1. Source 'If I use Split' is not defined under ELEMENTS.
+  2. Source 'it implies the flow. But does it satisfy "Use' is not defined under ELEMENTS.
+  3. Target 'only when..."?' is not defined under ELEMENTS.
+  27. CONNECTIONS line 33: Multiple validation errors (2):
+  1. Source 'The rule says "Use' is not defined under ELEMENTS.
+  2. Target 'only when...". It doesn\'t say "You MUST use Input for all data flows". It says "Use Input [type] only when...".' is not defined under ELEMENTS.
+  28. CONNECTIONS line 34: No valid connection type found in: 'So using Split is allowed for branching.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  29. CONNECTIONS line 35: No valid connection type found in: 'Okay.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  30. CONNECTIONS line 36: Multiple validation errors (4):
+  1. Source 'Wait' is not defined under ELEMENTS.
+  2. Source 'check the Join syntax in my draft: `run social media campaign' is not defined under ELEMENTS.
+  3. Target 'supervise campaign results`. This implies `run social media campaign` is the source of the join? No' is not defined under ELEMENTS.
+  4. Target 'the syntax is `<sources> Join (AND) <destination>`.' is not defined under ELEMENTS.
+  31. CONNECTIONS line 37: Multiple validation errors (2):
+  1. Source 'So `run social media campaign' is not defined under ELEMENTS.
+  2. Target 'supervise campaign results`.' is not defined under ELEMENTS.
+  32. CONNECTIONS line 38: Multiple validation errors (3):
+  1. Source 'Wait' is not defined under ELEMENTS.
+  2. Source 'check the Split syntax: `campaign plan' is not defined under ELEMENTS.
+  3. Target 'run print media campaign`.' is not defined under ELEMENTS.
+  33. CONNECTIONS line 39: No valid connection type found in: 'Okay, final check on elements list.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  34. CONNECTIONS line 40: No valid connection type found in: 'Processes: 4.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  35. CONNECTIONS line 41: No valid connection type found in: 'InfoSets: 4.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  36. CONNECTIONS line 42: No valid connection type found in: 'Total 8.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  37. CONNECTIONS line 43: No valid connection type found in: 'Connections:'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  38. CONNECTIONS line 44: Multiple validation errors (2):
+  1. Source '1. `campaign target document`' is not defined under ELEMENTS.
+  2. Target '`plan marketing campaign`' is not defined under ELEMENTS.
+  39. CONNECTIONS line 45: Multiple validation errors (2):
+  1. Source '2. `plan marketing campaign`' is not defined under ELEMENTS.
+  2. Target '`campaign plan`' is not defined under ELEMENTS.
+  40. CONNECTIONS line 46: Multiple validation errors (3):
+  1. Source '3. `campaign plan`' is not defined under ELEMENTS.
+  2. Target '`run social media campaign`' is not defined under ELEMENTS.
+  3. Target '`run print media campaign`' is not defined under ELEMENTS.
+  41. CONNECTIONS line 47: Multiple validation errors (2):
+  1. Source '4. `run social media campaign`' is not defined under ELEMENTS.
+  2. Target '`campaign statistics`' is not defined under ELEMENTS.
+  42. CONNECTIONS line 48: Multiple validation errors (2):
+  1. Source '5. `run print media campaign`' is not defined under ELEMENTS.
+  2. Target '`campaign statistics`' is not defined under ELEMENTS.
+  43. CONNECTIONS line 49: Multiple validation errors (3):
+  1. Source '6. `run social media campaign`' is not defined under ELEMENTS.
+  2. Source '`run print media campaign`' is not defined under ELEMENTS.
+  3. Target '`supervise campaign results`' is not defined under ELEMENTS.
+  44. CONNECTIONS line 50: Multiple validation errors (2):
+  1. Source '7. `campaign statistics`' is not defined under ELEMENTS.
+  2. Target '`supervise campaign results`' is not defined under ELEMENTS.
+  45. CONNECTIONS line 51: Multiple validation errors (2):
+  1. Source '8. `supervise campaign results`' is not defined under ELEMENTS.
+  2. Target '`campaign result document`' is not defined under ELEMENTS.
+  46. CONNECTIONS line 52: No valid connection type found in: 'Wait, check rule 12: "Every element used in CONNECTIONS must be listed exactly once in ELEMENTS."'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  47. CONNECTIONS line 53: No valid connection type found in: 'This means I cannot list an element in ELEMENTS if it is not used in CONNECTIONS? Or does it mean if I use it in CONNECTIONS, it MUST be in ELEMENTS?'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  48. CONNECTIONS line 54: No valid connection type found in: '"Every element used in CONNECTIONS must be listed exactly once in ELEMENTS."'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  49. CONNECTIONS line 55: No valid connection type found in: 'It implies: If Element X is in CONNECTIONS, then Element X is in ELEMENTS.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  50. CONNECTIONS line 56: No valid connection type found in: "It does not forbid unused elements in ELEMENTS, but typically we don't create unused ones.". Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  51. CONNECTIONS line 57: No valid connection type found in: 'I will ensure all 8 are used in connections.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  52. CONNECTIONS line 58: No valid connection type found in: '`campaign target document`: Used in Input.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  53. CONNECTIONS line 59: Multiple validation errors (2):
+  1. Source '`plan marketing campaign`: Used in' is not defined under ELEMENTS.
+  2. Target 'and Split (source).' is not defined under ELEMENTS.
+  54. CONNECTIONS line 60: No valid connection type found in: '`run social media campaign`: Used in Split (dest), Output, Join (source).'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  55. CONNECTIONS line 61: No valid connection type found in: '`run print media campaign`: Used in Split (dest), Output, Join (source).'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  56. CONNECTIONS line 62: No valid connection type found in: '`supervise campaign results`: Used in Join (dest), Input, Output.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  57. CONNECTIONS line 63: No valid connection type found in: '`campaign plan`: Used in Output, Split (source).'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  58. CONNECTIONS line 64: Multiple validation errors (3):
+  1. Source '`campaign statistics`: Used in' is not defined under ELEMENTS.
+  2. Target '(x2)' is not defined under ELEMENTS.
+  3. Target 'Input.' is not defined under ELEMENTS.
+  59. CONNECTIONS line 65: No valid connection type found in: '`campaign result document`: Used in Output.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  60. CONNECTIONS line 66: No valid connection type found in: 'All used.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  61. CONNECTIONS line 67: Multiple validation errors (5):
+  1. Source 'Wait' is not defined under ELEMENTS.
+  2. Source 'check the Join syntax again. `<element name_1>' is not defined under ELEMENTS.
+  3. Source '<element name_2>' is not defined under ELEMENTS.
+  4. Source '<element name_3>' is not defined under ELEMENTS.
+  5. Target '<element name>`.' is not defined under ELEMENTS.
+  62. CONNECTIONS line 68: Multiple validation errors (2):
+  1. Source 'So `run social media campaign' is not defined under ELEMENTS.
+  2. Target 'supervise campaign results`.' is not defined under ELEMENTS.
+  63. CONNECTIONS line 69: No valid connection type found in: 'Correct.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  64. CONNECTIONS line 70: No valid connection type found in: 'Wait, check if I need to list `campaign plan` in ELEMENTS? Yes.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  65. CONNECTIONS line 71: No valid connection type found in: 'Check if I need to list `campaign statistics` in ELEMENTS? Yes.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  66. CONNECTIONS line 72: No valid connection type found in: 'Okay, ready.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  67. CONNECTIONS line 73: Multiple validation errors (2):
+  1. Source 'One detail: "Use' is not defined under ELEMENTS.
+  2. Target 'only for unlabeled direct connections between Process and External Process".' is not defined under ELEMENTS.
+  68. CONNECTIONS line 74: No valid connection type found in: 'I am not using relations.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  69. CONNECTIONS line 75: Multiple validation errors (2):
+  1. Source '"Use' is not defined under ELEMENTS.
+  2. Target 'only when an Information Set is used as input for a Process or External Process."' is not defined under ELEMENTS.
+  70. CONNECTIONS line 76: Multiple validation errors (2):
+  1. Source 'I am using' is not defined under ELEMENTS.
+  2. Target 'for `campaign target document` -> `plan marketing campaign` and `campaign statistics` -> `supervise campaign results`.' is not defined under ELEMENTS.
+  71. CONNECTIONS line 77: No valid connection type found in: 'This is correct.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  72. CONNECTIONS line 78: Multiple validation errors (5):
+  1. Source 'Wait' is not defined under ELEMENTS.
+  2. Source 'check the Join syntax again. `<element name_1>' is not defined under ELEMENTS.
+  3. Source '<element name_2>' is not defined under ELEMENTS.
+  4. Source '<element name_3>' is not defined under ELEMENTS.
+  5. Target '<element name>`.' is not defined under ELEMENTS.
+  73. CONNECTIONS line 79: Multiple validation errors (2):
+  1. Source 'So `run social media campaign' is not defined under ELEMENTS.
+  2. Target 'supervise campaign results`.' is not defined under ELEMENTS.
+  74. CONNECTIONS line 80: No valid connection type found in: 'Correct.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  75. CONNECTIONS line 81: Multiple validation errors (5):
+  1. Source 'Wait' is not defined under ELEMENTS.
+  2. Source 'check the Split syntax. `<element name>' is not defined under ELEMENTS.
+  3. Target '<element name_1>' is not defined under ELEMENTS.
+  4. Target '<element name_2>' is not defined under ELEMENTS.
+  5. Target '<element name_3>`.' is not defined under ELEMENTS.
+  76. CONNECTIONS line 82: Multiple validation errors (2):
+  1. Source 'So `campaign plan' is not defined under ELEMENTS.
+  2. Target 'run print media campaign`.' is not defined under ELEMENTS.
+  77. CONNECTIONS line 83: No valid connection type found in: 'Correct.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  78. CONNECTIONS line 84: No valid connection type found in: "Wait, check if I should use `relation` for `plan marketing campaign` -> `run social media campaign`? No, that's a branch.". Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  79. CONNECTIONS line 85: No valid connection type found in: 'Okay.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  80. CONNECTIONS line 86: Multiple validation errors (4):
+  1. Source 'One final check on the Join syntax: `<element name_1>' is not defined under ELEMENTS.
+  2. Source '<element name_2>' is not defined under ELEMENTS.
+  3. Source '<element name_3>' is not defined under ELEMENTS.
+  4. Target '<element name>`.' is not defined under ELEMENTS.
+  81. CONNECTIONS line 87: No valid connection type found in: 'Does it allow 2 elements? Yes.'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+  82. CONNECTIONS line 88: Multiple validation errors (2):
+  1. Source 'So `run social media campaign' is not defined under ELEMENTS.
+  2. Target 'supervise campaign results`.' is not defined under ELEMENTS.
+  83. CONNECTIONS line 89: Multiple validation errors (3):
+  1. Source 'Wait' is not defined under ELEMENTS.
+  2. Source 'check the' is not defined under ELEMENTS.
+  3. Target 'syntax: `<element name> Output <element name>`.' is not defined under ELEMENTS.
+  84. CONNECTIONS line 90: Multiple validation errors (2):
+  1. Source '`plan marketing campaign`' is not defined under ELEMENTS.
+  2. Target '`campaign plan`.' is not defined under ELEMENTS.
+  85. CONNECTIONS line 91: Multiple validation errors (2):
+  1. Source '`run social media campaign`' is not defined under ELEMENTS.
+  2. Target '`campaign statistics`.' is not defined under ELEMENTS.
+  86. CONNECTIONS line 92: Multiple validation errors (2):
+  1. Source '`run print media campaign`' is not defined under ELEMENTS.
+  2. Target '`campaign statistics`.' is not defined under ELEMENTS.
+  87. CONNECTIONS line 93: Multiple validation errors (2):
+  1. Source '`supervise campaign results`' is not defined under ELEMENTS.
+  2. Target '`campaign result document`.' is not defined under ELEMENTS.
+  88. CONNECTIONS line 94: Multiple validation errors (3):
+  1. Source 'Wait' is not defined under ELEMENTS.
+  2. Source 'check the' is not defined under ELEMENTS.
+  3. Target 'syntax: `<element name> Input <element name>`.' is not defined under ELEMENTS.
+  89. CONNECTIONS line 95: Multiple validation errors (2):
+  1. Source '`campaign target document`' is not defined under ELEMENTS.
+  2. Target '`plan marketing campaign`.' is not defined under ELEMENTS.
+  90. CONNECTIONS line 96: Multiple validation errors (2):
+  1. Source '`campaign statistics`' is not defined under ELEMENTS.
+  2. Target '`supervise campaign results`.' is not defined under ELEMENTS.
+  91. CONNECTIONS line 97: Multiple validation errors (2):
+  1. Source 'Okay. I will write the' is not defined under ELEMENTS.
+  2. Target 'now.' is not defined under ELEMENTS.
+  92. CONNECTIONS line 98: No valid connection type found in: '</think>'. Allowed: Input, Join (AND), Join (OR), Output, Split (AND), Split (OR), relation
+
+## Output to repair
+
+ELEMENTS
+Process plan marketing campaign
+Process run social media campaign
+Process run print media campaign
+Process supervise campaign results
+Information Set campaign target document
+Information Set campaign plan
+Information Set campaign statistics
+Information Set campaign result document
+
+CONNECTIONS
+campaign target document Input plan marketing campaign
+plan marketing campaign Output campaign plan
+campaign plan Split (AND) run social media campaign, run print media campaign
+run social media campaign Output campaign statistics
+run print media campaign Output campaign statistics
+run social media campaign Join (AND) run print media campaign, supervise campaign results
+run print media campaign Join (AND) run social media campaign, supervise campaign results
+campaign statistics Input supervise campaign results
+supervise campaign results Output campaign result document
+
+Wait, I need to check the Join syntax again. `<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>`.
+My previous draft: `run social media campaign Join (AND) run print media campaign, supervise campaign results`. This is wrong. It should be `run social media campaign`, `run print media campaign` Join (AND) `supervise campaign results`.
+Correct syntax: `<element name_1>, <element name_2> Join (AND) <element name>`.
+So: `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+
+Also check Split syntax: `<element name> Split (AND) <element name_1>, <element name_2>`.
+So: `campaign plan Split (AND) run social media campaign, run print media campaign`.
+
+Wait, I need to ensure the element names in CONNECTIONS match exactly.
+Also, check if I should use Input/Output for `campaign plan` as well as Split?
+If I use Split, it connects `campaign plan` to the processes. Do I need `campaign plan` Input `run social media campaign`?
+Usually, Split replaces the direct connection for that branch. I will omit the direct Input connection for the split branch to avoid redundancy, relying on the Split connector.
+However, for `campaign statistics`, since they produce it and Supervise consumes it, I need Output/Input connections.
+For `campaign plan`, `plan marketing campaign` Output `campaign plan`. Then `campaign plan` Split (AND) ...
+This seems correct.
+
+Wait, check the Join syntax again. `<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>`.
+So: `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+
+One more check: "Use Input only when an Information Set is used as input".
+If I use Split/Join connectors, do they count as Input? No, they are Connector-based connections.
+So for `campaign plan` -> Processes, I use Split.
+For `Processes` -> `supervise`, I use Join.
+For `campaign statistics` -> `supervise`, I use Input.
+This is allowed.
+
+Wait, check if `campaign plan` needs to be connected via Input/Output as well?
+If I use Split, it implies the flow. But does it satisfy "Use Input only when..."?
+The rule says "Use Input only when...". It doesn't say "You MUST use Input for all data flows". It says "Use Input [type] only when...".
+So using Split is allowed for branching.
+Okay.
+
+Wait, check the Join syntax in my draft: `run social media campaign Join (AND) run print media campaign, supervise campaign results`. This implies `run social media campaign` is the source of the join? No, the syntax is `<sources> Join (AND) <destination>`.
+So `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+
+Wait, check the Split syntax: `campaign plan Split (AND) run social media campaign, run print media campaign`.
+
+Okay, final check on elements list.
+Processes: 4.
+InfoSets: 4.
+Total 8.
+
+Connections:
+1. `campaign target document` Input `plan marketing campaign`
+2. `plan marketing campaign` Output `campaign plan`
+3. `campaign plan` Split (AND) `run social media campaign`, `run print media campaign`
+4. `run social media campaign` Output `campaign statistics`
+5. `run print media campaign` Output `campaign statistics`
+6. `run social media campaign`, `run print media campaign` Join (AND) `supervise campaign results`
+7. `campaign statistics` Input `supervise campaign results`
+8. `supervise campaign results` Output `campaign result document`
+
+Wait, check rule 12: "Every element used in CONNECTIONS must be listed exactly once in ELEMENTS."
+This means I cannot list an element in ELEMENTS if it is not used in CONNECTIONS? Or does it mean if I use it in CONNECTIONS, it MUST be in ELEMENTS?
+"Every element used in CONNECTIONS must be listed exactly once in ELEMENTS."
+It implies: If Element X is in CONNECTIONS, then Element X is in ELEMENTS.
+It does not forbid unused elements in ELEMENTS, but typically we don't create unused ones.
+I will ensure all 8 are used in connections.
+`campaign target document`: Used in Input.
+`plan marketing campaign`: Used in Output and Split (source).
+`run social media campaign`: Used in Split (dest), Output, Join (source).
+`run print media campaign`: Used in Split (dest), Output, Join (source).
+`supervise campaign results`: Used in Join (dest), Input, Output.
+`campaign plan`: Used in Output, Split (source).
+`campaign statistics`: Used in Output (x2), Input.
+`campaign result document`: Used in Output.
+All used.
+
+Wait, check the Join syntax again. `<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>`.
+So `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+Correct.
+
+Wait, check if I need to list `campaign plan` in ELEMENTS? Yes.
+Check if I need to list `campaign statistics` in ELEMENTS? Yes.
+
+Okay, ready.
+
+One detail: "Use relation only for unlabeled direct connections between Process and External Process".
+I am not using relations.
+"Use Input only when an Information Set is used as input for a Process or External Process."
+I am using Input for `campaign target document` -> `plan marketing campaign` and `campaign statistics` -> `supervise campaign results`.
+This is correct.
+
+Wait, check the Join syntax again. `<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>`.
+So `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+Correct.
+
+Wait, check the Split syntax. `<element name> Split (AND) <element name_1>, <element name_2>, <element name_3>`.
+So `campaign plan Split (AND) run social media campaign, run print media campaign`.
+Correct.
+
+Wait, check if I should use `relation` for `plan marketing campaign` -> `run social media campaign`? No, that's a branch.
+Okay.
+
+One final check on the Join syntax: `<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>`.
+Does it allow 2 elements? Yes.
+So `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+
+Wait, check the Output syntax: `<element name> Output <element name>`.
+`plan marketing campaign` Output `campaign plan`.
+`run social media campaign` Output `campaign statistics`.
+`run print media campaign` Output `campaign statistics`.
+`supervise campaign results` Output `campaign result document`.
+
+Wait, check the Input syntax: `<element name> Input <element name>`.
+`campaign target document` Input `plan marketing campaign`.
+`campaign statistics` Input `supervise campaign results`.
+
+Okay. I will write the output now.
+</think>
+
+ELEMENTS
+Process plan marketing campaign
+Process run social media campaign
+Process run print media campaign
+Process supervise campaign results
+Information Set campaign target document
+Information Set campaign plan
+Information Set campaign statistics
+Information Set campaign result document
+
+CONNECTIONS
+campaign target document Input plan marketing campaign
+plan marketing campaign Output campaign plan
+campaign plan Split (AND) run social media campaign, run print media campaign
+run social media campaign Output campaign statistics
+run print media campaign Output campaign statistics
+run social media campaign, run print media campaign Join (AND) supervise campaign results
+campaign statistics Input supervise campaign results
+supervise campaign results Output campaign result document

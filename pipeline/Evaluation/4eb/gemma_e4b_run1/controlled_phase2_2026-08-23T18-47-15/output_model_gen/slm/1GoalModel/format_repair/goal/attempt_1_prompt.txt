@@ -1,0 +1,273 @@
+## General explanation
+
+You repair an already generated model output after a Python converter or integrator failed to process it.
+
+Follow this order strictly:
+1. Review the complete generated output and the complete Python error before making changes.
+2. Correct every reported formatting violation throughout the file, while preserving semantic content wherever possible.
+3. Correct every reported semantic validation error using the scenario texts, model explanation, original model generation rules, and required output format. Make only the smallest content changes required for the Python script to accept the output.
+
+The Python error may contain a numbered `Multiple validation errors` list, including multiple errors for one line. Resolve every listed error in one repaired output. Do not stop after fixing the first item. Check every line named in the error list and keep all element names in `CONNECTIONS` exactly consistent with their declarations in `ELEMENTS`.
+
+For a semantic correction, use only information present in the supplied scenario texts, model explanation, and model rules. Do not invent elements, names, facts, or relationships. Remove, replace, or add only what is necessary to resolve the reported validation errors. Preserve every unaffected name and piece of content exactly.
+
+Return only the complete repaired output. Do not provide an explanation, Markdown, code fences, or introductory or concluding text.
+
+## Scenario texts
+
+Our company develops and manufactures heat pumps for family homes. The goal of the company is to provide the most energy-efficient heating solution on the market. This high-level goal can be divided into two sub-goals: sub-goal 1 is to minimize the energy consumption of the heat pump, and sub-goal 2 is to produce the remaining energy required by the heat pump with the integrated photovoltaic module. The problem that hinders reaching the high-level goal is that the energy consumption of the current product version is too high.
+
+## Model explanation
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Goal Model
+
+## Purpose of the model
+
+The Goal Model describes what the enterprise and its employees want to achieve, avoid, or take advantage of. It represents desired states, undesirable states, their causes, external restrictions, and favourable opportunities. The model also explains why processes, rules, requirements, and other enterprise-model elements exist.
+
+## Element types
+
+- Goal
+- Problem
+- Cause
+- Constraint
+- Opportunity
+
+## Meaning of element types
+
+- Goal: A desired state, aim, need, requirement, vision, direction, or measurable business objective.
+- Problem: An undesirable current or possible future state that hinders the achievement of goals. Threats and weaknesses are represented as Problems.
+- Cause: A reason, condition, or situation that produces or explains a Problem or Opportunity.
+- Constraint: An external restriction, rule, law, policy, or fixed limitation.
+- Opportunity: A favourable situation that the enterprise may want to exploit.
+
+## Internal connection types
+
+Direct connections:
+
+- supports
+- hinders
+- contradicts
+- causes
+
+Connector-based connections:
+
+- AND
+- OR
+- AND/OR
+
+## Meaning of internal connections
+
+- A supports B: A helps, enables, contributes to, or positively influences B.
+- A hinders B: A obstructs, weakens, prevents, or negatively influences B.
+- A contradicts B: A is in conflict with B.
+- A causes B: A produces, leads to, or explains B.
+- A, B, C AND D: A, B, and C jointly contribute to or decompose D, and all are required.
+- A, B, C OR D: A, B, and C are alternative contributors to or decompositions of D.
+- A, B, C AND/OR D: A, B, and C form a mixed mandatory or optional decomposition of D.
+
+## Structural rules
+
+- Desired states and objectives are represented as Goals.
+- Undesirable states, threats, and weaknesses are represented as Problems.
+- Reasons for Problems or Opportunities are represented as Causes.
+- External restrictions are represented as Constraints.
+- Favourable situations are represented as Opportunities.
+- Supports represents positive influence.
+- Hinders represents negative influence on a Goal.
+- Contradicts represents a genuine conflict between Goals.
+- Causes connects a Cause to a Problem or Opportunity.
+- Connector-based connections represent grouped or decomposed elements.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent products, services, components, features, actors, roles, resources, concepts, technical components, requirements, processes, markets, or business rules as model elements.
+
+## Original model generation rules
+
+Create a Goal Model according to 4EM for the given case.
+
+## Purpose of the model
+
+The Goal Model describes what the enterprise and its employees want to achieve or avoid, and when.
+It shows goals together with problems that hinder their achievement.
+It also explains why processes, rules, requirements, and other enterprise model elements exist or do not exist.
+
+## Allowed element types
+
+Use only the following element types:
+
+- Goal
+- Problem
+- Cause
+- Constraint
+- Opportunity
+
+Do not use any other element types.
+Do not create elements such as Product, Service, Component, Feature, Actor, Role, Resource, Concept, Technical Component, Requirement, Process, Market, or Business Rule.
+
+## Allowed direct connection types
+
+Use only the following direct connection types:
+
+- supports
+- hinders
+- contradicts
+- causes
+
+## Allowed connector types
+
+Use only the following connector-based connections:
+
+- AND
+- OR
+- AND/OR
+
+## Meaning of element types
+
+- Goal: a desired state, aim, need, requirement, vision, direction, or measurable business objective.
+- Problem: an undesirable current or possible future state that hinders goals. Threats and weaknesses are modeled as Problem.
+- Cause: a reason or situation that causes a Problem or Opportunity.
+- Constraint: an external restriction, rule, law, policy, or fixed limitation.
+- Opportunity: a favorable situation that the enterprise may want to take advantage of.
+
+## Meaning of direct connections
+
+Use direct connections only for simple one-to-one relations.
+
+- A supports B  
+  means that A helps, contributes to, enables, or positively influences B.
+
+- A hinders B  
+  means that A obstructs, prevents, weakens, or negatively influences B.
+
+- A contradicts B  
+  means that A is in conflict with B.
+
+- A causes B  
+  means that A produces, leads to, or explains B.
+
+## Meaning of connector-based connections
+
+Use connector-based connections when multiple elements are connected by one AND, OR, or AND/OR connector.
+
+- A, B, C AND D  
+  means that A, B, and C are connected to D by an AND connector.
+
+- A, B, C OR D  
+  means that A, B, and C are connected to D by an OR connector.
+
+- A, B, C AND/OR D  
+  means that A, B, and C are connected to D by an AND/OR connector.
+
+## Allowed connection patterns
+
+For supports:
+
+- Goal supports Goal
+- Opportunity supports Goal
+
+For hinders:
+
+- Goal hinders Goal
+- Problem hinders Goal
+- Constraint hinders Goal
+
+For contradicts:
+
+- Goal contradicts Goal
+
+For causes:
+
+- Cause causes Problem
+- Cause causes Opportunity
+
+For AND, OR, and AND/OR connectors:
+
+- Goal, Problem, and Opportunity may be connected with Goal, Problem, and Opportunity.
+
+## Modeling rules
+
+1. Use Goal for desired states, objectives, needs, requirements, visions, or directions.
+2. Use Problem for undesirable states, threats, or weaknesses that hinder goals.
+3. Use Cause only for reasons that cause a Problem or Opportunity.
+4. Use Constraint only for external restrictions, rules, laws, policies, or fixed limitations.
+5. Use Opportunity only for favorable situations that can be exploited.
+6. If a statement contains both a problem and an opportunity, split it into two elements.
+7. Use supports only when the source element positively contributes to the target goal.
+8. Use hinders only when the source element negatively affects the target goal.
+9. Use contradicts only for a real conflict between two goals.
+10. Use causes only from Cause to Problem or from Cause to Opportunity.
+11. Use connector-based connections when the case describes grouped or decomposed elements.
+12. Every element used in CONNECTIONS must be listed exactly once in ELEMENTS.
+13. Do not invent elements that are not supported by the case text.
+14. Do not write explanations, comments, descriptions, bullet points, or any text outside the required output sections.
+
+## Output format
+
+Output the model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> supports <element name>
+<element name> hinders <element name>
+<element name> contradicts <element name>
+<element name> causes <element name>
+<element name_1>, <element name_2>, <element name_3> AND <element name>
+<element name_1>, <element name_2>, <element name_3> OR <element name>
+<element name_1>, <element name_2>, <element name_3> AND/OR <element name>
+
+
+
+Note that for connections, you shouldn’t include the ElementType in the Connection.
+
+## Required output format
+
+Output the repaired model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> supports <element name>
+<element name> hinders <element name>
+<element name> contradicts <element name>
+<element name> causes <element name>
+<element name_1>, <element name_2>, <element name_3> AND <element name>
+<element name_1>, <element name_2>, <element name_3> OR <element name>
+<element name_1>, <element name_2>, <element name_3> AND/OR <element name>
+
+Replace every placeholder in angle brackets with an actual existing name; do not output the angle brackets themselves. Replace `ElementType` with exactly one allowed type: `Goal`, `Problem`, `Cause`, `Constraint`, or `Opportunity`.
+
+Write `ELEMENTS` and `CONNECTIONS` exactly as shown and in this order. Write one element or connection per line. Separate multiple connector sources with a comma followed by one space. A direct connection has exactly one source and one target. An AND, OR, or AND/OR connection has at least two sources and exactly one target.
+
+Do not include element types in `CONNECTIONS`. Every referenced name must exactly match one declaration in `ELEMENTS`, and every element name must be declared exactly once. Output plain text only: no Markdown fences, bullets, numbering, comments, explanations, or additional sections.
+
+## Python error
+
+CONNECTIONS line 1: Target 'supports Provide most energy-efficient heating solution' is not defined under ELEMENTS.
+
+## Output to repair
+
+ELEMENTS
+Goal Provide most energy-efficient heating solution
+Goal Minimize heat pump energy consumption
+Goal Produce remaining energy with integrated PV module
+Problem Current product energy consumption is too high
+
+CONNECTIONS
+Minimize heat pump energy consumption, Produce remaining energy with integrated PV module AND supports Provide most energy-efficient heating solution
+Current product energy consumption is too high hinders Provide most energy-efficient heating solution

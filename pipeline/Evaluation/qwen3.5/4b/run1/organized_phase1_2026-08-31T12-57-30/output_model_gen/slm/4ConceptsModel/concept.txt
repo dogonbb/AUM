@@ -1,0 +1,16 @@
+ELEMENTS
+Concept Energy-efficiency
+Concept Energy-output-for-heating
+Concept Energy-consumption
+Concept Customer-survey
+Concept Customer-expectation
+Concept Feature
+Concept Target-feature
+Concept Specification-document
+Attribute Measurement-unit
+
+CONNECTIONS
+Energy-consumption has attribute Measurement-unit
+Target-feature Partial-ISA Feature
+Customer-expectation Partial-PartOF Customer-survey
+Feature Partial-PartOF Specification-document

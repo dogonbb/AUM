@@ -1,0 +1,20 @@
+Multiple validation errors (11):
+  1. ELEMENTS line 1: Unknown element type in line 'ElementType Individual Product Owner'. Allowed: Individual, Organizational Unit, Resource, Role
+  2. ELEMENTS line 2: Unknown element type in line 'ElementType Role Product Owner'. Allowed: Individual, Organizational Unit, Resource, Role
+  3. ELEMENTS line 3: Unknown element type in line 'ElementType Individual Product Designer'. Allowed: Individual, Organizational Unit, Resource, Role
+  4. ELEMENTS line 4: Unknown element type in line 'ElementType Role Product Designer'. Allowed: Individual, Organizational Unit, Resource, Role
+  5. ELEMENTS line 5: Unknown element type in line 'ElementType Resource Smart-Heat product'. Allowed: Individual, Organizational Unit, Resource, Role
+  6. ELEMENTS line 6: Unknown element type in line 'ElementType Resource Heat Pump'. Allowed: Individual, Organizational Unit, Resource, Role
+  7. ELEMENTS line 7: Unknown element type in line 'ElementType Organizational Unit Product Development Department'. Allowed: Individual, Organizational Unit, Resource, Role
+  8. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Role Product Owner' is not defined under ELEMENTS.
+  2. Target 'Product Development Department' is not defined under ELEMENTS.
+  9. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Role Product Owner' is not defined under ELEMENTS.
+  2. Target 'Smart-Heat product' is not defined under ELEMENTS.
+  10. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'Role Product Designer' is not defined under ELEMENTS.
+  2. Target 'Product Development Department' is not defined under ELEMENTS.
+  11. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Role Product Designer' is not defined under ELEMENTS.
+  2. Target 'Heat Pump' is not defined under ELEMENTS.

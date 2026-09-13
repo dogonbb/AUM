@@ -1,0 +1,23 @@
+ELEMENTS
+ElementType Individual: Employee
+ElementType Role Product Owner
+ElementType Organizational Unit Product Development Department
+ElementType Individual Colleague
+ElementType Role Product Designer
+ElementType Organizational Unit Marketing Department
+ElementType Organizational Unit Social Media Group
+ElementType Organizational Unit Print Media Group
+ElementType Resource Smart-Heat
+ElementType Resource Heat Pump
+ElementType Resource Printing Press
+
+CONNECTIONS
+Employee plays Product Owner
+Product Owner works in Product Development Department
+Employee relation Product Development Department
+Employee responsible for Smart-Heat
+Colleague plays Product Designer
+Colleague relation Product Development Department
+Product Designer responsible for Heat Pump
+Social Media Group, Print Media Group Partial-PartOF Marketing Department
+Printing Press belongs to Print Media Group

@@ -1,0 +1,18 @@
+Multiple validation errors (17):
+  1. CONNECTIONS line 2: Target 'Energy consumption (kWh/year)' is not defined under ELEMENTS.
+  2. CONNECTIONS line 3: Target 'Feature' is not defined under ELEMENTS.
+  3. CONNECTIONS line 8: Target 'Customer name' is not defined under ELEMENTS.
+  4. CONNECTIONS line 9: Target 'Customer id' is not defined under ELEMENTS.
+  5. CONNECTIONS line 10: Target 'Order date' is not defined under ELEMENTS.
+  6. CONNECTIONS line 11: Target 'Desired delivery date' is not defined under ELEMENTS.
+  7. CONNECTIONS line 12: Target 'List of ordered products' is not defined under ELEMENTS.
+  8. CONNECTIONS line 13: Target 'Reason for rejection' is not defined under ELEMENTS.
+  9. CONNECTIONS line 14: Target 'Accepting party' is not defined under ELEMENTS.
+  10. CONNECTIONS line 15: Target 'Delivery location' is not defined under ELEMENTS.
+  11. CONNECTIONS line 16: Target 'Delivery time' is not defined under ELEMENTS.
+  12. CONNECTIONS line 17: Target 'Target group' is not defined under ELEMENTS.
+  13. CONNECTIONS line 18: Target 'Campaign start date' is not defined under ELEMENTS.
+  14. CONNECTIONS line 19: Target 'Campaign end date' is not defined under ELEMENTS.
+  15. CONNECTIONS line 20: Target 'Campaign budget' is not defined under ELEMENTS.
+  16. CONNECTIONS line 21: Target 'Response rate' is not defined under ELEMENTS.
+  17. CONNECTIONS line 22: Target 'Feature' is not defined under ELEMENTS.

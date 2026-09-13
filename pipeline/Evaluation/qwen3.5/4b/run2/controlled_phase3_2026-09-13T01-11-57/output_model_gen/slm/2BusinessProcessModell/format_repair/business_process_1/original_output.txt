@@ -1,0 +1,16 @@
+ELEMENTS
+Process target_setting
+Process product_specification
+Process product_design
+Information Set customer_survey
+Information Set target_features_list
+Information Set specification_document
+Information Set design_description
+
+CONNECTIONS
+target_setting Input customer_survey
+target_setting Output target_features_list
+target_features_list Input product_specification
+product_specification Output specification_document
+specification_document Input product_design
+product_design Output design_description

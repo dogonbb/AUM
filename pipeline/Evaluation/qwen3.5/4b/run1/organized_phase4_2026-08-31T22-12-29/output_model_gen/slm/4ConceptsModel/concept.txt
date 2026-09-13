@@ -1,0 +1,32 @@
+ELEMENTS
+Concept Customer survey
+Concept Feature
+Concept Target feature
+Concept Specification document
+Concept Design description
+Concept Zero-emission energy production
+Concept Heat pump
+Concept Campaign target document
+Concept Campaign plan
+Concept Campaign statistics
+Concept Campaign result document
+Concept Order specification
+Concept Rejected order specification
+Concept Verified order specification
+Concept Delivery order
+Concept Order confirmation
+Attribute energy-efficiency
+Attribute energy consumption
+Attribute feature
+Attribute Reason for rejection
+Attribute Who accepted the order
+
+CONNECTIONS
+Target feature Partial-ISA Feature
+Rejected order specification, Verified order specification Partial-ISA Order specification
+Heat pump has attribute energy-efficiency
+Heat pump has attribute energy consumption
+Heat pump has attribute feature
+Rejected order specification has attribute Reason for rejection
+Verified order specification has attribute Who accepted the order
+Verified order specification, Delivery order Total-PartOF Order confirmation

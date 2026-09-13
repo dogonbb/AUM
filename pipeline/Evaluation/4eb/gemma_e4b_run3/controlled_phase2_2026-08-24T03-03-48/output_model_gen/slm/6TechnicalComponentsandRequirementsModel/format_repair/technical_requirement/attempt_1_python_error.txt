@@ -1,0 +1,3 @@
+Multiple validation errors (2):
+  1. CONNECTIONS line 1: Disallowed connection pattern in 'Production System supports Support Product Innovation': IS Technical Component supports Goal
+  2. CONNECTIONS line 2: Disallowed connection pattern in 'Version Management System supports Support Product Innovation': IS Technical Component supports Goal

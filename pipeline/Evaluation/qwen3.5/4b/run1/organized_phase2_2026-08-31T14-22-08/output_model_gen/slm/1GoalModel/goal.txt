@@ -1,0 +1,11 @@
+ELEMENTS
+Goal Provide most energy-efficient heating solution on the market
+Goal Minimize energy consumption of the heat pump
+Goal Produce remaining energy required by the heat pump with the integrated photovoltaic module
+Problem Energy consumption of the current product version is too high
+
+CONNECTIONS
+Minimize energy consumption of the heat pump supports Provide most energy-efficient heating solution on the market
+Produce remaining energy required by the heat pump with the integrated photovoltaic module supports Provide most energy-efficient heating solution on the market
+Energy consumption of the current product version is too high hinders Provide most energy-efficient heating solution on the market
+Energy consumption of the current product version is too high hinders Minimize energy consumption of the heat pump

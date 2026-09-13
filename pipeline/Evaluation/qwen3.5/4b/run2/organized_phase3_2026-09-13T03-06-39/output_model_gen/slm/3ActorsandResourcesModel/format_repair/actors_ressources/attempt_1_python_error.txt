@@ -1,0 +1,44 @@
+Multiple validation errors (22):
+  1. ELEMENTS line 1: Unknown element type in line 'ElementType Individual I'. Allowed: Individual, Organizational Unit, Resource, Role
+  2. ELEMENTS line 2: Unknown element type in line 'ElementType Individual Colleague'. Allowed: Individual, Organizational Unit, Resource, Role
+  3. ELEMENTS line 3: Unknown element type in line 'ElementType Role product owner'. Allowed: Individual, Organizational Unit, Resource, Role
+  4. ELEMENTS line 4: Unknown element type in line 'ElementType Role product designer'. Allowed: Individual, Organizational Unit, Resource, Role
+  5. ELEMENTS line 5: Unknown element type in line 'ElementType Organizational Unit product development department'. Allowed: Individual, Organizational Unit, Resource, Role
+  6. ELEMENTS line 6: Unknown element type in line 'ElementType Organizational Unit marketing department'. Allowed: Individual, Organizational Unit, Resource, Role
+  7. ELEMENTS line 7: Unknown element type in line 'ElementType Organizational Unit social media group'. Allowed: Individual, Organizational Unit, Resource, Role
+  8. ELEMENTS line 8: Unknown element type in line 'ElementType Organizational Unit print media group'. Allowed: Individual, Organizational Unit, Resource, Role
+  9. ELEMENTS line 9: Unknown element type in line 'ElementType Organizational Unit MultiHeat'. Allowed: Individual, Organizational Unit, Resource, Role
+  10. ELEMENTS line 10: Unknown element type in line 'ElementType Resource Smart-Heat'. Allowed: Individual, Organizational Unit, Resource, Role
+  11. ELEMENTS line 11: Unknown element type in line 'ElementType Resource heat pump'. Allowed: Individual, Organizational Unit, Resource, Role
+  12. ELEMENTS line 12: Unknown element type in line 'ElementType Resource printing press'. Allowed: Individual, Organizational Unit, Resource, Role
+  13. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'I' is not defined under ELEMENTS.
+  2. Target 'product owner' is not defined under ELEMENTS.
+  14. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'I' is not defined under ELEMENTS.
+  2. Target 'product development department' is not defined under ELEMENTS.
+  15. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'product owner' is not defined under ELEMENTS.
+  2. Target 'Smart-Heat' is not defined under ELEMENTS.
+  16. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Colleague' is not defined under ELEMENTS.
+  2. Target 'product designer' is not defined under ELEMENTS.
+  17. CONNECTIONS line 5: Multiple validation errors (2):
+  1. Source 'Colleague' is not defined under ELEMENTS.
+  2. Target 'product development department' is not defined under ELEMENTS.
+  18. CONNECTIONS line 6: Multiple validation errors (2):
+  1. Source 'product designer' is not defined under ELEMENTS.
+  2. Target 'heat pump' is not defined under ELEMENTS.
+  19. CONNECTIONS line 7: Multiple validation errors (2):
+  1. Source 'marketing department' is not defined under ELEMENTS.
+  2. Target 'MultiHeat' is not defined under ELEMENTS.
+  20. CONNECTIONS line 8: Multiple validation errors (3):
+  1. Source 'social media group' is not defined under ELEMENTS.
+  2. Source 'print media group' is not defined under ELEMENTS.
+  3. Target 'marketing department' is not defined under ELEMENTS.
+  21. CONNECTIONS line 9: Multiple validation errors (2):
+  1. Source 'printing press' is not defined under ELEMENTS.
+  2. Target 'print media group' is not defined under ELEMENTS.
+  22. CONNECTIONS line 10: Multiple validation errors (2):
+  1. Source 'product development department' is not defined under ELEMENTS.
+  2. Target 'MultiHeat' is not defined under ELEMENTS.

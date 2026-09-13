@@ -1,0 +1,10 @@
+Multiple validation errors (9):
+  1. CONNECTIONS line 3: Disallowed connection pattern in 'photovoltaic module part_of outdoor module': Component part_of Component
+  2. CONNECTIONS line 4: Disallowed connection pattern in 'outdoor air exchange unit part_of outdoor module': Component part_of Component
+  3. CONNECTIONS line 5: Disallowed connection pattern in 'annual service part_of maintenance and trouble-shooting': Service part_of Service
+  4. CONNECTIONS line 6: Disallowed connection pattern in 'repair part_of maintenance and trouble-shooting': Service part_of Service
+  5. CONNECTIONS line 8: Disallowed connection pattern in 'Smart-Heat requires energy-efficient': Product requires Feature
+  6. CONNECTIONS line 9: Disallowed connection pattern in 'photovoltaic module requires zero-emission energy production': Component requires Feature
+  7. CONNECTIONS line 10: Disallowed connection pattern in 'maintenance and trouble-shooting requires quick response to error situations': Service requires Feature
+  8. CONNECTIONS line 11: Disallowed connection pattern in 'maintenance and trouble-shooting requires discount prices in case of repairs': Service requires Feature
+  9. CONNECTIONS line 12: Disallowed connection pattern in 'maintenance and trouble-shooting requires personal service technician': Service requires Feature

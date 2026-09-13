@@ -1,0 +1,31 @@
+ELEMENTS
+Goal Provide most energy-efficient heating solution on the market
+Goal Minimize energy consumption of the heat pump
+Goal Produce remaining energy with PV module
+Goal Provide services supporting high availability
+Problem Energy consumption of current product version is too high
+Problem Development period available for development is very short
+Problem New refrigerants are very expensive
+Problem Company lacks experience with online information processing
+Cause Control unit has to be connected to the Internet
+Constraint Maximum energy production of PV module is 50 kWh
+Opportunity Early implementation of new European regulation for energy-efficient heating
+Goal Develop new heat extractor with very low energy consumption
+Goal Re-design existing heat extractor by adapting it for a new refrigerant
+
+CONNECTIONS
+Goal Minimize energy consumption of the heat pump supports Goal Provide most energy-efficient heating solution on the market
+Goal Produce remaining energy with PV module supports Goal Provide most energy-efficient heating solution on the market
+Goal Provide services supporting high availability supports Goal Provide most energy-efficient heating solution on the market
+Opportunity Early implementation of new European regulation for energy-efficient heating supports Goal Provide most energy-efficient heating solution on the market
+Opportunity Early implementation of new European regulation for energy-efficient heating supports Goal Provide services supporting high availability
+Goal Develop new heat extractor with very low energy consumption supports Goal Minimize energy consumption of the heat pump
+Goal Re-design existing heat extractor by adapting it for a new refrigerant supports Goal Minimize energy consumption of the heat pump
+Problem Energy consumption of current product version is too high hinders Goal Minimize energy consumption of the heat pump
+Problem Development period available for development is very short hinders Goal Develop new heat extractor with very low energy consumption
+Problem Development period available for development is very short hinders Goal Re-design existing heat extractor by adapting it for a new refrigerant
+Problem New refrigerants are very expensive hinders Goal Re-design existing heat extractor by adapting it for a new refrigerant
+Constraint Maximum energy production of PV module is 50 kWh hinders Goal Produce remaining energy with PV module
+Problem Company lacks experience with online information processing hinders Goal Provide services supporting high availability
+Cause Control unit has to be connected to the Internet causes Problem Company lacks experience with online information processing
+Goal Develop new heat extractor with very low energy consumption, Goal Re-design existing heat extractor by adapting it for a new refrigerant OR Goal Minimize energy consumption of the heat pump

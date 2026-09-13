@@ -1,0 +1,16 @@
+ELEMENTS
+Goal Provide most energy-efficient heating solution
+Goal Minimize heat pump energy consumption
+Goal Produce remaining energy via photovoltaic module
+Problem Current energy consumption is too high
+Constraint Short development period
+Constraint Expensive new refrigerants
+Constraint Max PV energy production is 50 kWh
+
+CONNECTIONS
+Current energy consumption is too high hinders Minimize heat pump energy consumption
+Minimize heat pump energy consumption supports Provide most energy-efficient heating solution
+Produce remaining energy via photovoltaic module supports Provide most energy-efficient heating solution
+Short development period hinders Minimize heat pump energy consumption
+Expensive new refrigerants hinders Minimize heat pump energy consumption
+Max PV energy production is 50 kWh hinders Produce remaining energy via photovoltaic module

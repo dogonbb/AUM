@@ -1,0 +1,1 @@
+CONNECTIONS line 3: Disallowed connection pattern in 'energy-efficient part_of Smart-Heat': Feature part_of Product

@@ -1,0 +1,36 @@
+ELEMENTS
+Individual Product Owner Individual
+Individual Product Designer Individual
+Role Product Owner
+Role Product Designer
+Role General Manager
+Role Print Designer
+Role Social Media Designer
+Role Operator
+Role Content Specialist
+Organizational Unit Product Development Department
+Organizational Unit Marketing Department
+Organizational Unit Social Media Group
+Organizational Unit Print Media Group
+Resource Smart-Heat
+Resource Heat Pump
+Resource Printing Press
+Resource Print Media Campaign
+Resource Social Media Campaign
+
+CONNECTIONS
+Product Owner Individual plays Product Owner
+Product Owner works in Product Development Department
+Product Owner responsible for Smart-Heat
+Product Designer Individual plays Product Designer
+Product Designer works in Product Development Department
+Product Designer responsible for Heat Pump
+Social Media Group, Print Media Group Total-PartOF Marketing Department
+Printing Press belongs to Print Media Group
+Print Designer works in Print Media Group
+Social Media Designer works in Social Media Group
+Operator works in Print Media Group
+Content Specialist works in Social Media Group
+General Manager relation Marketing Department
+Print Designer responsible for Print Media Campaign
+Social Media Designer responsible for Social Media Campaign

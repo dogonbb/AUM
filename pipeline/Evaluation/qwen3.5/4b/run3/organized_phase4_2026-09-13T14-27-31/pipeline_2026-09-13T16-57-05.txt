@@ -1,0 +1,84 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         336a0bc9-19f9-4027-a348-028ea11e65ab
+Status:                         COMPLETED_WITH_ERRORS
+Mode:                           models_only
+Started:                        2026-09-13T16:57:05.918+02:00
+Finished:                       2026-09-13T18:54:34.201+02:00
+Total runtime seconds:          7048.283
+Parameter file:                  C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:4b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  28792
+Output tokens:                  158167
+Total tokens:                   186959
+Model restarts:                 7
+Format repair attempts:         4
+ADL merger seconds:             0.147
+Intermodel integration seconds: 0.000
+Model statuses:                 {'SKIPPED_EXISTING': 4, 'FAILED_PYTHON': 1, 'OK': 2, 'OK_AFTER_FORMAT_REPAIR': 1}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: organized_phase4
+----------------------------------------------------------------------------------------------------
+Status:                  COMPLETED_WITH_ERRORS
+Scenario directory:      C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\scenarios\organized_phase4
+Run directory:           C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\output\organized_phase4_2026-09-13T14-27-31
+Duration seconds:         7048.229
+Model stage status:       COMPLETED_WITH_ERRORS
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:organized_phase4:GoalModel:goal.txt | status=SKIPPED_EXISTING | seconds=0.001 | format_repairs=0
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_1.txt | status=SKIPPED_EXISTING | seconds=0.006 | format_repairs=0
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_2.txt | status=SKIPPED_EXISTING | seconds=0.007 | format_repairs=0
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_3.txt | status=SKIPPED_EXISTING | seconds=0.006 | format_repairs=0
+  MODEL model:organized_phase4:ActorsResourcesModel:actors_ressources.txt | status=FAILED_PYTHON | seconds=6296.165 | format_repairs=3
+    attempt=1 reason=python_error seconds=530.206 prompt_tokens=2125 output_tokens=11896
+      slm_attempt=1 status=REPETITION seed=42 seconds=179.312 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check Rule 23:** "Every element used in CONNECTIONS must be listed exactly once in ELEMENTS." * This means if I have an element in ELEMENTS, it MUST b'
+      slm_attempt=2 status=REPETITION seed=43 seconds=188.650 restart=yes error=The same thinking block was generated 10 times: '* **Wait, "Print Media Campaign"**: * ELEMENTS: * Resource Print Media Campaign * CONNECTIONS: * Print Designer (Role) responsible for Print Media Campaign.'
+      slm_attempt=3 status=OK seed=44 seconds=157.728 restart=no
+    FORMAT REPAIR attempt=1 status=FAILED_PYTHON
+      slm_attempt=1 status=OK seed=42 seconds=114.507 restart=no
+    FORMAT REPAIR attempt=2 status=FAILED_PYTHON
+      slm_attempt=1 status=REPETITION seed=42 seconds=151.665 restart=yes error=The same thinking block was generated 10 times: 'Wait, I need to check if there are other errors in the input text that I missed. The error list shows 28 validation errors. Most of them are about elements not '
+      slm_attempt=2 status=TIMEOUT seed=43 seconds=1800.199 restart=yes error=The SLM request exceeded the configured total limit of 1800.00 seconds.
+      slm_attempt=3 status=TIMEOUT seed=44 seconds=1800.238 restart=yes error=The SLM request exceeded the configured total limit of 1800.00 seconds.
+      slm_attempt=4 status=OK seed=45 seconds=147.641 restart=no
+    FORMAT REPAIR attempt=3 status=FAILED_PYTHON
+      slm_attempt=1 status=REPETITION seed=42 seconds=155.846 restart=yes error=The same thinking block was generated 10 times: '* **Wait**, I need to look at the error log more carefully. Error #1: "Duplicate element names found: Content Specialist, General Manager..." This list includes'
+      slm_attempt=2 status=OK seed=43 seconds=1586.456 restart=no
+  MODEL model:organized_phase4:ConceptsModel:concept.txt | status=OK | seconds=359.781 | format_repairs=0
+    attempt=1 reason=None seconds=359.769 prompt_tokens=1713 output_tokens=12949
+      slm_attempt=1 status=REPETITION seed=42 seconds=180.747 restart=yes error=The same thinking block was generated 10 times: '* *Wait, check "Order-confirmation".* Total-PartOF Delivery-order.'
+      slm_attempt=2 status=OK seed=43 seconds=176.663 restart=no
+  MODEL model:organized_phase4:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=138.516 | format_repairs=0
+    attempt=1 reason=None seconds=138.506 prompt_tokens=2040 output_tokens=10583
+      slm_attempt=1 status=OK seed=42 seconds=138.385 restart=no
+  MODEL model:organized_phase4:ProductServiceModel:product.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=253.542 | format_repairs=1
+    attempt=1 reason=python_error seconds=114.296 prompt_tokens=1429 output_tokens=8949
+      slm_attempt=1 status=OK seed=42 seconds=114.176 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=139.053 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

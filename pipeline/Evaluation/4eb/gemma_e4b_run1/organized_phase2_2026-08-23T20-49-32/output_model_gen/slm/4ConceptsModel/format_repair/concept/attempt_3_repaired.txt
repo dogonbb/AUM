@@ -1,0 +1,28 @@
+ELEMENTS
+Concept Heat pump
+Concept Product
+Attribute Feature
+Concept Target feature
+Attribute Energy-efficiency
+Attribute Energy consumption
+Concept Energy output for heating
+Concept Building
+Concept Specification document
+Concept Design description
+Concept Building block
+Concept Interface
+Concept Customer
+Concept Customer survey
+Concept Zero-emission energy production
+Attribute kWh
+Attribute Emission status
+
+CONNECTIONS
+Target feature Partial-ISA Feature
+Heat pump has attribute Energy-efficiency
+Heat pump has attribute Energy consumption
+Heat pump has attribute Feature
+Energy consumption has attribute kWh
+Building block Partial-PartOF Product
+Interface Partial-PartOF Building block
+Zero-emission energy production has attribute Emission status

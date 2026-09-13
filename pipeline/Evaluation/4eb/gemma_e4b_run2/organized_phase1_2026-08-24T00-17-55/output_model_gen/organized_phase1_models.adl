@@ -1,0 +1,1816 @@
+///////////////////////////////////////////////////////////////
+//
+// Date: 24.08.2026  00:25
+//
+// Combined by adl_model_merger.py
+// Data version 4.0
+//
+///////////////////////////////////////////////////////////////
+//
+// The file contains the following models:
+//
+// organized_phase1_GoalModel_goal (Business Process Model)
+// organized_phase1_BusinessProcessModel_business_process (Business Process Model)
+// organized_phase1_ActorsResourcesModel_actors_ressources (Business Process Model)
+// organized_phase1_ConceptsModel_concept (Business Process Model)
+// organized_phase1_TechnicalComponentsRequirementsModel_technical_requirement (Business Process Model)
+// organized_phase1_ProductServiceModel_product (Business Process Model)
+//
+//////////////////////////////////////////////////////////////
+
+VERSION <4.0>
+
+BUSINESS PROCESS MODEL <organized_phase1_GoalModel_goal> : <4EM current>
+VERSION <>
+TYPE <Goal Model>
+
+	ATTRIBUTE <Author>
+	VALUE "Admin"
+
+	ATTRIBUTE <Creation date>
+	VALUE "24.08.2026, 00:19"
+
+	ATTRIBUTE <Date last changed>
+	VALUE "24.08.2026, 00:19:32"
+
+	ATTRIBUTE <Last user>
+	VALUE "Admin"
+
+	ATTRIBUTE <Keywords>
+	VALUE ""
+
+	ATTRIBUTE <Comment>
+	VALUE ""
+
+	ATTRIBUTE <Model type>
+	VALUE "Current model"
+
+	ATTRIBUTE <State>
+	VALUE "In process"
+
+	ATTRIBUTE <Reviewed on>
+	VALUE ""
+
+	ATTRIBUTE <Reviewed by>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <World area>
+	VALUE "w:80cm h:80cm minw:5cm minh:5cm"
+
+	ATTRIBUTE <Grid>
+	VALUE ""
+
+	ATTRIBUTE <Zoom>
+	VALUE 100
+
+	ATTRIBUTE <Viewable area>
+	VALUE "VIEW representation:graphic
+GRAPHIC x:0 y:0 w:1376 h:828 scale:1
+TABLE
+"
+
+	ATTRIBUTE <Current mode>
+	VALUE ""
+
+	ATTRIBUTE <Access state>
+	VALUE "write"
+
+	ATTRIBUTE <Current page layout>
+	VALUE ""
+
+	ATTRIBUTE <Connector marks>
+	VALUE ""
+
+	ATTRIBUTE <Change counter>
+	VALUE 1
+
+	ATTRIBUTE <Font size>
+	VALUE 0
+
+	ATTRIBUTE <Context of version>
+	VALUE ""
+
+	ATTRIBUTE <Position>
+	VALUE ""
+
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <IteratorModeltype>
+	VALUE ""
+
+	ATTRIBUTE <Iterator: Problem>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: Goal>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: Cause>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Constraint>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Opportunity>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Relation>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: Hinders>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: Supports>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Contradicts>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Causes>
+	VALUE 0
+
+INSTANCE <Provide most energy-efficient heating solution> : <Goal>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:7.9cm y:2.5cm w:4cm h:1.5cm index:1"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Criticality>
+	VALUE "Low"
+
+	ATTRIBUTE <Priority>
+	VALUE "Low"
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Defined by>
+	VALUE ""
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+
+INSTANCE <High energy consumption of current product> : <Problem>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:7.9cm y:6.34cm w:4cm h:1.5cm index:2"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Defined by>
+	VALUE ""
+
+	ATTRIBUTE <Priority>
+	VALUE "Low"
+
+	ATTRIBUTE <Criticality>
+	VALUE "Low"
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <type>
+	VALUE "Problem"
+
+
+RELATION <4EM_Relation>
+	FROM <High energy consumption of current product> : <Problem>
+	TO <Provide most energy-efficient heating solution> : <Goal>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:1"
+
+	ATTRIBUTE <Type>
+	VALUE "Hinders"
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+BUSINESS PROCESS MODEL <organized_phase1_BusinessProcessModel_business_process> : <4EM current>
+VERSION <>
+TYPE <Business Process Model>
+
+	ATTRIBUTE <Author>
+	VALUE "Admin"
+
+	ATTRIBUTE <Creation date>
+	VALUE "24.08.2026, 00:20"
+
+	ATTRIBUTE <Date last changed>
+	VALUE "24.08.2026, 00:20:21"
+
+	ATTRIBUTE <Last user>
+	VALUE "Admin"
+
+	ATTRIBUTE <Keywords>
+	VALUE ""
+
+	ATTRIBUTE <Comment>
+	VALUE ""
+
+	ATTRIBUTE <Model type>
+	VALUE "Current model"
+
+	ATTRIBUTE <State>
+	VALUE "In process"
+
+	ATTRIBUTE <Reviewed on>
+	VALUE ""
+
+	ATTRIBUTE <Reviewed by>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <World area>
+	VALUE "w:80cm h:80cm minw:5cm minh:5cm"
+
+	ATTRIBUTE <Grid>
+	VALUE ""
+
+	ATTRIBUTE <Zoom>
+	VALUE 100
+
+	ATTRIBUTE <Viewable area>
+	VALUE "VIEW representation:graphic
+GRAPHIC x:0 y:0 w:1376 h:828 scale:1
+TABLE
+"
+
+	ATTRIBUTE <Current mode>
+	VALUE ""
+
+	ATTRIBUTE <Access state>
+	VALUE "write"
+
+	ATTRIBUTE <Current page layout>
+	VALUE ""
+
+	ATTRIBUTE <Connector marks>
+	VALUE ""
+
+	ATTRIBUTE <Change counter>
+	VALUE 1
+
+	ATTRIBUTE <Font size>
+	VALUE 0
+
+	ATTRIBUTE <Context of version>
+	VALUE ""
+
+	ATTRIBUTE <Position>
+	VALUE ""
+
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <IteratorModeltype>
+	VALUE ""
+
+	ATTRIBUTE <Iterator: Problem>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Goal>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Cause>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Constraint>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Opportunity>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Process>
+	VALUE 2
+
+	ATTRIBUTE <Iterator: External Process>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Information Set>
+	VALUE 3
+
+	ATTRIBUTE <Iterator: Relation>
+	VALUE 4
+
+	ATTRIBUTE <Iterator: Hinders>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Supports>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Contradicts>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Causes>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Others>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: 1:1>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: 1:n>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: n:m>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Input>
+	VALUE 2
+
+	ATTRIBUTE <Iterator: Output>
+	VALUE 2
+
+	ATTRIBUTE <Iterator: Motivates>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Requires>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Triggers>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Plays>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: works in>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: works at>
+	VALUE 0
+
+INSTANCE <Customer Survey> : <Information Set>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:8.8cm y:2.5cm w:6cm h:1.6cm index:1"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Type>
+	VALUE "Information Set"
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+
+INSTANCE <Target Setting> : <Process>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:8.8cm y:6.34cm w:4.4cm h:1.2cm index:2"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposed Process>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Type>
+	VALUE ""
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+
+INSTANCE <List of Target Features> : <Information Set>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:8.8cm y:10.18cm w:6cm h:1.6cm index:3"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Type>
+	VALUE "Information Set"
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+
+INSTANCE <Define Product Specification> : <Process>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:8.8cm y:14.02cm w:4.4cm h:1.2cm index:4"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposed Process>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Type>
+	VALUE ""
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+
+INSTANCE <Specification Document> : <Information Set>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:8.8cm y:17.86cm w:6cm h:1.6cm index:5"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Type>
+	VALUE "Information Set"
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+
+RELATION <4EM_Relation>
+	FROM <Customer Survey> : <Information Set>
+	TO <Target Setting> : <Process>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:1"
+
+	ATTRIBUTE <Type>
+	VALUE "Input"
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+
+RELATION <4EM_Relation>
+	FROM <Target Setting> : <Process>
+	TO <List of Target Features> : <Information Set>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:2"
+
+	ATTRIBUTE <Type>
+	VALUE "Output"
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+
+RELATION <4EM_Relation>
+	FROM <List of Target Features> : <Information Set>
+	TO <Define Product Specification> : <Process>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:3"
+
+	ATTRIBUTE <Type>
+	VALUE "Input"
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+
+RELATION <4EM_Relation>
+	FROM <Define Product Specification> : <Process>
+	TO <Specification Document> : <Information Set>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:4"
+
+	ATTRIBUTE <Type>
+	VALUE "Output"
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+BUSINESS PROCESS MODEL <organized_phase1_ActorsResourcesModel_actors_ressources> : <4EM current>
+VERSION <>
+TYPE <Actors and Resources Model>
+
+	ATTRIBUTE <Author>
+	VALUE "Admin"
+
+	ATTRIBUTE <Creation date>
+	VALUE "24.08.2026, 00:21"
+
+	ATTRIBUTE <Date last changed>
+	VALUE "24.08.2026, 00:21:48"
+
+	ATTRIBUTE <Last user>
+	VALUE "Admin"
+
+	ATTRIBUTE <Keywords>
+	VALUE ""
+
+	ATTRIBUTE <Comment>
+	VALUE ""
+
+	ATTRIBUTE <Model type>
+	VALUE "Current model"
+
+	ATTRIBUTE <State>
+	VALUE "In process"
+
+	ATTRIBUTE <Reviewed on>
+	VALUE ""
+
+	ATTRIBUTE <Reviewed by>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <World area>
+	VALUE "w:80cm h:80cm minw:5cm minh:5cm"
+
+	ATTRIBUTE <Grid>
+	VALUE ""
+
+	ATTRIBUTE <Zoom>
+	VALUE 100
+
+	ATTRIBUTE <Viewable area>
+	VALUE "VIEW representation:graphic
+GRAPHIC x:0 y:0 w:1376 h:828 scale:1
+TABLE
+"
+
+	ATTRIBUTE <Current mode>
+	VALUE ""
+
+	ATTRIBUTE <Access state>
+	VALUE "write"
+
+	ATTRIBUTE <Current page layout>
+	VALUE ""
+
+	ATTRIBUTE <Connector marks>
+	VALUE ""
+
+	ATTRIBUTE <Change counter>
+	VALUE 1
+
+	ATTRIBUTE <Font size>
+	VALUE 0
+
+	ATTRIBUTE <Context of version>
+	VALUE ""
+
+	ATTRIBUTE <Position>
+	VALUE ""
+
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <IteratorModeltype>
+	VALUE ""
+
+	ATTRIBUTE <Iterator: Individual>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Role>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: Resource>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: Organizational Unit>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: Relation>
+	VALUE 2
+
+	ATTRIBUTE <Iterator: Others>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Plays>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: works in>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: works at>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Supplies>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: interacts with>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Navigates>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: responsible for>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: Maintains>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: belongs to>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: has requirement>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: has goal>
+	VALUE 0
+
+INSTANCE <Product Owner> : <Role>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:9.9cm y:7.34cm w:4cm h:2cm index:1"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Qualification>
+	VALUE ""
+
+	ATTRIBUTE <Number of Employees with this Role>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+
+INSTANCE <Product Development Department> : <Organizational Unit>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:6cm y:3.5cm w:4cm h:2cm index:2"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Location>
+	VALUE ""
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+
+INSTANCE <Smart-Heat> : <Resource>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:13.8cm y:3.5cm w:4cm h:2cm index:3"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Location>
+	VALUE ""
+
+	ATTRIBUTE <Quantity>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+
+RELATION <4EM_Relation>
+	FROM <Product Owner> : <Role>
+	TO <Product Development Department> : <Organizational Unit>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:1"
+
+	ATTRIBUTE <Type>
+	VALUE "works in"
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+
+RELATION <4EM_Relation>
+	FROM <Product Owner> : <Role>
+	TO <Smart-Heat> : <Resource>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:2"
+
+	ATTRIBUTE <Type>
+	VALUE "responsible for"
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+BUSINESS PROCESS MODEL <organized_phase1_ConceptsModel_concept> : <4EM current>
+VERSION <>
+TYPE <Concepts Model>
+
+	ATTRIBUTE <Author>
+	VALUE "Admin"
+
+	ATTRIBUTE <Creation date>
+	VALUE "24.08.2026, 00:23"
+
+	ATTRIBUTE <Date last changed>
+	VALUE "24.08.2026, 00:23:33"
+
+	ATTRIBUTE <Last user>
+	VALUE "Admin"
+
+	ATTRIBUTE <Keywords>
+	VALUE ""
+
+	ATTRIBUTE <Comment>
+	VALUE ""
+
+	ATTRIBUTE <Model type>
+	VALUE "Current model"
+
+	ATTRIBUTE <State>
+	VALUE "In process"
+
+	ATTRIBUTE <Reviewed on>
+	VALUE ""
+
+	ATTRIBUTE <Reviewed by>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <World area>
+	VALUE "w:80cm h:80cm minw:5cm minh:5cm"
+
+	ATTRIBUTE <Grid>
+	VALUE ""
+
+	ATTRIBUTE <Zoom>
+	VALUE 100
+
+	ATTRIBUTE <Viewable area>
+	VALUE "VIEW representation:graphic
+GRAPHIC x:0 y:0 w:1376 h:828 scale:1
+TABLE
+"
+
+	ATTRIBUTE <Current mode>
+	VALUE ""
+
+	ATTRIBUTE <Access state>
+	VALUE "write"
+
+	ATTRIBUTE <Current page layout>
+	VALUE ""
+
+	ATTRIBUTE <Connector marks>
+	VALUE ""
+
+	ATTRIBUTE <Change counter>
+	VALUE 1
+
+	ATTRIBUTE <Font size>
+	VALUE 0
+
+	ATTRIBUTE <Context of version>
+	VALUE ""
+
+	ATTRIBUTE <Position>
+	VALUE ""
+
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <IteratorModeltype>
+	VALUE ""
+
+	ATTRIBUTE <Iterator: Problem>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Goal>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Cause>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Constraint>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Opportunity>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Relation>
+	VALUE 6
+
+	ATTRIBUTE <Iterator: Hinders>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Supports>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Contradicts>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Causes>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Others>
+	VALUE 6
+
+	ATTRIBUTE <Iterator: 1:1>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: 1:n>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: n:m>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Input>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Output>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Motivates>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Requires>
+	VALUE 0
+
+INSTANCE <Product> : <Concept>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:8.4cm y:2.5cm w:5cm h:1.8cm index:1"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <Customer> : <Concept>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:25.9cm y:2.5cm w:5cm h:1.8cm index:2"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <Feature> : <Concept>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:43.4cm y:13.3cm w:5cm h:1.8cm index:3"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <Target feature> : <Concept>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:43.4cm y:2.5cm w:5cm h:1.8cm index:4"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <Specification document> : <Concept>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:10.9cm y:33cm w:5cm h:1.8cm index:5"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <Energy-efficiency> : <Concept>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:33.8cm y:22.2cm w:5cm h:1.8cm index:6"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <Energy consumption> : <Concept>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:51.3cm y:22.2cm w:5cm h:1.8cm index:7"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <Energy output for heating> : <Concept>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:8.4cm y:41.9cm w:5cm h:1.8cm index:8"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <Customer survey> : <Concept>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:25.9cm y:41.9cm w:5cm h:1.8cm index:9"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <Functional characteristic> : <Concept>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:5.5cm y:22.2cm w:5cm h:1.8cm index:10"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <Non-functional characteristic> : <Concept>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:16.3cm y:22.2cm w:5cm h:1.8cm index:11"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Complexity>
+	VALUE 0
+
+	ATTRIBUTE <Execution Time>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <kWh> : <Attribute>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:51.3cm y:27.6cm w:5cm h:1.2cm index:12"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+	ATTRIBUTE <Data Type>
+	VALUE "String"
+
+	ATTRIBUTE <Value Range>
+	VALUE ""
+
+
+INSTANCE <Total-ISA-AUTO1> : <Total-ISA>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:43.4cm y:7.9cm index:13"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+
+INSTANCE <Partial-PartOF-AUTO2> : <Partial-PartOF>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:10.9cm y:27.6cm index:14"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+
+RELATION <4EM_Relation>
+	FROM <Target feature> : <Concept>
+	TO <Total-ISA-AUTO1> : <Total-ISA>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:1"
+
+	ATTRIBUTE <Type>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+
+RELATION <4EM_Relation>
+	FROM <Total-ISA-AUTO1> : <Total-ISA>
+	TO <Feature> : <Concept>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:2"
+
+	ATTRIBUTE <Type>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+
+RELATION <4EM_Relation>
+	FROM <Functional characteristic> : <Concept>
+	TO <Partial-PartOF-AUTO2> : <Partial-PartOF>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:3"
+
+	ATTRIBUTE <Type>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+
+RELATION <4EM_Relation>
+	FROM <Non-functional characteristic> : <Concept>
+	TO <Partial-PartOF-AUTO2> : <Partial-PartOF>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:4"
+
+	ATTRIBUTE <Type>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+
+RELATION <4EM_Relation>
+	FROM <Partial-PartOF-AUTO2> : <Partial-PartOF>
+	TO <Specification document> : <Concept>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:5"
+
+	ATTRIBUTE <Type>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+
+RELATION <4EM_Relation>
+	FROM <Energy consumption> : <Concept>
+	TO <kWh> : <Attribute>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:6"
+
+	ATTRIBUTE <Type>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+BUSINESS PROCESS MODEL <organized_phase1_TechnicalComponentsRequirementsModel_technical_requirement> : <4EM current>
+VERSION <>
+TYPE <Technical Components and Requirements Model>
+
+	ATTRIBUTE <Author>
+	VALUE "Admin"
+
+	ATTRIBUTE <Creation date>
+	VALUE "24.08.2026, 00:24"
+
+	ATTRIBUTE <Date last changed>
+	VALUE "24.08.2026, 00:24:23"
+
+	ATTRIBUTE <Last user>
+	VALUE "Admin"
+
+	ATTRIBUTE <Keywords>
+	VALUE ""
+
+	ATTRIBUTE <Comment>
+	VALUE ""
+
+	ATTRIBUTE <Model type>
+	VALUE "Current model"
+
+	ATTRIBUTE <State>
+	VALUE "In process"
+
+	ATTRIBUTE <Reviewed on>
+	VALUE ""
+
+	ATTRIBUTE <Reviewed by>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <World area>
+	VALUE "w:80cm h:80cm minw:5cm minh:5cm"
+
+	ATTRIBUTE <Grid>
+	VALUE ""
+
+	ATTRIBUTE <Zoom>
+	VALUE 100
+
+	ATTRIBUTE <Viewable area>
+	VALUE "VIEW representation:graphic
+GRAPHIC x:0 y:0 w:1376 h:828 scale:1
+TABLE
+"
+
+	ATTRIBUTE <Current mode>
+	VALUE ""
+
+	ATTRIBUTE <Access state>
+	VALUE "write"
+
+	ATTRIBUTE <Current page layout>
+	VALUE ""
+
+	ATTRIBUTE <Connector marks>
+	VALUE ""
+
+	ATTRIBUTE <Change counter>
+	VALUE 1
+
+	ATTRIBUTE <Font size>
+	VALUE 0
+
+	ATTRIBUTE <Context of version>
+	VALUE ""
+
+	ATTRIBUTE <Position>
+	VALUE ""
+
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <IteratorModeltype>
+	VALUE ""
+
+	ATTRIBUTE <Iterator: Problem>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Goal>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Cause>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Constraint>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Opportunity>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: IS Technical Component>
+	VALUE 2
+
+	ATTRIBUTE <Iterator: IS Requirement>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Component>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Feature>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Unspecific/Product/Service>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Relation>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: Hinders>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Supports>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: Contradicts>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Causes>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Others>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Motivates>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: Requires>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: has requirement>
+	VALUE 0
+
+	ATTRIBUTE <Iterator: has goal>
+	VALUE 0
+
+INSTANCE <Production System> : <IS Technical Component>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:6.9cm y:2.5cm w:4cm h:2cm index:1"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Location>
+	VALUE ""
+
+	ATTRIBUTE <Quantity>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+
+INSTANCE <Version Management System> : <IS Technical Component>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:6.9cm y:6.34cm w:4cm h:2cm index:2"
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Location>
+	VALUE ""
+
+	ATTRIBUTE <Quantity>
+	VALUE 0
+
+	ATTRIBUTE <Attributes>
+	VALUE
+
+
+RELATION <4EM_Relation>
+	FROM <Version Management System> : <IS Technical Component>
+	TO <Production System> : <IS Technical Component>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:1"
+
+	ATTRIBUTE <Type>
+	VALUE "supports"
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+BUSINESS PROCESS MODEL <organized_phase1_ProductServiceModel_product> : <4EM current>
+VERSION <>
+TYPE <Product-Service-Model>
+
+	ATTRIBUTE <Author>
+	VALUE "Admin"
+
+	ATTRIBUTE <Creation date>
+	VALUE "24.08.2026, 00:25"
+
+	ATTRIBUTE <Date last changed>
+	VALUE "24.08.2026, 00:25:27"
+
+	ATTRIBUTE <Last user>
+	VALUE "Admin"
+
+	ATTRIBUTE <Keywords>
+	VALUE ""
+
+	ATTRIBUTE <Comment>
+	VALUE ""
+
+	ATTRIBUTE <Model type>
+	VALUE "Current model"
+
+	ATTRIBUTE <State>
+	VALUE "In process"
+
+	ATTRIBUTE <Reviewed on>
+	VALUE ""
+
+	ATTRIBUTE <Reviewed by>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <World area>
+	VALUE "w:80cm h:80cm minw:5cm minh:5cm"
+
+	ATTRIBUTE <Grid>
+	VALUE ""
+
+	ATTRIBUTE <Zoom>
+	VALUE 100
+
+	ATTRIBUTE <Viewable area>
+	VALUE "VIEW representation:graphic
+GRAPHIC x:0 y:0 w:1376 h:828 scale:1
+TABLE
+"
+
+	ATTRIBUTE <Current mode>
+	VALUE ""
+
+	ATTRIBUTE <Access state>
+	VALUE "write"
+
+	ATTRIBUTE <Current page layout>
+	VALUE ""
+
+	ATTRIBUTE <Connector marks>
+	VALUE ""
+
+	ATTRIBUTE <Change counter>
+	VALUE 1
+
+	ATTRIBUTE <Font size>
+	VALUE 0
+
+	ATTRIBUTE <Context of version>
+	VALUE ""
+
+	ATTRIBUTE <Position>
+	VALUE ""
+
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+
+	ATTRIBUTE <IteratorModeltype>
+	VALUE ""
+
+	ATTRIBUTE <Iterator: Component>
+	VALUE 2
+
+	ATTRIBUTE <Iterator: Feature>
+	VALUE 1
+
+	ATTRIBUTE <Iterator: Unspecific/Product/Service>
+	VALUE 1
+
+	ATTRIBUTE <Eventlog>
+	VALUE ""
+
+INSTANCE <Smart-Heat> : <Unspecific/Product/Service>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:14.9cm y:3cm w:3.92cm h:2.45cm index:1"
+
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+	ATTRIBUTE <Specification>
+	VALUE "Product"
+
+	ATTRIBUTE <Attribute>
+	VALUE
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+
+INSTANCE <indoor module> : <Component>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:6.5cm y:7.08cm w:4.15cm h:2.15cm index:2"
+
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Quantity>
+	VALUE 0
+
+	ATTRIBUTE <Location>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <outdoor module> : <Component>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:14.9cm y:7.08cm w:4.15cm h:2.15cm index:3"
+
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+	ATTRIBUTE <Quantity>
+	VALUE 0
+
+	ATTRIBUTE <Location>
+	VALUE ""
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+
+INSTANCE <energy-efficient> : <Feature>
+
+	ATTRIBUTE <Position>
+	VALUE "NODE x:23.3cm y:7.08cm w:3cm h:1.86cm index:4"
+
+	ATTRIBUTE <External tool coupling>
+	VALUE ""
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <Attribute>
+	VALUE
+
+	ATTRIBUTE <Intermodel-Relations>
+	VALUE
+
+	ATTRIBUTE <Decomposition>
+	VALUE ""
+
+
+RELATION <4EM_Relation>
+	FROM <indoor module> : <Component>
+	TO <Smart-Heat> : <Unspecific/Product/Service>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:1"
+
+	ATTRIBUTE <Type>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+
+RELATION <4EM_Relation>
+	FROM <outdoor module> : <Component>
+	TO <Smart-Heat> : <Unspecific/Product/Service>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:2"
+
+	ATTRIBUTE <Type>
+	VALUE ""
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"
+
+
+RELATION <4EM_Relation>
+	FROM <energy-efficient> : <Feature>
+	TO <Smart-Heat> : <Unspecific/Product/Service>
+
+	ATTRIBUTE <Positions>
+	VALUE "EDGE 0 index:3"
+
+	ATTRIBUTE <Type>
+	VALUE "requires"
+
+	ATTRIBUTE <Description>
+	VALUE ""
+
+	ATTRIBUTE <IR>
+	VALUE "False"

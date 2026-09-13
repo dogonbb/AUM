@@ -1,0 +1,306 @@
+## General explanation
+
+You repair an already generated model output after a Python converter or integrator failed to process it.
+
+Follow this order strictly:
+1. Review the complete generated output and the complete Python error before making changes.
+2. Correct every reported formatting violation throughout the file, while preserving semantic content wherever possible.
+3. Correct every reported semantic validation error using the scenario texts, model explanation, original model generation rules, and required output format. Make only the smallest content changes required for the Python script to accept the output.
+
+The Python error may contain a numbered `Multiple validation errors` list, including multiple errors for one line. Resolve every listed error in one repaired output. Do not stop after fixing the first item. Check every line named in the error list and keep all element names in `CONNECTIONS` exactly consistent with their declarations in `ELEMENTS`.
+
+For a semantic correction, use only information present in the supplied scenario texts, model explanation, and model rules. Do not invent elements, names, facts, or relationships. Remove, replace, or add only what is necessary to resolve the reported validation errors. Preserve every unaffected name and piece of content exactly.
+
+Return only the complete repaired output. Do not provide an explanation, Markdown, code fences, or introductory or concluding text.
+
+## Scenario texts
+
+The “Smart-Heat” product is a heat pump that consists of two components: the indoor module and the outdoor module. The outdoor module also consists of two modules: the photovoltaic module and the outdoor air exchange unit. Smart-Heat has the feature of being energy-efficient. The photovoltaic module has the feature of zero-emission energy production.
+
+## Model explanation
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Product / Service Model
+
+## Purpose of the model
+
+The Product / Service Model describes the products and services offered by the enterprise. It represents products, services, their components, and customer-relevant features. The model also describes composition, specialisation, variants, alternatives, and dependencies among these elements.
+
+## Element types
+
+- Product
+- Service
+- Component
+- Feature
+
+## Meaning of element types
+
+- Product: An offering provided to customers. A Product may be physical, digital, virtual, or service-related and may provide attributes, benefits, functions, or uses that satisfy customer needs.
+- Service: A specialisation of Product that is offered as a service and is created or delivered through a process.
+- Component: A distinguishable part of a Product or Service that is supplied by a partner or produced within the enterprise.
+- Feature: A characteristic, capability, or function of a Product or Service that provides value to customers or target groups.
+
+## Internal connection types
+
+Direct connections:
+
+- part_of
+- is_a
+- requires
+
+Connector-based connections:
+
+- PartOF (AND)
+- PartOF (OR)
+- PartOF (XOR)
+- Total-ISA
+- Partial-ISA
+
+## Meaning of internal connections
+
+- A part_of B: Component A is a direct part of Product or Service B.
+- A is_a B: Product or Service A is a specialisation, version, variant, or subtype of Product or Service B.
+- A requires B: A depends on or needs B in order to work.
+- A, B, C PartOF (AND) D: A, B, and C are all parts of D.
+- A, B, C PartOF (OR) D: One or more of A, B, and C may be parts of D.
+- A, B, C PartOF (XOR) D: Exactly one of A, B, and C may be part of D.
+- A, B, C Total-ISA D: A, B, and C are specialisations of D and together form the complete set of variants.
+- A, B, C Partial-ISA D: A, B, and C are specialisations of D, but the listed variants are not necessarily complete.
+
+## Structural rules
+
+- Products represent offerings or product variants.
+- Services represent explicitly described service offerings.
+- Components represent physical or technical parts of Products or Services.
+- Features represent functions, capabilities, or measurable customer-relevant characteristics.
+- Direct PartOF connections connect Components to Products or Services; PartOF connectors may group Product, Service, Component, and Feature elements.
+- Direct ISA connections connect Products and Services; ISA connectors may group Product, Service, Component, and Feature elements.
+- Requires represents a dependency, especially a Feature dependency on a Component, Product, or Service.
+- AND, OR, and XOR distinguish mandatory, optional, and mutually exclusive compositions.
+- Total-ISA and Partial-ISA distinguish complete and incomplete variant sets.
+- Connector-based connections may have one or more sources; a single-source connector is valid.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, actors, roles, resources, concepts, technical requirements, business processes, markets, or business rules as model elements.
+
+## Original model generation rules
+
+Create a Product / Service Model according to 4EM for the given case.
+
+## Purpose of the model
+
+The Product / Service Model describes which products and services the enterprise offers.
+It shows products, services, components, and features.
+It also explains how products, services, components, and features are composed, specialized, and dependent on each other.
+
+## Allowed element types
+
+Use only the following element types:
+
+- Product
+- Service
+- Component
+- Feature
+
+Do not use any other element types.
+Do not create elements such as Goal, Actor, Concept, Technical Component, Market, Constraint, Requirement, or Process.
+
+## Allowed direct connection types
+
+Use only the following direct connection types:
+
+- part_of
+- is_a
+- requires
+
+## Allowed connector types
+
+Use only the following connector-based connections:
+
+- PartOF (AND)
+- PartOF (OR)
+- PartOF (XOR)
+- Total-ISA
+- Partial-ISA
+
+## Meaning of element types
+
+- Product: what the enterprise offers to its customers. A product can be physical, digital, virtual, or service-related and has attributes, benefits, features, functions, or uses that satisfy customer needs or wants.
+
+- Service: a specialization of Product that is offered to customers as a service and is created or delivered as the result of a process.
+
+- Component: a distinguishable part of a product or service that is supplied by a partner or produced within the enterprise.
+
+- Feature: a characteristic or function of a product or service that is valuable to customers or target groups using the product or service.
+
+## Meaning of direct connections
+
+Use direct connections only for simple one-to-one relations.
+
+- A part_of B  
+  means that Component A is a direct part of Product or Service B.
+
+- A is_a B  
+  means that Product or Service A is a specialization, version, variant, or subtype of Product or Service B.
+
+- A requires B  
+  means that Feature A depends on Component, Product, or Service B in order to work.
+
+## Meaning of connector-based connections
+
+Use connector-based connections when one or more elements are connected to one target or when the relation expresses AND, OR, XOR, or ISA grouping. A connector with exactly one source and one target is valid and is required when that class combination is not allowed as a direct `part_of` or `is_a` connection.
+
+- A, B, C PartOF (AND) D  
+  means that A, B, and C are all parts of D.
+
+- A, B, C PartOF (OR) D  
+  means that one or more of A, B, and C can be parts of D.
+
+- A, B, C PartOF (XOR) D  
+  means that exactly one of A, B, and C can be part of D.
+
+- A, B, C Total-ISA D  
+  means that A, B, and C are specializations of D and together form the complete set of possible variants.
+
+- A, B, C Partial-ISA D  
+  means that A, B, and C are specializations of D, but the list is not necessarily complete.
+
+## Allowed connection patterns
+
+For part_of and PartOF connectors:
+
+- Component part_of Product
+- Component part_of Service
+
+For is_a:
+
+- Product is_a Product
+- Product is_a Service
+- Service is_a Product
+- Service is_a Service
+
+For PartOF and ISA connectors:
+
+- Product, Service, Component, and Feature may be connected with Product, Service, Component, and Feature.
+
+For requires:
+
+- Feature requires Component
+- Feature requires Product
+- Feature requires Service
+
+Do not use requires from Product, Service, or Component unless the dependency is clearly described as a feature dependency and can be modeled through a Feature.
+
+## Modeling rules
+
+1. Use Product for offered products or product variants.
+2. Use Service only if the case explicitly describes a service.
+3. Use Component for physical or technical parts of a product or service.
+4. Use Feature for functions, capabilities, or measurable functions offered by a product or service.
+5. Every element used in CONNECTIONS must be listed exactly once in ELEMENTS.
+6. Do not invent elements that are not supported by the case text.
+7. Prefer connector-based connections for grouped variants, alternatives, or multiple parts.
+8. Use Total-ISA when the text gives a complete list of versions or variants.
+9. Use Partial-ISA when the text gives only examples or an incomplete list of variants.
+10. Use PartOF (XOR) for mutually exclusive alternatives.
+11. Use PartOF (OR) for optional or non-exclusive alternatives.
+12. Use PartOF (AND) when all listed elements belong together.
+13. Do not write explanations, comments, descriptions, bullet points, or any text outside the required output sections.
+
+## Output format
+
+Output the model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> part_of <element name>
+<element name> is_a <element name>
+<element name> requires <element name>
+<element name_1>, <element name_2>, <element name_3> PartOF (AND) <element name>
+<element name_1>, <element name_2>, <element name_3> PartOF (OR) <element name>
+<element name_1>, <element name_2>, <element name_3> PartOF (XOR) <element name>
+<element name_1>, <element name_2>, <element name_3> Total-ISA <element name>
+<element name_1>, <element name_2>, <element name_3> Partial-ISA <element name>
+
+
+Note that for connections, you shouldn’t include the ElementType in the Connection.
+
+## Required output format
+
+Output the repaired model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> part_of <element name>
+<element name> is_a <element name>
+<element name> requires <element name>
+<element name_1>, <element name_2>, <element name_3> PartOF (AND) <element name>
+<element name_1>, <element name_2>, <element name_3> PartOF (OR) <element name>
+<element name_1>, <element name_2>, <element name_3> PartOF (XOR) <element name>
+<element name_1>, <element name_2>, <element name_3> Total-ISA <element name>
+<element name_1>, <element name_2>, <element name_3> Partial-ISA <element name>
+
+Replace every placeholder in angle brackets with an actual existing name; do not output the angle brackets themselves. Replace `ElementType` with exactly one allowed type: `Product`, `Service`, `Component`, or `Feature`.
+
+Write `ELEMENTS` and `CONNECTIONS` exactly as shown and in this order. Write one element or connection per line. Direct connections have exactly one source and one target. Connector connections have one or more sources and exactly one target; a single-source connector is valid. Separate multiple source names with a comma followed by one space.
+
+For direct connections, allow only `Component part_of Product/Service`, `Product/Service is_a Product/Service`, and `Feature requires Component/Product/Service`. Connector connections may use Product, Service, Component, or Feature on either side.
+
+Do not include element types in `CONNECTIONS`. Every referenced name must exactly match one declaration in `ELEMENTS`, and every element name must be declared exactly once. Preserve underscores, hyphens, parentheses, spelling, and capitalization exactly as shown. Output plain text only: no Markdown fences, bullets, numbering, comments, explanations, or additional sections.
+
+## Python error
+
+Multiple validation errors (11):
+  1. ELEMENTS line 1: Unknown element type 'ElementType' in line 'ElementType Product Smart-Heat'. Allowed: Component, Feature, Product, ProductService, Service
+  2. ELEMENTS line 2: Unknown element type 'ElementType' in line 'ElementType Component indoor module'. Allowed: Component, Feature, Product, ProductService, Service
+  3. ELEMENTS line 3: Unknown element type 'ElementType' in line 'ElementType Component outdoor module'. Allowed: Component, Feature, Product, ProductService, Service
+  4. ELEMENTS line 4: Unknown element type 'ElementType' in line 'ElementType Component photovoltaic module'. Allowed: Component, Feature, Product, ProductService, Service
+  5. ELEMENTS line 5: Unknown element type 'ElementType' in line 'ElementType Component outdoor air exchange unit'. Allowed: Component, Feature, Product, ProductService, Service
+  6. ELEMENTS line 6: Unknown element type 'ElementType' in line 'ElementType Feature energy-efficient'. Allowed: Component, Feature, Product, ProductService, Service
+  7. ELEMENTS line 7: Unknown element type 'ElementType' in line 'ElementType Feature zero-emission energy production'. Allowed: Component, Feature, Product, ProductService, Service
+  8. CONNECTIONS line 1: Multiple validation errors (3):
+  1. Source 'indoor module' is not defined under ELEMENTS.
+  2. Source 'outdoor module' is not defined under ELEMENTS.
+  3. Target 'Smart-Heat' is not defined under ELEMENTS.
+  9. CONNECTIONS line 2: Multiple validation errors (3):
+  1. Source 'photovoltaic module' is not defined under ELEMENTS.
+  2. Source 'outdoor air exchange unit' is not defined under ELEMENTS.
+  3. Target 'outdoor module' is not defined under ELEMENTS.
+  10. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'energy-efficient' is not defined under ELEMENTS.
+  2. Target 'Smart-Heat' is not defined under ELEMENTS.
+  11. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'zero-emission energy production' is not defined under ELEMENTS.
+  2. Target 'photovoltaic module' is not defined under ELEMENTS.
+
+## Output to repair
+
+ELEMENTS
+ElementType Product Smart-Heat
+ElementType Component indoor module
+ElementType Component outdoor module
+ElementType Component photovoltaic module
+ElementType Component outdoor air exchange unit
+ElementType Feature energy-efficient
+ElementType Feature zero-emission energy production
+
+CONNECTIONS
+indoor module, outdoor module PartOF (AND) Smart-Heat
+photovoltaic module, outdoor air exchange unit PartOF (AND) outdoor module
+energy-efficient requires Smart-Heat
+zero-emission energy production requires photovoltaic module

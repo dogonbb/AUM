@@ -1,0 +1,81 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         3a97909d-6eea-46f3-a412-256fcfc46e06
+Status:                         COMPLETED_WITH_ERRORS
+Mode:                           models_only
+Started:                        2026-09-13T02:20:57.724+02:00
+Finished:                       2026-09-13T02:35:27.503+02:00
+Total runtime seconds:          869.779
+Parameter file:                  C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:4b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  24284
+Output tokens:                  65366
+Total tokens:                   89650
+Model restarts:                 0
+Format repair attempts:         5
+ADL merger seconds:             0.218
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK_AFTER_FORMAT_REPAIR': 2, 'FAILED_PYTHON': 1, 'OK': 3}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: organized_phase1
+----------------------------------------------------------------------------------------------------
+Status:                  COMPLETED_WITH_ERRORS
+Scenario directory:      C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\scenarios\organized_phase1
+Run directory:           C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\output\organized_phase1_2026-09-13T02-20-57
+Duration seconds:         869.720
+Model stage status:       COMPLETED_WITH_ERRORS
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:organized_phase1:GoalModel:goal.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=101.141 | format_repairs=1
+    attempt=1 reason=python_error seconds=37.719 prompt_tokens=1124 output_tokens=2743
+      slm_attempt=1 status=OK seed=42 seconds=36.560 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=62.242 restart=no
+  MODEL model:organized_phase1:BusinessProcessModel:business_process.txt | status=FAILED_PYTHON | seconds=312.066 | format_repairs=3
+    attempt=1 reason=python_error seconds=53.917 prompt_tokens=1293 output_tokens=4052
+      slm_attempt=1 status=OK seed=42 seconds=52.743 restart=no
+    FORMAT REPAIR attempt=1 status=FAILED_PYTHON
+      slm_attempt=1 status=OK seed=42 seconds=86.660 restart=no
+    FORMAT REPAIR attempt=2 status=FAILED_PYTHON
+      slm_attempt=1 status=OK seed=42 seconds=84.068 restart=no
+    FORMAT REPAIR attempt=3 status=FAILED_PYTHON
+      slm_attempt=1 status=OK seed=42 seconds=83.888 restart=no
+  MODEL model:organized_phase1:ActorsResourcesModel:actors_ressources.txt | status=OK | seconds=100.657 | format_repairs=0
+    attempt=1 reason=None seconds=100.638 prompt_tokens=1986 output_tokens=7667
+      slm_attempt=1 status=OK seed=42 seconds=99.477 restart=no
+  MODEL model:organized_phase1:ConceptsModel:concept.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=198.696 | format_repairs=1
+    attempt=1 reason=python_error seconds=118.163 prompt_tokens=1457 output_tokens=9070
+      slm_attempt=1 status=OK seed=42 seconds=117.007 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=79.346 restart=no
+  MODEL model:organized_phase1:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=100.039 | format_repairs=0
+    attempt=1 reason=None seconds=100.023 prompt_tokens=1958 output_tokens=7569
+      slm_attempt=1 status=OK seed=42 seconds=98.853 restart=no
+  MODEL model:organized_phase1:ProductServiceModel:product.txt | status=OK | seconds=56.845 | format_repairs=0
+    attempt=1 reason=None seconds=56.830 prompt_tokens=1328 output_tokens=4279
+      slm_attempt=1 status=OK seed=42 seconds=55.660 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

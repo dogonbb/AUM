@@ -1,0 +1,1 @@
+CONNECTIONS line 2: No valid connection type found in: 'Provide most energy-efficient heating solution on the market produces remaining energy required by heat pump with integrated photovoltaic module'. Allowed: AND, AND/OR, OR, causes, contradicts, hinders, supports

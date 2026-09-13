@@ -1,0 +1,20 @@
+Multiple validation errors (19):
+  1. Duplicate element names found: Zero-emission energy production
+  2. CONNECTIONS line 1: Disallowed connection pattern in 'Heat pump has attribute Energy-efficiency': Concept has attribute Concept
+  3. CONNECTIONS line 2: Disallowed connection pattern in 'Heat pump has attribute Energy consumption': Concept has attribute Concept
+  4. CONNECTIONS line 3: Disallowed connection pattern in 'Heat pump has attribute Feature': Concept has attribute Concept
+  5. CONNECTIONS line 4: Source 'Target feature' is not defined under ELEMENTS.
+  6. CONNECTIONS line 5: Source 'Rejected order specification' is not defined under ELEMENTS.
+  7. CONNECTIONS line 6: Source 'Verified order specification' is not defined under ELEMENTS.
+  8. CONNECTIONS line 7: Source 'Verified order specification' is not defined under ELEMENTS.
+  9. CONNECTIONS line 8: Source 'Delivery order' is not defined under ELEMENTS.
+  10. CONNECTIONS line 10: Source 'Print media products' is not defined under ELEMENTS.
+  11. CONNECTIONS line 11: Source 'Social media activities' is not defined under ELEMENTS.
+  12. CONNECTIONS line 13: Disallowed connection pattern in 'Customer Name 1:n Order specification': Attribute 1:n Concept
+  13. CONNECTIONS line 14: Disallowed connection pattern in 'Customer ID 1:n Order specification': Attribute 1:n Concept
+  14. CONNECTIONS line 15: Disallowed connection pattern in 'Order Date 1:n Order specification': Attribute 1:n Concept
+  15. CONNECTIONS line 16: Disallowed connection pattern in 'Desired Delivery Date 1:n Order specification': Attribute 1:n Concept
+  16. CONNECTIONS line 18: Connection target 'Target Group' must not also occur in its source list: 'Target Group has attribute Target Group'
+  17. CONNECTIONS line 19: Connection target 'Start Date' must not also occur in its source list: 'Start Date has attribute Start Date'
+  18. CONNECTIONS line 20: Connection target 'End Date' must not also occur in its source list: 'End Date has attribute End Date'
+  19. CONNECTIONS line 21: Connection target 'Budget' must not also occur in its source list: 'Budget has attribute Budget'

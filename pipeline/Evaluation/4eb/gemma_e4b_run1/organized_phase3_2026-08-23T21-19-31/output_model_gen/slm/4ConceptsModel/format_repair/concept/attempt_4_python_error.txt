@@ -1,0 +1,1 @@
+CONNECTIONS line 14: Disallowed connection pattern in 'Energy consumption has attribute Unit': Attribute has attribute Attribute

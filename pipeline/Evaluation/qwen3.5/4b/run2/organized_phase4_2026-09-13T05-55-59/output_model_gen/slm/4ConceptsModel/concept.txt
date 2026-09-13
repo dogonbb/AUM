@@ -1,0 +1,56 @@
+ELEMENTS
+Concept Energy-efficiency
+Concept Energy-consumption
+Concept Feature
+Concept Target-feature
+Concept Specification-document
+Concept Design-description
+Concept Zero-emission-energy-production
+Concept Heat-pump
+Concept Campaign-target-document
+Concept Campaign-plan
+Concept Campaign-statistics
+Concept Campaign-result-document
+Concept Order-specification
+Concept Rejected-order-specification
+Concept Verified-order-specification
+Concept Delivery-order
+Concept Order-confirmation
+Attribute Reason-for-rejection
+Attribute Who-accepted
+Attribute Target-group
+Attribute Start-date
+Attribute End-date
+Attribute Budget
+Attribute Social-media-activity
+Attribute Print-media-product
+Attribute Customer-name
+Attribute Customer-id
+Attribute Order-date
+Attribute Delivery-date
+Attribute Ordered-products
+
+CONNECTIONS
+Heat-pump 1:1 Energy-efficiency
+Heat-pump 1:1 Energy-consumption
+Heat-pump 1:n Feature
+Target-feature Partial-ISA Feature
+Order-specification has attribute Customer-name
+Order-specification has attribute Customer-id
+Order-specification has attribute Order-date
+Order-specification has attribute Delivery-date
+Order-specification has attribute Ordered-products
+Rejected-order-specification Partial-ISA Order-specification
+Rejected-order-specification has attribute Reason-for-rejection
+Verified-order-specification Partial-ISA Order-specification
+Verified-order-specification has attribute Who-accepted
+Order-confirmation Total-PartOF Verified-order-specification
+Order-confirmation Total-PartOF Delivery-order
+Campaign-target-document has attribute Target-group
+Campaign-target-document has attribute Start-date
+Campaign-target-document has attribute End-date
+Campaign-target-document has attribute Budget
+Campaign-plan Partial-PartOF Social-media-activity
+Campaign-plan Partial-PartOF Print-media-product
+Campaign-result-document Partial-PartOF Campaign-statistics
+Campaign-result-document Partial-PartOF Campaign-target-document

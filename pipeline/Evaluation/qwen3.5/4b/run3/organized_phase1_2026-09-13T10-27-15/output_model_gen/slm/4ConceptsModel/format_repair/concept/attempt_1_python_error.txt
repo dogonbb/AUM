@@ -1,0 +1,33 @@
+Multiple validation errors (18):
+  1. ELEMENTS line 1: Unknown element type 'ElementType' in line 'ElementType Concept Energy-efficiency'. Allowed: Attribute, Concept
+  2. ELEMENTS line 2: Unknown element type 'ElementType' in line 'ElementType Concept Energy consumption'. Allowed: Attribute, Concept
+  3. ELEMENTS line 3: Unknown element type 'ElementType' in line 'ElementType Concept Energy output'. Allowed: Attribute, Concept
+  4. ELEMENTS line 4: Unknown element type 'ElementType' in line 'ElementType Concept Customer survey'. Allowed: Attribute, Concept
+  5. ELEMENTS line 5: Unknown element type 'ElementType' in line 'ElementType Concept Feature'. Allowed: Attribute, Concept
+  6. ELEMENTS line 6: Unknown element type 'ElementType' in line 'ElementType Concept Target feature'. Allowed: Attribute, Concept
+  7. ELEMENTS line 7: Unknown element type 'ElementType' in line 'ElementType Concept Specification document'. Allowed: Attribute, Concept
+  8. ELEMENTS line 8: Unknown element type 'ElementType' in line 'ElementType Attribute Functional characteristic'. Allowed: Attribute, Concept
+  9. ELEMENTS line 9: Unknown element type 'ElementType' in line 'ElementType Attribute Non-functional characteristic'. Allowed: Attribute, Concept
+  10. ELEMENTS line 10: Unknown element type 'ElementType' in line 'ElementType Attribute Unit'. Allowed: Attribute, Concept
+  11. ELEMENTS line 11: Unknown element type 'ElementType' in line 'ElementType Attribute Customer expectation'. Allowed: Attribute, Concept
+  12. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Energy-efficiency' is not defined under ELEMENTS.
+  2. Target 'Energy consumption' is not defined under ELEMENTS.
+  13. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Energy-efficiency' is not defined under ELEMENTS.
+  2. Target 'Energy output' is not defined under ELEMENTS.
+  14. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'Target feature' is not defined under ELEMENTS.
+  2. Target 'Feature' is not defined under ELEMENTS.
+  15. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Specification document' is not defined under ELEMENTS.
+  2. Target 'Functional characteristic' is not defined under ELEMENTS.
+  16. CONNECTIONS line 5: Multiple validation errors (2):
+  1. Source 'Specification document' is not defined under ELEMENTS.
+  2. Target 'Non-functional characteristic' is not defined under ELEMENTS.
+  17. CONNECTIONS line 6: Multiple validation errors (2):
+  1. Source 'Customer survey' is not defined under ELEMENTS.
+  2. Target 'Customer expectation' is not defined under ELEMENTS.
+  18. CONNECTIONS line 7: Multiple validation errors (2):
+  1. Source 'Energy consumption' is not defined under ELEMENTS.
+  2. Target 'Unit' is not defined under ELEMENTS.

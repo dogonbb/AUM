@@ -1,0 +1,6 @@
+ELEMENTS
+Technical Component production system
+Technical Component version management system
+
+CONNECTIONS
+version management system supports production system

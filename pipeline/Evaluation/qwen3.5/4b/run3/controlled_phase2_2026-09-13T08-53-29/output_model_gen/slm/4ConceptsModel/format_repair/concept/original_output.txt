@@ -1,0 +1,16 @@
+ELEMENTS
+ElementType Concept Heat pump
+ElementType Attribute Energy-efficiency
+ElementType Attribute Energy consumption
+ElementType Attribute Feature
+ElementType Concept Target feature
+ElementType Concept Customer survey
+ElementType Concept Specification document
+ElementType Concept Design description
+ElementType Concept Zero-emission energy production
+
+CONNECTIONS
+Heat pump has attribute Energy-efficiency
+Heat pump has attribute Energy consumption
+Heat pump has attribute Feature
+Target feature Partial-ISA Feature

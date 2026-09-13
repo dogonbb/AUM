@@ -1,0 +1,25 @@
+ELEMENTS
+Individual I
+Individual Colleague
+Role product owner
+Role product designer
+Organizational Unit product development department
+Organizational Unit marketing department
+Organizational Unit social media group
+Organizational Unit print media group
+Organizational Unit MultiHeat
+Resource Smart-Heat
+Resource heat pump
+Resource printing press
+
+CONNECTIONS
+I plays product owner
+I works in product development department
+product owner responsible for Smart-Heat
+Colleague plays product designer
+Colleague works in product development department
+product designer responsible for heat pump
+marketing department belongs to MultiHeat
+social media group, print media group Partial-PartOF marketing department
+printing press belongs to print media group
+product development department belongs to MultiHeat

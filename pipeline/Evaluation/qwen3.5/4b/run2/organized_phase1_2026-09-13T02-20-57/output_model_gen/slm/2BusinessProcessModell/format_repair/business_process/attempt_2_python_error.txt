@@ -1,0 +1,18 @@
+Multiple validation errors (9):
+  1. ELEMENTS line 1: Unknown element type in line 'ElementType Process target setting'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  2. ELEMENTS line 2: Unknown element type in line 'ElementType Process product specification'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  3. ELEMENTS line 3: Unknown element type in line 'ElementType Information Set customer survey'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  4. ELEMENTS line 4: Unknown element type in line 'ElementType Information Set list of target features'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  5. ELEMENTS line 5: Unknown element type in line 'ElementType Information Set specification document'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  6. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'customer survey' is not defined under ELEMENTS.
+  2. Target 'target setting' is not defined under ELEMENTS.
+  7. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'target setting' is not defined under ELEMENTS.
+  2. Target 'list of target features' is not defined under ELEMENTS.
+  8. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'list of target features' is not defined under ELEMENTS.
+  2. Target 'product specification' is not defined under ELEMENTS.
+  9. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'product specification' is not defined under ELEMENTS.
+  2. Target 'specification document' is not defined under ELEMENTS.

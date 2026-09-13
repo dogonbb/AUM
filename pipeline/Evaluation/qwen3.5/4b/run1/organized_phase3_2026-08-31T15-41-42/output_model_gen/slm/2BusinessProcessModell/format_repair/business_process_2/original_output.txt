@@ -1,0 +1,21 @@
+ELEMENTS
+ElementType Process Planning the Marketing Campaign
+ElementType Process Social Media Campaign
+ElementType Process Print Media Campaign
+ElementType Process Supervision of Campaign Results
+ElementType Information Set Campaign Target Document
+ElementType Information Set Campaign Plan
+ElementType Information Set Statistics about Campaign
+ElementType Information Set Result Document
+
+CONNECTIONS
+Campaign Target Document Input Planning the Marketing Campaign
+Planning the Marketing Campaign Output Campaign Plan
+Campaign Plan Input Social Media Campaign
+Campaign Plan Input Print Media Campaign
+Social Media Campaign Output Statistics about Campaign
+Print Media Campaign Output Statistics about Campaign
+Statistics about Campaign Input Supervision of Campaign Results
+Supervision of Campaign Results Output Result Document
+Planning the Marketing Campaign Split (AND) Social Media Campaign, Print Media Campaign
+Social Media Campaign, Print Media Campaign Join (AND) Supervision of Campaign Results

@@ -1,0 +1,18 @@
+Multiple validation errors (9):
+  1. ELEMENTS line 1: Unknown element type in line 'ElementType Individual Person'. Allowed: Individual, Organizational Unit, Resource, Role
+  2. ELEMENTS line 2: Unknown element type in line 'ElementType Role Product Owner'. Allowed: Individual, Organizational Unit, Resource, Role
+  3. ELEMENTS line 3: Unknown element type in line 'ElementType Organizational Unit Product Development Department'. Allowed: Individual, Organizational Unit, Resource, Role
+  4. ELEMENTS line 4: Unknown element type in line 'ElementType Resource Smart-Heat Product'. Allowed: Individual, Organizational Unit, Resource, Role
+  5. ELEMENTS line 5: Unknown element type in line 'ElementType Resource Innovation Process'. Allowed: Individual, Organizational Unit, Resource, Role
+  6. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Person' is not defined under ELEMENTS.
+  2. Target 'Product Owner' is not defined under ELEMENTS.
+  7. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Product Owner' is not defined under ELEMENTS.
+  2. Target 'Product Development Department' is not defined under ELEMENTS.
+  8. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'Product Owner' is not defined under ELEMENTS.
+  2. Target 'Smart-Heat Product' is not defined under ELEMENTS.
+  9. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Product Owner' is not defined under ELEMENTS.
+  2. Target 'Innovation Process' is not defined under ELEMENTS.

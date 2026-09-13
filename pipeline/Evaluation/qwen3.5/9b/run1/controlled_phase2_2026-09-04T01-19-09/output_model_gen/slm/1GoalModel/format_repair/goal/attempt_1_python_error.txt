@@ -1,0 +1,12 @@
+Multiple validation errors (6):
+  1. ELEMENTS line 1: Unknown element type 'ElementType' in line 'ElementType Goal Provide_Energy_Efficient_Heating_Solution'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  2. ELEMENTS line 2: Unknown element type 'ElementType' in line 'ElementType Goal Minimize_Energy_Consumption'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  3. ELEMENTS line 3: Unknown element type 'ElementType' in line 'ElementType Goal Produce_Remaining_Energy_with_PV'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  4. ELEMENTS line 4: Unknown element type 'ElementType' in line 'ElementType Problem High_Energy_Consumption_Current_Product'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  5. CONNECTIONS line 1: Multiple validation errors (3):
+  1. Source 'Minimize_Energy_Consumption' is not defined under ELEMENTS.
+  2. Source 'Produce_Remaining_Energy_with_PV' is not defined under ELEMENTS.
+  3. Target 'Provide_Energy_Efficient_Heating_Solution' is not defined under ELEMENTS.
+  6. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'High_Energy_Consumption_Current_Product' is not defined under ELEMENTS.
+  2. Target 'Provide_Energy_Efficient_Heating_Solution' is not defined under ELEMENTS.

@@ -1,0 +1,26 @@
+Multiple validation errors (13):
+  1. ELEMENTS line 1: Unknown element type in line 'ElementType Target Setting'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  2. ELEMENTS line 2: Unknown element type in line 'ElementType Define Product Specification'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  3. ELEMENTS line 3: Unknown element type in line 'ElementType Product Design'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  4. ELEMENTS line 4: Unknown element type in line 'ElementType Customer Survey'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  5. ELEMENTS line 5: Unknown element type in line 'ElementType List of Target Features'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  6. ELEMENTS line 6: Unknown element type in line 'ElementType Specification Document'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  7. ELEMENTS line 7: Unknown element type in line 'ElementType Design Description'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  8. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Customer Survey' is not defined under ELEMENTS.
+  2. Target 'Target Setting' is not defined under ELEMENTS.
+  9. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Target Setting' is not defined under ELEMENTS.
+  2. Target 'List of Target Features' is not defined under ELEMENTS.
+  10. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'List of Target Features' is not defined under ELEMENTS.
+  2. Target 'Define Product Specification' is not defined under ELEMENTS.
+  11. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Define Product Specification' is not defined under ELEMENTS.
+  2. Target 'Specification Document' is not defined under ELEMENTS.
+  12. CONNECTIONS line 5: Multiple validation errors (2):
+  1. Source 'Specification Document' is not defined under ELEMENTS.
+  2. Target 'Product Design' is not defined under ELEMENTS.
+  13. CONNECTIONS line 6: Multiple validation errors (2):
+  1. Source 'Product Design' is not defined under ELEMENTS.
+  2. Target 'Design Description' is not defined under ELEMENTS.

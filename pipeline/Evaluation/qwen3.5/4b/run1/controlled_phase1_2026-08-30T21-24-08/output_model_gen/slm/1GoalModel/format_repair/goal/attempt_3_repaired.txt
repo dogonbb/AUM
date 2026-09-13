@@ -1,0 +1,6 @@
+ELEMENTS
+Goal Provide the most energy-efficient heating solution on the market
+Problem Energy consumption of the current product version is too high
+
+CONNECTIONS
+Problem Energy consumption of the current product version is too high hinders Goal Provide the most energy-efficient heating solution on the market

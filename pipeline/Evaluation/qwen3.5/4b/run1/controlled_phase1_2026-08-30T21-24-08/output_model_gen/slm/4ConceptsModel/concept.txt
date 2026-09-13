@@ -1,0 +1,12 @@
+ELEMENTS
+Concept Energy-efficiency
+Concept Energy consumption
+Concept Customer survey
+Concept Feature
+Concept Target feature
+Concept Specification document
+Attribute Unit of measurement
+
+CONNECTIONS
+Target feature Partial-ISA Feature
+Energy consumption has attribute Unit of measurement

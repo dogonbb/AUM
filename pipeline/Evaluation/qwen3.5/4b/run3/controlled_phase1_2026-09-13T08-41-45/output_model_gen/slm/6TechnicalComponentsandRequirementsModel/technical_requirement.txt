@@ -1,0 +1,9 @@
+ELEMENTS
+Information System Goal Product Innovation
+Technical Component Production System
+Technical Component Version Management System
+
+CONNECTIONS
+Product Innovation motivates Production System
+Product Innovation motivates Version Management System
+Version Management System supports Production System

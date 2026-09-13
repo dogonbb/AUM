@@ -1,0 +1,10 @@
+Multiple validation errors (5):
+  1. ELEMENTS line 1: Unknown element type in line 'ElementType Role product owner'. Allowed: Individual, Organizational Unit, Resource, Role
+  2. ELEMENTS line 2: Unknown element type in line 'ElementType Organizational Unit product development department'. Allowed: Individual, Organizational Unit, Resource, Role
+  3. ELEMENTS line 3: Unknown element type in line 'ElementType Resource heat pump Smart-Heat'. Allowed: Individual, Organizational Unit, Resource, Role
+  4. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'product owner' is not defined under ELEMENTS.
+  2. Target 'product development department' is not defined under ELEMENTS.
+  5. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'product owner' is not defined under ELEMENTS.
+  2. Target 'heat pump Smart-Heat' is not defined under ELEMENTS.

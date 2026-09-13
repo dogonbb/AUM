@@ -1,0 +1,1 @@
+CONNECTIONS line 1: Disallowed connection pattern in 'Product Innovation Process relation Target Setting': Process relation Process

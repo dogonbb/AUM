@@ -1,0 +1,52 @@
+ELEMENTS
+Individual Product Owner
+Role Product Owner
+Individual Product Designer
+Role Product Designer
+Individual Print Designer
+Role Print Designer
+Individual Social Media Designer
+Role Social Media Designer
+Individual Operator
+Role Operator
+Individual Content Specialist
+Role Content Specialist
+Individual General Manager
+Role General Manager
+Organizational Unit Product Development Department
+Organizational Unit Marketing Department
+Organizational Unit Social Media Group
+Organizational Unit Print Media Group
+Organizational Unit MultiHeat
+Resource Smart-Heat Product
+Resource Heat Pump
+Resource Printing Press
+
+CONNECTIONS
+Individual Product Owner plays Role Product Owner
+Role Product Owner works in Organizational Unit Product Development Department
+Role Product Owner responsible for Resource Smart-Heat Product
+Individual Product Designer plays Role Product Designer
+Role Product Designer works in Organizational Unit Product Development Department
+Role Product Designer responsible for Resource Heat Pump
+Organizational Unit Marketing Department Partial-PartOF Organizational Unit Social Media Group
+Organizational Unit Marketing Department Partial-PartOF Organizational Unit Print Media Group
+Resource Printing Press belongs to Organizational Unit Print Media Group
+Individual Print Designer plays Role Print Designer
+Role Print Designer works in Organizational Unit Print Media Group
+Individual Social Media Designer plays Role Social Media Designer
+Role Social Media Designer works in Organizational Unit Social Media Group
+Individual Operator plays Role Operator
+Role Operator maintains Resource Printing Press
+Individual Content Specialist plays Role Content Specialist
+Role Content Specialist works in Organizational Unit Social Media Group
+Individual General Manager plays Role General Manager
+Role General Manager relation Organizational Unit Product Development Department
+Role General Manager relation Organizational Unit Marketing Department
+Role General Manager relation Organizational Unit Social Media Group
+Role General Manager relation Organizational Unit Print Media Group
+Role General Manager relation Organizational Unit MultiHeat
+Organizational Unit Product Development Department Partial-PartOF Organizational Unit MultiHeat
+Organizational Unit Marketing Department Partial-PartOF Organizational Unit MultiHeat
+Organizational Unit Social Media Group Partial-PartOF Organizational Unit MultiHeat
+Organizational Unit Print Media Group Partial-PartOF Organizational Unit MultiHeat

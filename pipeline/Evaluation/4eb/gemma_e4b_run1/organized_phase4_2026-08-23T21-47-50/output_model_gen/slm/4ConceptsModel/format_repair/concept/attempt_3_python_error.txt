@@ -1,0 +1,8 @@
+Multiple validation errors (7):
+  1. CONNECTIONS line 4: Connection target 'Feature' must not also occur in its source list: 'Feature Partial-ISA Feature'
+  2. CONNECTIONS line 5: Source 'Rejected order specification' is not defined under ELEMENTS.
+  3. CONNECTIONS line 6: Source 'Verified order specification' is not defined under ELEMENTS.
+  4. CONNECTIONS line 7: Source 'Verified order specification' is not defined under ELEMENTS.
+  5. CONNECTIONS line 8: Source 'Delivery order' is not defined under ELEMENTS.
+  6. CONNECTIONS line 14: Disallowed connection pattern in 'Energy-efficiency has attribute Energy Output for Heating': Attribute has attribute Attribute
+  7. CONNECTIONS line 15: Disallowed connection pattern in 'Energy-efficiency has attribute Energy consumption': Attribute has attribute Attribute

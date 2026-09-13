@@ -1,0 +1,3 @@
+CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Problem' is not defined under ELEMENTS.
+  2. Target 'Goal' is not defined under ELEMENTS.

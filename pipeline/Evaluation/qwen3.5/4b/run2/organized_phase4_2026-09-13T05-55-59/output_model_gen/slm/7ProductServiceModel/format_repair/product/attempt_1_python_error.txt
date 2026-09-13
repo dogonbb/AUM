@@ -1,0 +1,39 @@
+Multiple validation errors (20):
+  1. ELEMENTS line 1: Unknown element type 'ElementType' in line 'ElementType Product Smart-Heat'. Allowed: Component, Feature, Product, ProductService, Service
+  2. ELEMENTS line 2: Unknown element type 'ElementType' in line 'ElementType Component Indoor Module'. Allowed: Component, Feature, Product, ProductService, Service
+  3. ELEMENTS line 3: Unknown element type 'ElementType' in line 'ElementType Component Outdoor Module'. Allowed: Component, Feature, Product, ProductService, Service
+  4. ELEMENTS line 4: Unknown element type 'ElementType' in line 'ElementType Component Photovoltaic Module'. Allowed: Component, Feature, Product, ProductService, Service
+  5. ELEMENTS line 5: Unknown element type 'ElementType' in line 'ElementType Component Outdoor Air Exchange Unit'. Allowed: Component, Feature, Product, ProductService, Service
+  6. ELEMENTS line 6: Unknown element type 'ElementType' in line 'ElementType Feature Energy Efficiency'. Allowed: Component, Feature, Product, ProductService, Service
+  7. ELEMENTS line 7: Unknown element type 'ElementType' in line 'ElementType Service Maintenance and Trouble-Shooting Service'. Allowed: Component, Feature, Product, ProductService, Service
+  8. ELEMENTS line 8: Unknown element type 'ElementType' in line 'ElementType Component Annual Service'. Allowed: Component, Feature, Product, ProductService, Service
+  9. ELEMENTS line 9: Unknown element type 'ElementType' in line 'ElementType Component Repair'. Allowed: Component, Feature, Product, ProductService, Service
+  10. ELEMENTS line 10: Unknown element type 'ElementType' in line 'ElementType Component Service Kit'. Allowed: Component, Feature, Product, ProductService, Service
+  11. ELEMENTS line 11: Unknown element type 'ElementType' in line 'ElementType Feature Quick Response to Error Situations'. Allowed: Component, Feature, Product, ProductService, Service
+  12. ELEMENTS line 12: Unknown element type 'ElementType' in line 'ElementType Feature Discount Prices in Case of Repairs'. Allowed: Component, Feature, Product, ProductService, Service
+  13. ELEMENTS line 13: Unknown element type 'ElementType' in line 'ElementType Feature Personal Service Technician'. Allowed: Component, Feature, Product, ProductService, Service
+  14. CONNECTIONS line 1: Multiple validation errors (3):
+  1. Source 'Indoor Module' is not defined under ELEMENTS.
+  2. Source 'Outdoor Module' is not defined under ELEMENTS.
+  3. Target 'Smart-Heat' is not defined under ELEMENTS.
+  15. CONNECTIONS line 2: Multiple validation errors (3):
+  1. Source 'Photovoltaic Module' is not defined under ELEMENTS.
+  2. Source 'Outdoor Air Exchange Unit' is not defined under ELEMENTS.
+  3. Target 'Outdoor Module' is not defined under ELEMENTS.
+  16. CONNECTIONS line 3: Multiple validation errors (4):
+  1. Source 'Annual Service' is not defined under ELEMENTS.
+  2. Source 'Repair' is not defined under ELEMENTS.
+  3. Source 'Service Kit' is not defined under ELEMENTS.
+  4. Target 'Maintenance and Trouble-Shooting Service' is not defined under ELEMENTS.
+  17. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Energy Efficiency' is not defined under ELEMENTS.
+  2. Target 'Smart-Heat' is not defined under ELEMENTS.
+  18. CONNECTIONS line 5: Multiple validation errors (2):
+  1. Source 'Quick Response to Error Situations' is not defined under ELEMENTS.
+  2. Target 'Maintenance and Trouble-Shooting Service' is not defined under ELEMENTS.
+  19. CONNECTIONS line 6: Multiple validation errors (2):
+  1. Source 'Discount Prices in Case of Repairs' is not defined under ELEMENTS.
+  2. Target 'Maintenance and Trouble-Shooting Service' is not defined under ELEMENTS.
+  20. CONNECTIONS line 7: Multiple validation errors (2):
+  1. Source 'Personal Service Technician' is not defined under ELEMENTS.
+  2. Target 'Maintenance and Trouble-Shooting Service' is not defined under ELEMENTS.

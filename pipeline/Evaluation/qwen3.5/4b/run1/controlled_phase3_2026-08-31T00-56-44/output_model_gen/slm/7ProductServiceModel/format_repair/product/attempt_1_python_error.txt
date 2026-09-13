@@ -1,0 +1,29 @@
+Multiple validation errors (16):
+  1. ELEMENTS line 1: Unknown element type 'ElementType' in line 'ElementType Product Smart-Heat'. Allowed: Component, Feature, Product, ProductService, Service
+  2. ELEMENTS line 2: Unknown element type 'ElementType' in line 'ElementType Service maintenance and trouble-shooting'. Allowed: Component, Feature, Product, ProductService, Service
+  3. ELEMENTS line 3: Unknown element type 'ElementType' in line 'ElementType Service annual service'. Allowed: Component, Feature, Product, ProductService, Service
+  4. ELEMENTS line 4: Unknown element type 'ElementType' in line 'ElementType Service repair'. Allowed: Component, Feature, Product, ProductService, Service
+  5. ELEMENTS line 5: Unknown element type 'ElementType' in line 'ElementType Product service kit'. Allowed: Component, Feature, Product, ProductService, Service
+  6. ELEMENTS line 6: Unknown element type 'ElementType' in line 'ElementType Component indoor module'. Allowed: Component, Feature, Product, ProductService, Service
+  7. ELEMENTS line 7: Unknown element type 'ElementType' in line 'ElementType Component outdoor module'. Allowed: Component, Feature, Product, ProductService, Service
+  8. ELEMENTS line 8: Unknown element type 'ElementType' in line 'ElementType Component photovoltaic module'. Allowed: Component, Feature, Product, ProductService, Service
+  9. ELEMENTS line 9: Unknown element type 'ElementType' in line 'ElementType Component outdoor air exchange unit'. Allowed: Component, Feature, Product, ProductService, Service
+  10. ELEMENTS line 10: Unknown element type 'ElementType' in line 'ElementType Feature energy-efficient'. Allowed: Component, Feature, Product, ProductService, Service
+  11. ELEMENTS line 11: Unknown element type 'ElementType' in line 'ElementType Feature zero-emission energy production'. Allowed: Component, Feature, Product, ProductService, Service
+  12. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'indoor module' is not defined under ELEMENTS.
+  2. Target 'Smart-Heat' is not defined under ELEMENTS.
+  13. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'outdoor module' is not defined under ELEMENTS.
+  2. Target 'Smart-Heat' is not defined under ELEMENTS.
+  14. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'photovoltaic module' is not defined under ELEMENTS.
+  2. Target 'outdoor module' is not defined under ELEMENTS.
+  15. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'outdoor air exchange unit' is not defined under ELEMENTS.
+  2. Target 'outdoor module' is not defined under ELEMENTS.
+  16. CONNECTIONS line 5: Multiple validation errors (4):
+  1. Source 'annual service' is not defined under ELEMENTS.
+  2. Source 'repair' is not defined under ELEMENTS.
+  3. Source 'service kit' is not defined under ELEMENTS.
+  4. Target 'maintenance and trouble-shooting' is not defined under ELEMENTS.

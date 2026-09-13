@@ -1,0 +1,19 @@
+ELEMENTS
+Role Product Owner
+Role Product Designer
+Resource Smart-Heat
+Resource Printing Press
+Organizational Unit MultiHeat
+Organizational Unit Product Development Department
+Organizational Unit Marketing Department
+Organizational Unit Social Media Group
+Organizational Unit Print Media Group
+Organizational Unit Print Media Department
+
+CONNECTIONS
+Product Owner works in Product Development Department
+Product Designer works in Product Development Department
+Product Designer responsible for Smart-Heat
+Print Media Group, Social Media Group Partial-PartOF Marketing Department
+Printing Press belongs to Print Media Department
+Product Development Department, Print Media Department Partial-PartOF MultiHeat

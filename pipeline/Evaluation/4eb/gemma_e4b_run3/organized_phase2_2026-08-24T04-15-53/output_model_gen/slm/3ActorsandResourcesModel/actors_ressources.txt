@@ -1,0 +1,18 @@
+ELEMENTS
+Individual I
+Individual Colleague
+Role product owner
+Role product designer
+Resource Smart-Heat
+Resource product innovation process
+Resource heat pump
+Organizational Unit product development department
+
+CONNECTIONS
+product owner works in product development department
+I plays product owner
+product owner responsible for Smart-Heat
+product owner responsible for product innovation process
+product designer works in product development department
+Colleague plays product designer
+product designer responsible for heat pump

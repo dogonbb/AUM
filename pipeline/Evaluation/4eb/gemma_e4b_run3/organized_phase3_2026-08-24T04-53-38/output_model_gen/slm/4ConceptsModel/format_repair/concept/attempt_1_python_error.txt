@@ -1,0 +1,6 @@
+Multiple validation errors (5):
+  1. CONNECTIONS line 1: Disallowed connection pattern in 'Heat pump has attribute Energy-efficiency': Concept has attribute Concept
+  2. CONNECTIONS line 2: Disallowed connection pattern in 'Heat pump has attribute Energy consumption': Concept has attribute Concept
+  3. CONNECTIONS line 3: Disallowed connection pattern in 'Heat pump has attribute Feature': Concept has attribute Concept
+  4. CONNECTIONS line 7: Disallowed connection pattern in 'Campaign target document has attribute Target group': Concept has attribute Concept
+  5. CONNECTIONS line 14: Disallowed connection pattern in 'Energy consumption has attribute Unit': Concept has attribute Concept

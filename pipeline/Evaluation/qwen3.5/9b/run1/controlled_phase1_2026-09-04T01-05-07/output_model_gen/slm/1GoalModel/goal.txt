@@ -1,0 +1,6 @@
+ELEMENTS
+Goal Provide_Energy_Efficient_Heating_Solution
+Problem High_Energy_Consumption_Current_Product
+
+CONNECTIONS
+High_Energy_Consumption_Current_Product hinders Provide_Energy_Efficient_Heating_Solution

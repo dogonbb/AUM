@@ -1,0 +1,8 @@
+ELEMENTS
+Technical Component production system
+Technical Component version management system
+Information System Non-Functional Requirement Production System Importance
+
+CONNECTIONS
+version management system supports production system
+production system has requirement Production System Importance

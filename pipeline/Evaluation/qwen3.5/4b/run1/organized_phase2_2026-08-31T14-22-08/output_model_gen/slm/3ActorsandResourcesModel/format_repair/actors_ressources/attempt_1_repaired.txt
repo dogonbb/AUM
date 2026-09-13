@@ -1,0 +1,16 @@
+ELEMENTS
+Individual I
+Role product owner
+Resource Smart-Heat product
+Organizational Unit product development department
+Individual Colleague
+Role product designer
+Resource heat pump
+
+CONNECTIONS
+I plays product owner
+I relation product development department
+product owner responsible for Smart-Heat product
+Colleague plays product designer
+Colleague relation product development department
+product designer responsible for heat pump

@@ -1,0 +1,9 @@
+Multiple validation errors (8):
+  1. CONNECTIONS line 7: Disallowed connection pattern in 'General Manager responsible for MultiHeat': Role responsible for Organizational Unit
+  2. CONNECTIONS line 10: Disallowed connection pattern in 'Print Media Group belongs to Marketing Department': Organizational Unit belongs to Organizational Unit
+  3. CONNECTIONS line 11: Disallowed connection pattern in 'Social Media Group belongs to Marketing Department': Organizational Unit belongs to Organizational Unit
+  4. CONNECTIONS line 12: Disallowed connection pattern in 'Product Development Department belongs to MultiHeat': Organizational Unit belongs to Organizational Unit
+  5. CONNECTIONS line 13: Disallowed connection pattern in 'Print Media Department belongs to MultiHeat': Organizational Unit belongs to Organizational Unit
+  6. CONNECTIONS line 14: Disallowed connection pattern in 'Marketing Department belongs to MultiHeat': Organizational Unit belongs to Organizational Unit
+  7. CONNECTIONS line 15: Disallowed connection pattern in 'Social Media Group belongs to MultiHeat': Organizational Unit belongs to Organizational Unit
+  8. CONNECTIONS line 16: Disallowed connection pattern in 'Print Media Group belongs to MultiHeat': Organizational Unit belongs to Organizational Unit

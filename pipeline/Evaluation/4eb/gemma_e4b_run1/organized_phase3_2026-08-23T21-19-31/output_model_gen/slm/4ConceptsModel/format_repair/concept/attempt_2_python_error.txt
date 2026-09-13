@@ -1,0 +1,5 @@
+Multiple validation errors (4):
+  1. CONNECTIONS line 4: Source 'Target feature' is not defined under ELEMENTS.
+  2. CONNECTIONS line 11: Source 'Social media activity' is not defined under ELEMENTS.
+  3. CONNECTIONS line 12: Source 'Print media product' is not defined under ELEMENTS.
+  4. CONNECTIONS line 14: Disallowed connection pattern in 'Energy consumption has attribute Unit': Attribute has attribute Attribute

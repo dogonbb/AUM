@@ -1,0 +1,10 @@
+ELEMENTS
+Individual I
+Role Product Owner
+Resource Smart-Heat
+Organizational Unit Product Development Department
+
+CONNECTIONS
+I plays Product Owner
+I works in Product Development Department
+I responsible for Smart-Heat

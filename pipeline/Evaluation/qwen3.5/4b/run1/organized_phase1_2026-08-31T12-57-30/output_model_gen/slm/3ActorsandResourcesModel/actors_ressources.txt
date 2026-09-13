@@ -1,0 +1,12 @@
+ELEMENTS
+Individual Person
+Role Product Owner
+Organizational Unit Product Development Department
+Resource Smart-Heat Product
+Resource Innovation Process
+
+CONNECTIONS
+Person plays Product Owner
+Product Owner works in Product Development Department
+Product Owner responsible for Smart-Heat Product
+Product Owner responsible for Innovation Process

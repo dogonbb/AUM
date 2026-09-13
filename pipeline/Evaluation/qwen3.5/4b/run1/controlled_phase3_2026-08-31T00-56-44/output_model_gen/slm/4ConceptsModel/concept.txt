@@ -1,0 +1,24 @@
+ELEMENTS
+Concept Heat Pump
+Concept Feature
+Concept Target feature
+Concept Campaign target document
+Concept Campaign result document
+Attribute Campaign statistics
+Attribute Energy-efficiency
+Attribute Energy consumption
+Attribute Target group
+Attribute Campaign start date
+Attribute Campaign end date
+Attribute Campaign budget
+
+CONNECTIONS
+Heat Pump has attribute Energy-efficiency
+Heat Pump has attribute Energy consumption
+Heat Pump Total-PartOF Feature
+Target feature Partial-ISA Feature
+Campaign target document has attribute Target group
+Campaign target document has attribute Campaign start date
+Campaign target document has attribute Campaign end date
+Campaign target document has attribute Campaign budget
+Campaign result document has attribute Campaign statistics

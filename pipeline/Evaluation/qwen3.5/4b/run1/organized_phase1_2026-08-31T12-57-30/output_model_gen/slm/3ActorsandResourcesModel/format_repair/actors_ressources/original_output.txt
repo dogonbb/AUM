@@ -1,0 +1,12 @@
+ELEMENTS
+ElementType Individual Person
+ElementType Role Product Owner
+ElementType Organizational Unit Product Development Department
+ElementType Resource Smart-Heat Product
+ElementType Resource Innovation Process
+
+CONNECTIONS
+Person plays Product Owner
+Product Owner works in Product Development Department
+Product Owner responsible for Smart-Heat Product
+Product Owner responsible for Innovation Process

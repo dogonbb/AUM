@@ -1,0 +1,16 @@
+ELEMENTS
+ElementType Individual Speaker
+ElementType Individual Colleague
+ElementType Role Product Owner
+ElementType Role Product Designer
+ElementType Resource Smart-Heat product
+ElementType Resource Heat Pump
+ElementType Organizational Unit Product Development Department
+
+CONNECTIONS
+Speaker works in Product Development Department
+Speaker plays Product Owner
+Product Owner responsible for Smart-Heat product
+Colleague works in Product Development Department
+Colleague plays Product Designer
+Product Designer responsible for Heat Pump

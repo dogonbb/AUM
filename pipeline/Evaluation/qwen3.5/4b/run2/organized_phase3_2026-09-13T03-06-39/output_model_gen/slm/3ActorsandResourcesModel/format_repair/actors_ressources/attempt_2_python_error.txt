@@ -1,0 +1,5 @@
+Multiple validation errors (4):
+  1. CONNECTIONS line 2: Disallowed connection pattern in 'I works in product development department': Individual works in Organizational Unit
+  2. CONNECTIONS line 5: Disallowed connection pattern in 'Colleague works in product development department': Individual works in Organizational Unit
+  3. CONNECTIONS line 7: Disallowed connection pattern in 'marketing department belongs to MultiHeat': Organizational Unit belongs to Organizational Unit
+  4. CONNECTIONS line 10: Disallowed connection pattern in 'product development department belongs to MultiHeat': Organizational Unit belongs to Organizational Unit

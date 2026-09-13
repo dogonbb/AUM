@@ -1,0 +1,18 @@
+ELEMENTS
+Goal-Provide-Energy-Efficient-Heating
+Problem-High-Energy-Consumption
+Goal-Minimize-Energy-Consumption
+Goal-Produce-Renewable-Energy
+Constraint-PV-Max-Production
+Goal-Develop-New-Extractor
+Goal-Redesign-Existing-Extractor
+Problem-Short-Development-Time
+Problem-High-Refrigerant-Cost
+
+CONNECTIONS
+Goal-Minimize-Energy-Consumption, Goal-Produce-Renewable-Energy AND Goal-Provide-Energy-Efficient-Heating
+Goal-Develop-New-Extractor, Goal-Redesign-Existing-Extractor OR Goal-Minimize-Energy-Consumption
+Problem-High-Energy-Consumption hinders Goal-Provide-Energy-Efficient-Heating
+Constraint-PV-Max-Production hinders Goal-Produce-Renewable-Energy
+Problem-Short-Development-Time hinders Goal-Develop-New-Extractor
+Problem-High-Refrigerant-Cost hinders Goal-Redesign-Existing-Extractor

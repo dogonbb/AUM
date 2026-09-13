@@ -1,0 +1,6 @@
+ELEMENTS
+Goal Provide_Most_Energy_Efficient_Heating_Solution
+Problem High_Energy_Consumption_Current_Product_Version
+
+CONNECTIONS
+High_Energy_Consumption_Current_Product_Version hinders Provide_Most_Energy_Efficient_Heating_Solution

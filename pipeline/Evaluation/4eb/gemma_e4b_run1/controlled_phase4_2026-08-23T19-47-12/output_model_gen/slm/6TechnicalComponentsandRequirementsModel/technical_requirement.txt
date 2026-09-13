@@ -1,0 +1,18 @@
+ELEMENTS
+Technical Component Production System
+Technical Component Version Management System
+Technical Component Database System
+Technical Component Transaction Middleware
+Technical Component User Interface Component
+Technical Component Social Media Studio
+Technical Component SM Authoring System
+Technical Component SM Life System
+Technical Component SM Repository
+Technical Component Product Planning System
+Technical Component Enterprise Resource Planning System
+Technical Component Distributed Database
+
+CONNECTIONS
+Version Management System supports Production System
+Database System, Transaction Middleware, User Interface Component Total-PartOF Production System
+SM Authoring System, SM Life System Total-PartOF Social Media Studio

@@ -1,0 +1,30 @@
+ELEMENTS
+External Process Submit customer order
+Process check order validity
+Process handle customer order
+Process check availability
+Process check customer status
+Process check configuration
+Process prepare product delivery
+Process reject customer order
+Information Set order specification
+Information Set verified order specification
+Information Set rejected order specification
+Information Set order confirmation
+Information Set delivery order
+
+CONNECTIONS
+Submit customer order Output order specification
+order specification Input check order validity
+check order validity Output verified order specification
+check order validity Output rejected order specification
+verified order specification Input handle customer order
+handle customer order Input check availability
+handle customer order Input check customer status
+handle customer order Input check configuration
+check availability Output order confirmation
+check customer status Output order confirmation
+check configuration Output order confirmation
+order confirmation Input prepare product delivery
+prepare product delivery Output delivery order
+rejected order specification Input reject customer order

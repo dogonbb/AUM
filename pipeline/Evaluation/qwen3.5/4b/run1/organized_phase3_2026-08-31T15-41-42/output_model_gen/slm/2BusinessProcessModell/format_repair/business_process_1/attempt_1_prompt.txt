@@ -1,0 +1,288 @@
+## General explanation
+
+You repair an already generated model output after a Python converter or integrator failed to process it.
+
+Follow this order strictly:
+1. Review the complete generated output and the complete Python error before making changes.
+2. Correct every reported formatting violation throughout the file, while preserving semantic content wherever possible.
+3. Correct every reported semantic validation error using the scenario texts, model explanation, original model generation rules, and required output format. Make only the smallest content changes required for the Python script to accept the output.
+
+The Python error may contain a numbered `Multiple validation errors` list, including multiple errors for one line. Resolve every listed error in one repaired output. Do not stop after fixing the first item. Check every line named in the error list and keep all element names in `CONNECTIONS` exactly consistent with their declarations in `ELEMENTS`.
+
+For a semantic correction, use only information present in the supplied scenario texts, model explanation, and model rules. Do not invent elements, names, facts, or relationships. Remove, replace, or add only what is necessary to resolve the reported validation errors. Preserve every unaffected name and piece of content exactly.
+
+Return only the complete repaired output. Do not provide an explanation, Markdown, code fences, or introductory or concluding text.
+
+## Scenario texts
+
+The first step in the product innovation process is target setting. In target setting, we need the customer survey as input and use it to develop the list of target features. The next step is to define the product specification based on the target feature list. The result is the specification document, which is the input for the step, the product design. This process produces the design description and concludes the innovation process. As the product owner, I am responsible for both steps, target setting and product specification. My colleague, the product designer is in charge of product design process.
+
+## Model explanation
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Business Process Model
+
+## Purpose of the model
+
+The Business Process Model describes enterprise processes, their interactions, and the flow of information between them. It represents internal processes, relevant external processes, information sets, and branching or joining structures. The model explains how information is consumed as input, produced as output, and transferred between process elements.
+
+## Element types
+
+- Process
+- External Process
+- Information Set
+
+## Meaning of element types
+
+- Process: A collection of activities within the enterprise or problem domain that consumes input, produces output, is controlled by rules, may have a performer or responsible actor, and uses resources and time.
+- External Process: A collection of activities outside the organisational scope that communicates with processes in the problem domain and may act as a source or destination of information.
+- Information Set: A set of information transferred from one Process or External Process to another.
+
+## Internal connection types
+
+Direct connections:
+
+- relation
+- Input
+- Output
+
+Connector-based connections:
+
+- Split (AND)
+- Join (AND)
+- Split (OR)
+- Join (OR)
+
+## Meaning of internal connections
+
+- A relation B: A is directly connected to B by an unlabeled business-process relation.
+- A Input B: Information Set A is used as input by Process or External Process B.
+- A Output B: Process or External Process A produces Information Set B as output.
+- A Split (AND) B, C, D: A branches to B, C, and D, and all branches apply.
+- A Split (OR) B, C, D: A branches to B, C, and D as alternatives.
+- A, B, C Join (AND) D: A, B, and C are joined before D, and all incoming branches apply.
+- A, B, C Join (OR) D: A, B, and C are alternative incoming branches joined before D.
+
+## Structural rules
+
+- Internal enterprise activities are represented as Process.
+- Activities outside the organisational scope are represented as External Process.
+- Transferred information is represented as Information Set.
+- Input connections lead from Information Sets to Processes or External Processes.
+- Output connections lead from Processes or External Processes to Information Sets.
+- AND connectors represent parallel or jointly required branches.
+- OR connectors represent alternative branches.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, causes, constraints, opportunities, actors, roles, organisational units, products, services, concepts, business rules, or technical requirements as model elements.
+
+## Original model generation rules
+
+Create a Business Process Model according to 4EM for the given case.
+
+## Purpose of the model
+
+The Business Process Model is used to define enterprise processes, the way they interact, and the way they handle information.
+It shows processes together with external processes and information sets.
+It also explains how information is used as input and output between processes and external processes.
+
+## Allowed element types
+
+Use only the following element types:
+
+- Process
+- External Process
+- Information Set
+
+Do not use any other element types.
+Do not create elements such as Goal, Problem, Cause, Constraint, Opportunity, Product, Service, Component, Feature, Actor, Role, Resource, Concept, Technical Component, Requirement, Market, or Business Rule.
+
+## Allowed direct connection types
+
+Use only the following direct connection types:
+
+- relation
+- Input
+- Output
+
+## Allowed connector types
+
+Use only the following connector-based connections:
+
+- Split (AND)
+- Join (AND)
+- Split (OR)
+- Join (OR)
+
+## Meaning of element types
+
+- Process: a collection of activities that consumes input and produces output in terms of information, is controlled by rules, may have a performer or responsible actor or resource, and consumes a finite amount of resources and time when initiated.
+- External Process: a collection of activities located outside the scope of the organisational activity area, communicating with processes or activities of the problem domain area, and essential to document. External processes can be sources or terminators for information flows.
+- Information Set: a set of information sent from one Process or External Process to another.
+  
+## Meaning of direct connections
+
+Use direct connections only for simple one-to-one relations.
+
+- A relation B  
+  means that A is directly connected to B by an unlabeled business process relation.
+
+- A Input B  
+  means that A is used as input for B.
+
+- A Output B  
+  means that A is produced or provided as output by B.
+
+## Meaning of connector-based connections
+
+Use connector-based connections when multiple elements are connected by one Split (AND), Join (AND), Split (OR), or Join (OR) connector.
+
+- A Split (AND) B, C, D  
+  means that A is connected to B, C, and D by a Split (AND) connector.
+
+- A Split (OR) B, C, D  
+  means that A is connected to B, C, and D by a Split (OR) connector.
+
+- A, B, C Join (AND) D  
+  means that A, B, and C are connected to D by a Join (AND) connector.
+
+- A, B, C Join (OR) D  
+  means that A, B, and C are connected to D by a Join (OR) connector.
+
+## Allowed connection patterns
+
+For relation:
+
+- Process relation External Process
+- External Process relation Process
+
+For Input:
+
+- Information Set Input Process
+- Information Set Input External Process
+
+For Output:
+
+- Process Output Information Set
+- External Process Output Information Set
+
+For Split (AND), Join (AND), Split (OR), and Join (OR) connectors:
+
+- Process, External Process, and Information Set may be connected with Process, External Process, and Information Set.
+
+## Modeling rules
+
+1. Use Process for activities inside the enterprise or problem domain that consume input and produce output.
+2. Use External Process for activities outside the organisational activity area that communicate with processes or activities of the problem domain area.
+3. Use Information Set for information that is sent from one Process or External Process to another.
+4. Use Split (AND) only when one element branches into several elements that all apply.
+5. Use Join (AND) only when several elements are joined into one element and all incoming elements apply.
+6. Use Split (OR) only when one element branches into several alternative elements.
+7. Use Join (OR) only when several alternative elements are joined into one element.
+8. Use Input only when an Information Set is used as input for a Process or External Process.
+9. Use Output only when a Process or External Process produces or provides an Information Set.
+10. Use relation only for unlabeled direct connections between Process and External Process in one of the allowed connection patterns.
+11. Use connector-based connections when the case describes grouped, branching, joining, or alternative process relations.
+12. Every element used in CONNECTIONS must be listed exactly once in ELEMENTS.
+13. Do not invent elements that are not supported by the case text.
+14. Do not write explanations, comments, descriptions, bullet points, or any text outside the required output sections.
+
+## Output format
+
+Output the model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> relation <element name>
+<element name> Input <element name>
+<element name> Output <element name>
+<element name> Split (AND) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>
+<element name> Split (OR) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (OR) <element name>
+
+
+Note that for connections, you shouldn’t include the ElementType in the Connection.
+
+## Required output format
+
+Output the repaired model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> relation <element name>
+<element name> Input <element name>
+<element name> Output <element name>
+<element name> Split (AND) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>
+<element name> Split (OR) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (OR) <element name>
+
+Replace every placeholder in angle brackets with an actual existing name; do not output the angle brackets themselves. Replace `ElementType` with exactly one allowed type: `Process`, `External Process`, or `Information Set`. Split and Join are connection operators, not element types, and must never be declared under `ELEMENTS`.
+
+Write `ELEMENTS` and `CONNECTIONS` exactly as shown and in this order. Write one element or connection per line. Separate multiple sources or targets with a comma followed by one space. Split has exactly one source and at least two targets. Join has at least two sources and exactly one target. A direct relation, Input, or Output connection has exactly one source and one target.
+
+Do not include element types in `CONNECTIONS`. Every referenced name must exactly match one declaration in `ELEMENTS`, and every element name must be declared exactly once. Preserve the exact spelling and capitalization of `relation`, `Input`, `Output`, `Split`, `Join`, `AND`, and `OR`. Output plain text only: no Markdown fences, bullets, numbering, comments, explanations, or additional sections.
+
+## Python error
+
+Multiple validation errors (13):
+  1. ELEMENTS line 1: Unknown element type in line 'ElementType Process Target Setting'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  2. ELEMENTS line 2: Unknown element type in line 'ElementType Process Product Specification'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  3. ELEMENTS line 3: Unknown element type in line 'ElementType Process Product Design'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  4. ELEMENTS line 4: Unknown element type in line 'ElementType Information Set Customer Survey'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  5. ELEMENTS line 5: Unknown element type in line 'ElementType Information Set List of Target Features'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  6. ELEMENTS line 6: Unknown element type in line 'ElementType Information Set Specification Document'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  7. ELEMENTS line 7: Unknown element type in line 'ElementType Information Set Design Description'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  8. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Information Set Customer Survey' is not defined under ELEMENTS.
+  2. Target 'Process Target Setting' is not defined under ELEMENTS.
+  9. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Process Target Setting' is not defined under ELEMENTS.
+  2. Target 'Information Set List of Target Features' is not defined under ELEMENTS.
+  10. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'Information Set List of Target Features' is not defined under ELEMENTS.
+  2. Target 'Process Product Specification' is not defined under ELEMENTS.
+  11. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Process Product Specification' is not defined under ELEMENTS.
+  2. Target 'Information Set Specification Document' is not defined under ELEMENTS.
+  12. CONNECTIONS line 5: Multiple validation errors (2):
+  1. Source 'Information Set Specification Document' is not defined under ELEMENTS.
+  2. Target 'Process Product Design' is not defined under ELEMENTS.
+  13. CONNECTIONS line 6: Multiple validation errors (2):
+  1. Source 'Process Product Design' is not defined under ELEMENTS.
+  2. Target 'Information Set Design Description' is not defined under ELEMENTS.
+
+## Output to repair
+
+ELEMENTS
+ElementType Process Target Setting
+ElementType Process Product Specification
+ElementType Process Product Design
+ElementType Information Set Customer Survey
+ElementType Information Set List of Target Features
+ElementType Information Set Specification Document
+ElementType Information Set Design Description
+
+CONNECTIONS
+Information Set Customer Survey Input Process Target Setting
+Process Target Setting Output Information Set List of Target Features
+Information Set List of Target Features Input Process Product Specification
+Process Product Specification Output Information Set Specification Document
+Information Set Specification Document Input Process Product Design
+Process Product Design Output Information Set Design Description

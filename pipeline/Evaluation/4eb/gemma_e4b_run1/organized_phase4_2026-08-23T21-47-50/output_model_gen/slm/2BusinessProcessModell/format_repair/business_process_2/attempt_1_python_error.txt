@@ -1,0 +1,6 @@
+Multiple validation errors (5):
+  1. CONNECTIONS line 1: Disallowed connection pattern in 'Planning the Marketing Campaign Input Campaign Target Document': Process Input Information Set
+  2. CONNECTIONS line 4: Disallowed connection pattern in 'Social Media Campaign Input Campaign Plan': Process Input Information Set
+  3. CONNECTIONS line 5: Disallowed connection pattern in 'Print Media Campaign Input Campaign Plan': Process Input Information Set
+  4. CONNECTIONS line 8: 'Join (AND)' requires at least two sources and exactly one target: 'Campaign Statistics Join (AND) Supervision of Campaign Results'
+  5. CONNECTIONS line 9: Disallowed connection pattern in 'Supervision of Campaign Results Input Campaign Statistics': Process Input Information Set

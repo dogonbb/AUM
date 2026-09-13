@@ -1,0 +1,85 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         4a8fe8a3-dd4d-474b-8828-efbff1673eac
+Status:                         OK
+Mode:                           models_only
+Started:                        2026-09-13T09:19:01.949+02:00
+Finished:                       2026-09-13T09:48:13.759+02:00
+Total runtime seconds:          1751.809
+Parameter file:                  C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:4b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  25233
+Output tokens:                  96643
+Total tokens:                   121876
+Model restarts:                 3
+Format repair attempts:         4
+ADL merger seconds:             0.243
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK_AFTER_FORMAT_REPAIR': 4, 'OK': 3}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: controlled_phase3
+----------------------------------------------------------------------------------------------------
+Status:                  OK
+Scenario directory:      C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\scenarios\controlled_phase3
+Run directory:           C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\output\controlled_phase3_2026-09-13T09-19-01
+Duration seconds:         1751.748
+Model stage status:       OK
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:controlled_phase3:GoalModel:goal.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=357.477 | format_repairs=1
+    attempt=1 reason=python_error seconds=223.812 prompt_tokens=1338 output_tokens=9176
+      slm_attempt=1 status=REPETITION seed=42 seconds=96.906 restart=yes error=The same thinking block was generated 10 times: 'Wait, I need to check if I should use `AND/OR` or just `OR`. The text says "only one of them has to be reached". This is OR. So: `Develop new heat extractor wit'
+      slm_attempt=2 status=OK seed=43 seconds=122.581 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=132.526 restart=no
+  MODEL model:controlled_phase3:BusinessProcessModel:business_process_1.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=175.256 | format_repairs=1
+    attempt=1 reason=python_error seconds=54.528 prompt_tokens=1334 output_tokens=4099
+      slm_attempt=1 status=OK seed=42 seconds=53.401 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=119.545 restart=no
+  MODEL model:controlled_phase3:BusinessProcessModel:business_process_2.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=232.488 | format_repairs=1
+    attempt=1 reason=python_error seconds=125.429 prompt_tokens=1357 output_tokens=9657
+      slm_attempt=1 status=OK seed=42 seconds=124.300 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=105.873 restart=no
+  MODEL model:controlled_phase3:ActorsResourcesModel:actors_ressources.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=276.286 | format_repairs=1
+    attempt=1 reason=python_error seconds=115.453 prompt_tokens=2062 output_tokens=8788
+      slm_attempt=1 status=OK seed=42 seconds=114.336 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=159.644 restart=no
+  MODEL model:controlled_phase3:ConceptsModel:concept.txt | status=OK | seconds=330.030 | format_repairs=0
+    attempt=1 reason=None seconds=330.019 prompt_tokens=1629 output_tokens=11482
+      slm_attempt=1 status=REPETITION seed=42 seconds=171.589 restart=yes error=The same thinking block was generated 10 times: '**Wait, check Rule 15:** "Every element used in CONNECTIONS must be listed exactly once in ELEMENTS." I will ensure this.'
+      slm_attempt=2 status=OK seed=43 seconds=154.097 restart=no
+  MODEL model:controlled_phase3:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=276.316 | format_repairs=0
+    attempt=1 reason=None seconds=276.303 prompt_tokens=2015 output_tokens=6936
+      slm_attempt=1 status=REPETITION seed=42 seconds=177.081 restart=yes error=The same thinking block was generated 10 times: '**Wait, check Rule 14:** "Use has requirement and has goal only for the allowed patterns listed above." * Allowed: TC has goal IS Goal. * So `Production System`'
+      slm_attempt=2 status=OK seed=43 seconds=94.913 restart=no
+  MODEL model:controlled_phase3:ProductServiceModel:product.txt | status=OK | seconds=103.571 | format_repairs=0
+    attempt=1 reason=None seconds=103.560 prompt_tokens=1413 output_tokens=7966
+      slm_attempt=1 status=OK seed=42 seconds=102.445 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

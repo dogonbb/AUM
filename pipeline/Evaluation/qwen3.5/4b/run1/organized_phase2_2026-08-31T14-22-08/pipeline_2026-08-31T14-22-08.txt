@@ -1,0 +1,74 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         2d425c87-5779-47ba-843d-af57b940dc5b
+Status:                         OK
+Mode:                           models_only
+Started:                        2026-08-31T14:22:08.715+02:00
+Finished:                       2026-08-31T15:41:42.807+02:00
+Total runtime seconds:          4774.092
+Parameter file:                  /home/dokja/Documents/code/AUM/pipeline/parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:4b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  13472
+Output tokens:                  52089
+Total tokens:                   65561
+Model restarts:                 1
+Format repair attempts:         1
+ADL merger seconds:             0.035
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK': 5, 'OK_AFTER_FORMAT_REPAIR': 1}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: organized_phase2
+----------------------------------------------------------------------------------------------------
+Status:                  OK
+Scenario directory:      /home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase2
+Run directory:           /home/dokja/Documents/code/AUM/pipeline/output/organized_phase2_2026-08-31T14-22-08
+Duration seconds:         4774.090
+Model stage status:       OK
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:organized_phase2:GoalModel:goal.txt | status=OK | seconds=481.932 | format_repairs=0
+    attempt=1 reason=None seconds=481.932 prompt_tokens=1158 output_tokens=7843
+      slm_attempt=1 status=OK seed=42 seconds=481.893 restart=no
+  MODEL model:organized_phase2:BusinessProcessModel:business_process.txt | status=OK | seconds=287.425 | format_repairs=0
+    attempt=1 reason=None seconds=287.425 prompt_tokens=1326 output_tokens=4860
+      slm_attempt=1 status=OK seed=42 seconds=287.384 restart=no
+  MODEL model:organized_phase2:ActorsResourcesModel:actors_ressources.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=2414.214 | format_repairs=1
+    attempt=1 reason=python_error seconds=1567.673 prompt_tokens=2012 output_tokens=5117
+      slm_attempt=1 status=REPETITION seed=42 seconds=1241.805 restart=yes error=The same thinking block was generated 10 times: '*Wait, check if I should use `relation` for Individual-Individual.* * Allowed pattern: Individual relation Individual. * Text: "My colleague". * Is it explicit '
+      slm_attempt=2 status=OK seed=43 seconds=325.738 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=846.499 restart=no
+  MODEL model:organized_phase2:ConceptsModel:concept.txt | status=OK | seconds=789.502 | format_repairs=0
+    attempt=1 reason=None seconds=789.502 prompt_tokens=1522 output_tokens=11220
+      slm_attempt=1 status=OK seed=42 seconds=789.463 restart=no
+  MODEL model:organized_phase2:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=400.612 | format_repairs=0
+    attempt=1 reason=None seconds=400.612 prompt_tokens=1978 output_tokens=6270
+      slm_attempt=1 status=OK seed=42 seconds=400.574 restart=no
+  MODEL model:organized_phase2:ProductServiceModel:product.txt | status=OK | seconds=400.366 | format_repairs=0
+    attempt=1 reason=None seconds=400.366 prompt_tokens=1361 output_tokens=6512
+      slm_attempt=1 status=OK seed=42 seconds=400.323 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

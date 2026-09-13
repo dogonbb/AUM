@@ -1,0 +1,72 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         18705a30-f76a-4c43-a3d9-bdf203240f8b
+Status:                         OK
+Mode:                           models_only
+Started:                        2026-09-13T14:50:19.877+00:00
+Finished:                       2026-09-13T15:26:27.387+00:00
+Total runtime seconds:          2167.509
+Parameter file:                  /kaggle/working/AUM/pipeline/parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:9b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  9146
+Output tokens:                  34526
+Total tokens:                   43672
+Model restarts:                 1
+Format repair attempts:         0
+ADL merger seconds:             0.096
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK': 6}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: organized_phase1
+----------------------------------------------------------------------------------------------------
+Status:                  OK
+Scenario directory:      /kaggle/working/AUM/pipeline/scenarios/organized_phase1
+Run directory:           /kaggle/working/AUM/pipeline/output/organized_phase1_2026-09-13T14-50-19
+Duration seconds:         2167.504
+Model stage status:       OK
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:organized_phase1:GoalModel:goal.txt | status=OK | seconds=148.759 | format_repairs=0
+    attempt=1 reason=None seconds=148.759 prompt_tokens=1124 output_tokens=3538
+      slm_attempt=1 status=OK seed=42 seconds=148.644 restart=no
+  MODEL model:organized_phase1:BusinessProcessModel:business_process.txt | status=OK | seconds=159.364 | format_repairs=0
+    attempt=1 reason=None seconds=159.363 prompt_tokens=1293 output_tokens=3877
+      slm_attempt=1 status=OK seed=42 seconds=159.258 restart=no
+  MODEL model:organized_phase1:ActorsResourcesModel:actors_ressources.txt | status=OK | seconds=309.316 | format_repairs=0
+    attempt=1 reason=None seconds=309.316 prompt_tokens=1986 output_tokens=7555
+      slm_attempt=1 status=OK seed=42 seconds=309.212 restart=no
+  MODEL model:organized_phase1:ConceptsModel:concept.txt | status=OK | seconds=1092.996 | format_repairs=0
+    attempt=1 reason=None seconds=1092.996 prompt_tokens=1457 output_tokens=8420
+      slm_attempt=1 status=REPETITION seed=42 seconds=738.882 restart=yes error=The same thinking block was generated 10 times: '*Wait, check `Partial-ISA` syntax.* `Target feature Partial-ISA Feature`. * Wait, the rule says "A, B, C Partial-ISA D". If I have only one source, do I write `'
+      slm_attempt=2 status=OK seed=43 seconds=353.888 restart=no
+  MODEL model:organized_phase1:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=295.526 | format_repairs=0
+    attempt=1 reason=None seconds=295.525 prompt_tokens=1958 output_tokens=7211
+      slm_attempt=1 status=OK seed=42 seconds=295.423 restart=no
+  MODEL model:organized_phase1:ProductServiceModel:product.txt | status=OK | seconds=161.441 | format_repairs=0
+    attempt=1 reason=None seconds=161.441 prompt_tokens=1328 output_tokens=3925
+      slm_attempt=1 status=OK seed=42 seconds=161.333 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

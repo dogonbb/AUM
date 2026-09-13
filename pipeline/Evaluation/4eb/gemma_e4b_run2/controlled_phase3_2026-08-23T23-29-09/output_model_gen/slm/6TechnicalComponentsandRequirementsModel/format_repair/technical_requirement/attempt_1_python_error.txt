@@ -1,0 +1,5 @@
+Multiple validation errors (4):
+  1. CONNECTIONS line 1: Disallowed connection pattern in 'production system supports Product Innovation Goal': IS Technical Component supports Goal
+  2. CONNECTIONS line 2: Disallowed connection pattern in 'version management system supports Product Innovation Goal': IS Technical Component supports Goal
+  3. CONNECTIONS line 5: Disallowed connection pattern in 'social media studio supports Marketing Campaign Goal': IS Technical Component supports Goal
+  4. CONNECTIONS line 7: Disallowed connection pattern in 'SM repository supports Marketing Campaign Goal': IS Technical Component supports Goal

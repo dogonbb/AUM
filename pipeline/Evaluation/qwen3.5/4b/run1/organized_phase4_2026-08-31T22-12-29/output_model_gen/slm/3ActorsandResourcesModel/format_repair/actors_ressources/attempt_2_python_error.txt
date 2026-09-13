@@ -1,0 +1,88 @@
+Multiple validation errors (45):
+  1. ELEMENTS line 1: Unknown element type in line 'Individual_ProductOwner'. Allowed: Individual, Organizational Unit, Resource, Role
+  2. ELEMENTS line 2: Unknown element type in line 'Role_ProductOwner'. Allowed: Individual, Organizational Unit, Resource, Role
+  3. ELEMENTS line 3: Unknown element type in line 'Individual_ProductDesigner'. Allowed: Individual, Organizational Unit, Resource, Role
+  4. ELEMENTS line 4: Unknown element type in line 'Role_ProductDesigner'. Allowed: Individual, Organizational Unit, Resource, Role
+  5. ELEMENTS line 5: Unknown element type in line 'Individual_PrintDesigner'. Allowed: Individual, Organizational Unit, Resource, Role
+  6. ELEMENTS line 6: Unknown element type in line 'Role_PrintDesigner'. Allowed: Individual, Organizational Unit, Resource, Role
+  7. ELEMENTS line 7: Unknown element type in line 'Individual_SocialMediaDesigner'. Allowed: Individual, Organizational Unit, Resource, Role
+  8. ELEMENTS line 8: Unknown element type in line 'Role_SocialMediaDesigner'. Allowed: Individual, Organizational Unit, Resource, Role
+  9. ELEMENTS line 9: Unknown element type in line 'Individual_Operator'. Allowed: Individual, Organizational Unit, Resource, Role
+  10. ELEMENTS line 10: Unknown element type in line 'Role_Operator'. Allowed: Individual, Organizational Unit, Resource, Role
+  11. ELEMENTS line 11: Unknown element type in line 'Individual_ContentSpecialist'. Allowed: Individual, Organizational Unit, Resource, Role
+  12. ELEMENTS line 12: Unknown element type in line 'Role_ContentSpecialist'. Allowed: Individual, Organizational Unit, Resource, Role
+  13. ELEMENTS line 13: Unknown element type in line 'Individual_GeneralManager'. Allowed: Individual, Organizational Unit, Resource, Role
+  14. ELEMENTS line 14: Unknown element type in line 'Role_GeneralManager'. Allowed: Individual, Organizational Unit, Resource, Role
+  15. ELEMENTS line 15: Unknown element type in line 'OU_ProductDevelopmentDepartment'. Allowed: Individual, Organizational Unit, Resource, Role
+  16. ELEMENTS line 16: Unknown element type in line 'OU_MultiHeat'. Allowed: Individual, Organizational Unit, Resource, Role
+  17. ELEMENTS line 17: Unknown element type in line 'OU_MarketingDepartment'. Allowed: Individual, Organizational Unit, Resource, Role
+  18. ELEMENTS line 18: Unknown element type in line 'OU_SocialMediaGroup'. Allowed: Individual, Organizational Unit, Resource, Role
+  19. ELEMENTS line 19: Unknown element type in line 'OU_PrintMediaGroup'. Allowed: Individual, Organizational Unit, Resource, Role
+  20. ELEMENTS line 20: Unknown element type in line 'Resource_SmartHeat'. Allowed: Individual, Organizational Unit, Resource, Role
+  21. ELEMENTS line 21: Unknown element type in line 'Resource_HeatPump'. Allowed: Individual, Organizational Unit, Resource, Role
+  22. ELEMENTS line 22: Unknown element type in line 'Resource_PrintingPress'. Allowed: Individual, Organizational Unit, Resource, Role
+  23. ELEMENTS line 23: Unknown element type in line 'Resource_PrintMediaCampaign'. Allowed: Individual, Organizational Unit, Resource, Role
+  24. ELEMENTS line 24: Unknown element type in line 'Resource_SocialMediaCampaign'. Allowed: Individual, Organizational Unit, Resource, Role
+  25. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Individual_ProductOwner' is not defined under ELEMENTS.
+  2. Target 'Role_ProductOwner' is not defined under ELEMENTS.
+  26. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Individual_ProductOwner' is not defined under ELEMENTS.
+  2. Target 'OU_ProductDevelopmentDepartment' is not defined under ELEMENTS.
+  27. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'Role_ProductOwner' is not defined under ELEMENTS.
+  2. Target 'Resource_SmartHeat' is not defined under ELEMENTS.
+  28. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Individual_ProductDesigner' is not defined under ELEMENTS.
+  2. Target 'Role_ProductDesigner' is not defined under ELEMENTS.
+  29. CONNECTIONS line 5: Multiple validation errors (2):
+  1. Source 'Role_ProductDesigner' is not defined under ELEMENTS.
+  2. Target 'OU_ProductDevelopmentDepartment' is not defined under ELEMENTS.
+  30. CONNECTIONS line 6: Multiple validation errors (2):
+  1. Source 'Role_ProductDesigner' is not defined under ELEMENTS.
+  2. Target 'Resource_HeatPump' is not defined under ELEMENTS.
+  31. CONNECTIONS line 7: Multiple validation errors (2):
+  1. Source 'OU_MultiHeat' is not defined under ELEMENTS.
+  2. Target 'OU_ProductDevelopmentDepartment' is not defined under ELEMENTS.
+  32. CONNECTIONS line 8: Multiple validation errors (2):
+  1. Source 'OU_MarketingDepartment' is not defined under ELEMENTS.
+  2. Target 'OU_MultiHeat' is not defined under ELEMENTS.
+  33. CONNECTIONS line 9: Multiple validation errors (2):
+  1. Source 'OU_SocialMediaGroup' is not defined under ELEMENTS.
+  2. Target 'OU_MarketingDepartment' is not defined under ELEMENTS.
+  34. CONNECTIONS line 10: Multiple validation errors (2):
+  1. Source 'OU_PrintMediaGroup' is not defined under ELEMENTS.
+  2. Target 'OU_MarketingDepartment' is not defined under ELEMENTS.
+  35. CONNECTIONS line 11: Multiple validation errors (2):
+  1. Source 'Resource_PrintingPress' is not defined under ELEMENTS.
+  2. Target 'OU_PrintMediaGroup' is not defined under ELEMENTS.
+  36. CONNECTIONS line 12: Multiple validation errors (2):
+  1. Source 'Individual_PrintDesigner' is not defined under ELEMENTS.
+  2. Target 'Role_PrintDesigner' is not defined under ELEMENTS.
+  37. CONNECTIONS line 13: Multiple validation errors (2):
+  1. Source 'Role_PrintDesigner' is not defined under ELEMENTS.
+  2. Target 'Resource_PrintMediaCampaign' is not defined under ELEMENTS.
+  38. CONNECTIONS line 14: Multiple validation errors (2):
+  1. Source 'Individual_SocialMediaDesigner' is not defined under ELEMENTS.
+  2. Target 'Role_SocialMediaDesigner' is not defined under ELEMENTS.
+  39. CONNECTIONS line 15: Multiple validation errors (2):
+  1. Source 'Role_SocialMediaDesigner' is not defined under ELEMENTS.
+  2. Target 'Resource_SocialMediaCampaign' is not defined under ELEMENTS.
+  40. CONNECTIONS line 16: Multiple validation errors (2):
+  1. Source 'Individual_Operator' is not defined under ELEMENTS.
+  2. Target 'Role_Operator' is not defined under ELEMENTS.
+  41. CONNECTIONS line 17: Multiple validation errors (2):
+  1. Source 'Role_Operator' is not defined under ELEMENTS.
+  2. Target 'OU_PrintMediaGroup' is not defined under ELEMENTS.
+  42. CONNECTIONS line 18: Multiple validation errors (2):
+  1. Source 'Individual_ContentSpecialist' is not defined under ELEMENTS.
+  2. Target 'Role_ContentSpecialist' is not defined under ELEMENTS.
+  43. CONNECTIONS line 19: Multiple validation errors (2):
+  1. Source 'Role_ContentSpecialist' is not defined under ELEMENTS.
+  2. Target 'OU_SocialMediaGroup' is not defined under ELEMENTS.
+  44. CONNECTIONS line 20: Multiple validation errors (2):
+  1. Source 'Individual_GeneralManager' is not defined under ELEMENTS.
+  2. Target 'Role_GeneralManager' is not defined under ELEMENTS.
+  45. CONNECTIONS line 21: Multiple validation errors (2):
+  1. Source 'Role_GeneralManager' is not defined under ELEMENTS.
+  2. Target 'OU_MultiHeat' is not defined under ELEMENTS.

@@ -1,0 +1,22 @@
+ELEMENTS
+Concept Energy-efficiency
+Concept Energy consumption
+Concept Customer survey
+Concept Feature
+Concept Target feature
+Concept Specification document
+Concept Product
+Concept Energy output for heating
+Concept Customer expectations
+Concept Characteristics
+Attribute Measurement Unit
+
+CONNECTIONS
+Energy consumption has attribute Measurement Unit
+Target feature Partial-ISA Feature
+Feature Partial-PartOF Product
+Target feature Partial-PartOF Product
+Specification document Partial-PartOF Characteristics
+Energy-efficiency n:m Energy output for heating
+Energy-efficiency n:m Energy consumption
+Customer survey n:m Customer expectations

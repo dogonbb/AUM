@@ -1,0 +1,2401 @@
+{
+  "run_id": "3a97909d-6eea-46f3-a412-256fcfc46e06",
+  "status": "COMPLETED_WITH_ERRORS",
+  "mode": "models_only",
+  "started_at": "2026-09-13T02:20:57.724+02:00",
+  "parameter_file": {
+    "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\parameter.json",
+    "exists": true,
+    "is_file": true,
+    "is_directory": false,
+    "size_bytes": 14183,
+    "modified_at": "2026-09-13T00:12:29.871091+02:00",
+    "sha256": "4b0613157b38b1042edf242f3b7b528b461b798f474c8a03d9a6d9035cdfa140"
+  },
+  "configuration": {
+    "execution": {
+      "mode": "models_only",
+      "overwrite": false,
+      "continue_after_failure": true,
+      "selected_scenario": "organized_phase1"
+    },
+    "slm": {
+      "provider": "ollama",
+      "base_url": "http://localhost:11434",
+      "model": "qwen3.5:4b",
+      "thinking": true,
+      "timeout_seconds": 1800,
+      "log_thinking": false,
+      "thinking_repetition_enabled": true,
+      "thinking_repetition_limit": 10,
+      "thinking_repetition_min_block_chars": 40,
+      "show_stream_output": false,
+      "keep_alive": "5m",
+      "options": {
+        "temperature": 0.2,
+        "num_ctx": 131072,
+        "top_p": 0.9,
+        "seed": 42,
+        "num_predict": 131072
+      }
+    },
+    "retry": {
+      "max_restart": 3,
+      "seed_mode": "incremental",
+      "seed_increment": 1
+    },
+    "format_repair": {
+      "enabled": true,
+      "max_attempts": 3,
+      "general_prompt_path": "prompts/format_repair/general_repair_prompt.txt"
+    },
+    "paths": {
+      "scenarios_root": "scenarios",
+      "output_root": "output",
+      "scenario_run_directory_template": "{scenario_name}_{timestamp}",
+      "timestamp_format": "%Y-%m-%dT%H-%M-%S",
+      "thinking_log_directory": "thinking_logs",
+      "model_slm_directory": "output_model_gen/slm",
+      "model_adl_directory": "output_model_gen/adl",
+      "artifact_manifest_file": "output_model_gen/artifacts.json",
+      "merged_adl_file": "output_model_gen/{scenario_name}_models.adl",
+      "intermodel_slm_directory": "output_intermodel/slm",
+      "intermodel_aggregate_slm_file": "output_intermodel/intermodel_relations.txt",
+      "final_adl_file": "output_intermodel/{scenario_name}_with_intermodel_relations.adl",
+      "report_directory": "output/runtime_reports",
+      "report_json_filename": "pipeline_{timestamp}.json",
+      "report_text_filename": "pipeline_{timestamp}.txt",
+      "event_log_filename": "pipeline_{timestamp}.jsonl"
+    },
+    "files": {
+      "scenario_extensions": [
+        ".txt"
+      ]
+    },
+    "prompts": {
+      "intermodel_template": "prompts/inter_model_generation/inter_model_connections_descriptions/inter_model_gen_connections_template.txt"
+    },
+    "tools": {
+      "python_executable": "",
+      "default_python_timeout_seconds": 600,
+      "slm_restart": {
+        "enabled": true,
+        "cwd": ".",
+        "timeout_seconds": 120,
+        "command": [
+          "{python}",
+          "scripts/restart_ollama_model.py",
+          "--model",
+          "{model}",
+          "--base-url",
+          "{base_url}"
+        ]
+      },
+      "adl_merger": {
+        "path": "scripts/adl_model_merger.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{merger_path}",
+          "{input_files}",
+          "--output",
+          "{output_adl}"
+        ]
+      },
+      "intermodel_integrator": {
+        "path": "scripts/add_intermodel_relations_slm.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{integrator_path}",
+          "{input_adl}",
+          "{relations_slm}",
+          "--output",
+          "{output_adl}",
+          "--overwrite"
+        ]
+      }
+    },
+    "models": [
+      {
+        "id": "GoalModel",
+        "enabled": true,
+        "scenario_folder": "1GoalModel",
+        "display_name": "Goal Model",
+        "model_type": "Goal Model",
+        "prompt_path": "prompts/model_generation/Prompt_GoalModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_GoalModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_GoalModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_GoalModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      },
+      {
+        "id": "BusinessProcessModel",
+        "enabled": true,
+        "scenario_folder": "2BusinessProcessModell",
+        "display_name": "Business Process Model",
+        "model_type": "Business Process Model",
+        "prompt_path": "prompts/model_generation/Prompt_BusinessProcessModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_BusinessProcessModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_BusinessProcessModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_BusinessProcessModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      },
+      {
+        "id": "ActorsResourcesModel",
+        "enabled": true,
+        "scenario_folder": "3ActorsandResourcesModel",
+        "display_name": "Actors and Resources Model",
+        "model_type": "Actors and Resources Model",
+        "prompt_path": "prompts/model_generation/Prompt_ActorsResourcesModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_ActorsResourcesModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_ActorsResourcesModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      },
+      {
+        "id": "ConceptsModel",
+        "enabled": true,
+        "scenario_folder": "4ConceptsModel",
+        "display_name": "Concepts Model",
+        "model_type": "Concepts Model",
+        "prompt_path": "prompts/model_generation/Prompt_ConceptModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_ConceptModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_ConceptModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_ConceptModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      },
+      {
+        "id": "TechnicalComponentsRequirementsModel",
+        "enabled": true,
+        "scenario_folder": "6TechnicalComponentsandRequirementsModel",
+        "display_name": "Technical Components and Requirements Model",
+        "model_type": "Technical Components and Requirements Model",
+        "prompt_path": "prompts/model_generation/Prompt_TechnicalComponentsandRequirementsModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_TechnicalComponentsandRequirementsModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_TechnicalComponentsRequirementsModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_TechnicalComponentsandRequirementsModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      },
+      {
+        "id": "ProductServiceModel",
+        "enabled": true,
+        "scenario_folder": "7ProductServiceModel",
+        "display_name": "Product / Service Model",
+        "model_type": "Product / Service Model",
+        "prompt_path": "prompts/model_generation/Prompt_ProductServiceModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_ProductServiceModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_ProductServiceModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      }
+    ],
+    "intermodel": {
+      "enabled": true,
+      "format_prompt_path": "prompts/format_repair/Format_IntermodelRelationships.txt",
+      "output_filename_template": "intermodel_{source_adl_model_name}__{target_adl_model_name}.txt",
+      "no_relationship_marker": "NO_INTERMODEL_RELATIONSHIPS",
+      "pairs": [
+        [
+          "GoalModel",
+          "ConceptsModel"
+        ],
+        [
+          "GoalModel",
+          "BusinessProcessModel"
+        ],
+        [
+          "GoalModel",
+          "TechnicalComponentsRequirementsModel"
+        ],
+        [
+          "GoalModel",
+          "ProductServiceModel"
+        ],
+        [
+          "ActorsResourcesModel",
+          "GoalModel"
+        ],
+        [
+          "ActorsResourcesModel",
+          "BusinessProcessModel"
+        ],
+        [
+          "ActorsResourcesModel",
+          "TechnicalComponentsRequirementsModel"
+        ],
+        [
+          "ActorsResourcesModel",
+          "ProductServiceModel"
+        ],
+        [
+          "BusinessProcessModel",
+          "ConceptsModel"
+        ],
+        [
+          "BusinessProcessModel",
+          "TechnicalComponentsRequirementsModel"
+        ],
+        [
+          "TechnicalComponentsRequirementsModel",
+          "ConceptsModel"
+        ],
+        [
+          "ProductServiceModel",
+          "ConceptsModel"
+        ],
+        [
+          "ProductServiceModel",
+          "BusinessProcessModel"
+        ],
+        [
+          "ProductServiceModel",
+          "TechnicalComponentsRequirementsModel"
+        ]
+      ]
+    },
+    "intermodel_only": {
+      "jobs": [
+        {
+          "enabled": true,
+          "scenario_name": "controlled_phase1",
+          "scenario_directory": "scenarios/controlled_phase1",
+          "artifact_manifest": "output/controlled_phase1_run/output_model_gen/artifacts.json",
+          "input_adl": "output/controlled_phase1_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/controlled_phase1_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "controlled_phase2",
+          "scenario_directory": "scenarios/controlled_phase2",
+          "artifact_manifest": "output/controlled_phase2_run/output_model_gen/artifacts.json",
+          "input_adl": "output/controlled_phase2_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/controlled_phase2_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "controlled_phase3",
+          "scenario_directory": "scenarios/controlled_phase3",
+          "artifact_manifest": "output/controlled_phase3_run/output_model_gen/artifacts.json",
+          "input_adl": "output/controlled_phase3_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/controlled_phase3_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "controlled_phase4",
+          "scenario_directory": "scenarios/controlled_phase4",
+          "artifact_manifest": "output/controlled_phase4_run/output_model_gen/artifacts.json",
+          "input_adl": "output/controlled_phase4_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/controlled_phase4_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "organized_phase1",
+          "scenario_directory": "scenarios/organized_phase1",
+          "artifact_manifest": "output/organized_phase1_run/output_model_gen/artifacts.json",
+          "input_adl": "output/organized_phase1_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/organized_phase1_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "organized_phase2",
+          "scenario_directory": "scenarios/organized_phase2",
+          "artifact_manifest": "output/organized_phase2_run/output_model_gen/artifacts.json",
+          "input_adl": "output/organized_phase2_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/organized_phase2_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "organized_phase3",
+          "scenario_directory": "scenarios/organized_phase3",
+          "artifact_manifest": "output/organized_phase3_run/output_model_gen/artifacts.json",
+          "input_adl": "output/organized_phase3_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/organized_phase3_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "organized_phase4",
+          "scenario_directory": "scenarios/organized_phase4",
+          "artifact_manifest": "output/organized_phase4_run/output_model_gen/artifacts.json",
+          "input_adl": "output/organized_phase4_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/organized_phase4_run"
+        }
+      ]
+    },
+    "report": {
+      "include_prompt_text": false,
+      "include_slm_output_text": false,
+      "include_command_output": true
+    },
+    "visualization": {
+      "enabled": "on",
+      "script_path": "scripts/visualize_runtime_report.py",
+      "filename": "pipeline_{timestamp}_visualization.html",
+      "timeout_seconds": 120
+    }
+  },
+  "system": {
+    "hostname": "DariusPC",
+    "platform": "Windows",
+    "platform_release": "11",
+    "platform_version": "10.0.26200",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 151 Stepping 2, GenuineIntel",
+    "python_version": "3.12.5",
+    "python_executable": "C:\\Python312\\python.exe",
+    "working_directory": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+    "cpu_count": 12,
+    "process_id": 22672
+  },
+  "scenarios": [
+    {
+      "scenario_name": "organized_phase1",
+      "scenario_directory": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\organized_phase1",
+      "run_directory": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57",
+      "started_at": "2026-09-13T02:20:57.784+02:00",
+      "model_generation": {
+        "status": "COMPLETED_WITH_ERRORS",
+        "unknown_scenario_model_folders": [],
+        "tasks": [
+          {
+            "task_id": "model:organized_phase1:GoalModel:goal.txt",
+            "scenario": "organized_phase1",
+            "model_id": "GoalModel",
+            "model_folder": "1GoalModel",
+            "source_file": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\organized_phase1\\1GoalModel\\goal.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 262,
+              "modified_at": "2026-07-25T12:51:39.633279+02:00",
+              "sha256": "19f28aa9254c3c85582d8c2994aa1f1ee6625856584fc3723ebcaede05498106"
+            },
+            "source_relative_path": "goal.txt",
+            "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\1GoalModel\\goal.txt",
+            "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\1GoalModel\\goal.adl",
+            "adl_model_name": "organized_phase1_GoalModel_goal",
+            "started_at": "2026-09-13T02:20:57.792+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-09-13T02:20:57.794+02:00",
+                "failure_reason": "python_error",
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-09-13T02:20:57.794+02:00",
+                    "seed": 42,
+                    "thinking_log": null,
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-09-13T02:20:57.811+02:00",
+                      "finished_at": "2026-09-13T02:21:34.353+02:00",
+                      "wall_seconds": 36.54297899999801,
+                      "request": {
+                        "model": "qwen3.5:4b",
+                        "prompt": {
+                          "characters": 4771,
+                          "utf8_bytes": 4773,
+                          "sha256": "5c058cea6e3b72ecd6bb9203ebc7e10048544e733ef45478a78f1a3b08b73e61"
+                        },
+                        "stream": true,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "qwen3.5:4b",
+                        "created_at": "2026-09-13T00:21:34.3335672Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 34133740400,
+                        "load_duration": 3112200,
+                        "prompt_eval_count": 1124,
+                        "prompt_eval_cached_count": 0,
+                        "prompt_eval_duration": 941348000,
+                        "eval_count": 2743,
+                        "eval_duration": 32986167000,
+                        "answer_characters": 245,
+                        "answer_utf8_bytes": 245,
+                        "answer_sha256": "de0d5245fb408ac78b3f018f7c601ddbe200d8a9c3102ed4846b38dd374895d5",
+                        "thinking_characters": 11369,
+                        "output_tokens_per_second": 83.15606963367401
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "thinking_log_file": null,
+                    "finished_at": "2026-09-13T02:21:34.353+02:00",
+                    "duration_seconds": 36.55982949999452
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-09-13T02:20:57.811+02:00",
+                  "finished_at": "2026-09-13T02:21:34.353+02:00",
+                  "wall_seconds": 36.54297899999801,
+                  "request": {
+                    "model": "qwen3.5:4b",
+                    "prompt": {
+                      "characters": 4771,
+                      "utf8_bytes": 4773,
+                      "sha256": "5c058cea6e3b72ecd6bb9203ebc7e10048544e733ef45478a78f1a3b08b73e61"
+                    },
+                    "stream": true,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "qwen3.5:4b",
+                    "created_at": "2026-09-13T00:21:34.3335672Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 34133740400,
+                    "load_duration": 3112200,
+                    "prompt_eval_count": 1124,
+                    "prompt_eval_cached_count": 0,
+                    "prompt_eval_duration": 941348000,
+                    "eval_count": 2743,
+                    "eval_duration": 32986167000,
+                    "answer_characters": 245,
+                    "answer_utf8_bytes": 245,
+                    "answer_sha256": "de0d5245fb408ac78b3f018f7c601ddbe200d8a9c3102ed4846b38dd374895d5",
+                    "thinking_characters": 11369,
+                    "output_tokens_per_second": 83.15606963367401
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\1GoalModel\\goal.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 245,
+                  "modified_at": "2026-09-13T02:21:34.355182+02:00",
+                  "sha256": "de0d5245fb408ac78b3f018f7c601ddbe200d8a9c3102ed4846b38dd374895d5"
+                },
+                "converter": {
+                  "args": [
+                    "C:\\Python312\\python.exe",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_GoalModel.py",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\1GoalModel\\goal.txt",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\1GoalModel\\goal.adl",
+                    "--model-name",
+                    "organized_phase1_GoalModel_goal"
+                  ],
+                  "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+                  "started_at": "2026-09-13T02:21:34.364+02:00",
+                  "finished_at": "2026-09-13T02:21:35.512+02:00",
+                  "duration_seconds": 1.149233700001787,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_GoalModel.py\", line 1033, in <module>\n    main()\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_GoalModel.py\", line 1024, in main\n    elements, connections = parse_notation(text)\n                            ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_GoalModel.py\", line 230, in parse_notation\n    raise_validation_errors(errors)\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\validation.py\", line 29, in raise_validation_errors\n    raise ValueError(unique[0])\nValueError: CONNECTIONS line 1: Multiple validation errors (2):\n  1. Source 'Problem_High_Energy_Consumption_Current_Product_Version' is not defined under ELEMENTS.\n  2. Target 'Goal_Provide_Most_Energy_Efficient_Heating_Solution' is not defined under ELEMENTS.\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 1030
+                },
+                "error_message": "The SLM-to-ADL converter failed.",
+                "finished_at": "2026-09-13T02:21:35.512+02:00",
+                "duration_seconds": 37.71911390000605
+              }
+            ],
+            "format_repairs": [
+              {
+                "attempt_number": 1,
+                "status": "OK",
+                "input": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\1GoalModel\\goal.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 245,
+                  "modified_at": "2026-09-13T02:21:34.355182+02:00",
+                  "sha256": "de0d5245fb408ac78b3f018f7c601ddbe200d8a9c3102ed4846b38dd374895d5"
+                },
+                "preserved_original": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\1GoalModel\\format_repair\\goal\\original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 245,
+                  "modified_at": "2026-09-13T02:21:35.515975+02:00",
+                  "sha256": "de0d5245fb408ac78b3f018f7c601ddbe200d8a9c3102ed4846b38dd374895d5"
+                },
+                "python_error": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\1GoalModel\\format_repair\\goal\\attempt_1_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 249,
+                  "modified_at": "2026-09-13T02:21:35.517490+02:00",
+                  "sha256": "45c11a62cb5d43fc7bea4f921655fee04cae5fc0889cf386d96667894a127650"
+                },
+                "prompt": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\1GoalModel\\format_repair\\goal\\attempt_1_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 10748,
+                  "modified_at": "2026-09-13T02:21:35.520551+02:00",
+                  "sha256": "607b8e6a1a267c196f07277d752b94fc9c9be17510664e3525c37ab6e5983bfe"
+                },
+                "output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\1GoalModel\\format_repair\\goal\\attempt_1_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 233,
+                  "modified_at": "2026-09-13T02:22:37.763181+02:00",
+                  "sha256": "4a2c75f36412672d5135c079d5dee5f56d3c4102f8ba63779bb5d599687fc06b"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-09-13T02:21:35.520+02:00",
+                    "seed": 42,
+                    "thinking_log": null,
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-09-13T02:21:35.522+02:00",
+                      "finished_at": "2026-09-13T02:22:37.763+02:00",
+                      "wall_seconds": 62.2409387000007,
+                      "request": {
+                        "model": "qwen3.5:4b",
+                        "prompt": {
+                          "characters": 10746,
+                          "utf8_bytes": 10748,
+                          "sha256": "607b8e6a1a267c196f07277d752b94fc9c9be17510664e3525c37ab6e5983bfe"
+                        },
+                        "stream": true,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "qwen3.5:4b",
+                        "created_at": "2026-09-13T00:22:37.7367566Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 59841308200,
+                        "load_duration": 3623800,
+                        "prompt_eval_count": 2432,
+                        "prompt_eval_cached_count": 0,
+                        "prompt_eval_duration": 2174599000,
+                        "eval_count": 4669,
+                        "eval_duration": 57565750000,
+                        "answer_characters": 232,
+                        "answer_utf8_bytes": 232,
+                        "answer_sha256": "961b3fd53fb50769c318e7bb585970e3013a1977e1494aa6d39d7b02dda447de",
+                        "thinking_characters": 19895,
+                        "output_tokens_per_second": 81.10725561640385
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "thinking_log_file": null,
+                    "finished_at": "2026-09-13T02:22:37.763+02:00",
+                    "duration_seconds": 62.241728000000876
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "C:\\Python312\\python.exe",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_GoalModel.py",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\1GoalModel\\goal.txt",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\1GoalModel\\goal.adl",
+                    "--model-name",
+                    "organized_phase1_GoalModel_goal"
+                  ],
+                  "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+                  "started_at": "2026-09-13T02:22:37.789+02:00",
+                  "finished_at": "2026-09-13T02:22:38.927+02:00",
+                  "duration_seconds": 1.1382318000032683,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "OK: read 2 elements and 1 notation connections.\nADL written to: C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\1GoalModel\\goal.adl\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 211,
+                  "stderr_chars": 0
+                }
+              }
+            ],
+            "status": "OK_AFTER_FORMAT_REPAIR",
+            "finished_at": "2026-09-13T02:22:38.927+02:00",
+            "duration_seconds": 101.14076049999858,
+            "slm_output": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\1GoalModel\\goal.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 233,
+              "modified_at": "2026-09-13T02:22:37.787645+02:00",
+              "sha256": "4a2c75f36412672d5135c079d5dee5f56d3c4102f8ba63779bb5d599687fc06b"
+            },
+            "adl_output": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\1GoalModel\\goal.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 3452,
+              "modified_at": "2026-09-13T02:22:38.919683+02:00",
+              "sha256": "87d4f652f21754fafcafeb7b966e3a4ebf1161092173934838eb1b7eb9b7d434"
+            }
+          },
+          {
+            "task_id": "model:organized_phase1:BusinessProcessModel:business_process.txt",
+            "scenario": "organized_phase1",
+            "model_id": "BusinessProcessModel",
+            "model_folder": "2BusinessProcessModell",
+            "source_file": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\organized_phase1\\2BusinessProcessModell\\business_process.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 437,
+              "modified_at": "2026-07-25T12:51:39.712231+02:00",
+              "sha256": "68d046703004a500211bc56f136717d17279da18bd31788a65d73419869d44cf"
+            },
+            "source_relative_path": "business_process.txt",
+            "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\business_process.txt",
+            "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\2BusinessProcessModell\\business_process.adl",
+            "adl_model_name": "organized_phase1_BusinessProcessModel_business_process",
+            "started_at": "2026-09-13T02:22:38.944+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-09-13T02:22:38.945+02:00",
+                "failure_reason": "python_error",
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-09-13T02:22:38.945+02:00",
+                    "seed": 42,
+                    "thinking_log": null,
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-09-13T02:22:38.945+02:00",
+                      "finished_at": "2026-09-13T02:23:31.688+02:00",
+                      "wall_seconds": 52.742426500000875,
+                      "request": {
+                        "model": "qwen3.5:4b",
+                        "prompt": {
+                          "characters": 5823,
+                          "utf8_bytes": 5825,
+                          "sha256": "8b562c02c46d69ce8b485f9c315c5fc6845a8311afb3beb770382056e797a61b"
+                        },
+                        "stream": true,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "qwen3.5:4b",
+                        "created_at": "2026-09-13T00:23:31.6659605Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 50359088000,
+                        "load_duration": 3089400,
+                        "prompt_eval_count": 1293,
+                        "prompt_eval_cached_count": 0,
+                        "prompt_eval_duration": 1097768000,
+                        "eval_count": 4052,
+                        "eval_duration": 49115411000,
+                        "answer_characters": 432,
+                        "answer_utf8_bytes": 432,
+                        "answer_sha256": "2d506bbf23d69829aafed17d83638b94da1871fe8a3569762e6ffb32df7d0bc2",
+                        "thinking_characters": 18077,
+                        "output_tokens_per_second": 82.49956413884024
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "thinking_log_file": null,
+                    "finished_at": "2026-09-13T02:23:31.688+02:00",
+                    "duration_seconds": 52.743199900003674
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-09-13T02:22:38.945+02:00",
+                  "finished_at": "2026-09-13T02:23:31.688+02:00",
+                  "wall_seconds": 52.742426500000875,
+                  "request": {
+                    "model": "qwen3.5:4b",
+                    "prompt": {
+                      "characters": 5823,
+                      "utf8_bytes": 5825,
+                      "sha256": "8b562c02c46d69ce8b485f9c315c5fc6845a8311afb3beb770382056e797a61b"
+                    },
+                    "stream": true,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "qwen3.5:4b",
+                    "created_at": "2026-09-13T00:23:31.6659605Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 50359088000,
+                    "load_duration": 3089400,
+                    "prompt_eval_count": 1293,
+                    "prompt_eval_cached_count": 0,
+                    "prompt_eval_duration": 1097768000,
+                    "eval_count": 4052,
+                    "eval_duration": 49115411000,
+                    "answer_characters": 432,
+                    "answer_utf8_bytes": 432,
+                    "answer_sha256": "2d506bbf23d69829aafed17d83638b94da1871fe8a3569762e6ffb32df7d0bc2",
+                    "thinking_characters": 18077,
+                    "output_tokens_per_second": 82.49956413884024
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\business_process.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 432,
+                  "modified_at": "2026-09-13T02:23:31.688798+02:00",
+                  "sha256": "2d506bbf23d69829aafed17d83638b94da1871fe8a3569762e6ffb32df7d0bc2"
+                },
+                "converter": {
+                  "args": [
+                    "C:\\Python312\\python.exe",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\business_process.txt",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\2BusinessProcessModell\\business_process.adl",
+                    "--model-name",
+                    "organized_phase1_BusinessProcessModel_business_process"
+                  ],
+                  "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+                  "started_at": "2026-09-13T02:23:31.697+02:00",
+                  "finished_at": "2026-09-13T02:23:32.861+02:00",
+                  "duration_seconds": 1.1649499000050128,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 1113, in <module>\n    main()\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 1102, in main\n    elements, connections = parse_notation(text)\n                            ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 272, in parse_notation\n    raise_validation_errors(errors)\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (9):\n  1. ELEMENTS line 1: Unknown element type in line 'ElementType Process target setting'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  2. ELEMENTS line 2: Unknown element type in line 'ElementType Process product specification'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  3. ELEMENTS line 3: Unknown element type in line 'ElementType Information Set customer survey'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  4. ELEMENTS line 4: Unknown element type in line 'ElementType Information Set list of target features'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  5. ELEMENTS line 5: Unknown element type in line 'ElementType Information Set specification document'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  6. CONNECTIONS line 1: Multiple validation errors (2):\n  1. Source 'customer survey' is not defined under ELEMENTS.\n  2. Target 'target setting' is not defined under ELEMENTS.\n  7. CONNECTIONS line 2: Multiple validation errors (2):\n  1. Source 'target setting' is not defined under ELEMENTS.\n  2. Target 'list of target features' is not defined under ELEMENTS.\n  8. CONNECTIONS line 3: Multiple validation errors (2):\n  1. Source 'list of target features' is not defined under ELEMENTS.\n  2. Target 'product specification' is not defined under ELEMENTS.\n  9. CONNECTIONS line 4: Multiple validation errors (2):\n  1. Source 'product specification' is not defined under ELEMENTS.\n  2. Target 'specification document' is not defined under ELEMENTS.\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 2636
+                },
+                "error_message": "The SLM-to-ADL converter failed.",
+                "finished_at": "2026-09-13T02:23:32.861+02:00",
+                "duration_seconds": 53.91731570000411
+              }
+            ],
+            "format_repairs": [
+              {
+                "attempt_number": 1,
+                "status": "FAILED_PYTHON",
+                "input": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\business_process.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 432,
+                  "modified_at": "2026-09-13T02:23:31.688798+02:00",
+                  "sha256": "2d506bbf23d69829aafed17d83638b94da1871fe8a3569762e6ffb32df7d0bc2"
+                },
+                "preserved_original": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 432,
+                  "modified_at": "2026-09-13T02:23:32.864608+02:00",
+                  "sha256": "2d506bbf23d69829aafed17d83638b94da1871fe8a3569762e6ffb32df7d0bc2"
+                },
+                "python_error": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\attempt_1_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1774,
+                  "modified_at": "2026-09-13T02:23:32.866138+02:00",
+                  "sha256": "31964aa575e30906c85ef6cecf7dd142ce84a2448cb76fb1795ff19268b0cc80"
+                },
+                "prompt": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\attempt_1_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 13836,
+                  "modified_at": "2026-09-13T02:23:32.869204+02:00",
+                  "sha256": "466962c88bc0a841b0001078ef59e15324414f33d73bfc83fff2993ad208be3f"
+                },
+                "output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\attempt_1_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 433,
+                  "modified_at": "2026-09-13T02:24:59.531769+02:00",
+                  "sha256": "bcf46ac02ff3f07e7bc3b4491322d99b38ae4b40b32c83ad9d179d2ab40a89c1"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-09-13T02:23:32.870+02:00",
+                    "seed": 42,
+                    "thinking_log": null,
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-09-13T02:23:32.870+02:00",
+                      "finished_at": "2026-09-13T02:24:59.530+02:00",
+                      "wall_seconds": 86.65905229999771,
+                      "request": {
+                        "model": "qwen3.5:4b",
+                        "prompt": {
+                          "characters": 13834,
+                          "utf8_bytes": 13836,
+                          "sha256": "466962c88bc0a841b0001078ef59e15324414f33d73bfc83fff2993ad208be3f"
+                        },
+                        "stream": true,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "qwen3.5:4b",
+                        "created_at": "2026-09-13T00:24:59.5026471Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 84277913200,
+                        "load_duration": 3267500,
+                        "prompt_eval_count": 3054,
+                        "prompt_eval_cached_count": 0,
+                        "prompt_eval_duration": 2738066000,
+                        "eval_count": 6488,
+                        "eval_duration": 81418865000,
+                        "answer_characters": 432,
+                        "answer_utf8_bytes": 432,
+                        "answer_sha256": "2d506bbf23d69829aafed17d83638b94da1871fe8a3569762e6ffb32df7d0bc2",
+                        "thinking_characters": 28011,
+                        "output_tokens_per_second": 79.68669177591704
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "thinking_log_file": null,
+                    "finished_at": "2026-09-13T02:24:59.530+02:00",
+                    "duration_seconds": 86.65984170000593
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "C:\\Python312\\python.exe",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\business_process.txt",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\2BusinessProcessModell\\business_process.adl",
+                    "--model-name",
+                    "organized_phase1_BusinessProcessModel_business_process"
+                  ],
+                  "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+                  "started_at": "2026-09-13T02:24:59.557+02:00",
+                  "finished_at": "2026-09-13T02:25:00.702+02:00",
+                  "duration_seconds": 1.1454983000003267,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 1113, in <module>\n    main()\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 1102, in main\n    elements, connections = parse_notation(text)\n                            ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 272, in parse_notation\n    raise_validation_errors(errors)\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (9):\n  1. ELEMENTS line 1: Unknown element type in line 'ElementType Process target setting'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  2. ELEMENTS line 2: Unknown element type in line 'ElementType Process product specification'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  3. ELEMENTS line 3: Unknown element type in line 'ElementType Information Set customer survey'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  4. ELEMENTS line 4: Unknown element type in line 'ElementType Information Set list of target features'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  5. ELEMENTS line 5: Unknown element type in line 'ElementType Information Set specification document'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  6. CONNECTIONS line 1: Multiple validation errors (2):\n  1. Source 'customer survey' is not defined under ELEMENTS.\n  2. Target 'target setting' is not defined under ELEMENTS.\n  7. CONNECTIONS line 2: Multiple validation errors (2):\n  1. Source 'target setting' is not defined under ELEMENTS.\n  2. Target 'list of target features' is not defined under ELEMENTS.\n  8. CONNECTIONS line 3: Multiple validation errors (2):\n  1. Source 'list of target features' is not defined under ELEMENTS.\n  2. Target 'product specification' is not defined under ELEMENTS.\n  9. CONNECTIONS line 4: Multiple validation errors (2):\n  1. Source 'product specification' is not defined under ELEMENTS.\n  2. Target 'specification document' is not defined under ELEMENTS.\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 2636
+                }
+              },
+              {
+                "attempt_number": 2,
+                "status": "FAILED_PYTHON",
+                "input": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\business_process.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 433,
+                  "modified_at": "2026-09-13T02:24:59.555767+02:00",
+                  "sha256": "bcf46ac02ff3f07e7bc3b4491322d99b38ae4b40b32c83ad9d179d2ab40a89c1"
+                },
+                "preserved_original": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 432,
+                  "modified_at": "2026-09-13T02:23:32.864608+02:00",
+                  "sha256": "2d506bbf23d69829aafed17d83638b94da1871fe8a3569762e6ffb32df7d0bc2"
+                },
+                "python_error": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\attempt_2_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1774,
+                  "modified_at": "2026-09-13T02:25:00.703506+02:00",
+                  "sha256": "31964aa575e30906c85ef6cecf7dd142ce84a2448cb76fb1795ff19268b0cc80"
+                },
+                "prompt": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\attempt_2_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 13836,
+                  "modified_at": "2026-09-13T02:25:00.706567+02:00",
+                  "sha256": "466962c88bc0a841b0001078ef59e15324414f33d73bfc83fff2993ad208be3f"
+                },
+                "output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\attempt_2_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 433,
+                  "modified_at": "2026-09-13T02:26:24.776734+02:00",
+                  "sha256": "bcf46ac02ff3f07e7bc3b4491322d99b38ae4b40b32c83ad9d179d2ab40a89c1"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-09-13T02:25:00.708+02:00",
+                    "seed": 42,
+                    "thinking_log": null,
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-09-13T02:25:00.708+02:00",
+                      "finished_at": "2026-09-13T02:26:24.775+02:00",
+                      "wall_seconds": 84.0672701999938,
+                      "request": {
+                        "model": "qwen3.5:4b",
+                        "prompt": {
+                          "characters": 13834,
+                          "utf8_bytes": 13836,
+                          "sha256": "466962c88bc0a841b0001078ef59e15324414f33d73bfc83fff2993ad208be3f"
+                        },
+                        "stream": true,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "qwen3.5:4b",
+                        "created_at": "2026-09-13T00:26:24.747537Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 81684315900,
+                        "load_duration": 4289100,
+                        "prompt_eval_count": 3054,
+                        "prompt_eval_cached_count": 3050,
+                        "prompt_eval_duration": 55862000,
+                        "eval_count": 6488,
+                        "eval_duration": 81431371000,
+                        "answer_characters": 432,
+                        "answer_utf8_bytes": 432,
+                        "answer_sha256": "2d506bbf23d69829aafed17d83638b94da1871fe8a3569762e6ffb32df7d0bc2",
+                        "thinking_characters": 28011,
+                        "output_tokens_per_second": 79.67445371882539
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "thinking_log_file": null,
+                    "finished_at": "2026-09-13T02:26:24.775+02:00",
+                    "duration_seconds": 84.06806549999601
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "C:\\Python312\\python.exe",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\business_process.txt",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\2BusinessProcessModell\\business_process.adl",
+                    "--model-name",
+                    "organized_phase1_BusinessProcessModel_business_process"
+                  ],
+                  "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+                  "started_at": "2026-09-13T02:26:24.792+02:00",
+                  "finished_at": "2026-09-13T02:26:25.941+02:00",
+                  "duration_seconds": 1.1501197999969008,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 1113, in <module>\n    main()\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 1102, in main\n    elements, connections = parse_notation(text)\n                            ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 272, in parse_notation\n    raise_validation_errors(errors)\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (9):\n  1. ELEMENTS line 1: Unknown element type in line 'ElementType Process target setting'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  2. ELEMENTS line 2: Unknown element type in line 'ElementType Process product specification'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  3. ELEMENTS line 3: Unknown element type in line 'ElementType Information Set customer survey'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  4. ELEMENTS line 4: Unknown element type in line 'ElementType Information Set list of target features'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  5. ELEMENTS line 5: Unknown element type in line 'ElementType Information Set specification document'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  6. CONNECTIONS line 1: Multiple validation errors (2):\n  1. Source 'customer survey' is not defined under ELEMENTS.\n  2. Target 'target setting' is not defined under ELEMENTS.\n  7. CONNECTIONS line 2: Multiple validation errors (2):\n  1. Source 'target setting' is not defined under ELEMENTS.\n  2. Target 'list of target features' is not defined under ELEMENTS.\n  8. CONNECTIONS line 3: Multiple validation errors (2):\n  1. Source 'list of target features' is not defined under ELEMENTS.\n  2. Target 'product specification' is not defined under ELEMENTS.\n  9. CONNECTIONS line 4: Multiple validation errors (2):\n  1. Source 'product specification' is not defined under ELEMENTS.\n  2. Target 'specification document' is not defined under ELEMENTS.\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 2636
+                }
+              },
+              {
+                "attempt_number": 3,
+                "status": "FAILED_PYTHON",
+                "input": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\business_process.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 433,
+                  "modified_at": "2026-09-13T02:26:24.791008+02:00",
+                  "sha256": "bcf46ac02ff3f07e7bc3b4491322d99b38ae4b40b32c83ad9d179d2ab40a89c1"
+                },
+                "preserved_original": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 432,
+                  "modified_at": "2026-09-13T02:23:32.864608+02:00",
+                  "sha256": "2d506bbf23d69829aafed17d83638b94da1871fe8a3569762e6ffb32df7d0bc2"
+                },
+                "python_error": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\attempt_3_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1774,
+                  "modified_at": "2026-09-13T02:26:25.943032+02:00",
+                  "sha256": "31964aa575e30906c85ef6cecf7dd142ce84a2448cb76fb1795ff19268b0cc80"
+                },
+                "prompt": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\attempt_3_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 13836,
+                  "modified_at": "2026-09-13T02:26:25.946100+02:00",
+                  "sha256": "466962c88bc0a841b0001078ef59e15324414f33d73bfc83fff2993ad208be3f"
+                },
+                "output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\format_repair\\business_process\\attempt_3_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 433,
+                  "modified_at": "2026-09-13T02:27:49.836555+02:00",
+                  "sha256": "bcf46ac02ff3f07e7bc3b4491322d99b38ae4b40b32c83ad9d179d2ab40a89c1"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-09-13T02:26:25.947+02:00",
+                    "seed": 42,
+                    "thinking_log": null,
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-09-13T02:26:25.947+02:00",
+                      "finished_at": "2026-09-13T02:27:49.835+02:00",
+                      "wall_seconds": 83.88754889999836,
+                      "request": {
+                        "model": "qwen3.5:4b",
+                        "prompt": {
+                          "characters": 13834,
+                          "utf8_bytes": 13836,
+                          "sha256": "466962c88bc0a841b0001078ef59e15324414f33d73bfc83fff2993ad208be3f"
+                        },
+                        "stream": true,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "qwen3.5:4b",
+                        "created_at": "2026-09-13T00:27:49.8075555Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 81498978800,
+                        "load_duration": 3218900,
+                        "prompt_eval_count": 3054,
+                        "prompt_eval_cached_count": 3050,
+                        "prompt_eval_duration": 56382000,
+                        "eval_count": 6488,
+                        "eval_duration": 81426427000,
+                        "answer_characters": 432,
+                        "answer_utf8_bytes": 432,
+                        "answer_sha256": "2d506bbf23d69829aafed17d83638b94da1871fe8a3569762e6ffb32df7d0bc2",
+                        "thinking_characters": 28011,
+                        "output_tokens_per_second": 79.67929134358309
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "thinking_log_file": null,
+                    "finished_at": "2026-09-13T02:27:49.835+02:00",
+                    "duration_seconds": 83.88833169999998
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "C:\\Python312\\python.exe",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\2BusinessProcessModell\\business_process.txt",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\2BusinessProcessModell\\business_process.adl",
+                    "--model-name",
+                    "organized_phase1_BusinessProcessModel_business_process"
+                  ],
+                  "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+                  "started_at": "2026-09-13T02:27:49.851+02:00",
+                  "finished_at": "2026-09-13T02:27:51.004+02:00",
+                  "duration_seconds": 1.1525356999991345,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 1113, in <module>\n    main()\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 1102, in main\n    elements, connections = parse_notation(text)\n                            ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_BusinessProcessModel.py\", line 272, in parse_notation\n    raise_validation_errors(errors)\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (9):\n  1. ELEMENTS line 1: Unknown element type in line 'ElementType Process target setting'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  2. ELEMENTS line 2: Unknown element type in line 'ElementType Process product specification'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  3. ELEMENTS line 3: Unknown element type in line 'ElementType Information Set customer survey'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  4. ELEMENTS line 4: Unknown element type in line 'ElementType Information Set list of target features'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  5. ELEMENTS line 5: Unknown element type in line 'ElementType Information Set specification document'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)\n  6. CONNECTIONS line 1: Multiple validation errors (2):\n  1. Source 'customer survey' is not defined under ELEMENTS.\n  2. Target 'target setting' is not defined under ELEMENTS.\n  7. CONNECTIONS line 2: Multiple validation errors (2):\n  1. Source 'target setting' is not defined under ELEMENTS.\n  2. Target 'list of target features' is not defined under ELEMENTS.\n  8. CONNECTIONS line 3: Multiple validation errors (2):\n  1. Source 'list of target features' is not defined under ELEMENTS.\n  2. Target 'product specification' is not defined under ELEMENTS.\n  9. CONNECTIONS line 4: Multiple validation errors (2):\n  1. Source 'product specification' is not defined under ELEMENTS.\n  2. Target 'specification document' is not defined under ELEMENTS.\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 2636
+                }
+              }
+            ],
+            "status": "FAILED_PYTHON",
+            "final_error": "The SLM-to-ADL converter failed after format repair.",
+            "finished_at": "2026-09-13T02:27:51.004+02:00",
+            "duration_seconds": 312.065778199998
+          },
+          {
+            "task_id": "model:organized_phase1:ActorsResourcesModel:actors_ressources.txt",
+            "scenario": "organized_phase1",
+            "model_id": "ActorsResourcesModel",
+            "model_folder": "3ActorsandResourcesModel",
+            "source_file": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\organized_phase1\\3ActorsandResourcesModel\\actors_ressources.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 361,
+              "modified_at": "2026-07-25T12:51:39.561802+02:00",
+              "sha256": "3df909a3768c916a1f3e75d1001bc126ae11124343c411460c01ad0389f3cce5"
+            },
+            "source_relative_path": "actors_ressources.txt",
+            "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\3ActorsandResourcesModel\\actors_ressources.txt",
+            "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\3ActorsandResourcesModel\\actors_ressources.adl",
+            "adl_model_name": "organized_phase1_ActorsResourcesModel_actors_ressources",
+            "started_at": "2026-09-13T02:27:51.010+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-09-13T02:27:51.012+02:00",
+                "failure_reason": null,
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-09-13T02:27:51.012+02:00",
+                    "seed": 42,
+                    "thinking_log": null,
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-09-13T02:27:51.013+02:00",
+                      "finished_at": "2026-09-13T02:29:30.489+02:00",
+                      "wall_seconds": 99.47628399999667,
+                      "request": {
+                        "model": "qwen3.5:4b",
+                        "prompt": {
+                          "characters": 8787,
+                          "utf8_bytes": 8799,
+                          "sha256": "aac121d50c6374ebbffae83666f0e762346394349839783a05b3007ffead332c"
+                        },
+                        "stream": true,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "qwen3.5:4b",
+                        "created_at": "2026-09-13T00:29:30.4632571Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 97096830700,
+                        "load_duration": 3632400,
+                        "prompt_eval_count": 1986,
+                        "prompt_eval_cached_count": 0,
+                        "prompt_eval_duration": 1712281000,
+                        "eval_count": 7667,
+                        "eval_duration": 95370760000,
+                        "answer_characters": 305,
+                        "answer_utf8_bytes": 305,
+                        "answer_sha256": "8ccf48cfbb2596c6637e00ff1ad46ab8c2e6ca55e76ff4411835f7e373c185d5",
+                        "thinking_characters": 30632,
+                        "output_tokens_per_second": 80.39151622572788
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "thinking_log_file": null,
+                    "finished_at": "2026-09-13T02:29:30.489+02:00",
+                    "duration_seconds": 99.47720890000346
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-09-13T02:27:51.013+02:00",
+                  "finished_at": "2026-09-13T02:29:30.489+02:00",
+                  "wall_seconds": 99.47628399999667,
+                  "request": {
+                    "model": "qwen3.5:4b",
+                    "prompt": {
+                      "characters": 8787,
+                      "utf8_bytes": 8799,
+                      "sha256": "aac121d50c6374ebbffae83666f0e762346394349839783a05b3007ffead332c"
+                    },
+                    "stream": true,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "qwen3.5:4b",
+                    "created_at": "2026-09-13T00:29:30.4632571Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 97096830700,
+                    "load_duration": 3632400,
+                    "prompt_eval_count": 1986,
+                    "prompt_eval_cached_count": 0,
+                    "prompt_eval_duration": 1712281000,
+                    "eval_count": 7667,
+                    "eval_duration": 95370760000,
+                    "answer_characters": 305,
+                    "answer_utf8_bytes": 305,
+                    "answer_sha256": "8ccf48cfbb2596c6637e00ff1ad46ab8c2e6ca55e76ff4411835f7e373c185d5",
+                    "thinking_characters": 30632,
+                    "output_tokens_per_second": 80.39151622572788
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\3ActorsandResourcesModel\\actors_ressources.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 305,
+                  "modified_at": "2026-09-13T02:29:30.490650+02:00",
+                  "sha256": "8ccf48cfbb2596c6637e00ff1ad46ab8c2e6ca55e76ff4411835f7e373c185d5"
+                },
+                "converter": {
+                  "args": [
+                    "C:\\Python312\\python.exe",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_ActorsResourcesModel.py",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\3ActorsandResourcesModel\\actors_ressources.txt",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\3ActorsandResourcesModel\\actors_ressources.adl",
+                    "--model-name",
+                    "organized_phase1_ActorsResourcesModel_actors_ressources"
+                  ],
+                  "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+                  "started_at": "2026-09-13T02:29:30.498+02:00",
+                  "finished_at": "2026-09-13T02:29:31.650+02:00",
+                  "duration_seconds": 1.152067499999248,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "Graph analysis: 1 connected component(s) (element counts: 4).\nOK: read 4 elements and 5 notation connections.\nADL written to: C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\3ActorsandResourcesModel\\actors_ressources.adl\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 300,
+                  "stderr_chars": 0
+                },
+                "finished_at": "2026-09-13T02:29:31.650+02:00",
+                "duration_seconds": 100.63817450000352,
+                "adl_output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\3ActorsandResourcesModel\\actors_ressources.adl",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 5417,
+                  "modified_at": "2026-09-13T02:29:31.641376+02:00",
+                  "sha256": "a58ca35509321aa6c75849deafb5d8f63eb598830c5bf37bce839f60d4e8c8b9"
+                }
+              }
+            ],
+            "format_repairs": [],
+            "status": "OK",
+            "finished_at": "2026-09-13T02:29:31.662+02:00",
+            "duration_seconds": 100.65684419999889,
+            "slm_output": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\3ActorsandResourcesModel\\actors_ressources.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 305,
+              "modified_at": "2026-09-13T02:29:30.490650+02:00",
+              "sha256": "8ccf48cfbb2596c6637e00ff1ad46ab8c2e6ca55e76ff4411835f7e373c185d5"
+            },
+            "adl_output": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\3ActorsandResourcesModel\\actors_ressources.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 5417,
+              "modified_at": "2026-09-13T02:29:31.641376+02:00",
+              "sha256": "a58ca35509321aa6c75849deafb5d8f63eb598830c5bf37bce839f60d4e8c8b9"
+            }
+          },
+          {
+            "task_id": "model:organized_phase1:ConceptsModel:concept.txt",
+            "scenario": "organized_phase1",
+            "model_id": "ConceptsModel",
+            "model_folder": "4ConceptsModel",
+            "source_file": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\organized_phase1\\4ConceptsModel\\concept.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 610,
+              "modified_at": "2026-07-25T12:51:39.673239+02:00",
+              "sha256": "665b9fbf242adc8ce045683d7a5b9db51c71ce8ad41c161f9c87a312b857dc4d"
+            },
+            "source_relative_path": "concept.txt",
+            "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\4ConceptsModel\\concept.txt",
+            "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\4ConceptsModel\\concept.adl",
+            "adl_model_name": "organized_phase1_ConceptsModel_concept",
+            "started_at": "2026-09-13T02:29:31.672+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-09-13T02:29:31.673+02:00",
+                "failure_reason": "python_error",
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-09-13T02:29:31.673+02:00",
+                    "seed": 42,
+                    "thinking_log": null,
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-09-13T02:29:31.673+02:00",
+                      "finished_at": "2026-09-13T02:31:28.680+02:00",
+                      "wall_seconds": 117.00621820000379,
+                      "request": {
+                        "model": "qwen3.5:4b",
+                        "prompt": {
+                          "characters": 6246,
+                          "utf8_bytes": 6260,
+                          "sha256": "9e98afc4674af69b5e94489de6c8dd5b06c748ed470313031214fb234fab3da9"
+                        },
+                        "stream": true,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "qwen3.5:4b",
+                        "created_at": "2026-09-13T00:31:28.6496474Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 114625627600,
+                        "load_duration": 3914500,
+                        "prompt_eval_count": 1457,
+                        "prompt_eval_cached_count": 0,
+                        "prompt_eval_duration": 1229913000,
+                        "eval_count": 9070,
+                        "eval_duration": 113200943000,
+                        "answer_characters": 775,
+                        "answer_utf8_bytes": 775,
+                        "answer_sha256": "6372fb4ca763ffd34bc07a1e0321752eae0ed390b17c44da928ca45e5eccd99d",
+                        "thinking_characters": 40549,
+                        "output_tokens_per_second": 80.12300745586545
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "thinking_log_file": null,
+                    "finished_at": "2026-09-13T02:31:28.680+02:00",
+                    "duration_seconds": 117.00695660000201
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-09-13T02:29:31.673+02:00",
+                  "finished_at": "2026-09-13T02:31:28.680+02:00",
+                  "wall_seconds": 117.00621820000379,
+                  "request": {
+                    "model": "qwen3.5:4b",
+                    "prompt": {
+                      "characters": 6246,
+                      "utf8_bytes": 6260,
+                      "sha256": "9e98afc4674af69b5e94489de6c8dd5b06c748ed470313031214fb234fab3da9"
+                    },
+                    "stream": true,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "qwen3.5:4b",
+                    "created_at": "2026-09-13T00:31:28.6496474Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 114625627600,
+                    "load_duration": 3914500,
+                    "prompt_eval_count": 1457,
+                    "prompt_eval_cached_count": 0,
+                    "prompt_eval_duration": 1229913000,
+                    "eval_count": 9070,
+                    "eval_duration": 113200943000,
+                    "answer_characters": 775,
+                    "answer_utf8_bytes": 775,
+                    "answer_sha256": "6372fb4ca763ffd34bc07a1e0321752eae0ed390b17c44da928ca45e5eccd99d",
+                    "thinking_characters": 40549,
+                    "output_tokens_per_second": 80.12300745586545
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\4ConceptsModel\\concept.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 775,
+                  "modified_at": "2026-09-13T02:31:28.681890+02:00",
+                  "sha256": "6372fb4ca763ffd34bc07a1e0321752eae0ed390b17c44da928ca45e5eccd99d"
+                },
+                "converter": {
+                  "args": [
+                    "C:\\Python312\\python.exe",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_ConceptModel.py",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\4ConceptsModel\\concept.txt",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\4ConceptsModel\\concept.adl",
+                    "--model-name",
+                    "organized_phase1_ConceptsModel_concept"
+                  ],
+                  "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+                  "started_at": "2026-09-13T02:31:28.689+02:00",
+                  "finished_at": "2026-09-13T02:31:29.835+02:00",
+                  "duration_seconds": 1.1462427000005846,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_ConceptModel.py\", line 1100, in <module>\n    main()\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_ConceptModel.py\", line 1085, in main\n    elements, connections = parse_notation(text)\n                            ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_ConceptModel.py\", line 230, in parse_notation\n    raise_validation_errors(errors)\n  File \"C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (18):\n  1. ELEMENTS line 1: Unknown element type 'ElementType' in line 'ElementType Concept Energy-efficiency'. Allowed: Attribute, Concept\n  2. ELEMENTS line 2: Unknown element type 'ElementType' in line 'ElementType Concept Energy consumption'. Allowed: Attribute, Concept\n  3. ELEMENTS line 3: Unknown element type 'ElementType' in line 'ElementType Concept Energy output'. Allowed: Attribute, Concept\n  4. ELEMENTS line 4: Unknown element type 'ElementType' in line 'ElementType Concept Customer survey'. Allowed: Attribute, Concept\n  5. ELEMENTS line 5: Unknown element type 'ElementType' in line 'ElementType Concept Feature'. Allowed: Attribute, Concept\n  6. ELEMENTS line 6: Unknown element type 'ElementType' in line 'ElementType Concept Target feature'. Allowed: Attribute, Concept\n  7. ELEMENTS line 7: Unknown element type 'ElementType' in line 'ElementType Concept Specification document'. Allowed: Attribute, Concept\n  8. ELEMENTS line 8: Unknown element type 'ElementType' in line 'ElementType Attribute Functional characteristic'. Allowed: Attribute, Concept\n  9. ELEMENTS line 9: Unknown element type 'ElementType' in line 'ElementType Attribute Non-functional characteristic'. Allowed: Attribute, Concept\n  10. ELEMENTS line 10: Unknown element type 'ElementType' in line 'ElementType Attribute Unit'. Allowed: Attribute, Concept\n  11. ELEMENTS line 11: Unknown element type 'ElementType' in line 'ElementType Attribute Customer expectation'. Allowed: Attribute, Concept\n  12. CONNECTIONS line 1: Multiple validation errors (2):\n  1. Source 'Energy-efficiency' is not defined under ELEMENTS.\n  2. Target 'Energy consumption' is not defined under ELEMENTS.\n  13. CONNECTIONS line 2: Multiple validation errors (2):\n  1. Source 'Energy-efficiency' is not defined under ELEMENTS.\n  2. Target 'Energy output' is not defined under ELEMENTS.\n  14. CONNECTIONS line 3: Multiple validation errors (2):\n  1. Source 'Target feature' is not defined under ELEMENTS.\n  2. Target 'Feature' is not defined under ELEMENTS.\n  15. CONNECTIONS line 4: Multiple validation errors (2):\n  1. Source 'Specification document' is not defined under ELEMENTS.\n  2. Target 'Functional characteristic' is not defined under ELEMENTS.\n  16. CONNECTIONS line 5: Multiple validation errors (2):\n  1. Source 'Specification document' is not defined under ELEMENTS.\n  2. Target 'Non-functional characteristic' is not defined under ELEMENTS.\n  17. CONNECTIONS line 6: Multiple validation errors (2):\n  1. Source 'Customer survey' is not defined under ELEMENTS.\n  2. Target 'Customer expectation' is not defined under ELEMENTS.\n  18. CONNECTIONS line 7: Multiple validation errors (2):\n  1. Source 'Energy consumption' is not defined under ELEMENTS.\n  2. Target 'Unit' is not defined under ELEMENTS.\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 3644
+                },
+                "error_message": "The SLM-to-ADL converter failed.",
+                "finished_at": "2026-09-13T02:31:29.835+02:00",
+                "duration_seconds": 118.1629912999997
+              }
+            ],
+            "format_repairs": [
+              {
+                "attempt_number": 1,
+                "status": "OK",
+                "input": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\4ConceptsModel\\concept.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 775,
+                  "modified_at": "2026-09-13T02:31:28.681890+02:00",
+                  "sha256": "6372fb4ca763ffd34bc07a1e0321752eae0ed390b17c44da928ca45e5eccd99d"
+                },
+                "preserved_original": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\4ConceptsModel\\format_repair\\concept\\original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 775,
+                  "modified_at": "2026-09-13T02:31:29.838254+02:00",
+                  "sha256": "6372fb4ca763ffd34bc07a1e0321752eae0ed390b17c44da928ca45e5eccd99d"
+                },
+                "python_error": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\4ConceptsModel\\format_repair\\concept\\attempt_1_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 2806,
+                  "modified_at": "2026-09-13T02:31:29.839785+02:00",
+                  "sha256": "34d4ef67ccb5ffe63e519003894a9953154c172daa532cfa26f35257f9da151a"
+                },
+                "prompt": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\4ConceptsModel\\format_repair\\concept\\attempt_1_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 15649,
+                  "modified_at": "2026-09-13T02:31:29.844393+02:00",
+                  "sha256": "89bc8834398bc31eba0e633255d62816041d8fc8c4ba5fc624e8985a5fbafb82"
+                },
+                "output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\4ConceptsModel\\format_repair\\concept\\attempt_1_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 644,
+                  "modified_at": "2026-09-13T02:32:49.191923+02:00",
+                  "sha256": "62a58c1a221c58db727541b34194bc09076b7ec84a35bf648c79641510e91f70"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-09-13T02:31:29.844+02:00",
+                    "seed": 42,
+                    "thinking_log": null,
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-09-13T02:31:29.845+02:00",
+                      "finished_at": "2026-09-13T02:32:49.191+02:00",
+                      "wall_seconds": 79.3453481999968,
+                      "request": {
+                        "model": "qwen3.5:4b",
+                        "prompt": {
+                          "characters": 15635,
+                          "utf8_bytes": 15649,
+                          "sha256": "89bc8834398bc31eba0e633255d62816041d8fc8c4ba5fc624e8985a5fbafb82"
+                        },
+                        "stream": true,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "qwen3.5:4b",
+                        "created_at": "2026-09-13T00:32:49.1609619Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 76945853500,
+                        "load_duration": 4219300,
+                        "prompt_eval_count": 3544,
+                        "prompt_eval_cached_count": 0,
+                        "prompt_eval_duration": 3309528000,
+                        "eval_count": 5853,
+                        "eval_duration": 73422519000,
+                        "answer_characters": 643,
+                        "answer_utf8_bytes": 643,
+                        "answer_sha256": "208a94b91a57e35812632caa95f23864b7390e86160599ffe4ab22d0c42c6235",
+                        "thinking_characters": 25976,
+                        "output_tokens_per_second": 79.71668746478176
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "thinking_log_file": null,
+                    "finished_at": "2026-09-13T02:32:49.191+02:00",
+                    "duration_seconds": 79.34629940000013
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "C:\\Python312\\python.exe",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_ConceptModel.py",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\4ConceptsModel\\concept.txt",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\4ConceptsModel\\concept.adl",
+                    "--model-name",
+                    "organized_phase1_ConceptsModel_concept"
+                  ],
+                  "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+                  "started_at": "2026-09-13T02:32:49.217+02:00",
+                  "finished_at": "2026-09-13T02:32:50.360+02:00",
+                  "duration_seconds": 1.1421699999991688,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "Graph analysis: 4 connected concept components (sizes: 3, 1, 2, 1).\nOK: read 11 elements and 7 notation connections.\nADL written to: C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\4ConceptsModel\\concept.adl\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 287,
+                  "stderr_chars": 0
+                }
+              }
+            ],
+            "status": "OK_AFTER_FORMAT_REPAIR",
+            "finished_at": "2026-09-13T02:32:50.360+02:00",
+            "duration_seconds": 198.69558409999445,
+            "slm_output": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\4ConceptsModel\\concept.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 644,
+              "modified_at": "2026-09-13T02:32:49.216431+02:00",
+              "sha256": "62a58c1a221c58db727541b34194bc09076b7ec84a35bf648c79641510e91f70"
+            },
+            "adl_output": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\4ConceptsModel\\concept.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 9324,
+              "modified_at": "2026-09-13T02:32:50.352514+02:00",
+              "sha256": "8be923cd3cec249fc0bcc862040efedfd10d832fd59f74ba05b7084fa54038e7"
+            }
+          },
+          {
+            "task_id": "model:organized_phase1:TechnicalComponentsRequirementsModel:technical_requirement.txt",
+            "scenario": "organized_phase1",
+            "model_id": "TechnicalComponentsRequirementsModel",
+            "model_folder": "6TechnicalComponentsandRequirementsModel",
+            "source_file": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\organized_phase1\\6TechnicalComponentsandRequirementsModel\\technical_requirement.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 219,
+              "modified_at": "2026-07-25T12:51:39.597759+02:00",
+              "sha256": "edbb35a94b56ad12574e4bf2e6af724400a0b88e79e7c9bb1e031c894caab77d"
+            },
+            "source_relative_path": "technical_requirement.txt",
+            "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\6TechnicalComponentsandRequirementsModel\\technical_requirement.txt",
+            "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\6TechnicalComponentsandRequirementsModel\\technical_requirement.adl",
+            "adl_model_name": "organized_phase1_TechnicalComponentsRequirementsModel_technical_requirement",
+            "started_at": "2026-09-13T02:32:50.378+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-09-13T02:32:50.380+02:00",
+                "failure_reason": null,
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-09-13T02:32:50.380+02:00",
+                    "seed": 42,
+                    "thinking_log": null,
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-09-13T02:32:50.381+02:00",
+                      "finished_at": "2026-09-13T02:34:29.232+02:00",
+                      "wall_seconds": 98.85237900000357,
+                      "request": {
+                        "model": "qwen3.5:4b",
+                        "prompt": {
+                          "characters": 9488,
+                          "utf8_bytes": 9490,
+                          "sha256": "9112a9a4e37dea2f2dceb5fe54610e2078aa7ff25d1b7520ab44629dd778fe6e"
+                        },
+                        "stream": true,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "qwen3.5:4b",
+                        "created_at": "2026-09-13T00:34:29.200735Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 96458892700,
+                        "load_duration": 3711500,
+                        "prompt_eval_count": 1958,
+                        "prompt_eval_cached_count": 0,
+                        "prompt_eval_duration": 1758959000,
+                        "eval_count": 7569,
+                        "eval_duration": 94507279000,
+                        "answer_characters": 158,
+                        "answer_utf8_bytes": 158,
+                        "answer_sha256": "4bb4a995e1c43bb989ed4560c7de8f2d39e554f9d33daf1328d692423efa25a1",
+                        "thinking_characters": 33146,
+                        "output_tokens_per_second": 80.08906911815755
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "thinking_log_file": null,
+                    "finished_at": "2026-09-13T02:34:29.232+02:00",
+                    "duration_seconds": 98.85317299999588
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-09-13T02:32:50.381+02:00",
+                  "finished_at": "2026-09-13T02:34:29.232+02:00",
+                  "wall_seconds": 98.85237900000357,
+                  "request": {
+                    "model": "qwen3.5:4b",
+                    "prompt": {
+                      "characters": 9488,
+                      "utf8_bytes": 9490,
+                      "sha256": "9112a9a4e37dea2f2dceb5fe54610e2078aa7ff25d1b7520ab44629dd778fe6e"
+                    },
+                    "stream": true,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "qwen3.5:4b",
+                    "created_at": "2026-09-13T00:34:29.200735Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 96458892700,
+                    "load_duration": 3711500,
+                    "prompt_eval_count": 1958,
+                    "prompt_eval_cached_count": 0,
+                    "prompt_eval_duration": 1758959000,
+                    "eval_count": 7569,
+                    "eval_duration": 94507279000,
+                    "answer_characters": 158,
+                    "answer_utf8_bytes": 158,
+                    "answer_sha256": "4bb4a995e1c43bb989ed4560c7de8f2d39e554f9d33daf1328d692423efa25a1",
+                    "thinking_characters": 33146,
+                    "output_tokens_per_second": 80.08906911815755
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\6TechnicalComponentsandRequirementsModel\\technical_requirement.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 158,
+                  "modified_at": "2026-09-13T02:34:29.234555+02:00",
+                  "sha256": "4bb4a995e1c43bb989ed4560c7de8f2d39e554f9d33daf1328d692423efa25a1"
+                },
+                "converter": {
+                  "args": [
+                    "C:\\Python312\\python.exe",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_TechnicalComponentsandRequirementsModel.py",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\6TechnicalComponentsandRequirementsModel\\technical_requirement.txt",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\6TechnicalComponentsandRequirementsModel\\technical_requirement.adl",
+                    "--model-name",
+                    "organized_phase1_TechnicalComponentsRequirementsModel_technical_requirement"
+                  ],
+                  "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+                  "started_at": "2026-09-13T02:34:29.242+02:00",
+                  "finished_at": "2026-09-13T02:34:30.402+02:00",
+                  "duration_seconds": 1.1598640000011073,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "Graph analysis: 1 connected component(s) (element counts: 2).\nOK: read 2 elements and 1 notation connections.\nADL written to: C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\6TechnicalComponentsandRequirementsModel\\technical_requirement.adl\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 320,
+                  "stderr_chars": 0
+                },
+                "finished_at": "2026-09-13T02:34:30.402+02:00",
+                "duration_seconds": 100.02264920000016,
+                "adl_output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\6TechnicalComponentsandRequirementsModel\\technical_requirement.adl",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 3955,
+                  "modified_at": "2026-09-13T02:34:30.395023+02:00",
+                  "sha256": "d69df0dc3c0f43bed17cc4f0beb55e8aadf7cfd75c61847be6d745378443e686"
+                }
+              }
+            ],
+            "format_repairs": [],
+            "status": "OK",
+            "finished_at": "2026-09-13T02:34:30.411+02:00",
+            "duration_seconds": 100.03927660000045,
+            "slm_output": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\6TechnicalComponentsandRequirementsModel\\technical_requirement.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 158,
+              "modified_at": "2026-09-13T02:34:29.234555+02:00",
+              "sha256": "4bb4a995e1c43bb989ed4560c7de8f2d39e554f9d33daf1328d692423efa25a1"
+            },
+            "adl_output": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\6TechnicalComponentsandRequirementsModel\\technical_requirement.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 3955,
+              "modified_at": "2026-09-13T02:34:30.395023+02:00",
+              "sha256": "d69df0dc3c0f43bed17cc4f0beb55e8aadf7cfd75c61847be6d745378443e686"
+            }
+          },
+          {
+            "task_id": "model:organized_phase1:ProductServiceModel:product.txt",
+            "scenario": "organized_phase1",
+            "model_id": "ProductServiceModel",
+            "model_folder": "7ProductServiceModel",
+            "source_file": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\organized_phase1\\7ProductServiceModel\\product.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 164,
+              "modified_at": "2026-07-25T12:51:39.747895+02:00",
+              "sha256": "7957a2c4e55377788ff3a1607a039ed00bfc1234df3007deeb8430ee8fbfd05d"
+            },
+            "source_relative_path": "product.txt",
+            "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\7ProductServiceModel\\product.txt",
+            "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\7ProductServiceModel\\product.adl",
+            "adl_model_name": "organized_phase1_ProductServiceModel_product",
+            "started_at": "2026-09-13T02:34:30.421+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-09-13T02:34:30.421+02:00",
+                "failure_reason": null,
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-09-13T02:34:30.421+02:00",
+                    "seed": 42,
+                    "thinking_log": null,
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-09-13T02:34:30.422+02:00",
+                      "finished_at": "2026-09-13T02:35:26.081+02:00",
+                      "wall_seconds": 55.65955490000488,
+                      "request": {
+                        "model": "qwen3.5:4b",
+                        "prompt": {
+                          "characters": 5575,
+                          "utf8_bytes": 5581,
+                          "sha256": "f0f6bc5396b6279cfbc3ec9f5bbac46c070479877a318eedf26363593c9b771a"
+                        },
+                        "stream": true,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "qwen3.5:4b",
+                        "created_at": "2026-09-13T00:35:26.0589265Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 53285832000,
+                        "load_duration": 3767700,
+                        "prompt_eval_count": 1328,
+                        "prompt_eval_cached_count": 0,
+                        "prompt_eval_duration": 1108877000,
+                        "eval_count": 4279,
+                        "eval_duration": 52013493000,
+                        "answer_characters": 207,
+                        "answer_utf8_bytes": 207,
+                        "answer_sha256": "b1cb31d6febc5d0314d1d53a43752bdd3263e4e48e5882b00e3923110dddd6d1",
+                        "thinking_characters": 17968,
+                        "output_tokens_per_second": 82.26711480422975
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "thinking_log_file": null,
+                    "finished_at": "2026-09-13T02:35:26.081+02:00",
+                    "duration_seconds": 55.66031280000607
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-09-13T02:34:30.422+02:00",
+                  "finished_at": "2026-09-13T02:35:26.081+02:00",
+                  "wall_seconds": 55.65955490000488,
+                  "request": {
+                    "model": "qwen3.5:4b",
+                    "prompt": {
+                      "characters": 5575,
+                      "utf8_bytes": 5581,
+                      "sha256": "f0f6bc5396b6279cfbc3ec9f5bbac46c070479877a318eedf26363593c9b771a"
+                    },
+                    "stream": true,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "qwen3.5:4b",
+                    "created_at": "2026-09-13T00:35:26.0589265Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 53285832000,
+                    "load_duration": 3767700,
+                    "prompt_eval_count": 1328,
+                    "prompt_eval_cached_count": 0,
+                    "prompt_eval_duration": 1108877000,
+                    "eval_count": 4279,
+                    "eval_duration": 52013493000,
+                    "answer_characters": 207,
+                    "answer_utf8_bytes": 207,
+                    "answer_sha256": "b1cb31d6febc5d0314d1d53a43752bdd3263e4e48e5882b00e3923110dddd6d1",
+                    "thinking_characters": 17968,
+                    "output_tokens_per_second": 82.26711480422975
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\7ProductServiceModel\\product.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 207,
+                  "modified_at": "2026-09-13T02:35:26.081844+02:00",
+                  "sha256": "b1cb31d6febc5d0314d1d53a43752bdd3263e4e48e5882b00e3923110dddd6d1"
+                },
+                "converter": {
+                  "args": [
+                    "C:\\Python312\\python.exe",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\slm_to_adl\\slm_to_adl_ProductServiceModel.py",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\7ProductServiceModel\\product.txt",
+                    "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\7ProductServiceModel\\product.adl",
+                    "--model-name",
+                    "organized_phase1_ProductServiceModel_product"
+                  ],
+                  "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+                  "started_at": "2026-09-13T02:35:26.089+02:00",
+                  "finished_at": "2026-09-13T02:35:27.250+02:00",
+                  "duration_seconds": 1.161281799999415,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "Graph analysis: 1 connected component(s) (element counts: 4).\nOK: read 4 elements and 2 notation connections.\nADL written to: C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\7ProductServiceModel\\product.adl\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 286,
+                  "stderr_chars": 0
+                },
+                "finished_at": "2026-09-13T02:35:27.250+02:00",
+                "duration_seconds": 56.829963600001065,
+                "adl_output": {
+                  "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\7ProductServiceModel\\product.adl",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 4759,
+                  "modified_at": "2026-09-13T02:35:27.243507+02:00",
+                  "sha256": "31a4b5dcc7c866e7d0f053687f12f5fec053ff5931fca2b93e60933739c391b7"
+                }
+              }
+            ],
+            "format_repairs": [],
+            "status": "OK",
+            "finished_at": "2026-09-13T02:35:27.259+02:00",
+            "duration_seconds": 56.84534520000307,
+            "slm_output": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\slm\\7ProductServiceModel\\product.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 207,
+              "modified_at": "2026-09-13T02:35:26.081844+02:00",
+              "sha256": "b1cb31d6febc5d0314d1d53a43752bdd3263e4e48e5882b00e3923110dddd6d1"
+            },
+            "adl_output": {
+              "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\7ProductServiceModel\\product.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 4759,
+              "modified_at": "2026-09-13T02:35:27.243507+02:00",
+              "sha256": "31a4b5dcc7c866e7d0f053687f12f5fec053ff5931fca2b93e60933739c391b7"
+            }
+          }
+        ],
+        "summary": {
+          "statuses": {
+            "OK_AFTER_FORMAT_REPAIR": 2,
+            "FAILED_PYTHON": 1,
+            "OK": 3
+          },
+          "attempt_count": 6,
+          "model_restarts": 0,
+          "format_repair_attempts": 5,
+          "prompt_tokens": 24284,
+          "output_tokens": 65366,
+          "total_tokens": 89650,
+          "slm_wall_seconds": 856.4799998999952,
+          "python_command_seconds": 12.662195200005954
+        }
+      },
+      "artifact_manifest": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\artifacts.json",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 15297,
+        "modified_at": "2026-09-13T02:35:27.278347+02:00",
+        "sha256": "3f28909ca996c6ded350abeff145d47e1aa73cda2bf963ddb55a7972808c53f8"
+      },
+      "adl_merge": {
+        "started_at": "2026-09-13T02:35:27.285+02:00",
+        "output_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\organized_phase1_models.adl",
+        "input_files": [
+          {
+            "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\1GoalModel\\goal.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 3452,
+            "modified_at": "2026-09-13T02:22:38.919683+02:00",
+            "sha256": "87d4f652f21754fafcafeb7b966e3a4ebf1161092173934838eb1b7eb9b7d434"
+          },
+          {
+            "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\3ActorsandResourcesModel\\actors_ressources.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 5417,
+            "modified_at": "2026-09-13T02:29:31.641376+02:00",
+            "sha256": "a58ca35509321aa6c75849deafb5d8f63eb598830c5bf37bce839f60d4e8c8b9"
+          },
+          {
+            "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\4ConceptsModel\\concept.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 9324,
+            "modified_at": "2026-09-13T02:32:50.352514+02:00",
+            "sha256": "8be923cd3cec249fc0bcc862040efedfd10d832fd59f74ba05b7084fa54038e7"
+          },
+          {
+            "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\6TechnicalComponentsandRequirementsModel\\technical_requirement.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 3955,
+            "modified_at": "2026-09-13T02:34:30.395023+02:00",
+            "sha256": "d69df0dc3c0f43bed17cc4f0beb55e8aadf7cfd75c61847be6d745378443e686"
+          },
+          {
+            "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\7ProductServiceModel\\product.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 4759,
+            "modified_at": "2026-09-13T02:35:27.243507+02:00",
+            "sha256": "31a4b5dcc7c866e7d0f053687f12f5fec053ff5931fca2b93e60933739c391b7"
+          }
+        ],
+        "command": {
+          "args": [
+            "C:\\Python312\\python.exe",
+            "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\adl_model_merger.py",
+            "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\1GoalModel\\goal.adl",
+            "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\3ActorsandResourcesModel\\actors_ressources.adl",
+            "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\4ConceptsModel\\concept.adl",
+            "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\6TechnicalComponentsandRequirementsModel\\technical_requirement.adl",
+            "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\adl\\7ProductServiceModel\\product.adl",
+            "--output",
+            "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\organized_phase1_models.adl"
+          ],
+          "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+          "started_at": "2026-09-13T02:35:27.291+02:00",
+          "finished_at": "2026-09-13T02:35:27.494+02:00",
+          "duration_seconds": 0.2019302000044263,
+          "timeout_seconds": 600.0,
+          "returncode": 0,
+          "timed_out": false,
+          "stdout": "Created: C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\organized_phase1_models.adl\nMerged models: 5\n  - BUSINESS PROCESS MODEL <organized_phase1_GoalModel_goal> (goal.adl)\n  - BUSINESS PROCESS MODEL <organized_phase1_ActorsResourcesModel_actors_ressources> (actors_ressources.adl)\n  - BUSINESS PROCESS MODEL <organized_phase1_ConceptsModel_concept> (concept.adl)\n  - BUSINESS PROCESS MODEL <organized_phase1_TechnicalComponentsRequirementsModel_technical_requirement> (technical_requirement.adl)\n  - BUSINESS PROCESS MODEL <organized_phase1_ProductServiceModel_product> (product.adl)\n",
+          "stderr": "",
+          "ok": true,
+          "stdout_chars": 661,
+          "stderr_chars": 0
+        },
+        "status": "OK",
+        "output": {
+          "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\output_model_gen\\organized_phase1_models.adl",
+          "exists": true,
+          "is_file": true,
+          "is_directory": false,
+          "size_bytes": 23826,
+          "modified_at": "2026-09-13T02:35:27.486425+02:00",
+          "sha256": "653a3d75cfbf2d4230762c75760b7cfaf75bdc9342691cfc3fe4907396d993bc"
+        },
+        "finished_at": "2026-09-13T02:35:27.503+02:00",
+        "duration_seconds": 0.21787350000522565
+      },
+      "intermodel": {
+        "status": "SKIPPED_MODELS_ONLY",
+        "duration_seconds": 0.0
+      },
+      "status": "COMPLETED_WITH_ERRORS",
+      "finished_at": "2026-09-13T02:35:27.503+02:00",
+      "duration_seconds": 869.7195009999996
+    }
+  ],
+  "unhandled_errors": [],
+  "finished_at": "2026-09-13T02:35:27.503+02:00",
+  "duration_seconds": 869.7791894000038,
+  "summary": {
+    "scenario_count": 1,
+    "model_generation": {
+      "statuses": {
+        "OK_AFTER_FORMAT_REPAIR": 2,
+        "FAILED_PYTHON": 1,
+        "OK": 3
+      },
+      "attempt_count": 6,
+      "model_restarts": 0,
+      "format_repair_attempts": 5,
+      "prompt_tokens": 24284,
+      "output_tokens": 65366,
+      "total_tokens": 89650,
+      "slm_wall_seconds": 856.4799998999952,
+      "python_command_seconds": 12.662195200005954
+    },
+    "intermodel_generation": {
+      "statuses": {},
+      "attempt_count": 0,
+      "model_restarts": 0,
+      "format_repair_attempts": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "slm_wall_seconds": 0.0,
+      "python_command_seconds": 0.0
+    },
+    "all_prompt_tokens": 24284,
+    "all_output_tokens": 65366,
+    "all_tokens": 89650,
+    "all_model_restarts": 0,
+    "all_format_repair_attempts": 5,
+    "adl_merger_seconds": 0.21787350000522565,
+    "intermodel_integration_seconds": 0.0
+  },
+  "report_files": {
+    "json": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\pipeline_2026-09-13T02-20-57.json",
+    "text": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\pipeline_2026-09-13T02-20-57.txt",
+    "events": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\pipeline_2026-09-13T02-20-57.jsonl",
+    "visualization": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\pipeline_2026-09-13T02-20-57_visualization.html"
+  },
+  "visualization": {
+    "enabled": true,
+    "status": "OK",
+    "output": {
+      "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\pipeline_2026-09-13T02-20-57_visualization.html",
+      "exists": true,
+      "is_file": true,
+      "is_directory": false,
+      "size_bytes": 6994,
+      "modified_at": "2026-09-13T02:35:28.623660+02:00",
+      "sha256": "67df98492877f41cde9503aba28c2f81fd5e3ba38cfc398a9dc486365b66de4f"
+    },
+    "command": {
+      "args": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scripts\\visualize_runtime_report.py",
+        "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\pipeline_2026-09-13T02-20-57.json",
+        "--output",
+        "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\pipeline_2026-09-13T02-20-57_visualization.html"
+      ],
+      "cwd": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline",
+      "started_at": "2026-09-13T02:35:27.510+02:00",
+      "finished_at": "2026-09-13T02:35:28.630+02:00",
+      "duration_seconds": 1.1197814999977709,
+      "timeout_seconds": 120.0,
+      "returncode": 0,
+      "timed_out": false,
+      "stdout": "Visualization created: C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\organized_phase1_2026-09-13T02-20-57\\pipeline_2026-09-13T02-20-57_visualization.html\n",
+      "stderr": "",
+      "ok": true,
+      "stdout_chars": 177,
+      "stderr_chars": 0
+    }
+  },
+  "derived_correction": {
+    "kind": "retry_limit_normalization",
+    "original_max_restart": 5,
+    "corrected_max_restart": 3,
+    "excluded_attempt_count": 0,
+    "excluded_measured_seconds": 0.0,
+    "output_results_changed": false,
+    "excluded_sequences": [],
+    "timing_note": "Original wall-clock timestamps and total duration remain historical measurements."
+  }
+}

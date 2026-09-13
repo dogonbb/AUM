@@ -1,0 +1,101 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         d7c88ff3-c6eb-4a9a-a43a-4f9c5e5d3244
+Status:                         COMPLETED_WITH_ERRORS
+Mode:                           models_only
+Started:                        2026-09-13T05:55:59.432+02:00
+Finished:                       2026-09-13T08:41:43.845+02:00
+Total runtime seconds:          9944.220
+Parameter file:                  C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:4b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  42806
+Output tokens:                  210086
+Total tokens:                   252892
+Model restarts:                 10
+Format repair attempts:         7
+ADL merger seconds:             0.230
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK_AFTER_FORMAT_REPAIR': 4, 'OK': 3, 'FAILED_PYTHON': 1}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: organized_phase4
+----------------------------------------------------------------------------------------------------
+Status:                  COMPLETED_WITH_ERRORS
+Scenario directory:      C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\scenarios\organized_phase4
+Run directory:           C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\output\organized_phase4_2026-09-13T05-55-59
+Duration seconds:         9944.159
+Model stage status:       COMPLETED_WITH_ERRORS
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:organized_phase4:GoalModel:goal.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=231.722 | format_repairs=1
+    attempt=1 reason=python_error seconds=141.754 prompt_tokens=1342 output_tokens=10880
+      slm_attempt=1 status=OK seed=42 seconds=140.596 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=88.790 restart=no
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_1.txt | status=OK | seconds=47.725 | format_repairs=0
+    attempt=1 reason=None seconds=47.713 prompt_tokens=1328 output_tokens=3556
+      slm_attempt=1 status=OK seed=42 seconds=46.547 restart=no
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_2.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=2369.714 | format_repairs=1
+    attempt=1 reason=python_error seconds=2279.757 prompt_tokens=1312 output_tokens=7250
+      slm_attempt=1 status=TIMEOUT seed=42 seconds=1800.200 restart=yes error=The SLM request exceeded the configured total limit of 1800.00 seconds.
+      slm_attempt=2 status=REPETITION seed=43 seconds=177.354 restart=yes error=The same thinking block was generated 10 times: '* Wait, I need to check if I should use `Marketing Campaign` as the Process and Planning/Social/Print/Supervision as Information Sets? No. * Okay.'
+      slm_attempt=3 status=REPETITION seed=44 seconds=193.998 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check if I should use `Process Planning` Output `Information Set Campaign Plan`.** * Text: "develops the campaign plan". Yes.'
+      slm_attempt=4 status=OK seed=45 seconds=97.343 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=88.792 restart=no
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_3.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=222.230 | format_repairs=1
+    attempt=1 reason=python_error seconds=144.214 prompt_tokens=1348 output_tokens=11083
+      slm_attempt=1 status=OK seed=42 seconds=143.047 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=76.840 restart=no
+  MODEL model:organized_phase4:ActorsResourcesModel:actors_ressources.txt | status=FAILED_PYTHON | seconds=6315.985 | format_repairs=3
+    attempt=1 reason=python_error seconds=536.675 prompt_tokens=2125 output_tokens=11896
+      slm_attempt=1 status=REPETITION seed=42 seconds=177.463 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check Rule 23:** "Every element used in CONNECTIONS must be listed exactly once in ELEMENTS." * This means if I have an element in ELEMENTS, it MUST b'
+      slm_attempt=2 status=REPETITION seed=43 seconds=191.871 restart=yes error=The same thinking block was generated 10 times: '* **Wait, "Print Media Campaign"**: * ELEMENTS: * Resource Print Media Campaign * CONNECTIONS: * Print Designer (Role) responsible for Print Media Campaign.'
+      slm_attempt=3 status=OK seed=44 seconds=159.698 restart=no
+    FORMAT REPAIR attempt=1 status=FAILED_PYTHON
+      slm_attempt=1 status=OK seed=42 seconds=116.332 restart=no
+    FORMAT REPAIR attempt=2 status=FAILED_PYTHON
+      slm_attempt=1 status=REPETITION seed=42 seconds=154.162 restart=yes error=The same thinking block was generated 10 times: 'Wait, I need to check if there are other errors in the input text that I missed. The error list shows 28 validation errors. Most of them are about elements not '
+      slm_attempt=2 status=TIMEOUT seed=43 seconds=1800.337 restart=yes error=The SLM request exceeded the configured total limit of 1800.00 seconds.
+      slm_attempt=3 status=TIMEOUT seed=44 seconds=1800.438 restart=yes error=The SLM request exceeded the configured total limit of 1800.00 seconds.
+      slm_attempt=4 status=OK seed=45 seconds=146.674 restart=no
+    FORMAT REPAIR attempt=3 status=FAILED_PYTHON
+      slm_attempt=1 status=REPETITION seed=42 seconds=156.403 restart=yes error=The same thinking block was generated 10 times: '* **Wait**, I need to look at the error log more carefully. Error #1: "Duplicate element names found: Content Specialist, General Manager..." This list includes'
+      slm_attempt=2 status=OK seed=43 seconds=1588.514 restart=no
+  MODEL model:organized_phase4:ConceptsModel:concept.txt | status=OK | seconds=359.186 | format_repairs=0
+    attempt=1 reason=None seconds=359.166 prompt_tokens=1713 output_tokens=12949
+      slm_attempt=1 status=REPETITION seed=42 seconds=180.652 restart=yes error=The same thinking block was generated 10 times: '* *Wait, check "Order-confirmation".* Total-PartOF Delivery-order.'
+      slm_attempt=2 status=OK seed=43 seconds=174.113 restart=no
+  MODEL model:organized_phase4:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=139.704 | format_repairs=0
+    attempt=1 reason=None seconds=139.687 prompt_tokens=2040 output_tokens=10583
+      slm_attempt=1 status=OK seed=42 seconds=138.528 restart=no
+  MODEL model:organized_phase4:ProductServiceModel:product.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=257.572 | format_repairs=1
+    attempt=1 reason=python_error seconds=116.408 prompt_tokens=1429 output_tokens=8949
+      slm_attempt=1 status=OK seed=42 seconds=115.246 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=139.978 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

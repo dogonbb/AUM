@@ -1,0 +1,16 @@
+ELEMENTS
+Individual Speaker
+Individual Colleague
+Role Product Owner
+Role Product Designer
+Resource Smart-Heat product
+Resource Heat Pump
+Organizational Unit Product Development Department
+
+CONNECTIONS
+Individual Speaker works in Product Development Department
+Individual Speaker plays Product Owner
+Product Owner responsible for Smart-Heat product
+Individual Colleague works in Product Development Department
+Individual Colleague plays Product Designer
+Product Designer responsible for Heat Pump

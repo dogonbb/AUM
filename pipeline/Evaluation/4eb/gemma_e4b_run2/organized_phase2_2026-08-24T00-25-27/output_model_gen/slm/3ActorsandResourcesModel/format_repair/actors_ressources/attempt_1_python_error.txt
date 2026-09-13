@@ -1,0 +1,5 @@
+Multiple validation errors (4):
+  1. CONNECTIONS line 1: Source 'Individual Speaker' is not defined under ELEMENTS.
+  2. CONNECTIONS line 2: Source 'Individual Speaker' is not defined under ELEMENTS.
+  3. CONNECTIONS line 4: Source 'Individual Colleague' is not defined under ELEMENTS.
+  4. CONNECTIONS line 5: Source 'Individual Colleague' is not defined under ELEMENTS.

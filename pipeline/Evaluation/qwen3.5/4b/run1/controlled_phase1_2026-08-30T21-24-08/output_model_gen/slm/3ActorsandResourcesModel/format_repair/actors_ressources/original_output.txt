@@ -1,0 +1,8 @@
+ELEMENTS
+ElementType Role product owner
+ElementType Organizational Unit product development department
+ElementType Resource heat pump Smart-Heat
+
+CONNECTIONS
+product owner works in product development department
+product owner relation heat pump Smart-Heat

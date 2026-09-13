@@ -1,0 +1,14 @@
+ELEMENTS
+ElementType Individual Product Owner
+ElementType Role Product Owner
+ElementType Individual Product Designer
+ElementType Role Product Designer
+ElementType Resource Smart-Heat product
+ElementType Resource Heat Pump
+ElementType Organizational Unit Product Development Department
+
+CONNECTIONS
+Role Product Owner works in Product Development Department
+Role Product Owner responsible for Smart-Heat product
+Role Product Designer works in Product Development Department
+Role Product Designer responsible for Heat Pump

@@ -1,0 +1,18 @@
+ELEMENTS
+Concept Product
+Concept Customer
+Concept Feature
+Concept Target feature
+Concept Specification document
+Concept Energy-efficiency
+Concept Energy consumption
+Concept Energy output for heating
+Concept Customer survey
+Concept Functional characteristic
+Concept Non-functional characteristic
+Attribute kWh
+
+CONNECTIONS
+Target feature Total-ISA Feature
+Functional characteristic, Non-functional characteristic Partial-PartOF Specification document
+Energy consumption has attribute kWh

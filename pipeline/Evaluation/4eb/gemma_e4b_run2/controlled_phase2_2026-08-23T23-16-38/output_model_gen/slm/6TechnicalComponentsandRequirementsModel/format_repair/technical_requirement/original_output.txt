@@ -1,0 +1,13 @@
+ELEMENTS
+Technical Component Production System
+Technical Component Version Management System
+Technical Component Database System
+Technical Component Transaction Middleware
+Technical Component User Interface Component
+Information System Goal Support Product Innovation
+
+CONNECTIONS
+Production System supports Support Product Innovation
+Version Management System supports Support Product Innovation
+Version Management System supports Production System
+Database System, Transaction Middleware, User Interface Component Total-PartOF Production System

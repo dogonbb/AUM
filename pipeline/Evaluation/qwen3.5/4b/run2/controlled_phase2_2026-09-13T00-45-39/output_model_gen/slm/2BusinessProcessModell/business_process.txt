@@ -1,0 +1,16 @@
+ELEMENTS
+Process target setting
+Process define the product specification
+Process product design
+Information Set customer survey
+Information Set list of target features
+Information Set specification document
+Information Set design description
+
+CONNECTIONS
+customer survey Input target setting
+target setting Output list of target features
+list of target features Input define the product specification
+define the product specification Output specification document
+specification document Input product design
+product design Output design description

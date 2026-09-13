@@ -1,0 +1,1 @@
+CONNECTIONS line 3: Disallowed connection pattern in 'Heat pump has attribute Energy consumption': Concept has attribute Concept

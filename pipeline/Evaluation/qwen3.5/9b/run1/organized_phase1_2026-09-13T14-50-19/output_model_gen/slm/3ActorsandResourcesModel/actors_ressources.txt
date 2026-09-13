@@ -1,0 +1,8 @@
+ELEMENTS
+Individual Employee
+Role Product Owner
+Organizational Unit Product Development Department
+
+CONNECTIONS
+Employee plays Product Owner
+Product Owner works in Product Development Department

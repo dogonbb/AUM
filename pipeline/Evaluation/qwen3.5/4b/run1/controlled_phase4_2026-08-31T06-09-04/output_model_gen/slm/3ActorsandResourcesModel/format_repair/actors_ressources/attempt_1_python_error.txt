@@ -1,0 +1,5 @@
+Multiple validation errors (4):
+  1. CONNECTIONS line 12: Connector connection 'Partial-PartOF' must have at least two sources: 'Product Development Department Partial-PartOF MultiHeat'
+  2. CONNECTIONS line 13: Connector connection 'Partial-PartOF' must have at least two sources: 'Marketing Department Partial-PartOF MultiHeat'
+  3. CONNECTIONS line 14: Connector connection 'Partial-PartOF' must have at least two sources: 'Social Media Group Partial-PartOF MultiHeat'
+  4. CONNECTIONS line 15: Connector connection 'Partial-PartOF' must have at least two sources: 'Print Media Group Partial-PartOF MultiHeat'

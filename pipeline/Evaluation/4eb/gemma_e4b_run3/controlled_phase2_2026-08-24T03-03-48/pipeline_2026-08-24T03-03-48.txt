@@ -1,0 +1,61 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         14affc38-1de1-4e51-950b-e75f184d662d
+Status:                         OK
+Mode:                           models_only
+Started:                        2026-08-24T03:03:48.459+02:00
+Finished:                       2026-08-24T03:13:41.350+02:00
+Total runtime seconds:          592.892
+Parameter file:                  /home/dokja/Documents/code/AUM/pipeline/parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          gemma4:e4b
+Thinking:                       True
+Timeout seconds:                3600
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  18720
+Output tokens:                  10303
+Total tokens:                   29023
+Model restarts after timeout:   0
+Format repair attempts:         3
+ADL merger seconds:             0.036
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK_AFTER_FORMAT_REPAIR': 3, 'OK': 3}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: controlled_phase2
+----------------------------------------------------------------------------------------------------
+Status:                  OK
+Scenario directory:      /home/dokja/Documents/code/AUM/pipeline/scenarios/controlled_phase2
+Run directory:           /home/dokja/Documents/code/AUM/pipeline/output/controlled_phase2_2026-08-24T03-03-48
+Duration seconds:         592.889
+Model stage status:       OK
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:controlled_phase2:GoalModel:goal.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=167.869 | format_repairs=1
+    attempt=1 reason=python_error seconds=56.304 prompt_tokens=1191 output_tokens=880
+  MODEL model:controlled_phase2:BusinessProcessModel:business_process.txt | status=OK | seconds=51.329 | format_repairs=0
+    attempt=1 reason=None seconds=51.329 prompt_tokens=1357 output_tokens=969
+  MODEL model:controlled_phase2:ActorsResourcesModel:actors_ressources.txt | status=OK | seconds=75.245 | format_repairs=0
+    attempt=1 reason=None seconds=75.244 prompt_tokens=2012 output_tokens=1043
+  MODEL model:controlled_phase2:ConceptsModel:concept.txt | status=OK | seconds=61.948 | format_repairs=0
+    attempt=1 reason=None seconds=61.948 prompt_tokens=1578 output_tokens=1175
+  MODEL model:controlled_phase2:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=112.505 | format_repairs=1
+    attempt=1 reason=python_error seconds=51.284 prompt_tokens=1964 output_tokens=980
+  MODEL model:controlled_phase2:ProductServiceModel:product.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=123.953 | format_repairs=1
+    attempt=1 reason=python_error seconds=59.752 prompt_tokens=1400 output_tokens=886
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

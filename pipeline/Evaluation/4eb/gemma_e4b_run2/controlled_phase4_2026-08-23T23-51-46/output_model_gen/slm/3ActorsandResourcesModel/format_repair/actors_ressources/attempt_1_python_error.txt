@@ -1,0 +1,1 @@
+CONNECTIONS line 10: Disallowed connection pattern in 'General Manager responsible for MultiHeat': Role responsible for Organizational Unit

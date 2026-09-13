@@ -1,0 +1,1 @@
+CONNECTIONS line 1: Disallowed connection pattern in 'target_setting Input customer_survey': Process Input Information Set

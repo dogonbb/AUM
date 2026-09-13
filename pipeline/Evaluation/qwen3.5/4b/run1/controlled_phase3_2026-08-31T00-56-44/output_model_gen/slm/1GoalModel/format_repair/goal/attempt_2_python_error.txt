@@ -1,0 +1,21 @@
+Multiple validation errors (6):
+  1. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Problem energy consumption of the current product version is too high' is not defined under ELEMENTS.
+  2. Target 'Goal provide the most energy-efficient heating solution on the market' is not defined under ELEMENTS.
+  2. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Constraint maximum energy production of the photovoltaic module is 50 kWh' is not defined under ELEMENTS.
+  2. Target 'Goal produce the remaining energy required by the heat pump with the integrated photovoltaic module' is not defined under ELEMENTS.
+  3. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'Problem short period available for the development' is not defined under ELEMENTS.
+  2. Target 'Goal develop a new heat extractor with very low energy consumption' is not defined under ELEMENTS.
+  4. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Problem new refrigerants are very expensive' is not defined under ELEMENTS.
+  2. Target 'Goal re-design the existing heat extractor by adapting it for a new refrigerant' is not defined under ELEMENTS.
+  5. CONNECTIONS line 5: Multiple validation errors (3):
+  1. Source 'Goal minimize the energy consumption of the heat pump' is not defined under ELEMENTS.
+  2. Source 'Goal produce the remaining energy required by the heat pump with the integrated photovoltaic module' is not defined under ELEMENTS.
+  3. Target 'Goal provide the most energy-efficient heating solution on the market' is not defined under ELEMENTS.
+  6. CONNECTIONS line 6: Multiple validation errors (3):
+  1. Source 'Goal develop a new heat extractor with very low energy consumption' is not defined under ELEMENTS.
+  2. Source 'Goal re-design the existing heat extractor by adapting it for a new refrigerant' is not defined under ELEMENTS.
+  3. Target 'Goal minimize the energy consumption of the heat pump' is not defined under ELEMENTS.

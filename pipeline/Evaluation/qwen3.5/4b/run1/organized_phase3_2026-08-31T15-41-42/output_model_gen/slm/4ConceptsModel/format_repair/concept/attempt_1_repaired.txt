@@ -1,0 +1,37 @@
+ELEMENTS
+Concept Energy-efficiency
+Concept Energy-consumption
+Concept Customer-survey
+Concept Feature
+Concept Target-feature
+Concept Specification-document
+Concept Design-description
+Concept Zero-emission-energy-production
+Concept Heat-pump
+Concept Campaign-target-document
+Concept Campaign-plan
+Concept Campaign-statistics
+Concept Campaign-result-document
+Attribute Kilowatt-hours
+Attribute Target-group
+Attribute Start-date
+Attribute End-date
+Attribute Budget
+Attribute Response-rates
+Attribute CO2-emissions
+Attribute Building-block
+Concept Social-media-activity
+Concept Print-media-product
+
+CONNECTIONS
+Target-feature Total-ISA Feature
+Campaign-target-document has attribute Target-group
+Campaign-target-document has attribute Start-date
+Campaign-target-document has attribute End-date
+Campaign-target-document has attribute Budget
+Energy-consumption has attribute Kilowatt-hours
+Campaign-statistics has attribute Response-rates
+Zero-emission-energy-production has attribute CO2-emissions
+Design-description has attribute Building-block
+Social-media-activity Partial-PartOF Campaign-plan
+Print-media-product Partial-PartOF Campaign-plan

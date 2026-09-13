@@ -1,0 +1,14 @@
+Multiple validation errors (7):
+  1. ELEMENTS line 1: Unknown element type 'ElementType' in line 'ElementType Product Smart-Heat'. Allowed: Component, Feature, Product, ProductService, Service
+  2. ELEMENTS line 2: Unknown element type 'ElementType' in line 'ElementType Component Indoor Module'. Allowed: Component, Feature, Product, ProductService, Service
+  3. ELEMENTS line 3: Unknown element type 'ElementType' in line 'ElementType Component Outdoor Module'. Allowed: Component, Feature, Product, ProductService, Service
+  4. ELEMENTS line 4: Unknown element type 'ElementType' in line 'ElementType Feature Energy Efficiency'. Allowed: Component, Feature, Product, ProductService, Service
+  5. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Indoor Module' is not defined under ELEMENTS.
+  2. Target 'Smart-Heat' is not defined under ELEMENTS.
+  6. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Outdoor Module' is not defined under ELEMENTS.
+  2. Target 'Smart-Heat' is not defined under ELEMENTS.
+  7. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'Energy Efficiency' is not defined under ELEMENTS.
+  2. Target 'Smart-Heat' is not defined under ELEMENTS.

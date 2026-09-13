@@ -1,0 +1,65 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         50913261-dc07-4886-8fc0-345e3bb5e1e8
+Status:                         COMPLETED_WITH_ERRORS
+Mode:                           models_only
+Started:                        2026-08-23T21:47:50.139+02:00
+Finished:                       2026-08-23T23:06:29.734+02:00
+Total runtime seconds:          4719.596
+Parameter file:                  /home/dokja/Documents/code/AUM/pipeline/parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          gemma4:e4b
+Thinking:                       True
+Timeout seconds:                3600
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  75976
+Output tokens:                  65830
+Total tokens:                   141806
+Model restarts after timeout:   0
+Format repair attempts:         17
+ADL merger seconds:             0.039
+Intermodel integration seconds: 0.000
+Model statuses:                 {'FAILED_PYTHON': 1, 'OK': 2, 'OK_AFTER_FORMAT_REPAIR': 5}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: organized_phase4
+----------------------------------------------------------------------------------------------------
+Status:                  COMPLETED_WITH_ERRORS
+Scenario directory:      /home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase4
+Run directory:           /home/dokja/Documents/code/AUM/pipeline/output/organized_phase4_2026-08-23T21-47-50
+Duration seconds:         4719.594
+Model stage status:       COMPLETED_WITH_ERRORS
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:organized_phase4:GoalModel:goal.txt | status=FAILED_PYTHON | seconds=2457.800 | format_repairs=10
+    attempt=1 reason=python_error seconds=162.246 prompt_tokens=1346 output_tokens=2372
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_1.txt | status=OK | seconds=73.897 | format_repairs=0
+    attempt=1 reason=None seconds=73.897 prompt_tokens=1346 output_tokens=999
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_2.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=328.961 | format_repairs=1
+    attempt=1 reason=python_error seconds=76.438 prompt_tokens=1330 output_tokens=1245
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_3.txt | status=OK | seconds=92.215 | format_repairs=0
+    attempt=1 reason=None seconds=92.215 prompt_tokens=1367 output_tokens=1467
+  MODEL model:organized_phase4:ActorsResourcesModel:actors_ressources.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=354.075 | format_repairs=1
+    attempt=1 reason=python_error seconds=142.334 prompt_tokens=2126 output_tokens=2219
+  MODEL model:organized_phase4:ConceptsModel:concept.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=897.806 | format_repairs=3
+    attempt=1 reason=python_error seconds=126.331 prompt_tokens=1749 output_tokens=2024
+  MODEL model:organized_phase4:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=183.119 | format_repairs=1
+    attempt=1 reason=python_error seconds=66.496 prompt_tokens=2035 output_tokens=1071
+  MODEL model:organized_phase4:ProductServiceModel:product.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=331.676 | format_repairs=1
+    attempt=1 reason=python_error seconds=107.396 prompt_tokens=1461 output_tokens=1731
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

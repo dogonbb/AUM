@@ -1,0 +1,1 @@
+CONNECTIONS line 7: Disallowed connection pattern in 'order confirmation Output prepare product delivery': Information Set Output Process

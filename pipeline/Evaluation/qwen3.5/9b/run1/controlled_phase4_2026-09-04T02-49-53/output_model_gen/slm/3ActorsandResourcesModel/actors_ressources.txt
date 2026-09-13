@@ -1,0 +1,26 @@
+ELEMENTS
+Organizational Unit MultiHeat
+Organizational Unit Product Development Department
+Organizational Unit Marketing Department
+Organizational Unit Social Media Group
+Organizational Unit Print Media Group
+Role Product Owner
+Role Product Designer
+Role Print Designer
+Role Printing Press Operator
+Role Social Media Designer
+Role Content Specialist
+Role General Manager
+Resource Printing Press
+
+CONNECTIONS
+Product Owner works in Product Development Department
+Product Designer works in Product Development Department
+Print Designer works in Print Media Group
+Printing Press Operator works in Print Media Group
+Social Media Designer works in Social Media Group
+Content Specialist works in Social Media Group
+General Manager works in MultiHeat
+Printing Press belongs to Print Media Group
+Social Media Group, Print Media Group Partial-PartOF Marketing Department
+Product Development Department, Marketing Department, Social Media Group, Print Media Group Partial-PartOF MultiHeat

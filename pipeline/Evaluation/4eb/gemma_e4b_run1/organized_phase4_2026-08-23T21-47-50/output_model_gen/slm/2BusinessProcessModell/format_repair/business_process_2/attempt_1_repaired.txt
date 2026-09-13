@@ -1,0 +1,21 @@
+ELEMENTS
+Process Planning the Marketing Campaign
+Process Social Media Campaign
+Process Print Media Campaign
+Process Supervision of Campaign Results
+Information Set Campaign Target Document
+Information Set Campaign Plan
+Information Set Campaign Statistics
+Information Set Result Document
+
+CONNECTIONS
+Campaign Target Document Input Planning the Marketing Campaign
+Planning the Marketing Campaign Output Campaign Plan
+Campaign Plan Split (AND) Social Media Campaign, Print Media Campaign
+Campaign Plan Input Social Media Campaign
+Campaign Plan Input Print Media Campaign
+Social Media Campaign Output Campaign Statistics
+Print Media Campaign Output Campaign Statistics
+Social Media Campaign, Print Media Campaign Join (AND) Campaign Statistics
+Campaign Statistics Input Supervision of Campaign Results
+Supervision of Campaign Results Output Result Document

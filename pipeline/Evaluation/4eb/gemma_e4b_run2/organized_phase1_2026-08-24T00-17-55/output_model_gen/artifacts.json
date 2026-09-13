@@ -1,0 +1,261 @@
+{
+  "format": "4em-pipeline-artifact-manifest-v1",
+  "scenario_name": "organized_phase1",
+  "scenario_directory": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1",
+  "run_directory": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55",
+  "created_at": "2026-08-24T00:25:27.243+02:00",
+  "artifacts": [
+    {
+      "scenario_name": "organized_phase1",
+      "model_id": "GoalModel",
+      "model_folder": "1GoalModel",
+      "model_display_name": "Goal Model",
+      "model_type": "Goal Model",
+      "source_scenario_file": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/1GoalModel/goal.txt",
+      "source_relative_path": "goal.txt",
+      "source_stem": "goal",
+      "adl_model_name": "organized_phase1_GoalModel_goal",
+      "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/1GoalModel/goal.txt",
+      "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/1GoalModel/goal.adl",
+      "status": "OK_AFTER_FORMAT_REPAIR",
+      "task_id": "model:organized_phase1:GoalModel:goal.txt",
+      "slm_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/1GoalModel/goal.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 223,
+        "modified_at": "2026-08-24T00:19:32.629165+02:00",
+        "sha256": "be9d57a8a33bb377440c2e80251f3f875ca02aa5b2ae03100feceb068f80f267"
+      },
+      "adl_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/1GoalModel/goal.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 3235,
+        "modified_at": "2026-08-24T00:19:32.669984+02:00",
+        "sha256": "14a4f97c313fb890efe178fa437c883bbedeef1e9b68f56769a6259413e2b04e"
+      },
+      "source_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/1GoalModel/goal.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 262,
+        "modified_at": "2026-07-26T07:47:04.306230+02:00",
+        "sha256": "19f28aa9254c3c85582d8c2994aa1f1ee6625856584fc3723ebcaede05498106"
+      }
+    },
+    {
+      "scenario_name": "organized_phase1",
+      "model_id": "BusinessProcessModel",
+      "model_folder": "2BusinessProcessModell",
+      "model_display_name": "Business Process Model",
+      "model_type": "Business Process Model",
+      "source_scenario_file": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/2BusinessProcessModell/business_process.txt",
+      "source_relative_path": "business_process.txt",
+      "source_stem": "business_process",
+      "adl_model_name": "organized_phase1_BusinessProcessModel_business_process",
+      "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/2BusinessProcessModell/business_process.txt",
+      "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/2BusinessProcessModell/business_process.adl",
+      "status": "OK",
+      "task_id": "model:organized_phase1:BusinessProcessModel:business_process.txt",
+      "slm_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/2BusinessProcessModell/business_process.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 393,
+        "modified_at": "2026-08-24T00:20:21.671731+02:00",
+        "sha256": "a976ece34f8ab47676c08cda6386d1bfc5c57e0508d4d3df2a8232df9c3eb387"
+      },
+      "adl_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/2BusinessProcessModell/business_process.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 5786,
+        "modified_at": "2026-08-24T00:20:21.708931+02:00",
+        "sha256": "4a76d8d809e1c4cf67b81ac4d5ac7c4c407f80bf4b6430c366b5434ccca439c9"
+      },
+      "source_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/2BusinessProcessModell/business_process.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 437,
+        "modified_at": "2026-07-26T07:47:04.306230+02:00",
+        "sha256": "68d046703004a500211bc56f136717d17279da18bd31788a65d73419869d44cf"
+      }
+    },
+    {
+      "scenario_name": "organized_phase1",
+      "model_id": "ActorsResourcesModel",
+      "model_folder": "3ActorsandResourcesModel",
+      "model_display_name": "Actors and Resources Model",
+      "model_type": "Actors and Resources Model",
+      "source_scenario_file": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/3ActorsandResourcesModel/actors_ressources.txt",
+      "source_relative_path": "actors_ressources.txt",
+      "source_stem": "actors_ressources",
+      "adl_model_name": "organized_phase1_ActorsResourcesModel_actors_ressources",
+      "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+      "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl",
+      "status": "OK",
+      "task_id": "model:organized_phase1:ActorsResourcesModel:actors_ressources.txt",
+      "slm_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 206,
+        "modified_at": "2026-08-24T00:21:48.841156+02:00",
+        "sha256": "22b9eabd20c4242f5ea7675bf8e2a7ce424ca1510e5292c3da01195c5cd43d81"
+      },
+      "adl_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 4071,
+        "modified_at": "2026-08-24T00:21:48.876026+02:00",
+        "sha256": "4f583657a9edf365b7b093c002a788607fb376401ae0f263cb1342f2ca57c73c"
+      },
+      "source_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/3ActorsandResourcesModel/actors_ressources.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 361,
+        "modified_at": "2026-07-26T07:47:04.306230+02:00",
+        "sha256": "3df909a3768c916a1f3e75d1001bc126ae11124343c411460c01ad0389f3cce5"
+      }
+    },
+    {
+      "scenario_name": "organized_phase1",
+      "model_id": "ConceptsModel",
+      "model_folder": "4ConceptsModel",
+      "model_display_name": "Concepts Model",
+      "model_type": "Concepts Model",
+      "source_scenario_file": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/4ConceptsModel/concept.txt",
+      "source_relative_path": "concept.txt",
+      "source_stem": "concept",
+      "adl_model_name": "organized_phase1_ConceptsModel_concept",
+      "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/4ConceptsModel/concept.txt",
+      "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/4ConceptsModel/concept.adl",
+      "status": "OK",
+      "task_id": "model:organized_phase1:ConceptsModel:concept.txt",
+      "slm_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/4ConceptsModel/concept.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 486,
+        "modified_at": "2026-08-24T00:23:33.919724+02:00",
+        "sha256": "f6f8ff9d1297f9acd1f373592973b7d8c5457d7402232228c794e032b1eda25d"
+      },
+      "adl_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/4ConceptsModel/concept.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 8775,
+        "modified_at": "2026-08-24T00:23:33.955230+02:00",
+        "sha256": "2e724cd01c555ed2b1f002a8f4c0078fe894633ba2869435761ab07bf062dffe"
+      },
+      "source_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/4ConceptsModel/concept.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 610,
+        "modified_at": "2026-07-26T07:47:04.306230+02:00",
+        "sha256": "665b9fbf242adc8ce045683d7a5b9db51c71ce8ad41c161f9c87a312b857dc4d"
+      }
+    },
+    {
+      "scenario_name": "organized_phase1",
+      "model_id": "TechnicalComponentsRequirementsModel",
+      "model_folder": "6TechnicalComponentsandRequirementsModel",
+      "model_display_name": "Technical Components and Requirements Model",
+      "model_type": "Technical Components and Requirements Model",
+      "source_scenario_file": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+      "source_relative_path": "technical_requirement.txt",
+      "source_stem": "technical_requirement",
+      "adl_model_name": "organized_phase1_TechnicalComponentsRequirementsModel_technical_requirement",
+      "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+      "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/6TechnicalComponentsandRequirementsModel/technical_requirement.adl",
+      "status": "OK",
+      "task_id": "model:organized_phase1:TechnicalComponentsRequirementsModel:technical_requirement.txt",
+      "slm_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 158,
+        "modified_at": "2026-08-24T00:24:23.478714+02:00",
+        "sha256": "4bb4a995e1c43bb989ed4560c7de8f2d39e554f9d33daf1328d692423efa25a1"
+      },
+      "adl_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/6TechnicalComponentsandRequirementsModel/technical_requirement.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 3727,
+        "modified_at": "2026-08-24T00:24:23.513077+02:00",
+        "sha256": "f7d2156b0f8d6ab3bcb1e3391c34f18d3e8d457a42269094c55453bf89f034c7"
+      },
+      "source_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 219,
+        "modified_at": "2026-07-26T07:47:04.306230+02:00",
+        "sha256": "edbb35a94b56ad12574e4bf2e6af724400a0b88e79e7c9bb1e031c894caab77d"
+      }
+    },
+    {
+      "scenario_name": "organized_phase1",
+      "model_id": "ProductServiceModel",
+      "model_folder": "7ProductServiceModel",
+      "model_display_name": "Product / Service Model",
+      "model_type": "Product / Service Model",
+      "source_scenario_file": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/7ProductServiceModel/product.txt",
+      "source_relative_path": "product.txt",
+      "source_stem": "product",
+      "adl_model_name": "organized_phase1_ProductServiceModel_product",
+      "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/7ProductServiceModel/product.txt",
+      "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/7ProductServiceModel/product.adl",
+      "status": "OK",
+      "task_id": "model:organized_phase1:ProductServiceModel:product.txt",
+      "slm_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/slm/7ProductServiceModel/product.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 218,
+        "modified_at": "2026-08-24T00:25:27.199683+02:00",
+        "sha256": "2cebc65180ce2bc1e84260313533f62e75813fd677c75e3d40c6a7a5a0252e5e"
+      },
+      "adl_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/organized_phase1_2026-08-24T00-17-55/output_model_gen/adl/7ProductServiceModel/product.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 3984,
+        "modified_at": "2026-08-24T00:25:27.238436+02:00",
+        "sha256": "b88a1c5d566f48424c8c48cfbd63342b99bc509a460429c341fb3a444c8715fb"
+      },
+      "source_file_info": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase1/7ProductServiceModel/product.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 164,
+        "modified_at": "2026-07-26T07:47:04.306230+02:00",
+        "sha256": "7957a2c4e55377788ff3a1607a039ed00bfc1234df3007deeb8430ee8fbfd05d"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+CONNECTIONS line 6: Connector connection 'Partial-PartOF' must have at least two sources: 'Print Media Department Partial-PartOF MultiHeat'

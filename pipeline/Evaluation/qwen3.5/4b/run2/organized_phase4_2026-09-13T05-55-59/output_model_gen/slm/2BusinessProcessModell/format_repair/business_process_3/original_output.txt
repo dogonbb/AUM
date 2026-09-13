@@ -1,0 +1,22 @@
+ELEMENTS
+External Process customer submits order
+Information Set order specification
+Process check order validity
+Information Set verified order specification
+Process handling of the customer order
+Process check availability of the ordered product
+Process check customer status
+Process check configuration
+Information Set order confirmation
+Process prepare product delivery
+Information Set delivery order
+
+CONNECTIONS
+customer submits order Output order specification
+order specification Input check order validity
+check order validity Output verified order specification
+verified order specification Input handling of the customer order
+handling of the customer order Split (AND) check availability of the ordered product, check customer status, check configuration
+check availability of the ordered product, check customer status, check configuration Join (AND) order confirmation
+order confirmation Output prepare product delivery
+prepare product delivery Output delivery order

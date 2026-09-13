@@ -1,0 +1,8 @@
+Multiple validation errors (7):
+  1. CONNECTIONS line 1: Connection target 'Feature' must not also occur in its source list: 'Feature Partial-ISA Feature'
+  2. CONNECTIONS line 2: Source 'Rejected order specification' is not defined under ELEMENTS.
+  3. CONNECTIONS line 3: Source 'Verified order specification' is not defined under ELEMENTS.
+  4. CONNECTIONS line 4: Source 'Verified order specification' is not defined under ELEMENTS.
+  5. CONNECTIONS line 5: Source 'Delivery order' is not defined under ELEMENTS.
+  6. CONNECTIONS line 7: Source 'Print media products' is not defined under ELEMENTS.
+  7. CONNECTIONS line 8: Source 'Social media activities' is not defined under ELEMENTS.

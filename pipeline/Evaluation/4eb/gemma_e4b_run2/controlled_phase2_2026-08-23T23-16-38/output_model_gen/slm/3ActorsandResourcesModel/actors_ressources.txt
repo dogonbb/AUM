@@ -1,0 +1,13 @@
+ELEMENTS
+Role Product Owner
+Role Product Designer
+Organizational Unit Product Development Department
+Resource Smart-Heat
+Resource Product Innovation Process
+Resource Energy Consumption Minimization
+
+CONNECTIONS
+Product Owner responsible for Product Innovation Process
+Product Owner works in Product Development Department
+Product Designer works in Product Development Department
+Product Designer responsible for Energy Consumption Minimization

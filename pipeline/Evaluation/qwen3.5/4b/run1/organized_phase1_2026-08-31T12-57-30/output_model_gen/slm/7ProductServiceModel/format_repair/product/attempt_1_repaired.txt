@@ -1,0 +1,10 @@
+ELEMENTS
+Product Smart-Heat
+Component Indoor Module
+Component Outdoor Module
+Feature Energy Efficiency
+
+CONNECTIONS
+Indoor Module part_of Smart-Heat
+Outdoor Module part_of Smart-Heat
+Energy Efficiency PartOF (AND) Smart-Heat

@@ -1,0 +1,1 @@
+CONNECTIONS line 9: Disallowed connection pattern in 'Campaign result document has attribute Campaign statistics': Concept has attribute Concept

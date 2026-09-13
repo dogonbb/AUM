@@ -1,0 +1,21 @@
+ELEMENTS
+ElementType Concept Energy-efficiency
+ElementType Concept Energy consumption
+ElementType Concept Energy output
+ElementType Concept Customer survey
+ElementType Concept Feature
+ElementType Concept Target feature
+ElementType Concept Specification document
+ElementType Attribute Functional characteristic
+ElementType Attribute Non-functional characteristic
+ElementType Attribute Unit
+ElementType Attribute Customer expectation
+
+CONNECTIONS
+Energy-efficiency 1:1 Energy consumption
+Energy-efficiency 1:1 Energy output
+Target feature Partial-ISA Feature
+Specification document has attribute Functional characteristic
+Specification document has attribute Non-functional characteristic
+Customer survey has attribute Customer expectation
+Energy consumption has attribute Unit

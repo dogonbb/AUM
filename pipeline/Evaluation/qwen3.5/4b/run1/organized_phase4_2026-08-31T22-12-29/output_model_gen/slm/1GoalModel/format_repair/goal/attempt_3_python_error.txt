@@ -1,0 +1,47 @@
+Multiple validation errors (15):
+  1. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Goal Minimize energy consumption of the heat pump' is not defined under ELEMENTS.
+  2. Target 'Goal Provide most energy-efficient heating solution on the market' is not defined under ELEMENTS.
+  2. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Goal Produce remaining energy with PV module' is not defined under ELEMENTS.
+  2. Target 'Goal Provide most energy-efficient heating solution on the market' is not defined under ELEMENTS.
+  3. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'Goal Provide services supporting high availability' is not defined under ELEMENTS.
+  2. Target 'Goal Provide most energy-efficient heating solution on the market' is not defined under ELEMENTS.
+  4. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Opportunity Early implementation of new European regulation for energy-efficient heating' is not defined under ELEMENTS.
+  2. Target 'Goal Provide most energy-efficient heating solution on the market' is not defined under ELEMENTS.
+  5. CONNECTIONS line 5: Multiple validation errors (2):
+  1. Source 'Opportunity Early implementation of new European regulation for energy-efficient heating' is not defined under ELEMENTS.
+  2. Target 'Goal Provide services supporting high availability' is not defined under ELEMENTS.
+  6. CONNECTIONS line 6: Multiple validation errors (2):
+  1. Source 'Goal Develop new heat extractor with very low energy consumption' is not defined under ELEMENTS.
+  2. Target 'Goal Minimize energy consumption of the heat pump' is not defined under ELEMENTS.
+  7. CONNECTIONS line 7: Multiple validation errors (2):
+  1. Source 'Goal Re-design existing heat extractor by adapting it for a new refrigerant' is not defined under ELEMENTS.
+  2. Target 'Goal Minimize energy consumption of the heat pump' is not defined under ELEMENTS.
+  8. CONNECTIONS line 8: Multiple validation errors (2):
+  1. Source 'Problem Energy consumption of current product version is too high' is not defined under ELEMENTS.
+  2. Target 'Goal Minimize energy consumption of the heat pump' is not defined under ELEMENTS.
+  9. CONNECTIONS line 9: Multiple validation errors (2):
+  1. Source 'Problem Development period available for development is very short' is not defined under ELEMENTS.
+  2. Target 'Goal Develop new heat extractor with very low energy consumption' is not defined under ELEMENTS.
+  10. CONNECTIONS line 10: Multiple validation errors (2):
+  1. Source 'Problem Development period available for development is very short' is not defined under ELEMENTS.
+  2. Target 'Goal Re-design existing heat extractor by adapting it for a new refrigerant' is not defined under ELEMENTS.
+  11. CONNECTIONS line 11: Multiple validation errors (2):
+  1. Source 'Problem New refrigerants are very expensive' is not defined under ELEMENTS.
+  2. Target 'Goal Re-design existing heat extractor by adapting it for a new refrigerant' is not defined under ELEMENTS.
+  12. CONNECTIONS line 12: Multiple validation errors (2):
+  1. Source 'Constraint Maximum energy production of PV module is 50 kWh' is not defined under ELEMENTS.
+  2. Target 'Goal Produce remaining energy with PV module' is not defined under ELEMENTS.
+  13. CONNECTIONS line 13: Multiple validation errors (2):
+  1. Source 'Problem Company lacks experience with online information processing' is not defined under ELEMENTS.
+  2. Target 'Goal Provide services supporting high availability' is not defined under ELEMENTS.
+  14. CONNECTIONS line 14: Multiple validation errors (2):
+  1. Source 'Cause Control unit has to be connected to the Internet' is not defined under ELEMENTS.
+  2. Target 'Problem Company lacks experience with online information processing' is not defined under ELEMENTS.
+  15. CONNECTIONS line 15: Multiple validation errors (3):
+  1. Source 'Goal Develop new heat extractor with very low energy consumption' is not defined under ELEMENTS.
+  2. Source 'Goal Re-design existing heat extractor by adapting it for a new refrigerant' is not defined under ELEMENTS.
+  3. Target 'Goal Minimize energy consumption of the heat pump' is not defined under ELEMENTS.

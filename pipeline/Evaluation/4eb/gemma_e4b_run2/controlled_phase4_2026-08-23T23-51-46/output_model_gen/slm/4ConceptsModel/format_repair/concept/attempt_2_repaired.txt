@@ -1,0 +1,59 @@
+ELEMENTS
+Concept Heat pump
+Concept Order specification
+Concept Rejected order specification
+Concept Verified order specification
+Concept Order confirmation
+Concept Delivery order
+Concept Campaign target document
+Concept Campaign plan
+Concept Campaign statistics
+Concept Campaign result document
+Concept Customer survey
+Concept Specification document
+Concept Design description
+Concept Zero-emission energy production
+Attribute Feature
+Attribute Energy-efficiency
+Attribute Energy consumption (kWh/year)
+Concept Target feature
+Concept Product
+Attribute Energy output for heating
+Attribute Target group
+Attribute Campaign start date
+Attribute Campaign end date
+Attribute Campaign budget
+Attribute Customer name
+Attribute Customer id
+Attribute Order date
+Attribute Desired delivery date
+Attribute List of ordered products
+Attribute Reason for rejection
+Attribute Accepting party
+Attribute Delivery location
+Attribute Delivery time
+Attribute Response rate
+
+CONNECTIONS
+Heat pump has attribute Energy-efficiency
+Heat pump has attribute Energy consumption (kWh/year)
+Heat pump has attribute Feature
+Rejected order specification Total-ISA Order specification
+Verified order specification Total-ISA Order specification
+Order confirmation Total-PartOF Verified order specification
+Order confirmation Total-PartOF Delivery order
+Order specification has attribute Customer name
+Order specification has attribute Customer id
+Order specification has attribute Order date
+Order specification has attribute Desired delivery date
+Order specification has attribute List of ordered products
+Rejected order specification has attribute Reason for rejection
+Verified order specification has attribute Accepting party
+Delivery order has attribute Delivery location
+Delivery order has attribute Delivery time
+Campaign target document has attribute Target group
+Campaign target document has attribute Campaign start date
+Campaign target document has attribute Campaign end date
+Campaign target document has attribute Campaign budget
+Campaign statistics has attribute Response rate
+Heat pump Total-PartOF Feature

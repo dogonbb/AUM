@@ -1,0 +1,105 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         493e68de-816b-40e1-ae92-ff77ee4e5a88
+Status:                         COMPLETED_WITH_ERRORS
+Mode:                           models_only
+Started:                        2026-08-31T15:41:42.938+02:00
+Finished:                       2026-08-31T22:12:29.578+02:00
+Total runtime seconds:          23446.640
+Parameter file:                  /home/dokja/Documents/code/AUM/pipeline/parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:4b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  45050
+Output tokens:                  151055
+Total tokens:                   196105
+Model restarts:                 11
+Format repair attempts:         10
+ADL merger seconds:             0.039
+Intermodel integration seconds: 0.000
+Model statuses:                 {'FAILED_PYTHON': 2, 'OK_AFTER_FORMAT_REPAIR': 5}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: organized_phase3
+----------------------------------------------------------------------------------------------------
+Status:                  COMPLETED_WITH_ERRORS
+Scenario directory:      /home/dokja/Documents/code/AUM/pipeline/scenarios/organized_phase3
+Run directory:           /home/dokja/Documents/code/AUM/pipeline/output/organized_phase3_2026-08-31T15-41-42
+Duration seconds:         23446.637
+Model stage status:       COMPLETED_WITH_ERRORS
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:organized_phase3:GoalModel:goal.txt | status=FAILED_PYTHON | seconds=4671.564 | format_repairs=3
+    attempt=1 reason=python_error seconds=2008.172 prompt_tokens=1262 output_tokens=10423
+      slm_attempt=1 status=REPETITION seed=42 seconds=565.208 restart=yes error=The same thinking block was generated 10 times: '*Wait, check if I need to use AND/OR connectors for P2 hinders G4/G5?* * No, direct connections are fine.'
+      slm_attempt=2 status=REPETITION seed=43 seconds=752.716 restart=yes error=The same thinking block was generated 10 times: '*Wait, checking if I should use "Cause" for the goal.* * No.'
+      slm_attempt=3 status=OK seed=44 seconds=690.046 restart=no
+    FORMAT REPAIR attempt=1 status=FAILED_PYTHON
+      slm_attempt=1 status=OK seed=42 seconds=912.019 restart=no
+    FORMAT REPAIR attempt=2 status=FAILED_PYTHON
+      slm_attempt=1 status=OK seed=42 seconds=875.335 restart=no
+    FORMAT REPAIR attempt=3 status=FAILED_PYTHON
+      slm_attempt=1 status=OK seed=42 seconds=875.912 restart=no
+  MODEL model:organized_phase3:BusinessProcessModel:business_process_1.txt | status=FAILED_PYTHON | seconds=4849.396 | format_repairs=1
+    attempt=1 reason=python_error seconds=316.311 prompt_tokens=1328 output_tokens=5348
+      slm_attempt=1 status=OK seed=42 seconds=316.272 restart=no
+    FORMAT REPAIR attempt=1 status=FAILED_SLM
+      slm_attempt=1 status=REPETITION seed=42 seconds=883.661 restart=yes error=The same thinking block was generated 10 times: '* Wait, I need to check if there are any other constraints on the OUTPUT FORMAT regarding the headers. "Do not include element types in `CONNECTIONS`." Yes.'
+      slm_attempt=2 status=REPETITION seed=43 seconds=738.024 restart=yes error=The same thinking block was generated 10 times: '* Wait, I found a key instruction: `Replace every placeholder in angle brackets with an actual existing name; do not output the angle brackets themselves. Repla'
+      slm_attempt=3 status=REPETITION seed=44 seconds=1396.574 restart=yes error=The same thinking block was generated 10 times: "* Wait, I'll check if there's any chance I need to change `ElementType Process Target Setting` to `ElementType Process TargetSetting`? No. * Okay, I'll output t"
+      slm_attempt=4 status=REPETITION seed=45 seconds=1514.616 restart=no error=The same thinking block was generated 10 times: '* **Wait, checking "Output format" section:** * It shows `<element name> relation <element name>`. * This implies names should be used directly. * If ELEMENTS i'
+  MODEL model:organized_phase3:BusinessProcessModel:business_process_2.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=2084.738 | format_repairs=1
+    attempt=1 reason=python_error seconds=1437.174 prompt_tokens=1312 output_tokens=12116
+      slm_attempt=1 status=REPETITION seed=42 seconds=625.814 restart=yes error=The same thinking block was generated 10 times: "* Wait, I need to check if I should use `Marketing Campaign Process` as the root element that connects the steps? * If I don't include it, is it okay? Yes. * Bu"
+      slm_attempt=2 status=OK seed=43 seconds=811.229 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=647.518 restart=no
+  MODEL model:organized_phase3:ActorsResourcesModel:actors_ressources.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=5114.627 | format_repairs=2
+    attempt=1 reason=python_error seconds=511.531 prompt_tokens=2048 output_tokens=7822
+      slm_attempt=1 status=OK seed=42 seconds=511.490 restart=no
+    FORMAT REPAIR attempt=1 status=FAILED_PYTHON
+      slm_attempt=1 status=REPETITION seed=42 seconds=660.568 restart=yes error=The same thinking block was generated 10 times: '* **Wait, one more check on CONNECTIONS:** * Are there any semantic errors to fix? * The prompt says "Correct every reported semantic validation error...". * Th'
+      slm_attempt=2 status=REPETITION seed=43 seconds=645.197 restart=yes error=The same thinking block was generated 10 times: 'Okay, I will try to infer the correct format from the error message. The error says "Unknown element type". If I change `ElementType Individual: Employee` to `E'
+      slm_attempt=3 status=TIMEOUT seed=44 seconds=1800.004 restart=yes error=The SLM request exceeded the configured total limit of 1800.00 seconds.
+      slm_attempt=4 status=OK seed=45 seconds=1115.629 restart=no
+    FORMAT REPAIR attempt=2 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=381.347 restart=no
+  MODEL model:organized_phase3:ConceptsModel:concept.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=3289.330 | format_repairs=1
+    attempt=1 reason=python_error seconds=1050.998 prompt_tokens=1598 output_tokens=13176
+      slm_attempt=1 status=OK seed=42 seconds=1050.954 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=TIMEOUT seed=42 seconds=1800.004 restart=yes error=The SLM request exceeded the configured total limit of 1800.00 seconds.
+      slm_attempt=2 status=OK seed=43 seconds=438.187 restart=no
+  MODEL model:organized_phase3:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=2002.956 | format_repairs=1
+    attempt=1 reason=python_error seconds=1343.709 prompt_tokens=2012 output_tokens=8737
+      slm_attempt=1 status=REPETITION seed=42 seconds=705.451 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check Rule 19:** "Create at most one connection between any two elements." * Ensure no duplicates.'
+      slm_attempt=2 status=OK seed=43 seconds=638.133 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=659.203 restart=no
+  MODEL model:organized_phase3:ProductServiceModel:product.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=1433.983 | format_repairs=1
+    attempt=1 reason=python_error seconds=856.218 prompt_tokens=1397 output_tokens=11503
+      slm_attempt=1 status=OK seed=42 seconds=856.167 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=577.717 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

@@ -1,0 +1,4 @@
+Multiple validation errors (3):
+  1. CONNECTIONS line 1: Disallowed connection pattern in 'I works in product development department': Individual works in Organizational Unit
+  2. CONNECTIONS line 4: Disallowed connection pattern in 'I responsible for product innovation process': Individual responsible for Resource
+  3. CONNECTIONS line 5: Disallowed connection pattern in 'Colleague works in product development department': Individual works in Organizational Unit

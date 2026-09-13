@@ -1,0 +1,1 @@
+CONNECTIONS line 1: Target 'supports Provide most energy-efficient heating solution' is not defined under ELEMENTS.

@@ -1,0 +1,1 @@
+CONNECTIONS line 2: Disallowed connection pattern in 'Employee works in Product Development Department': Individual works in Organizational Unit

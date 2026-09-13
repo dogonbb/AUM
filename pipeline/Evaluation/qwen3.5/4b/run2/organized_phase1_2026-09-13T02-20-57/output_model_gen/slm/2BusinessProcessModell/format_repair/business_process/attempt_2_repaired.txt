@@ -1,0 +1,12 @@
+ELEMENTS
+ElementType Process target setting
+ElementType Process product specification
+ElementType Information Set customer survey
+ElementType Information Set list of target features
+ElementType Information Set specification document
+
+CONNECTIONS
+customer survey Input target setting
+target setting Output list of target features
+list of target features Input product specification
+product specification Output specification document

@@ -1,0 +1,8 @@
+ELEMENTS
+Role product owner
+Resource heat pump Smart-Heat
+Organizational Unit product development department
+
+CONNECTIONS
+product owner works in product development department
+product owner responsible for heat pump Smart-Heat

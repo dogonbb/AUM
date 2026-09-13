@@ -1,0 +1,5 @@
+Multiple validation errors (4):
+  1. CONNECTIONS line 1: Disallowed connection pattern in 'Speaker works in Product Development Department': Individual works in Organizational Unit
+  2. CONNECTIONS line 3: Disallowed connection pattern in 'Speaker responsible for Smart-Heat': Individual responsible for Resource
+  3. CONNECTIONS line 4: Disallowed connection pattern in 'Colleague works in Product Development Department': Individual works in Organizational Unit
+  4. CONNECTIONS line 6: Disallowed connection pattern in 'Colleague responsible for Heat Pump': Individual responsible for Resource

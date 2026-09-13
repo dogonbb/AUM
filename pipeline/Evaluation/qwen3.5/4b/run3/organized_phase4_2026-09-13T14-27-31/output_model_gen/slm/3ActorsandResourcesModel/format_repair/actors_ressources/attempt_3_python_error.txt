@@ -1,0 +1,83 @@
+Multiple validation errors (28):
+  1. Duplicate element names found: Content Specialist, General Manager, Operator, Print Designer, Product Designer, Product Owner, Social Media Designer
+  2. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Individual Product Owner' is not defined under ELEMENTS.
+  2. Target 'Role Product Owner' is not defined under ELEMENTS.
+  3. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Role Product Owner' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Product Development Department' is not defined under ELEMENTS.
+  4. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'Role Product Owner' is not defined under ELEMENTS.
+  2. Target 'Resource Smart-Heat Product' is not defined under ELEMENTS.
+  5. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Individual Product Designer' is not defined under ELEMENTS.
+  2. Target 'Role Product Designer' is not defined under ELEMENTS.
+  6. CONNECTIONS line 5: Multiple validation errors (2):
+  1. Source 'Role Product Designer' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Product Development Department' is not defined under ELEMENTS.
+  7. CONNECTIONS line 6: Multiple validation errors (2):
+  1. Source 'Role Product Designer' is not defined under ELEMENTS.
+  2. Target 'Resource Heat Pump' is not defined under ELEMENTS.
+  8. CONNECTIONS line 7: Multiple validation errors (2):
+  1. Source 'Organizational Unit Social Media Group' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Marketing Department' is not defined under ELEMENTS.
+  9. CONNECTIONS line 8: Multiple validation errors (2):
+  1. Source 'Organizational Unit Print Media Group' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Marketing Department' is not defined under ELEMENTS.
+  10. CONNECTIONS line 9: Multiple validation errors (2):
+  1. Source 'Resource Printing Press' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Print Media Group' is not defined under ELEMENTS.
+  11. CONNECTIONS line 10: Multiple validation errors (2):
+  1. Source 'Individual Print Designer' is not defined under ELEMENTS.
+  2. Target 'Role Print Designer' is not defined under ELEMENTS.
+  12. CONNECTIONS line 11: Multiple validation errors (2):
+  1. Source 'Role Print Designer' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Print Media Group' is not defined under ELEMENTS.
+  13. CONNECTIONS line 12: Multiple validation errors (2):
+  1. Source 'Individual Social Media Designer' is not defined under ELEMENTS.
+  2. Target 'Role Social Media Designer' is not defined under ELEMENTS.
+  14. CONNECTIONS line 13: Multiple validation errors (2):
+  1. Source 'Role Social Media Designer' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Social Media Group' is not defined under ELEMENTS.
+  15. CONNECTIONS line 14: Multiple validation errors (2):
+  1. Source 'Individual Operator' is not defined under ELEMENTS.
+  2. Target 'Role Operator' is not defined under ELEMENTS.
+  16. CONNECTIONS line 15: Multiple validation errors (2):
+  1. Source 'Role Operator' is not defined under ELEMENTS.
+  2. Target 'Resource Printing Press' is not defined under ELEMENTS.
+  17. CONNECTIONS line 16: Multiple validation errors (2):
+  1. Source 'Individual Content Specialist' is not defined under ELEMENTS.
+  2. Target 'Role Content Specialist' is not defined under ELEMENTS.
+  18. CONNECTIONS line 17: Multiple validation errors (2):
+  1. Source 'Role Content Specialist' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Social Media Group' is not defined under ELEMENTS.
+  19. CONNECTIONS line 18: Multiple validation errors (2):
+  1. Source 'Individual General Manager' is not defined under ELEMENTS.
+  2. Target 'Role General Manager' is not defined under ELEMENTS.
+  20. CONNECTIONS line 19: Multiple validation errors (2):
+  1. Source 'Role General Manager' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Product Development Department' is not defined under ELEMENTS.
+  21. CONNECTIONS line 20: Multiple validation errors (2):
+  1. Source 'Role General Manager' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Marketing Department' is not defined under ELEMENTS.
+  22. CONNECTIONS line 21: Multiple validation errors (2):
+  1. Source 'Role General Manager' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Social Media Group' is not defined under ELEMENTS.
+  23. CONNECTIONS line 22: Multiple validation errors (2):
+  1. Source 'Role General Manager' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit Print Media Group' is not defined under ELEMENTS.
+  24. CONNECTIONS line 23: Multiple validation errors (2):
+  1. Source 'Role General Manager' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit MultiHeat' is not defined under ELEMENTS.
+  25. CONNECTIONS line 24: Multiple validation errors (2):
+  1. Source 'Organizational Unit Product Development Department' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit MultiHeat' is not defined under ELEMENTS.
+  26. CONNECTIONS line 25: Multiple validation errors (2):
+  1. Source 'Organizational Unit Marketing Department' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit MultiHeat' is not defined under ELEMENTS.
+  27. CONNECTIONS line 26: Multiple validation errors (2):
+  1. Source 'Organizational Unit Social Media Group' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit MultiHeat' is not defined under ELEMENTS.
+  28. CONNECTIONS line 27: Multiple validation errors (2):
+  1. Source 'Organizational Unit Print Media Group' is not defined under ELEMENTS.
+  2. Target 'Organizational Unit MultiHeat' is not defined under ELEMENTS.

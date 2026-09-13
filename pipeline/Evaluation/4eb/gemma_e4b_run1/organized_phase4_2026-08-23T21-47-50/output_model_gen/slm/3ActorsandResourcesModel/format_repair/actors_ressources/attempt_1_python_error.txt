@@ -1,0 +1,7 @@
+Multiple validation errors (6):
+  1. CONNECTIONS line 2: Disallowed connection pattern in 'Product Owner Individual works in Product Development Department': Individual works in Organizational Unit
+  2. CONNECTIONS line 3: Disallowed connection pattern in 'Product Owner Individual responsible for Smart-Heat': Individual responsible for Resource
+  3. CONNECTIONS line 5: Disallowed connection pattern in 'Product Designer Individual works in Product Development Department': Individual works in Organizational Unit
+  4. CONNECTIONS line 13: Disallowed connection pattern in 'General Manager responsible for Marketing Department': Role responsible for Organizational Unit
+  5. CONNECTIONS line 14: Disallowed connection pattern in 'Product Owner supplies Smart-Heat': Role supplies Resource
+  6. CONNECTIONS line 15: Disallowed connection pattern in 'Product Designer supplies Heat Pump': Role supplies Resource

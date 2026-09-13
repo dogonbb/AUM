@@ -1,0 +1,1 @@
+CONNECTIONS line 6: Target 'Develop a new heat extractor with very low energy consumption, Re-design the existing heat extractor by adapting it for a new refrigerant OR Minimize the energy consumption of the heat pump' is not defined under ELEMENTS.

@@ -1,0 +1,1 @@
+CONNECTIONS line 5: Disallowed connection pattern in 'Energy consumption has attribute kWh': Attribute has attribute Attribute

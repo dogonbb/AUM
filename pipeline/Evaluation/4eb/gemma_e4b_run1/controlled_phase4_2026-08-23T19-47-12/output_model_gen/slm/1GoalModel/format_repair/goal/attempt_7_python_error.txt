@@ -1,0 +1,1 @@
+CONNECTIONS line 5: Target 'supports Minimize heat pump energy consumption' is not defined under ELEMENTS.

@@ -1,0 +1,14 @@
+ELEMENTS
+Process Target Setting
+Process Define Product Specification
+Process Product Innovation Process
+Information Set Customer Survey
+Information Set List of Target Features
+Information Set Specification Document
+
+CONNECTIONS
+Product Innovation Process relation Target Setting
+Target Setting Output List of Target Features
+Customer Survey Input Target Setting
+List of Target Features Input Define Product Specification
+Define Product Specification Output Specification Document

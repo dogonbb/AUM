@@ -1,0 +1,28 @@
+ELEMENTS
+Information System Goal Support Product Innovation Process
+Technical Component Production System
+Technical Component Version Management System
+Technical Component Database System
+Technical Component Transaction Middleware
+Technical Component User Interface Component
+Information System Goal Support Marketing Campaign Process
+Technical Component Social Media Studio
+Technical Component SM Authoring System
+Technical Component SM Life System
+Technical Component SM Repository
+Information System Goal Support Handle Customer Order Process
+Technical Component Product Planning System
+Technical Component Enterprise Resource Planning System
+Technical Component Distributed Database
+
+CONNECTIONS
+Version Management System supports Production System
+Database System, Transaction Middleware, User Interface Component Total-PartOF Production System
+Support Product Innovation Process has requirement Production System
+Support Product Innovation Process has requirement Version Management System
+SM Authoring System, SM Life System, SM Repository Total-PartOF Social Media Studio
+Support Marketing Campaign Process has requirement Social Media Studio
+Distributed Database supports Product Planning System
+Distributed Database supports Enterprise Resource Planning System
+Support Handle Customer Order Process has requirement Product Planning System
+Support Handle Customer Order Process has requirement Enterprise Resource Planning System

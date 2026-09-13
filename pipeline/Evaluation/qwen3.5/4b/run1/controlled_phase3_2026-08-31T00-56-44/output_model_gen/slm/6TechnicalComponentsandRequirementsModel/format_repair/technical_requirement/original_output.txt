@@ -1,0 +1,20 @@
+ELEMENTS
+Information System Goal: Support Product Innovation
+Information System Goal: Support Marketing Campaign
+Technical Component: Production System
+Technical Component: Version Management System
+Technical Component: Database System
+Technical Component: Transaction Middleware
+Technical Component: User Interface Component
+Technical Component: Social Media Studio
+Technical Component: SM Authoring System
+Technical Component: SM Life System
+Technical Component: SM Repository
+
+CONNECTIONS
+Production System, Database System, Transaction Middleware, User Interface Component Total-PartOF Production System
+Social Media Studio, SM Authoring System, SM Life System, SM Repository Total-PartOF Social Media Studio
+Version Management System supports Production System
+Production System has goal Support Product Innovation
+Version Management System has goal Support Product Innovation
+Social Media Studio has goal Support Marketing Campaign

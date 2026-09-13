@@ -1,0 +1,22 @@
+ELEMENTS
+Individual Narrator
+Individual Colleague
+Role Product Owner
+Role Product Designer
+Resource Smart-Heat product
+Resource Heat pump
+Resource Printing press
+Organizational Unit Product Development Department
+Organizational Unit Marketing Department
+Organizational Unit Social Media Group
+Organizational Unit Print Media Group
+
+CONNECTIONS
+Narrator plays Product Owner
+Product Owner works in Product Development Department
+Product Owner responsible for Smart-Heat product
+Colleague plays Product Designer
+Product Designer works in Product Development Department
+Product Designer responsible for Heat pump
+Social Media Group, Print Media Group Partial-PartOF Marketing Department
+Printing press belongs to Print Media Group

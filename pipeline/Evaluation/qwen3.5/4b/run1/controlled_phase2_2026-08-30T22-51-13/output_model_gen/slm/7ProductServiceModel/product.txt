@@ -1,0 +1,16 @@
+ELEMENTS
+Product Smart-Heat
+Component Indoor Module
+Component Outdoor Module
+Component Photovoltaic Module
+Component Outdoor Air Exchange Unit
+Feature Energy Efficient
+Feature Zero-Emission Energy Production
+
+CONNECTIONS
+Indoor Module part_of Smart-Heat
+Outdoor Module part_of Smart-Heat
+Photovoltaic Module PartOF (AND) Outdoor Module
+Outdoor Air Exchange Unit PartOF (AND) Outdoor Module
+Energy Efficient requires Smart-Heat
+Zero-Emission Energy Production requires Photovoltaic Module

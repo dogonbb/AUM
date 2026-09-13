@@ -1,0 +1,16 @@
+ELEMENTS
+Process TargetSetting
+Information Set CustomerSurvey
+Information Set TargetFeatureList
+Process DefineProductSpecification
+Information Set SpecificationDocument
+Process ProductDesign
+Information Set DesignDescription
+
+CONNECTIONS
+CustomerSurvey Input TargetSetting
+TargetSetting Output TargetFeatureList
+TargetFeatureList Input DefineProductSpecification
+DefineProductSpecification Output SpecificationDocument
+SpecificationDocument Input ProductDesign
+ProductDesign Output DesignDescription

@@ -1,0 +1,3524 @@
+{
+  "run_id": "5136f1c6-6db0-49ff-b97b-fd7abb056de3",
+  "status": "OK",
+  "mode": "models_only",
+  "started_at": "2026-08-23T19:02:47.685+02:00",
+  "parameter_file": {
+    "path": "/home/dokja/Documents/code/AUM/pipeline/parameter.json",
+    "exists": true,
+    "is_file": true,
+    "is_directory": false,
+    "size_bytes": 13896,
+    "modified_at": "2026-08-23T17:33:01.036316+02:00",
+    "sha256": "aa7ef1f5330fcc66be7735bfc1c3276b06f6f04e3c626822256e1673071376e3"
+  },
+  "configuration": {
+    "execution": {
+      "mode": "models_only",
+      "overwrite": false,
+      "continue_after_failure": true,
+      "selected_scenario": "controlled_phase3"
+    },
+    "slm": {
+      "provider": "ollama",
+      "base_url": "http://localhost:11434",
+      "model": "gemma4:e4b",
+      "thinking": true,
+      "timeout_seconds": 3600,
+      "keep_alive": "5m",
+      "options": {
+        "temperature": 0.2,
+        "num_ctx": 131072,
+        "top_p": 0.9,
+        "seed": 42,
+        "num_predict": 131072
+      }
+    },
+    "retry": {
+      "max_restart": 3
+    },
+    "format_repair": {
+      "enabled": true,
+      "max_attempts": 10,
+      "general_prompt_path": "prompts/format_repair/general_repair_prompt.txt"
+    },
+    "paths": {
+      "scenarios_root": "scenarios",
+      "output_root": "output",
+      "scenario_run_directory_template": "{scenario_name}_{timestamp}",
+      "timestamp_format": "%Y-%m-%dT%H-%M-%S",
+      "model_slm_directory": "output_model_gen/slm",
+      "model_adl_directory": "output_model_gen/adl",
+      "artifact_manifest_file": "output_model_gen/artifacts.json",
+      "merged_adl_file": "output_model_gen/{scenario_name}_models.adl",
+      "intermodel_slm_directory": "output_intermodel/slm",
+      "intermodel_aggregate_slm_file": "output_intermodel/intermodel_relations.txt",
+      "final_adl_file": "output_intermodel/{scenario_name}_with_intermodel_relations.adl",
+      "report_directory": "output/runtime_reports",
+      "report_json_filename": "pipeline_{timestamp}.json",
+      "report_text_filename": "pipeline_{timestamp}.txt",
+      "event_log_filename": "pipeline_{timestamp}.jsonl"
+    },
+    "files": {
+      "scenario_extensions": [
+        ".txt"
+      ]
+    },
+    "prompts": {
+      "intermodel_template": "prompts/inter_model_generation/inter_model_connections_descriptions/inter_model_gen_connections_template.txt"
+    },
+    "tools": {
+      "python_executable": "",
+      "default_python_timeout_seconds": 600,
+      "slm_restart": {
+        "enabled": true,
+        "cwd": ".",
+        "timeout_seconds": 120,
+        "command": [
+          "{python}",
+          "scripts/restart_ollama_model.py",
+          "--model",
+          "{model}",
+          "--base-url",
+          "{base_url}"
+        ]
+      },
+      "adl_merger": {
+        "path": "scripts/adl_model_merger.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{merger_path}",
+          "{input_files}",
+          "--output",
+          "{output_adl}"
+        ]
+      },
+      "intermodel_integrator": {
+        "path": "scripts/add_intermodel_relations_slm.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{integrator_path}",
+          "{input_adl}",
+          "{relations_slm}",
+          "--output",
+          "{output_adl}",
+          "--overwrite"
+        ]
+      }
+    },
+    "models": [
+      {
+        "id": "GoalModel",
+        "enabled": true,
+        "scenario_folder": "1GoalModel",
+        "display_name": "Goal Model",
+        "model_type": "Goal Model",
+        "prompt_path": "prompts/model_generation/Prompt_GoalModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_GoalModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_GoalModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_GoalModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      },
+      {
+        "id": "BusinessProcessModel",
+        "enabled": true,
+        "scenario_folder": "2BusinessProcessModell",
+        "display_name": "Business Process Model",
+        "model_type": "Business Process Model",
+        "prompt_path": "prompts/model_generation/Prompt_BusinessProcessModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_BusinessProcessModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_BusinessProcessModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_BusinessProcessModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      },
+      {
+        "id": "ActorsResourcesModel",
+        "enabled": true,
+        "scenario_folder": "3ActorsandResourcesModel",
+        "display_name": "Actors and Resources Model",
+        "model_type": "Actors and Resources Model",
+        "prompt_path": "prompts/model_generation/Prompt_ActorsResourcesModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_ActorsResourcesModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_ActorsResourcesModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      },
+      {
+        "id": "ConceptsModel",
+        "enabled": true,
+        "scenario_folder": "4ConceptsModel",
+        "display_name": "Concepts Model",
+        "model_type": "Concepts Model",
+        "prompt_path": "prompts/model_generation/Prompt_ConceptModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_ConceptModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_ConceptModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_ConceptModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      },
+      {
+        "id": "TechnicalComponentsRequirementsModel",
+        "enabled": true,
+        "scenario_folder": "6TechnicalComponentsandRequirementsModel",
+        "display_name": "Technical Components and Requirements Model",
+        "model_type": "Technical Components and Requirements Model",
+        "prompt_path": "prompts/model_generation/Prompt_TechnicalComponentsandRequirementsModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_TechnicalComponentsandRequirementsModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_TechnicalComponentsRequirementsModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_TechnicalComponentsandRequirementsModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      },
+      {
+        "id": "ProductServiceModel",
+        "enabled": true,
+        "scenario_folder": "7ProductServiceModel",
+        "display_name": "Product / Service Model",
+        "model_type": "Product / Service Model",
+        "prompt_path": "prompts/model_generation/Prompt_ProductServiceModel.txt",
+        "description_path": "prompts/inter_model_generation/model_description/Description_ProductServiceModel.txt",
+        "format_prompt_path": "prompts/format_repair/Format_ProductServiceModel.txt",
+        "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+        "slm_filename_template": "{source_stem}.txt",
+        "adl_filename_template": "{source_stem}.adl",
+        "converter": {
+          "path": "scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py",
+          "cwd": ".",
+          "timeout_seconds": 600,
+          "command": [
+            "{python}",
+            "{converter_path}",
+            "{input_slm}",
+            "{output_adl}",
+            "--model-name",
+            "{adl_model_name}"
+          ]
+        }
+      }
+    ],
+    "intermodel": {
+      "enabled": true,
+      "format_prompt_path": "prompts/format_repair/Format_IntermodelRelationships.txt",
+      "output_filename_template": "intermodel_{source_adl_model_name}__{target_adl_model_name}.txt",
+      "no_relationship_marker": "NO_INTERMODEL_RELATIONSHIPS",
+      "pairs": [
+        [
+          "GoalModel",
+          "ConceptsModel"
+        ],
+        [
+          "GoalModel",
+          "BusinessProcessModel"
+        ],
+        [
+          "GoalModel",
+          "TechnicalComponentsRequirementsModel"
+        ],
+        [
+          "GoalModel",
+          "ProductServiceModel"
+        ],
+        [
+          "ActorsResourcesModel",
+          "GoalModel"
+        ],
+        [
+          "ActorsResourcesModel",
+          "BusinessProcessModel"
+        ],
+        [
+          "ActorsResourcesModel",
+          "TechnicalComponentsRequirementsModel"
+        ],
+        [
+          "ActorsResourcesModel",
+          "ProductServiceModel"
+        ],
+        [
+          "BusinessProcessModel",
+          "ConceptsModel"
+        ],
+        [
+          "BusinessProcessModel",
+          "TechnicalComponentsRequirementsModel"
+        ],
+        [
+          "TechnicalComponentsRequirementsModel",
+          "ConceptsModel"
+        ],
+        [
+          "ProductServiceModel",
+          "ConceptsModel"
+        ],
+        [
+          "ProductServiceModel",
+          "BusinessProcessModel"
+        ],
+        [
+          "ProductServiceModel",
+          "TechnicalComponentsRequirementsModel"
+        ]
+      ]
+    },
+    "intermodel_only": {
+      "jobs": [
+        {
+          "enabled": true,
+          "scenario_name": "controlled_phase1",
+          "scenario_directory": "scenarios/controlled_phase1",
+          "artifact_manifest": "output/controlled_phase1_run/output_model_gen/artifacts.json",
+          "input_adl": "output/controlled_phase1_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/controlled_phase1_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "controlled_phase2",
+          "scenario_directory": "scenarios/controlled_phase2",
+          "artifact_manifest": "output/controlled_phase2_run/output_model_gen/artifacts.json",
+          "input_adl": "output/controlled_phase2_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/controlled_phase2_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "controlled_phase3",
+          "scenario_directory": "scenarios/controlled_phase3",
+          "artifact_manifest": "output/controlled_phase3_run/output_model_gen/artifacts.json",
+          "input_adl": "output/controlled_phase3_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/controlled_phase3_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "controlled_phase4",
+          "scenario_directory": "scenarios/controlled_phase4",
+          "artifact_manifest": "output/controlled_phase4_run/output_model_gen/artifacts.json",
+          "input_adl": "output/controlled_phase4_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/controlled_phase4_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "organized_phase1",
+          "scenario_directory": "scenarios/organized_phase1",
+          "artifact_manifest": "output/organized_phase1_run/output_model_gen/artifacts.json",
+          "input_adl": "output/organized_phase1_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/organized_phase1_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "organized_phase2",
+          "scenario_directory": "scenarios/organized_phase2",
+          "artifact_manifest": "output/organized_phase2_run/output_model_gen/artifacts.json",
+          "input_adl": "output/organized_phase2_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/organized_phase2_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "organized_phase3",
+          "scenario_directory": "scenarios/organized_phase3",
+          "artifact_manifest": "output/organized_phase3_run/output_model_gen/artifacts.json",
+          "input_adl": "output/organized_phase3_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/organized_phase3_run"
+        },
+        {
+          "enabled": true,
+          "scenario_name": "organized_phase4",
+          "scenario_directory": "scenarios/organized_phase4",
+          "artifact_manifest": "output/organized_phase4_run/output_model_gen/artifacts.json",
+          "input_adl": "output/organized_phase4_run/output_model_gen/complete_adl_file_here.adl",
+          "output_run_directory": "output/organized_phase4_run"
+        }
+      ]
+    },
+    "report": {
+      "include_prompt_text": false,
+      "include_slm_output_text": false,
+      "include_command_output": true
+    },
+    "visualization": {
+      "enabled": "on",
+      "script_path": "scripts/visualize_runtime_report.py",
+      "filename": "pipeline_{timestamp}_visualization.html",
+      "timeout_seconds": 120
+    }
+  },
+  "system": {
+    "hostname": "cachyos-x8664",
+    "platform": "Linux",
+    "platform_release": "7.2.0-1-cachyos",
+    "platform_version": "#1 SMP PREEMPT_DYNAMIC Thu, 20 Aug 2026 16:18:38 +0000",
+    "machine": "x86_64",
+    "processor": "",
+    "python_version": "3.14.7",
+    "python_executable": "/usr/bin/python3",
+    "working_directory": "/home/dokja/Documents/code/AUM/pipeline",
+    "cpu_count": 20,
+    "process_id": 48124
+  },
+  "scenarios": [
+    {
+      "scenario_name": "controlled_phase3",
+      "scenario_directory": "/home/dokja/Documents/code/AUM/pipeline/scenarios/controlled_phase3",
+      "run_directory": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47",
+      "started_at": "2026-08-23T19:02:47.687+02:00",
+      "model_generation": {
+        "status": "OK",
+        "unknown_scenario_model_folders": [],
+        "tasks": [
+          {
+            "task_id": "model:controlled_phase3:GoalModel:goal.txt",
+            "scenario": "controlled_phase3",
+            "model_id": "GoalModel",
+            "model_folder": "1GoalModel",
+            "source_file": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/controlled_phase3/1GoalModel/goal.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 1173,
+              "modified_at": "2026-07-26T07:47:04.305977+02:00",
+              "sha256": "222ad80d5c3f17231b859005d205c64857b1a3d273a48ebf09cec27fd4b14249"
+            },
+            "source_relative_path": "goal.txt",
+            "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+            "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl",
+            "adl_model_name": "controlled_phase3_GoalModel_goal",
+            "started_at": "2026-08-23T19:02:47.687+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-08-23T19:02:47.687+02:00",
+                "failure_reason": "python_error",
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:02:47.687+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:02:47.690+02:00",
+                      "finished_at": "2026-08-23T19:04:28.716+02:00",
+                      "wall_seconds": 101.02645149000091,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 5681,
+                          "utf8_bytes": 5683,
+                          "sha256": "4d1b7f95f0abdfb7c6fd531ee5772b6098fcd41b61de1c837e90e4eb59bdf559"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:04:28.69616191Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 100939390167,
+                        "load_duration": 476101,
+                        "prompt_eval_count": 1354,
+                        "prompt_eval_duration": 13350534000,
+                        "eval_count": 1537,
+                        "eval_duration": 87549988000,
+                        "answer_characters": 1062,
+                        "answer_utf8_bytes": 1062,
+                        "answer_sha256": "8f6f5a747e87158fbba07af6bc1cbc38722ee9c980024bcea9f4707e3d82c0d0",
+                        "thinking_characters": 5714,
+                        "output_tokens_per_second": 17.5556848734234
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:04:28.716+02:00",
+                    "duration_seconds": 101.02874102400165
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-08-23T19:02:47.690+02:00",
+                  "finished_at": "2026-08-23T19:04:28.716+02:00",
+                  "wall_seconds": 101.02645149000091,
+                  "request": {
+                    "model": "gemma4:e4b",
+                    "prompt": {
+                      "characters": 5681,
+                      "utf8_bytes": 5683,
+                      "sha256": "4d1b7f95f0abdfb7c6fd531ee5772b6098fcd41b61de1c837e90e4eb59bdf559"
+                    },
+                    "stream": false,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "gemma4:e4b",
+                    "created_at": "2026-08-23T17:04:28.69616191Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 100939390167,
+                    "load_duration": 476101,
+                    "prompt_eval_count": 1354,
+                    "prompt_eval_duration": 13350534000,
+                    "eval_count": 1537,
+                    "eval_duration": 87549988000,
+                    "answer_characters": 1062,
+                    "answer_utf8_bytes": 1062,
+                    "answer_sha256": "8f6f5a747e87158fbba07af6bc1cbc38722ee9c980024bcea9f4707e3d82c0d0",
+                    "thinking_characters": 5714,
+                    "output_tokens_per_second": 17.5556848734234
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1062,
+                  "modified_at": "2026-08-23T19:04:28.716779+02:00",
+                  "sha256": "8f6f5a747e87158fbba07af6bc1cbc38722ee9c980024bcea9f4707e3d82c0d0"
+                },
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl",
+                    "--model-name",
+                    "controlled_phase3_GoalModel_goal"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:04:28.717+02:00",
+                  "finished_at": "2026-08-23T19:04:28.755+02:00",
+                  "duration_seconds": 0.03881425900181057,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1033, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1024, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 230, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (2):\n  1. CONNECTIONS line 2: Target 'Minimize heat pump energy consumption AND Produce remaining energy with PV module' is not defined under ELEMENTS.\n  2. CONNECTIONS line 3: Target 'Develop new low energy heat extractor OR Re-design heat extractor for new refrigerant' is not defined under ELEMENTS.\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 1117
+                },
+                "error_message": "The SLM-to-ADL converter failed.",
+                "finished_at": "2026-08-23T19:04:28.755+02:00",
+                "duration_seconds": 101.0680169169973
+              }
+            ],
+            "format_repairs": [
+              {
+                "attempt_number": 1,
+                "status": "FAILED_PYTHON",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1062,
+                  "modified_at": "2026-08-23T19:04:28.716779+02:00",
+                  "sha256": "8f6f5a747e87158fbba07af6bc1cbc38722ee9c980024bcea9f4707e3d82c0d0"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1062,
+                  "modified_at": "2026-08-23T19:04:28.756332+02:00",
+                  "sha256": "8f6f5a747e87158fbba07af6bc1cbc38722ee9c980024bcea9f4707e3d82c0d0"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_1_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 329,
+                  "modified_at": "2026-08-23T19:04:28.756391+02:00",
+                  "sha256": "d484213f6d8e2514504c06a79e1acc8dc8f916903b9d0bada85d549d02c630d2"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_1_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 12555,
+                  "modified_at": "2026-08-23T19:04:28.756485+02:00",
+                  "sha256": "5364017148f945dd58166071c87f91e91ed078083dcc752390d1cfb585f252fb"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_1_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1055,
+                  "modified_at": "2026-08-23T19:06:54.271942+02:00",
+                  "sha256": "e1fd323244ca73ca421c803187430234117b926ed1a90476f36eb1538ff55d2e"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:04:28.756+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:04:28.756+02:00",
+                      "finished_at": "2026-08-23T19:06:54.271+02:00",
+                      "wall_seconds": 145.51498121700206,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 12553,
+                          "utf8_bytes": 12555,
+                          "sha256": "5364017148f945dd58166071c87f91e91ed078083dcc752390d1cfb585f252fb"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:06:54.243923818Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 145412635311,
+                        "load_duration": 724109,
+                        "prompt_eval_count": 2776,
+                        "prompt_eval_duration": 27899444000,
+                        "eval_count": 1928,
+                        "eval_duration": 117480346000,
+                        "answer_characters": 1054,
+                        "answer_utf8_bytes": 1054,
+                        "answer_sha256": "8dea28327695a6ca62868fbae55e473b1e7aa3d51b0ca420c13883d0e7f36f5d",
+                        "thinking_characters": 8421,
+                        "output_tokens_per_second": 16.41125571761595
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:06:54.271+02:00",
+                    "duration_seconds": 145.5153049649998
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl",
+                    "--model-name",
+                    "controlled_phase3_GoalModel_goal"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:06:54.272+02:00",
+                  "finished_at": "2026-08-23T19:06:54.316+02:00",
+                  "duration_seconds": 0.04390108999723452,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1033, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1024, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 230, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 29, in raise_validation_errors\n    raise ValueError(unique[0])\nValueError: CONNECTIONS line 3: Target 'Re-design heat extractor for new refrigerant supports Minimize heat pump energy consumption' is not defined under ELEMENTS.\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 891
+                }
+              },
+              {
+                "attempt_number": 2,
+                "status": "FAILED_PYTHON",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1055,
+                  "modified_at": "2026-08-23T19:06:54.272122+02:00",
+                  "sha256": "e1fd323244ca73ca421c803187430234117b926ed1a90476f36eb1538ff55d2e"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1062,
+                  "modified_at": "2026-08-23T19:04:28.756332+02:00",
+                  "sha256": "8f6f5a747e87158fbba07af6bc1cbc38722ee9c980024bcea9f4707e3d82c0d0"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_2_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 151,
+                  "modified_at": "2026-08-23T19:06:54.316554+02:00",
+                  "sha256": "36b1fad7c3d94ba7af2d7853e75f99127cbc8b99737cae679749f62d8d79875c"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_2_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 12369,
+                  "modified_at": "2026-08-23T19:06:54.316775+02:00",
+                  "sha256": "fc6d8a4fe92c61790bdf5be4eb973223b6989114d873d20005fbc17b802449cd"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_2_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1055,
+                  "modified_at": "2026-08-23T19:09:02.227972+02:00",
+                  "sha256": "e1fd323244ca73ca421c803187430234117b926ed1a90476f36eb1538ff55d2e"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:06:54.316+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:06:54.317+02:00",
+                      "finished_at": "2026-08-23T19:09:02.227+02:00",
+                      "wall_seconds": 127.91055883900117,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 12367,
+                          "utf8_bytes": 12369,
+                          "sha256": "fc6d8a4fe92c61790bdf5be4eb973223b6989114d873d20005fbc17b802449cd"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:09:02.203829442Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 127807348534,
+                        "load_duration": 506224,
+                        "prompt_eval_count": 2734,
+                        "prompt_eval_duration": 20131729000,
+                        "eval_count": 1769,
+                        "eval_duration": 107660914000,
+                        "answer_characters": 1054,
+                        "answer_utf8_bytes": 1054,
+                        "answer_sha256": "8dea28327695a6ca62868fbae55e473b1e7aa3d51b0ca420c13883d0e7f36f5d",
+                        "thinking_characters": 7164,
+                        "output_tokens_per_second": 16.43121848287485
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:09:02.227+02:00",
+                    "duration_seconds": 127.91100579699923
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl",
+                    "--model-name",
+                    "controlled_phase3_GoalModel_goal"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:09:02.228+02:00",
+                  "finished_at": "2026-08-23T19:09:02.273+02:00",
+                  "duration_seconds": 0.04560353199849487,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1033, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1024, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 230, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 29, in raise_validation_errors\n    raise ValueError(unique[0])\nValueError: CONNECTIONS line 3: Target 'Re-design heat extractor for new refrigerant supports Minimize heat pump energy consumption' is not defined under ELEMENTS.\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 891
+                }
+              },
+              {
+                "attempt_number": 3,
+                "status": "FAILED_PYTHON",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1055,
+                  "modified_at": "2026-08-23T19:09:02.228136+02:00",
+                  "sha256": "e1fd323244ca73ca421c803187430234117b926ed1a90476f36eb1538ff55d2e"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1062,
+                  "modified_at": "2026-08-23T19:04:28.756332+02:00",
+                  "sha256": "8f6f5a747e87158fbba07af6bc1cbc38722ee9c980024bcea9f4707e3d82c0d0"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_3_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 151,
+                  "modified_at": "2026-08-23T19:09:02.274211+02:00",
+                  "sha256": "36b1fad7c3d94ba7af2d7853e75f99127cbc8b99737cae679749f62d8d79875c"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_3_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 12369,
+                  "modified_at": "2026-08-23T19:09:02.274419+02:00",
+                  "sha256": "fc6d8a4fe92c61790bdf5be4eb973223b6989114d873d20005fbc17b802449cd"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_3_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1055,
+                  "modified_at": "2026-08-23T19:11:20.470448+02:00",
+                  "sha256": "e1fd323244ca73ca421c803187430234117b926ed1a90476f36eb1538ff55d2e"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:09:02.274+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:09:02.274+02:00",
+                      "finished_at": "2026-08-23T19:11:20.470+02:00",
+                      "wall_seconds": 138.1953027620002,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 12367,
+                          "utf8_bytes": 12369,
+                          "sha256": "fc6d8a4fe92c61790bdf5be4eb973223b6989114d873d20005fbc17b802449cd"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:11:20.445720714Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 138102954679,
+                        "load_duration": 677424,
+                        "prompt_eval_count": 2734,
+                        "prompt_eval_duration": 64581999,
+                        "eval_count": 2301,
+                        "eval_duration": 138020882000,
+                        "answer_characters": 1054,
+                        "answer_utf8_bytes": 1054,
+                        "answer_sha256": "8dea28327695a6ca62868fbae55e473b1e7aa3d51b0ca420c13883d0e7f36f5d",
+                        "thinking_characters": 9835,
+                        "output_tokens_per_second": 16.671390348019948
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:11:20.470+02:00",
+                    "duration_seconds": 138.19571699099833
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl",
+                    "--model-name",
+                    "controlled_phase3_GoalModel_goal"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:11:20.471+02:00",
+                  "finished_at": "2026-08-23T19:11:20.513+02:00",
+                  "duration_seconds": 0.0423221189994365,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1033, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1024, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 230, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 29, in raise_validation_errors\n    raise ValueError(unique[0])\nValueError: CONNECTIONS line 3: Target 'Re-design heat extractor for new refrigerant supports Minimize heat pump energy consumption' is not defined under ELEMENTS.\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 891
+                }
+              },
+              {
+                "attempt_number": 4,
+                "status": "FAILED_PYTHON",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1055,
+                  "modified_at": "2026-08-23T19:11:20.470802+02:00",
+                  "sha256": "e1fd323244ca73ca421c803187430234117b926ed1a90476f36eb1538ff55d2e"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1062,
+                  "modified_at": "2026-08-23T19:04:28.756332+02:00",
+                  "sha256": "8f6f5a747e87158fbba07af6bc1cbc38722ee9c980024bcea9f4707e3d82c0d0"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_4_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 151,
+                  "modified_at": "2026-08-23T19:11:20.513644+02:00",
+                  "sha256": "36b1fad7c3d94ba7af2d7853e75f99127cbc8b99737cae679749f62d8d79875c"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_4_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 12369,
+                  "modified_at": "2026-08-23T19:11:20.513751+02:00",
+                  "sha256": "fc6d8a4fe92c61790bdf5be4eb973223b6989114d873d20005fbc17b802449cd"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_4_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1051,
+                  "modified_at": "2026-08-23T19:13:20.399615+02:00",
+                  "sha256": "91b42d43fe457708f8c3de58e9658a20dd9ad60f9fbb4ea3d838eb66eff589e0"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:11:20.513+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:11:20.513+02:00",
+                      "finished_at": "2026-08-23T19:13:20.399+02:00",
+                      "wall_seconds": 119.88521315100297,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 12367,
+                          "utf8_bytes": 12369,
+                          "sha256": "fc6d8a4fe92c61790bdf5be4eb973223b6989114d873d20005fbc17b802449cd"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:13:20.370789188Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 119772786799,
+                        "load_duration": 475941,
+                        "prompt_eval_count": 2734,
+                        "prompt_eval_duration": 77184000,
+                        "eval_count": 2054,
+                        "eval_duration": 119679335000,
+                        "answer_characters": 1050,
+                        "answer_utf8_bytes": 1050,
+                        "answer_sha256": "91d5c6022e837168597dec4012835ea75c110a8a15211fd7a5114faf86573dbf",
+                        "thinking_characters": 8622,
+                        "output_tokens_per_second": 17.16252851839459
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:13:20.399+02:00",
+                    "duration_seconds": 119.88561019699773
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl",
+                    "--model-name",
+                    "controlled_phase3_GoalModel_goal"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:13:20.399+02:00",
+                  "finished_at": "2026-08-23T19:13:20.443+02:00",
+                  "duration_seconds": 0.04375988899846561,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1033, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1024, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 230, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (3):\n  1. CONNECTIONS line 3: Target 'Re-design heat extractor for new refrigerant supports Minimize heat pump energy consumption' is not defined under ELEMENTS.\n  2. CONNECTIONS line 5: Disallowed connection pattern in 'Short development period hinders Develop new low energy heat extractor': Cause hinders Goal\n  3. CONNECTIONS line 6: Disallowed connection pattern in 'New refrigerants are very expensive hinders Re-design heat extractor for new refrigerant': Cause hinders Goal\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 1296
+                }
+              },
+              {
+                "attempt_number": 5,
+                "status": "FAILED_PYTHON",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1051,
+                  "modified_at": "2026-08-23T19:13:20.399799+02:00",
+                  "sha256": "91b42d43fe457708f8c3de58e9658a20dd9ad60f9fbb4ea3d838eb66eff589e0"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1062,
+                  "modified_at": "2026-08-23T19:04:28.756332+02:00",
+                  "sha256": "8f6f5a747e87158fbba07af6bc1cbc38722ee9c980024bcea9f4707e3d82c0d0"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_5_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 508,
+                  "modified_at": "2026-08-23T19:13:20.443911+02:00",
+                  "sha256": "a9152436f27d7e66695a309cc8db2afe7c14716d6ef14d98a5a6098a7ddd1f59"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_5_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 12722,
+                  "modified_at": "2026-08-23T19:13:20.444014+02:00",
+                  "sha256": "7379076a249f8bcd77205802b2662466f73575fbf35f16cd94cb8b0e8b361907"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_5_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 891,
+                  "modified_at": "2026-08-23T19:16:47.385419+02:00",
+                  "sha256": "11c90f1b13b2c5c5aac80d7dcc5be2590f9c51f4fe4d5ae6456b8efab1891bfc"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:13:20.444+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:13:20.444+02:00",
+                      "finished_at": "2026-08-23T19:16:47.384+02:00",
+                      "wall_seconds": 206.94077839799866,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 12720,
+                          "utf8_bytes": 12722,
+                          "sha256": "7379076a249f8bcd77205802b2662466f73575fbf35f16cd94cb8b0e8b361907"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:16:47.357914706Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 206841174182,
+                        "load_duration": 677680,
+                        "prompt_eval_count": 2809,
+                        "prompt_eval_duration": 20861437000,
+                        "eval_count": 2998,
+                        "eval_duration": 185963681000,
+                        "answer_characters": 890,
+                        "answer_utf8_bytes": 890,
+                        "answer_sha256": "3139ba055cf2bd99359c075e37b26e7517378e13fb62752bc6239bc142ffb42c",
+                        "thinking_characters": 13196,
+                        "output_tokens_per_second": 16.121427495296782
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:16:47.385+02:00",
+                    "duration_seconds": 206.94118002400137
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl",
+                    "--model-name",
+                    "controlled_phase3_GoalModel_goal"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:16:47.386+02:00",
+                  "finished_at": "2026-08-23T19:16:47.429+02:00",
+                  "duration_seconds": 0.04313043100046343,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1033, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 1024, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py\", line 230, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 29, in raise_validation_errors\n    raise ValueError(unique[0])\nValueError: CONNECTIONS line 3: Target 'Re-design heat extractor for new refrigerant supports Minimize heat pump energy consumption' is not defined under ELEMENTS.\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 891
+                }
+              },
+              {
+                "attempt_number": 6,
+                "status": "OK",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 891,
+                  "modified_at": "2026-08-23T19:16:47.385793+02:00",
+                  "sha256": "11c90f1b13b2c5c5aac80d7dcc5be2590f9c51f4fe4d5ae6456b8efab1891bfc"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 1062,
+                  "modified_at": "2026-08-23T19:04:28.756332+02:00",
+                  "sha256": "8f6f5a747e87158fbba07af6bc1cbc38722ee9c980024bcea9f4707e3d82c0d0"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_6_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 151,
+                  "modified_at": "2026-08-23T19:16:47.429539+02:00",
+                  "sha256": "36b1fad7c3d94ba7af2d7853e75f99127cbc8b99737cae679749f62d8d79875c"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_6_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 12205,
+                  "modified_at": "2026-08-23T19:16:47.429751+02:00",
+                  "sha256": "3b475c4d4e7aba7360512e733da3a8dfc65e42003cee289e4b3044b63776976c"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/format_repair/goal/attempt_6_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 883,
+                  "modified_at": "2026-08-23T19:18:49.679620+02:00",
+                  "sha256": "0e90c8dcf043de30f073025f3230b2addcab1e33120d8540a56302632430f09e"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:16:47.429+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:16:47.430+02:00",
+                      "finished_at": "2026-08-23T19:18:49.679+02:00",
+                      "wall_seconds": 122.24901439599853,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 12203,
+                          "utf8_bytes": 12205,
+                          "sha256": "3b475c4d4e7aba7360512e733da3a8dfc65e42003cee289e4b3044b63776976c"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:18:49.655076585Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 122154295616,
+                        "load_duration": 695723,
+                        "prompt_eval_count": 2707,
+                        "prompt_eval_duration": 20024476000,
+                        "eval_count": 1670,
+                        "eval_duration": 102086998000,
+                        "answer_characters": 882,
+                        "answer_utf8_bytes": 882,
+                        "answer_sha256": "ddc5491941f44f93eea2fa40019277dfd005d0fd104ec13eb77a2d2f01c06d48",
+                        "thinking_characters": 6961,
+                        "output_tokens_per_second": 16.358596419888848
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:18:49.679+02:00",
+                    "duration_seconds": 122.24959971099815
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_GoalModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl",
+                    "--model-name",
+                    "controlled_phase3_GoalModel_goal"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:18:49.679+02:00",
+                  "finished_at": "2026-08-23T19:18:49.725+02:00",
+                  "duration_seconds": 0.04535876699810615,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "OK: read 9 elements and 4 notation connections.\nADL written to: /home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 190,
+                  "stderr_chars": 0
+                }
+              }
+            ],
+            "status": "OK_AFTER_FORMAT_REPAIR",
+            "finished_at": "2026-08-23T19:18:49.725+02:00",
+            "duration_seconds": 962.0376546469997,
+            "slm_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/1GoalModel/goal.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 883,
+              "modified_at": "2026-08-23T19:18:49.679802+02:00",
+              "sha256": "0e90c8dcf043de30f073025f3230b2addcab1e33120d8540a56302632430f09e"
+            },
+            "adl_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 8209,
+              "modified_at": "2026-08-23T19:18:49.720680+02:00",
+              "sha256": "7c1aca07dc6b7b7a6e26e97f665898e27efa9124d96dff6e741310a941249438"
+            }
+          },
+          {
+            "task_id": "model:controlled_phase3:BusinessProcessModel:business_process_1.txt",
+            "scenario": "controlled_phase3",
+            "model_id": "BusinessProcessModel",
+            "model_folder": "2BusinessProcessModell",
+            "source_file": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/controlled_phase3/2BusinessProcessModell/business_process_1.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 685,
+              "modified_at": "2026-07-26T07:47:04.305977+02:00",
+              "sha256": "46030f0e50a11ea04a7c2ac2e7be7d656894c50b1d7808a426720bfb3c80bd51"
+            },
+            "source_relative_path": "business_process_1.txt",
+            "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/2BusinessProcessModell/business_process_1.txt",
+            "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_1.adl",
+            "adl_model_name": "controlled_phase3_BusinessProcessModel_business_process_1",
+            "started_at": "2026-08-23T19:18:49.725+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-08-23T19:18:49.725+02:00",
+                "failure_reason": null,
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:18:49.725+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:18:49.726+02:00",
+                      "finished_at": "2026-08-23T19:19:58.242+02:00",
+                      "wall_seconds": 68.51613344900034,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 5937,
+                          "utf8_bytes": 5943,
+                          "sha256": "f199274dc0e87aa0dae2c354f70a00bd8cea6aa58eb6e0e3348de833640a946a"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:19:58.225009148Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 68427472071,
+                        "load_duration": 476064,
+                        "prompt_eval_count": 1359,
+                        "prompt_eval_duration": 13221826000,
+                        "eval_count": 960,
+                        "eval_duration": 55168474000,
+                        "answer_characters": 536,
+                        "answer_utf8_bytes": 536,
+                        "answer_sha256": "2956764a0d22f4e66a3e95f3f78b51045f879985575b561e6096f7922de960ed",
+                        "thinking_characters": 3922,
+                        "output_tokens_per_second": 17.40124260098258
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:19:58.242+02:00",
+                    "duration_seconds": 68.51640269999916
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-08-23T19:18:49.726+02:00",
+                  "finished_at": "2026-08-23T19:19:58.242+02:00",
+                  "wall_seconds": 68.51613344900034,
+                  "request": {
+                    "model": "gemma4:e4b",
+                    "prompt": {
+                      "characters": 5937,
+                      "utf8_bytes": 5943,
+                      "sha256": "f199274dc0e87aa0dae2c354f70a00bd8cea6aa58eb6e0e3348de833640a946a"
+                    },
+                    "stream": false,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "gemma4:e4b",
+                    "created_at": "2026-08-23T17:19:58.225009148Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 68427472071,
+                    "load_duration": 476064,
+                    "prompt_eval_count": 1359,
+                    "prompt_eval_duration": 13221826000,
+                    "eval_count": 960,
+                    "eval_duration": 55168474000,
+                    "answer_characters": 536,
+                    "answer_utf8_bytes": 536,
+                    "answer_sha256": "2956764a0d22f4e66a3e95f3f78b51045f879985575b561e6096f7922de960ed",
+                    "thinking_characters": 3922,
+                    "output_tokens_per_second": 17.40124260098258
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/2BusinessProcessModell/business_process_1.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 536,
+                  "modified_at": "2026-08-23T19:19:58.242426+02:00",
+                  "sha256": "2956764a0d22f4e66a3e95f3f78b51045f879985575b561e6096f7922de960ed"
+                },
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_BusinessProcessModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/2BusinessProcessModell/business_process_1.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_1.adl",
+                    "--model-name",
+                    "controlled_phase3_BusinessProcessModel_business_process_1"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:19:58.242+02:00",
+                  "finished_at": "2026-08-23T19:19:58.282+02:00",
+                  "duration_seconds": 0.03964808099772199,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "OK: read 7 elements and 6 notation connections.\nADL written to: /home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_1.adl\nGenerated ADL relationships: 6\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 247,
+                  "stderr_chars": 0
+                },
+                "finished_at": "2026-08-23T19:19:58.282+02:00",
+                "duration_seconds": 68.55644759200004,
+                "adl_output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_1.adl",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 7132,
+                  "modified_at": "2026-08-23T19:19:58.277520+02:00",
+                  "sha256": "f347757e1531870f640d7b36cd1d65b63d40b01fff8c521abba89dc7397e462c"
+                }
+              }
+            ],
+            "format_repairs": [],
+            "status": "OK",
+            "finished_at": "2026-08-23T19:19:58.282+02:00",
+            "duration_seconds": 68.55662812599985,
+            "slm_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/2BusinessProcessModell/business_process_1.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 536,
+              "modified_at": "2026-08-23T19:19:58.242426+02:00",
+              "sha256": "2956764a0d22f4e66a3e95f3f78b51045f879985575b561e6096f7922de960ed"
+            },
+            "adl_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_1.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 7132,
+              "modified_at": "2026-08-23T19:19:58.277520+02:00",
+              "sha256": "f347757e1531870f640d7b36cd1d65b63d40b01fff8c521abba89dc7397e462c"
+            }
+          },
+          {
+            "task_id": "model:controlled_phase3:BusinessProcessModel:business_process_2.txt",
+            "scenario": "controlled_phase3",
+            "model_id": "BusinessProcessModel",
+            "model_folder": "2BusinessProcessModell",
+            "source_file": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/controlled_phase3/2BusinessProcessModell/business_process_2.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 821,
+              "modified_at": "2026-07-26T07:47:04.306014+02:00",
+              "sha256": "3de2ab6a90821623050bc95327c3036d1b7dfb888a11f2bc748a2e2265308852"
+            },
+            "source_relative_path": "business_process_2.txt",
+            "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/2BusinessProcessModell/business_process_2.txt",
+            "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_2.adl",
+            "adl_model_name": "controlled_phase3_BusinessProcessModel_business_process_2",
+            "started_at": "2026-08-23T19:19:58.282+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-08-23T19:19:58.282+02:00",
+                "failure_reason": null,
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:19:58.282+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:19:58.283+02:00",
+                      "finished_at": "2026-08-23T19:21:41.158+02:00",
+                      "wall_seconds": 102.87494162499934,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 6061,
+                          "utf8_bytes": 6079,
+                          "sha256": "5cf20bfe9483b022b7bbcede4b8c4fa4158a77f09d760d0d25867ffe3aa232ad"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:21:41.135746425Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 102786002481,
+                        "load_duration": 564714,
+                        "prompt_eval_count": 1373,
+                        "prompt_eval_duration": 1689261000,
+                        "eval_count": 1729,
+                        "eval_duration": 101088950000,
+                        "answer_characters": 889,
+                        "answer_utf8_bytes": 889,
+                        "answer_sha256": "f635698837351eae2f01b9d93ab9e7c3ab73a12bb6f4bf00d303882cecba9303",
+                        "thinking_characters": 6970,
+                        "output_tokens_per_second": 17.103748728224005
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:21:41.158+02:00",
+                    "duration_seconds": 102.87546719099919
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-08-23T19:19:58.283+02:00",
+                  "finished_at": "2026-08-23T19:21:41.158+02:00",
+                  "wall_seconds": 102.87494162499934,
+                  "request": {
+                    "model": "gemma4:e4b",
+                    "prompt": {
+                      "characters": 6061,
+                      "utf8_bytes": 6079,
+                      "sha256": "5cf20bfe9483b022b7bbcede4b8c4fa4158a77f09d760d0d25867ffe3aa232ad"
+                    },
+                    "stream": false,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "gemma4:e4b",
+                    "created_at": "2026-08-23T17:21:41.135746425Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 102786002481,
+                    "load_duration": 564714,
+                    "prompt_eval_count": 1373,
+                    "prompt_eval_duration": 1689261000,
+                    "eval_count": 1729,
+                    "eval_duration": 101088950000,
+                    "answer_characters": 889,
+                    "answer_utf8_bytes": 889,
+                    "answer_sha256": "f635698837351eae2f01b9d93ab9e7c3ab73a12bb6f4bf00d303882cecba9303",
+                    "thinking_characters": 6970,
+                    "output_tokens_per_second": 17.103748728224005
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/2BusinessProcessModell/business_process_2.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 889,
+                  "modified_at": "2026-08-23T19:21:41.158613+02:00",
+                  "sha256": "f635698837351eae2f01b9d93ab9e7c3ab73a12bb6f4bf00d303882cecba9303"
+                },
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_BusinessProcessModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/2BusinessProcessModell/business_process_2.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_2.adl",
+                    "--model-name",
+                    "controlled_phase3_BusinessProcessModel_business_process_2"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:21:41.158+02:00",
+                  "finished_at": "2026-08-23T19:21:41.205+02:00",
+                  "duration_seconds": 0.04619152500163182,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "OK: read 8 elements and 10 notation connections.\nADL written to: /home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_2.adl\nGenerated ADL relationships: 14\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 249,
+                  "stderr_chars": 0
+                },
+                "finished_at": "2026-08-23T19:21:41.205+02:00",
+                "duration_seconds": 102.92228830100066,
+                "adl_output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_2.adl",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 10024,
+                  "modified_at": "2026-08-23T19:21:41.200282+02:00",
+                  "sha256": "fbcfbde1559448116e5cf198679f2b977ffb9014807446ab5eacd71a79262c41"
+                }
+              }
+            ],
+            "format_repairs": [],
+            "status": "OK",
+            "finished_at": "2026-08-23T19:21:41.205+02:00",
+            "duration_seconds": 102.92255885099803,
+            "slm_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/2BusinessProcessModell/business_process_2.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 889,
+              "modified_at": "2026-08-23T19:21:41.158613+02:00",
+              "sha256": "f635698837351eae2f01b9d93ab9e7c3ab73a12bb6f4bf00d303882cecba9303"
+            },
+            "adl_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_2.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 10024,
+              "modified_at": "2026-08-23T19:21:41.200282+02:00",
+              "sha256": "fbcfbde1559448116e5cf198679f2b977ffb9014807446ab5eacd71a79262c41"
+            }
+          },
+          {
+            "task_id": "model:controlled_phase3:ActorsResourcesModel:actors_ressources.txt",
+            "scenario": "controlled_phase3",
+            "model_id": "ActorsResourcesModel",
+            "model_folder": "3ActorsandResourcesModel",
+            "source_file": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/controlled_phase3/3ActorsandResourcesModel/actors_ressources.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 825,
+              "modified_at": "2026-07-26T07:47:04.306014+02:00",
+              "sha256": "190aa8256177656b7f465b61ff1164681262db4ca9a251a99c1257fa6390e128"
+            },
+            "source_relative_path": "actors_ressources.txt",
+            "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+            "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl",
+            "adl_model_name": "controlled_phase3_ActorsResourcesModel_actors_ressources",
+            "started_at": "2026-08-23T19:21:41.205+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-08-23T19:21:41.205+02:00",
+                "failure_reason": "python_error",
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:21:41.205+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:21:41.206+02:00",
+                      "finished_at": "2026-08-23T19:23:20.751+02:00",
+                      "wall_seconds": 99.54507811400254,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 9044,
+                          "utf8_bytes": 9050,
+                          "sha256": "183e721f111508ad50581ddeb2a745aaaba5de128fd257041e117ec01a9787c9"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:23:20.730043571Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 99451022249,
+                        "load_duration": 674292,
+                        "prompt_eval_count": 2061,
+                        "prompt_eval_duration": 20302013000,
+                        "eval_count": 1314,
+                        "eval_duration": 79113225000,
+                        "answer_characters": 670,
+                        "answer_utf8_bytes": 670,
+                        "answer_sha256": "ae5a90ad6ad7d3df892753cab615f46257fc051100c6476e5c0e0c290cf967a8",
+                        "thinking_characters": 5334,
+                        "output_tokens_per_second": 16.609106758067313
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:23:20.751+02:00",
+                    "duration_seconds": 99.5456250410025
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-08-23T19:21:41.206+02:00",
+                  "finished_at": "2026-08-23T19:23:20.751+02:00",
+                  "wall_seconds": 99.54507811400254,
+                  "request": {
+                    "model": "gemma4:e4b",
+                    "prompt": {
+                      "characters": 9044,
+                      "utf8_bytes": 9050,
+                      "sha256": "183e721f111508ad50581ddeb2a745aaaba5de128fd257041e117ec01a9787c9"
+                    },
+                    "stream": false,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "gemma4:e4b",
+                    "created_at": "2026-08-23T17:23:20.730043571Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 99451022249,
+                    "load_duration": 674292,
+                    "prompt_eval_count": 2061,
+                    "prompt_eval_duration": 20302013000,
+                    "eval_count": 1314,
+                    "eval_duration": 79113225000,
+                    "answer_characters": 670,
+                    "answer_utf8_bytes": 670,
+                    "answer_sha256": "ae5a90ad6ad7d3df892753cab615f46257fc051100c6476e5c0e0c290cf967a8",
+                    "thinking_characters": 5334,
+                    "output_tokens_per_second": 16.609106758067313
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 670,
+                  "modified_at": "2026-08-23T19:23:20.751739+02:00",
+                  "sha256": "ae5a90ad6ad7d3df892753cab615f46257fc051100c6476e5c0e0c290cf967a8"
+                },
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl",
+                    "--model-name",
+                    "controlled_phase3_ActorsResourcesModel_actors_ressources"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:23:20.752+02:00",
+                  "finished_at": "2026-08-23T19:23:20.792+02:00",
+                  "duration_seconds": 0.04038536200096132,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py\", line 979, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py\", line 966, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py\", line 262, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 29, in raise_validation_errors\n    raise ValueError(unique[0])\nValueError: CONNECTIONS line 6: Disallowed connection pattern in 'Print Media Department belongs to MultiHeat': Organizational Unit belongs to Organizational Unit\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 921
+                },
+                "error_message": "The SLM-to-ADL converter failed.",
+                "finished_at": "2026-08-23T19:23:20.792+02:00",
+                "duration_seconds": 99.58660593899913
+              }
+            ],
+            "format_repairs": [
+              {
+                "attempt_number": 1,
+                "status": "FAILED_PYTHON",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 670,
+                  "modified_at": "2026-08-23T19:23:20.751739+02:00",
+                  "sha256": "ae5a90ad6ad7d3df892753cab615f46257fc051100c6476e5c0e0c290cf967a8"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/format_repair/actors_ressources/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 670,
+                  "modified_at": "2026-08-23T19:23:20.792880+02:00",
+                  "sha256": "ae5a90ad6ad7d3df892753cab615f46257fc051100c6476e5c0e0c290cf967a8"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/format_repair/actors_ressources/attempt_1_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 150,
+                  "modified_at": "2026-08-23T19:23:20.792992+02:00",
+                  "sha256": "3a50a88222eb905649fd421ce961e7bf78f00ec6773f28fa2822e1331283063d"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/format_repair/actors_ressources/attempt_1_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 16602,
+                  "modified_at": "2026-08-23T19:23:20.793193+02:00",
+                  "sha256": "2141df6ae9b98c8b7c4fc57d19517d88d4634a073891d8f530a92b6516a926bc"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/format_repair/actors_ressources/attempt_1_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 675,
+                  "modified_at": "2026-08-23T19:26:05.479843+02:00",
+                  "sha256": "02aa1430e007ae69cbecccc337ff1a3852571ff56196c2d9ba6a9d5f20c17e49"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:23:20.793+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:23:20.793+02:00",
+                      "finished_at": "2026-08-23T19:26:05.479+02:00",
+                      "wall_seconds": 164.68597375900208,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 16596,
+                          "utf8_bytes": 16602,
+                          "sha256": "2141df6ae9b98c8b7c4fc57d19517d88d4634a073891d8f530a92b6516a926bc"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:26:05.450833378Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 164580746435,
+                        "load_duration": 729002,
+                        "prompt_eval_count": 3649,
+                        "prompt_eval_duration": 36889407000,
+                        "eval_count": 2002,
+                        "eval_duration": 127655581000,
+                        "answer_characters": 674,
+                        "answer_utf8_bytes": 674,
+                        "answer_sha256": "bdf0ff4b6579b5b71093774a77333d507303c66e993260d440e383260f107a33",
+                        "thinking_characters": 8572,
+                        "output_tokens_per_second": 15.682823926045192
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:26:05.479+02:00",
+                    "duration_seconds": 164.68643190299917
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl",
+                    "--model-name",
+                    "controlled_phase3_ActorsResourcesModel_actors_ressources"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:26:05.480+02:00",
+                  "finished_at": "2026-08-23T19:26:05.526+02:00",
+                  "duration_seconds": 0.046811457999865524,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py\", line 979, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py\", line 966, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py\", line 262, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 29, in raise_validation_errors\n    raise ValueError(unique[0])\nValueError: CONNECTIONS line 6: Connector connection 'Partial-PartOF' must have at least two sources: 'Print Media Department Partial-PartOF MultiHeat'\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 910
+                }
+              },
+              {
+                "attempt_number": 2,
+                "status": "OK",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 675,
+                  "modified_at": "2026-08-23T19:26:05.480030+02:00",
+                  "sha256": "02aa1430e007ae69cbecccc337ff1a3852571ff56196c2d9ba6a9d5f20c17e49"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/format_repair/actors_ressources/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 670,
+                  "modified_at": "2026-08-23T19:23:20.792880+02:00",
+                  "sha256": "ae5a90ad6ad7d3df892753cab615f46257fc051100c6476e5c0e0c290cf967a8"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/format_repair/actors_ressources/attempt_2_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 139,
+                  "modified_at": "2026-08-23T19:26:05.527372+02:00",
+                  "sha256": "270f8c0af3240abf0994fb818ff5cd81d2059081ee354f93e5faf1f7cb5b91c4"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/format_repair/actors_ressources/attempt_2_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 16595,
+                  "modified_at": "2026-08-23T19:26:05.527634+02:00",
+                  "sha256": "1872a4c885ac8aa70629b0ec9a6778c0231b79ecc583727e5466f33819189ebf"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/format_repair/actors_ressources/attempt_2_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 707,
+                  "modified_at": "2026-08-23T19:27:59.949759+02:00",
+                  "sha256": "8e990c2586c1b4797a3aa9d0b0a64532f66b7db168a55c5625c5da7c6388913a"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:26:05.527+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:26:05.527+02:00",
+                      "finished_at": "2026-08-23T19:27:59.950+02:00",
+                      "wall_seconds": 114.42218974999923,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 16589,
+                          "utf8_bytes": 16595,
+                          "sha256": "1872a4c885ac8aa70629b0ec9a6778c0231b79ecc583727e5466f33819189ebf"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:27:59.925404789Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 114327380287,
+                        "load_duration": 728718,
+                        "prompt_eval_count": 3657,
+                        "prompt_eval_duration": 21656968000,
+                        "eval_count": 1458,
+                        "eval_duration": 92650612000,
+                        "answer_characters": 706,
+                        "answer_utf8_bytes": 706,
+                        "answer_sha256": "c42a176194dbe19161c497ba767a603ae0b53c7ec4fe46a86715ba8677def2f9",
+                        "thinking_characters": 6240,
+                        "output_tokens_per_second": 15.736539333382925
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:27:59.950+02:00",
+                    "duration_seconds": 114.42259525999907
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl",
+                    "--model-name",
+                    "controlled_phase3_ActorsResourcesModel_actors_ressources"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:27:59.951+02:00",
+                  "finished_at": "2026-08-23T19:27:59.991+02:00",
+                  "duration_seconds": 0.039905295001517516,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "Graph analysis: 2 connected component(s) (element counts: 7, 3).\nOK: read 10 elements and 6 notation connections.\nADL written to: /home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 283,
+                  "stderr_chars": 0
+                }
+              }
+            ],
+            "status": "OK_AFTER_FORMAT_REPAIR",
+            "finished_at": "2026-08-23T19:27:59.991+02:00",
+            "duration_seconds": 378.785410870998,
+            "slm_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 707,
+              "modified_at": "2026-08-23T19:27:59.950861+02:00",
+              "sha256": "8e990c2586c1b4797a3aa9d0b0a64532f66b7db168a55c5625c5da7c6388913a"
+            },
+            "adl_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 9140,
+              "modified_at": "2026-08-23T19:27:59.985759+02:00",
+              "sha256": "ff78f866bd733347f29e27b4efc1a8f2e34112b3f51b2165cc95abfe166c0195"
+            }
+          },
+          {
+            "task_id": "model:controlled_phase3:ConceptsModel:concept.txt",
+            "scenario": "controlled_phase3",
+            "model_id": "ConceptsModel",
+            "model_folder": "4ConceptsModel",
+            "source_file": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/controlled_phase3/4ConceptsModel/concept.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 1566,
+              "modified_at": "2026-07-26T07:47:04.306014+02:00",
+              "sha256": "b12e84e3e23155b96f2c93e2dfdcbd74df36d0fa0b8e8e6816cf981be9fdaeb3"
+            },
+            "source_relative_path": "concept.txt",
+            "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/4ConceptsModel/concept.txt",
+            "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/4ConceptsModel/concept.adl",
+            "adl_model_name": "controlled_phase3_ConceptsModel_concept",
+            "started_at": "2026-08-23T19:27:59.991+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-08-23T19:27:59.991+02:00",
+                "failure_reason": "python_error",
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:27:59.991+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:27:59.992+02:00",
+                      "finished_at": "2026-08-23T19:29:56.223+02:00",
+                      "wall_seconds": 116.23090331600179,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 7054,
+                          "utf8_bytes": 7082,
+                          "sha256": "be682b69a1f4f1e3077fb5da11627537c3c45e1185077e4f37f1b77c31efb403"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:29:56.19841971Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 116134313959,
+                        "load_duration": 464058,
+                        "prompt_eval_count": 1664,
+                        "prompt_eval_duration": 2006231000,
+                        "eval_count": 1941,
+                        "eval_duration": 114085518000,
+                        "answer_characters": 948,
+                        "answer_utf8_bytes": 948,
+                        "answer_sha256": "3cd6b8690f6e00cba57ca38a4766fb14e9dad6174897894b5fc7e1ad5b997d50",
+                        "thinking_characters": 8056,
+                        "output_tokens_per_second": 17.013552938419405
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:29:56.223+02:00",
+                    "duration_seconds": 116.23132618100135
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-08-23T19:27:59.992+02:00",
+                  "finished_at": "2026-08-23T19:29:56.223+02:00",
+                  "wall_seconds": 116.23090331600179,
+                  "request": {
+                    "model": "gemma4:e4b",
+                    "prompt": {
+                      "characters": 7054,
+                      "utf8_bytes": 7082,
+                      "sha256": "be682b69a1f4f1e3077fb5da11627537c3c45e1185077e4f37f1b77c31efb403"
+                    },
+                    "stream": false,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "gemma4:e4b",
+                    "created_at": "2026-08-23T17:29:56.19841971Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 116134313959,
+                    "load_duration": 464058,
+                    "prompt_eval_count": 1664,
+                    "prompt_eval_duration": 2006231000,
+                    "eval_count": 1941,
+                    "eval_duration": 114085518000,
+                    "answer_characters": 948,
+                    "answer_utf8_bytes": 948,
+                    "answer_sha256": "3cd6b8690f6e00cba57ca38a4766fb14e9dad6174897894b5fc7e1ad5b997d50",
+                    "thinking_characters": 8056,
+                    "output_tokens_per_second": 17.013552938419405
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/4ConceptsModel/concept.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 948,
+                  "modified_at": "2026-08-23T19:29:56.223261+02:00",
+                  "sha256": "3cd6b8690f6e00cba57ca38a4766fb14e9dad6174897894b5fc7e1ad5b997d50"
+                },
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ConceptModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/4ConceptsModel/concept.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/4ConceptsModel/concept.adl",
+                    "--model-name",
+                    "controlled_phase3_ConceptsModel_concept"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:29:56.223+02:00",
+                  "finished_at": "2026-08-23T19:29:56.266+02:00",
+                  "duration_seconds": 0.04320659099903423,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ConceptModel.py\", line 1100, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ConceptModel.py\", line 1085, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ConceptModel.py\", line 230, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (3):\n  1. CONNECTIONS line 1: Disallowed connection pattern in 'Heat pump has attribute Energy-efficiency': Concept has attribute Concept\n  2. CONNECTIONS line 2: Disallowed connection pattern in 'Heat pump has attribute Energy consumption': Concept has attribute Concept\n  3. CONNECTIONS line 3: Disallowed connection pattern in 'Heat pump has attribute Feature': Concept has attribute Concept\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 1218
+                },
+                "error_message": "The SLM-to-ADL converter failed.",
+                "finished_at": "2026-08-23T19:29:56.266+02:00",
+                "duration_seconds": 116.27496536799663
+              }
+            ],
+            "format_repairs": [
+              {
+                "attempt_number": 1,
+                "status": "OK",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/4ConceptsModel/concept.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 948,
+                  "modified_at": "2026-08-23T19:29:56.223261+02:00",
+                  "sha256": "3cd6b8690f6e00cba57ca38a4766fb14e9dad6174897894b5fc7e1ad5b997d50"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/4ConceptsModel/format_repair/concept/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 948,
+                  "modified_at": "2026-08-23T19:29:56.267096+02:00",
+                  "sha256": "3cd6b8690f6e00cba57ca38a4766fb14e9dad6174897894b5fc7e1ad5b997d50"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/4ConceptsModel/format_repair/concept/attempt_1_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 421,
+                  "modified_at": "2026-08-23T19:29:56.267159+02:00",
+                  "sha256": "6b871b840533fe7e9560701bfcd8eef02d67dc3c42b046f5bf518e5e2aa27da0"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/4ConceptsModel/format_repair/concept/attempt_1_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 14262,
+                  "modified_at": "2026-08-23T19:29:56.267255+02:00",
+                  "sha256": "f484d6ad3c8023bdd3e0d4d863cf4091d93f97dede4a3b6fa5d91490df755892"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/4ConceptsModel/format_repair/concept/attempt_1_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 955,
+                  "modified_at": "2026-08-23T19:32:01.858708+02:00",
+                  "sha256": "e4dcbd3ddbfacd4a8f59eadf96544266abb3f20283b4a963b911b3712f00ecf2"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:29:56.267+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:29:56.267+02:00",
+                      "finished_at": "2026-08-23T19:32:01.858+02:00",
+                      "wall_seconds": 125.5908222049984,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 14234,
+                          "utf8_bytes": 14262,
+                          "sha256": "f484d6ad3c8023bdd3e0d4d863cf4091d93f97dede4a3b6fa5d91490df755892"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:32:01.829771328Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 125486608610,
+                        "load_duration": 701737,
+                        "prompt_eval_count": 3173,
+                        "prompt_eval_duration": 31763891000,
+                        "eval_count": 1519,
+                        "eval_duration": 93685127000,
+                        "answer_characters": 954,
+                        "answer_utf8_bytes": 954,
+                        "answer_sha256": "0684458d64c37ab9bd39e0598f8d217cef1b4a0e69b81026b75d60376cd8de58",
+                        "thinking_characters": 6315,
+                        "output_tokens_per_second": 16.213886330110864
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:32:01.858+02:00",
+                    "duration_seconds": 125.59124572700239
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ConceptModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/4ConceptsModel/concept.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/4ConceptsModel/concept.adl",
+                    "--model-name",
+                    "controlled_phase3_ConceptsModel_concept"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:32:01.859+02:00",
+                  "finished_at": "2026-08-23T19:32:01.902+02:00",
+                  "duration_seconds": 0.04299128400089103,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "Graph analysis: 10 connected concept components (sizes: 1, 1, 1, 1, 1, 1, 1, 1, 1, 1).\nOK: read 19 elements and 9 notation connections.\nADL written to: /home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/4ConceptsModel/concept.adl\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 285,
+                  "stderr_chars": 0
+                }
+              }
+            ],
+            "status": "OK_AFTER_FORMAT_REPAIR",
+            "finished_at": "2026-08-23T19:32:01.902+02:00",
+            "duration_seconds": 241.91088163899985,
+            "slm_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/4ConceptsModel/concept.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 955,
+              "modified_at": "2026-08-23T19:32:01.859096+02:00",
+              "sha256": "e4dcbd3ddbfacd4a8f59eadf96544266abb3f20283b4a963b911b3712f00ecf2"
+            },
+            "adl_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/4ConceptsModel/concept.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 12338,
+              "modified_at": "2026-08-23T19:32:01.897377+02:00",
+              "sha256": "b46422ba727f07dd72fc1f55162c585486985a03797e6190a89a38cd80ede115"
+            }
+          },
+          {
+            "task_id": "model:controlled_phase3:TechnicalComponentsRequirementsModel:technical_requirement.txt",
+            "scenario": "controlled_phase3",
+            "model_id": "TechnicalComponentsRequirementsModel",
+            "model_folder": "6TechnicalComponentsandRequirementsModel",
+            "source_file": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/controlled_phase3/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 579,
+              "modified_at": "2026-07-26T07:47:04.306014+02:00",
+              "sha256": "ea11ddb0b36dc6f9d88cb8b9f003d7320d087408c3c403cd375b8c41c604927e"
+            },
+            "source_relative_path": "technical_requirement.txt",
+            "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+            "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/6TechnicalComponentsandRequirementsModel/technical_requirement.adl",
+            "adl_model_name": "controlled_phase3_TechnicalComponentsRequirementsModel_technical_requirement",
+            "started_at": "2026-08-23T19:32:01.902+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-08-23T19:32:01.902+02:00",
+                "failure_reason": "python_error",
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:32:01.902+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:32:01.903+02:00",
+                      "finished_at": "2026-08-23T19:33:24.845+02:00",
+                      "wall_seconds": 82.9427749710012,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 9848,
+                          "utf8_bytes": 9850,
+                          "sha256": "8b0b840b2221041ee5861921ef78e83ca854ac12a25c667432ab36ef34df7ad4"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:33:24.822013643Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 82833760832,
+                        "load_duration": 590582,
+                        "prompt_eval_count": 2010,
+                        "prompt_eval_duration": 703823000,
+                        "eval_count": 1411,
+                        "eval_duration": 82087341000,
+                        "answer_characters": 903,
+                        "answer_utf8_bytes": 903,
+                        "answer_sha256": "30457d63bec28fa8aca070442740d146cd20ceef00ef6084c68a9446778ecb45",
+                        "thinking_characters": 5995,
+                        "output_tokens_per_second": 17.189008473304064
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:33:24.846+02:00",
+                    "duration_seconds": 82.94314000699887
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-08-23T19:32:01.903+02:00",
+                  "finished_at": "2026-08-23T19:33:24.845+02:00",
+                  "wall_seconds": 82.9427749710012,
+                  "request": {
+                    "model": "gemma4:e4b",
+                    "prompt": {
+                      "characters": 9848,
+                      "utf8_bytes": 9850,
+                      "sha256": "8b0b840b2221041ee5861921ef78e83ca854ac12a25c667432ab36ef34df7ad4"
+                    },
+                    "stream": false,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "gemma4:e4b",
+                    "created_at": "2026-08-23T17:33:24.822013643Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 82833760832,
+                    "load_duration": 590582,
+                    "prompt_eval_count": 2010,
+                    "prompt_eval_duration": 703823000,
+                    "eval_count": 1411,
+                    "eval_duration": 82087341000,
+                    "answer_characters": 903,
+                    "answer_utf8_bytes": 903,
+                    "answer_sha256": "30457d63bec28fa8aca070442740d146cd20ceef00ef6084c68a9446778ecb45",
+                    "thinking_characters": 5995,
+                    "output_tokens_per_second": 17.189008473304064
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 903,
+                  "modified_at": "2026-08-23T19:33:24.846185+02:00",
+                  "sha256": "30457d63bec28fa8aca070442740d146cd20ceef00ef6084c68a9446778ecb45"
+                },
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_TechnicalComponentsandRequirementsModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/6TechnicalComponentsandRequirementsModel/technical_requirement.adl",
+                    "--model-name",
+                    "controlled_phase3_TechnicalComponentsRequirementsModel_technical_requirement"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:33:24.846+02:00",
+                  "finished_at": "2026-08-23T19:33:24.894+02:00",
+                  "duration_seconds": 0.04841022999971756,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_TechnicalComponentsandRequirementsModel.py\", line 776, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_TechnicalComponentsandRequirementsModel.py\", line 766, in main\n    elements, connections = parse_notation(input_path.read_text(encoding=\"utf-8\"))\n                            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_TechnicalComponentsandRequirementsModel.py\", line 221, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (4):\n  1. CONNECTIONS line 1: Disallowed connection pattern in 'production system supports Product Innovation Goal': IS Technical Component supports Goal\n  2. CONNECTIONS line 2: Disallowed connection pattern in 'version management system supports Product Innovation Goal': IS Technical Component supports Goal\n  3. CONNECTIONS line 5: Disallowed connection pattern in 'social media studio supports Marketing Campaign Goal': IS Technical Component supports Goal\n  4. CONNECTIONS line 7: Disallowed connection pattern in 'SM repository supports Marketing Campaign Goal': IS Technical Component supports Goal\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 1577
+                },
+                "error_message": "The SLM-to-ADL converter failed.",
+                "finished_at": "2026-08-23T19:33:24.894+02:00",
+                "duration_seconds": 82.99211913399995
+              }
+            ],
+            "format_repairs": [
+              {
+                "attempt_number": 1,
+                "status": "OK",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 903,
+                  "modified_at": "2026-08-23T19:33:24.846185+02:00",
+                  "sha256": "30457d63bec28fa8aca070442740d146cd20ceef00ef6084c68a9446778ecb45"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/format_repair/technical_requirement/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 903,
+                  "modified_at": "2026-08-23T19:33:24.895158+02:00",
+                  "sha256": "30457d63bec28fa8aca070442740d146cd20ceef00ef6084c68a9446778ecb45"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/format_repair/technical_requirement/attempt_1_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 633,
+                  "modified_at": "2026-08-23T19:33:24.895215+02:00",
+                  "sha256": "0c4c041b7fa2b4353db0c677a402a3ae9a5bd03aa906a20197b43f12351c0f84"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/format_repair/technical_requirement/attempt_1_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 19674,
+                  "modified_at": "2026-08-23T19:33:24.895308+02:00",
+                  "sha256": "a054a1bf4d5f89172824be16635334e61f315d8fbf4decb9d369629a50e22364"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/format_repair/technical_requirement/attempt_1_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 904,
+                  "modified_at": "2026-08-23T19:35:45.390024+02:00",
+                  "sha256": "65e84f0f492774d456564e2e25eb10336c59d9e7c44f85cbc0019416ef7c0a67"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:33:24.895+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:33:24.895+02:00",
+                      "finished_at": "2026-08-23T19:35:45.389+02:00",
+                      "wall_seconds": 140.49407562499982,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 19672,
+                          "utf8_bytes": 19674,
+                          "sha256": "a054a1bf4d5f89172824be16635334e61f315d8fbf4decb9d369629a50e22364"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:35:45.36100867Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 140386952235,
+                        "load_duration": 514363,
+                        "prompt_eval_count": 3929,
+                        "prompt_eval_duration": 39673290000,
+                        "eval_count": 1587,
+                        "eval_duration": 100672603000,
+                        "answer_characters": 903,
+                        "answer_utf8_bytes": 903,
+                        "answer_sha256": "83b9003d0507c93bb96acfbdaaa312623e6117b531f96ff16491431ebe1d9e9d",
+                        "thinking_characters": 6927,
+                        "output_tokens_per_second": 15.763971057746467
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:35:45.389+02:00",
+                    "duration_seconds": 140.4945046649991
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_TechnicalComponentsandRequirementsModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/6TechnicalComponentsandRequirementsModel/technical_requirement.adl",
+                    "--model-name",
+                    "controlled_phase3_TechnicalComponentsRequirementsModel_technical_requirement"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:35:45.390+02:00",
+                  "finished_at": "2026-08-23T19:35:45.432+02:00",
+                  "duration_seconds": 0.04139849700004561,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "Graph analysis: 2 connected component(s) (element counts: 6, 5).\nOK: read 11 elements and 7 notation connections.\nADL written to: /home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/6TechnicalComponentsandRequirementsModel/technical_requirement.adl\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 303,
+                  "stderr_chars": 0
+                }
+              }
+            ],
+            "status": "OK_AFTER_FORMAT_REPAIR",
+            "finished_at": "2026-08-23T19:35:45.432+02:00",
+            "duration_seconds": 223.52938558400274,
+            "slm_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 904,
+              "modified_at": "2026-08-23T19:35:45.390392+02:00",
+              "sha256": "65e84f0f492774d456564e2e25eb10336c59d9e7c44f85cbc0019416ef7c0a67"
+            },
+            "adl_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/6TechnicalComponentsandRequirementsModel/technical_requirement.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 10624,
+              "modified_at": "2026-08-23T19:35:45.426883+02:00",
+              "sha256": "4cf5fe7b910d42a0d945985c3f44495cfcc6a5422a6f37bdab83ceadde50e165"
+            }
+          },
+          {
+            "task_id": "model:controlled_phase3:ProductServiceModel:product.txt",
+            "scenario": "controlled_phase3",
+            "model_id": "ProductServiceModel",
+            "model_folder": "7ProductServiceModel",
+            "source_file": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/scenarios/controlled_phase3/7ProductServiceModel/product.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 594,
+              "modified_at": "2026-07-26T07:47:04.306014+02:00",
+              "sha256": "5a97c5c8206329091f9c88a629a5767f00a552203cc141c76d7ddb9c87fe7aa1"
+            },
+            "source_relative_path": "product.txt",
+            "slm_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/product.txt",
+            "adl_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/7ProductServiceModel/product.adl",
+            "adl_model_name": "controlled_phase3_ProductServiceModel_product",
+            "started_at": "2026-08-23T19:35:45.432+02:00",
+            "attempts": [
+              {
+                "attempt_number": 1,
+                "started_at": "2026-08-23T19:35:45.432+02:00",
+                "failure_reason": "python_error",
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:35:45.432+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:35:45.433+02:00",
+                      "finished_at": "2026-08-23T19:36:56.736+02:00",
+                      "wall_seconds": 71.30361727700074,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 5867,
+                          "utf8_bytes": 5889,
+                          "sha256": "ae85ccd5e838ea2159cc3cdf46a736ed4726b2fb1d88417f4a6b66eb99ae5a5c"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:36:56.717514394Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 71209742536,
+                        "load_duration": 446499,
+                        "prompt_eval_count": 1445,
+                        "prompt_eval_duration": 636532000,
+                        "eval_count": 1241,
+                        "eval_duration": 70534904000,
+                        "answer_characters": 733,
+                        "answer_utf8_bytes": 733,
+                        "answer_sha256": "1d46771d10fc65b7ac693c942331aee412c8f3c056ee3523a01b1621bafafbaf",
+                        "thinking_characters": 4380,
+                        "output_tokens_per_second": 17.59412616482756
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:36:56.736+02:00",
+                    "duration_seconds": 71.30402428800153
+                  }
+                ],
+                "slm": {
+                  "started_at": "2026-08-23T19:35:45.433+02:00",
+                  "finished_at": "2026-08-23T19:36:56.736+02:00",
+                  "wall_seconds": 71.30361727700074,
+                  "request": {
+                    "model": "gemma4:e4b",
+                    "prompt": {
+                      "characters": 5867,
+                      "utf8_bytes": 5889,
+                      "sha256": "ae85ccd5e838ea2159cc3cdf46a736ed4726b2fb1d88417f4a6b66eb99ae5a5c"
+                    },
+                    "stream": false,
+                    "think": true,
+                    "options": {
+                      "temperature": 0.2,
+                      "num_ctx": 131072,
+                      "top_p": 0.9,
+                      "seed": 42,
+                      "num_predict": 131072
+                    },
+                    "keep_alive": "5m"
+                  },
+                  "metadata": {
+                    "model": "gemma4:e4b",
+                    "created_at": "2026-08-23T17:36:56.717514394Z",
+                    "done": true,
+                    "done_reason": "stop",
+                    "total_duration": 71209742536,
+                    "load_duration": 446499,
+                    "prompt_eval_count": 1445,
+                    "prompt_eval_duration": 636532000,
+                    "eval_count": 1241,
+                    "eval_duration": 70534904000,
+                    "answer_characters": 733,
+                    "answer_utf8_bytes": 733,
+                    "answer_sha256": "1d46771d10fc65b7ac693c942331aee412c8f3c056ee3523a01b1621bafafbaf",
+                    "thinking_characters": 4380,
+                    "output_tokens_per_second": 17.59412616482756
+                  },
+                  "prompt_text": null,
+                  "answer_text": null,
+                  "thinking_text": null
+                },
+                "slm_output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/product.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 733,
+                  "modified_at": "2026-08-23T19:36:56.736959+02:00",
+                  "sha256": "1d46771d10fc65b7ac693c942331aee412c8f3c056ee3523a01b1621bafafbaf"
+                },
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/product.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/7ProductServiceModel/product.adl",
+                    "--model-name",
+                    "controlled_phase3_ProductServiceModel_product"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:36:56.737+02:00",
+                  "finished_at": "2026-08-23T19:36:56.778+02:00",
+                  "duration_seconds": 0.04095260900066933,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py\", line 913, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py\", line 900, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py\", line 217, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (6):\n  1. CONNECTIONS line 3: Disallowed connection pattern in 'energy-efficient part_of Smart-Heat': Feature part_of Product\n  2. CONNECTIONS line 4: Disallowed connection pattern in 'photovoltaic module part_of outdoor module': Component part_of Component\n  3. CONNECTIONS line 5: Disallowed connection pattern in 'outdoor air exchange unit part_of outdoor module': Component part_of Component\n  4. CONNECTIONS line 6: Disallowed connection pattern in 'zero-emission energy production part_of photovoltaic module': Feature part_of Component\n  5. CONNECTIONS line 7: Disallowed connection pattern in 'annual service part_of maintenance and trouble-shooting': Service part_of Service\n  6. CONNECTIONS line 8: Disallowed connection pattern in 'repair part_of maintenance and trouble-shooting': Service part_of Service\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 1659
+                },
+                "error_message": "The SLM-to-ADL converter failed.",
+                "finished_at": "2026-08-23T19:36:56.778+02:00",
+                "duration_seconds": 71.3454130650025
+              }
+            ],
+            "format_repairs": [
+              {
+                "attempt_number": 1,
+                "status": "FAILED_PYTHON",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/product.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 733,
+                  "modified_at": "2026-08-23T19:36:56.736959+02:00",
+                  "sha256": "1d46771d10fc65b7ac693c942331aee412c8f3c056ee3523a01b1621bafafbaf"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 733,
+                  "modified_at": "2026-08-23T19:36:56.778668+02:00",
+                  "sha256": "1d46771d10fc65b7ac693c942331aee412c8f3c056ee3523a01b1621bafafbaf"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/attempt_1_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 843,
+                  "modified_at": "2026-08-23T19:36:56.778731+02:00",
+                  "sha256": "a975bcd293919678f6401eeda00b09330b2b0311ea2ca36aeb07dc11608eb228"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/attempt_1_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 13956,
+                  "modified_at": "2026-08-23T19:36:56.778827+02:00",
+                  "sha256": "0d0e8744b6cea4cf1195f5d2cb21749cf24110705dd9f1bbabf3d5473de572df"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/attempt_1_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 701,
+                  "modified_at": "2026-08-23T19:41:31.324174+02:00",
+                  "sha256": "a33442ea3ee813574323793a51b2fed3dfbf34c340fa604304e341a6a3cb20b0"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:36:56.778+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:36:56.779+02:00",
+                      "finished_at": "2026-08-23T19:41:31.323+02:00",
+                      "wall_seconds": 274.5448733640005,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 13934,
+                          "utf8_bytes": 13956,
+                          "sha256": "0d0e8744b6cea4cf1195f5d2cb21749cf24110705dd9f1bbabf3d5473de572df"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:41:31.296740767Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 274441904447,
+                        "load_duration": 708556,
+                        "prompt_eval_count": 3223,
+                        "prompt_eval_duration": 31955361000,
+                        "eval_count": 3757,
+                        "eval_duration": 242448595000,
+                        "answer_characters": 700,
+                        "answer_utf8_bytes": 700,
+                        "answer_sha256": "4b661aa7032909b59304da216f907e6a93cb9c0b7983c807b5b64177675d7675",
+                        "thinking_characters": 15959,
+                        "output_tokens_per_second": 15.496068352138728
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:41:31.324+02:00",
+                    "duration_seconds": 274.5452051249995
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/product.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/7ProductServiceModel/product.adl",
+                    "--model-name",
+                    "controlled_phase3_ProductServiceModel_product"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:41:31.324+02:00",
+                  "finished_at": "2026-08-23T19:41:31.370+02:00",
+                  "duration_seconds": 0.04583046900006593,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py\", line 913, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py\", line 900, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py\", line 217, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (2):\n  1. CONNECTIONS line 4: Disallowed connection pattern in 'photovoltaic module part_of outdoor module': Component part_of Component\n  2. CONNECTIONS line 5: Disallowed connection pattern in 'outdoor air exchange unit part_of outdoor module': Component part_of Component\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 1117
+                }
+              },
+              {
+                "attempt_number": 2,
+                "status": "FAILED_PYTHON",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/product.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 701,
+                  "modified_at": "2026-08-23T19:41:31.324345+02:00",
+                  "sha256": "a33442ea3ee813574323793a51b2fed3dfbf34c340fa604304e341a6a3cb20b0"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 733,
+                  "modified_at": "2026-08-23T19:36:56.778668+02:00",
+                  "sha256": "1d46771d10fc65b7ac693c942331aee412c8f3c056ee3523a01b1621bafafbaf"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/attempt_2_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 301,
+                  "modified_at": "2026-08-23T19:41:31.370542+02:00",
+                  "sha256": "62e84d78b0e17f05f11565525948dfce4975da2b56e80de2505b3c0973713d75"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/attempt_2_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 13381,
+                  "modified_at": "2026-08-23T19:41:31.370656+02:00",
+                  "sha256": "b31c102fb8374fc0637528ad5ab728bca4745b10ea1fbd24a10afc44bdd00139"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/attempt_2_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 701,
+                  "modified_at": "2026-08-23T19:45:04.396078+02:00",
+                  "sha256": "a33442ea3ee813574323793a51b2fed3dfbf34c340fa604304e341a6a3cb20b0"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:41:31.370+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:41:31.370+02:00",
+                      "finished_at": "2026-08-23T19:45:04.395+02:00",
+                      "wall_seconds": 213.02494460900198,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 13359,
+                          "utf8_bytes": 13381,
+                          "sha256": "b31c102fb8374fc0637528ad5ab728bca4745b10ea1fbd24a10afc44bdd00139"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:45:04.360985183Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 212911032008,
+                        "load_duration": 580692,
+                        "prompt_eval_count": 3087,
+                        "prompt_eval_duration": 19583385000,
+                        "eval_count": 3050,
+                        "eval_duration": 193278541000,
+                        "answer_characters": 700,
+                        "answer_utf8_bytes": 700,
+                        "answer_sha256": "4b661aa7032909b59304da216f907e6a93cb9c0b7983c807b5b64177675d7675",
+                        "thinking_characters": 13095,
+                        "output_tokens_per_second": 15.780334351758171
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:45:04.395+02:00",
+                    "duration_seconds": 213.02526003100138
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/product.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/7ProductServiceModel/product.adl",
+                    "--model-name",
+                    "controlled_phase3_ProductServiceModel_product"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:45:04.396+02:00",
+                  "finished_at": "2026-08-23T19:45:04.446+02:00",
+                  "duration_seconds": 0.050120069998229155,
+                  "timeout_seconds": 600.0,
+                  "returncode": 1,
+                  "timed_out": false,
+                  "stdout": "",
+                  "stderr": "Traceback (most recent call last):\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py\", line 913, in <module>\n    main()\n    ~~~~^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py\", line 900, in main\n    elements, connections = parse_notation(text)\n                            ~~~~~~~~~~~~~~^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py\", line 217, in parse_notation\n    raise_validation_errors(errors)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/validation.py\", line 31, in raise_validation_errors\n    raise ValueError(f\"Multiple validation errors ({len(unique)}):\\n{details}\")\nValueError: Multiple validation errors (2):\n  1. CONNECTIONS line 4: Disallowed connection pattern in 'photovoltaic module part_of outdoor module': Component part_of Component\n  2. CONNECTIONS line 5: Disallowed connection pattern in 'outdoor air exchange unit part_of outdoor module': Component part_of Component\n",
+                  "ok": false,
+                  "stdout_chars": 0,
+                  "stderr_chars": 1117
+                }
+              },
+              {
+                "attempt_number": 3,
+                "status": "OK",
+                "input": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/product.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 701,
+                  "modified_at": "2026-08-23T19:45:04.396242+02:00",
+                  "sha256": "a33442ea3ee813574323793a51b2fed3dfbf34c340fa604304e341a6a3cb20b0"
+                },
+                "preserved_original": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/original_output.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 733,
+                  "modified_at": "2026-08-23T19:36:56.778668+02:00",
+                  "sha256": "1d46771d10fc65b7ac693c942331aee412c8f3c056ee3523a01b1621bafafbaf"
+                },
+                "python_error": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/attempt_3_python_error.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 301,
+                  "modified_at": "2026-08-23T19:45:04.446718+02:00",
+                  "sha256": "62e84d78b0e17f05f11565525948dfce4975da2b56e80de2505b3c0973713d75"
+                },
+                "prompt": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/attempt_3_prompt.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 13381,
+                  "modified_at": "2026-08-23T19:45:04.446829+02:00",
+                  "sha256": "b31c102fb8374fc0637528ad5ab728bca4745b10ea1fbd24a10afc44bdd00139"
+                },
+                "output": {
+                  "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/format_repair/product/attempt_3_repaired.txt",
+                  "exists": true,
+                  "is_file": true,
+                  "is_directory": false,
+                  "size_bytes": 684,
+                  "modified_at": "2026-08-23T19:47:12.277751+02:00",
+                  "sha256": "d35ea7db97a6f04433cf76da2b6bb10c72368c48be30882eca4137bc58a90863"
+                },
+                "slm_attempts": [
+                  {
+                    "attempt_number": 1,
+                    "started_at": "2026-08-23T19:45:04.446+02:00",
+                    "status": "OK",
+                    "slm": {
+                      "started_at": "2026-08-23T19:45:04.447+02:00",
+                      "finished_at": "2026-08-23T19:47:12.277+02:00",
+                      "wall_seconds": 127.83044035099738,
+                      "request": {
+                        "model": "gemma4:e4b",
+                        "prompt": {
+                          "characters": 13359,
+                          "utf8_bytes": 13381,
+                          "sha256": "b31c102fb8374fc0637528ad5ab728bca4745b10ea1fbd24a10afc44bdd00139"
+                        },
+                        "stream": false,
+                        "think": true,
+                        "options": {
+                          "temperature": 0.2,
+                          "num_ctx": 131072,
+                          "top_p": 0.9,
+                          "seed": 42,
+                          "num_predict": 131072
+                        },
+                        "keep_alive": "5m"
+                      },
+                      "metadata": {
+                        "model": "gemma4:e4b",
+                        "created_at": "2026-08-23T17:47:12.24707544Z",
+                        "done": true,
+                        "done_reason": "stop",
+                        "total_duration": 127729301089,
+                        "load_duration": 679010,
+                        "prompt_eval_count": 3087,
+                        "prompt_eval_duration": 146779000,
+                        "eval_count": 2084,
+                        "eval_duration": 127566472000,
+                        "answer_characters": 683,
+                        "answer_utf8_bytes": 683,
+                        "answer_sha256": "62b545151a12a8596ea48382dd57e2742dcf1670de646239cf21556c31ea373d",
+                        "thinking_characters": 8510,
+                        "output_tokens_per_second": 16.336580978738677
+                      },
+                      "prompt_text": null,
+                      "answer_text": null,
+                      "thinking_text": null
+                    },
+                    "finished_at": "2026-08-23T19:47:12.277+02:00",
+                    "duration_seconds": 127.83077077199778
+                  }
+                ],
+                "converter": {
+                  "args": [
+                    "/usr/bin/python3",
+                    "/home/dokja/Documents/code/AUM/pipeline/scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/product.txt",
+                    "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/7ProductServiceModel/product.adl",
+                    "--model-name",
+                    "controlled_phase3_ProductServiceModel_product"
+                  ],
+                  "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+                  "started_at": "2026-08-23T19:47:12.278+02:00",
+                  "finished_at": "2026-08-23T19:47:12.320+02:00",
+                  "duration_seconds": 0.04198914899825468,
+                  "timeout_seconds": 600.0,
+                  "returncode": 0,
+                  "timed_out": false,
+                  "stdout": "Graph analysis: 2 connected component(s) (element counts: 7, 4).\nOK: read 11 elements and 7 notation connections.\nADL written to: /home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/7ProductServiceModel/product.adl\n",
+                  "stderr": "",
+                  "ok": true,
+                  "stdout_chars": 269,
+                  "stderr_chars": 0
+                }
+              }
+            ],
+            "status": "OK_AFTER_FORMAT_REPAIR",
+            "finished_at": "2026-08-23T19:47:12.320+02:00",
+            "duration_seconds": 686.8875505439973,
+            "slm_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/slm/7ProductServiceModel/product.txt",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 684,
+              "modified_at": "2026-08-23T19:47:12.277922+02:00",
+              "sha256": "d35ea7db97a6f04433cf76da2b6bb10c72368c48be30882eca4137bc58a90863"
+            },
+            "adl_output": {
+              "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/7ProductServiceModel/product.adl",
+              "exists": true,
+              "is_file": true,
+              "is_directory": false,
+              "size_bytes": 9141,
+              "modified_at": "2026-08-23T19:47:12.315517+02:00",
+              "sha256": "4f3423240b4f1403891c755f4aba7e9a0c66ea248484f1c34f3e03b48daefdc6"
+            }
+          }
+        ],
+        "summary": {
+          "statuses": {
+            "OK_AFTER_FORMAT_REPAIR": 5,
+            "OK": 2
+          },
+          "attempt_count": 7,
+          "model_restarts": 0,
+          "format_repair_attempts": 13,
+          "prompt_tokens": 51565,
+          "output_tokens": 38310,
+          "total_tokens": 89875,
+          "slm_wall_seconds": 2663.72906866801,
+          "python_command_seconds": 0.8707307069926173
+        }
+      },
+      "artifact_manifest": {
+        "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/artifacts.json",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 16687,
+        "modified_at": "2026-08-23T19:47:12.320987+02:00",
+        "sha256": "8540006eacfbbf2a0d90fbce76b9dfc20b6c81a15b9d63346bfdc03790b06c42"
+      },
+      "adl_merge": {
+        "started_at": "2026-08-23T19:47:12.321+02:00",
+        "output_file": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/controlled_phase3_models.adl",
+        "input_files": [
+          {
+            "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 8209,
+            "modified_at": "2026-08-23T19:18:49.720680+02:00",
+            "sha256": "7c1aca07dc6b7b7a6e26e97f665898e27efa9124d96dff6e741310a941249438"
+          },
+          {
+            "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_1.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 7132,
+            "modified_at": "2026-08-23T19:19:58.277520+02:00",
+            "sha256": "f347757e1531870f640d7b36cd1d65b63d40b01fff8c521abba89dc7397e462c"
+          },
+          {
+            "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_2.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 10024,
+            "modified_at": "2026-08-23T19:21:41.200282+02:00",
+            "sha256": "fbcfbde1559448116e5cf198679f2b977ffb9014807446ab5eacd71a79262c41"
+          },
+          {
+            "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 9140,
+            "modified_at": "2026-08-23T19:27:59.985759+02:00",
+            "sha256": "ff78f866bd733347f29e27b4efc1a8f2e34112b3f51b2165cc95abfe166c0195"
+          },
+          {
+            "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/4ConceptsModel/concept.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 12338,
+            "modified_at": "2026-08-23T19:32:01.897377+02:00",
+            "sha256": "b46422ba727f07dd72fc1f55162c585486985a03797e6190a89a38cd80ede115"
+          },
+          {
+            "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/6TechnicalComponentsandRequirementsModel/technical_requirement.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 10624,
+            "modified_at": "2026-08-23T19:35:45.426883+02:00",
+            "sha256": "4cf5fe7b910d42a0d945985c3f44495cfcc6a5422a6f37bdab83ceadde50e165"
+          },
+          {
+            "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/7ProductServiceModel/product.adl",
+            "exists": true,
+            "is_file": true,
+            "is_directory": false,
+            "size_bytes": 9141,
+            "modified_at": "2026-08-23T19:47:12.315517+02:00",
+            "sha256": "4f3423240b4f1403891c755f4aba7e9a0c66ea248484f1c34f3e03b48daefdc6"
+          }
+        ],
+        "command": {
+          "args": [
+            "/usr/bin/python3",
+            "/home/dokja/Documents/code/AUM/pipeline/scripts/adl_model_merger.py",
+            "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/1GoalModel/goal.adl",
+            "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_1.adl",
+            "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/2BusinessProcessModell/business_process_2.adl",
+            "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl",
+            "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/4ConceptsModel/concept.adl",
+            "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/6TechnicalComponentsandRequirementsModel/technical_requirement.adl",
+            "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/adl/7ProductServiceModel/product.adl",
+            "--output",
+            "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/controlled_phase3_models.adl"
+          ],
+          "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+          "started_at": "2026-08-23T19:47:12.321+02:00",
+          "finished_at": "2026-08-23T19:47:12.356+02:00",
+          "duration_seconds": 0.03546322200054419,
+          "timeout_seconds": 600.0,
+          "returncode": 0,
+          "timed_out": false,
+          "stdout": "Created: /home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/controlled_phase3_models.adl\nMerged models: 7\n  - BUSINESS PROCESS MODEL <controlled_phase3_GoalModel_goal> (goal.adl)\n  - BUSINESS PROCESS MODEL <controlled_phase3_BusinessProcessModel_business_process_1> (business_process_1.adl)\n  - BUSINESS PROCESS MODEL <controlled_phase3_BusinessProcessModel_business_process_2> (business_process_2.adl)\n  - BUSINESS PROCESS MODEL <controlled_phase3_ActorsResourcesModel_actors_ressources> (actors_ressources.adl)\n  - BUSINESS PROCESS MODEL <controlled_phase3_ConceptsModel_concept> (concept.adl)\n  - BUSINESS PROCESS MODEL <controlled_phase3_TechnicalComponentsRequirementsModel_technical_requirement> (technical_requirement.adl)\n  - BUSINESS PROCESS MODEL <controlled_phase3_ProductServiceModel_product> (product.adl)\n",
+          "stderr": "",
+          "ok": true,
+          "stdout_chars": 870,
+          "stderr_chars": 0
+        },
+        "status": "OK",
+        "output": {
+          "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/output_model_gen/controlled_phase3_models.adl",
+          "exists": true,
+          "is_file": true,
+          "is_directory": false,
+          "size_bytes": 64463,
+          "modified_at": "2026-08-23T19:47:12.352663+02:00",
+          "sha256": "f3ce1698bfb580ac61a892db3f8971f4753f61c4f0511f2b4e5e7420cae2f08e"
+        },
+        "finished_at": "2026-08-23T19:47:12.357+02:00",
+        "duration_seconds": 0.03606456800116575
+      },
+      "intermodel": {
+        "status": "SKIPPED_MODELS_ONLY",
+        "duration_seconds": 0.0
+      },
+      "status": "OK",
+      "finished_at": "2026-08-23T19:47:12.357+02:00",
+      "duration_seconds": 2664.669709709
+    }
+  ],
+  "unhandled_errors": [],
+  "finished_at": "2026-08-23T19:47:12.357+02:00",
+  "duration_seconds": 2664.6720947540016,
+  "summary": {
+    "scenario_count": 1,
+    "model_generation": {
+      "statuses": {
+        "OK_AFTER_FORMAT_REPAIR": 5,
+        "OK": 2
+      },
+      "attempt_count": 7,
+      "model_restarts": 0,
+      "format_repair_attempts": 13,
+      "prompt_tokens": 51565,
+      "output_tokens": 38310,
+      "total_tokens": 89875,
+      "slm_wall_seconds": 2663.72906866801,
+      "python_command_seconds": 0.8707307069926173
+    },
+    "intermodel_generation": {
+      "statuses": {},
+      "attempt_count": 0,
+      "model_restarts": 0,
+      "format_repair_attempts": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "slm_wall_seconds": 0.0,
+      "python_command_seconds": 0.0
+    },
+    "all_prompt_tokens": 51565,
+    "all_output_tokens": 38310,
+    "all_tokens": 89875,
+    "all_model_restarts": 0,
+    "all_format_repair_attempts": 13,
+    "adl_merger_seconds": 0.03606456800116575,
+    "intermodel_integration_seconds": 0.0
+  },
+  "report_files": {
+    "json": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/pipeline_2026-08-23T19-02-47.json",
+    "text": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/pipeline_2026-08-23T19-02-47.txt",
+    "events": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/pipeline_2026-08-23T19-02-47.jsonl",
+    "visualization": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/pipeline_2026-08-23T19-02-47_visualization.html"
+  },
+  "visualization": {
+    "enabled": true,
+    "status": "OK",
+    "output": {
+      "path": "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/pipeline_2026-08-23T19-02-47_visualization.html",
+      "exists": true,
+      "is_file": true,
+      "is_directory": false,
+      "size_bytes": 10477,
+      "modified_at": "2026-08-23T19:47:12.393740+02:00",
+      "sha256": "b59e2e5b8c1a3805d8dc8781e7a92320fad94a675e482c5bad273e3d86260f2c"
+    },
+    "command": {
+      "args": [
+        "/usr/bin/python3",
+        "/home/dokja/Documents/code/AUM/pipeline/scripts/visualize_runtime_report.py",
+        "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/pipeline_2026-08-23T19-02-47.json",
+        "--output",
+        "/home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/pipeline_2026-08-23T19-02-47_visualization.html"
+      ],
+      "cwd": "/home/dokja/Documents/code/AUM/pipeline",
+      "started_at": "2026-08-23T19:47:12.358+02:00",
+      "finished_at": "2026-08-23T19:47:12.399+02:00",
+      "duration_seconds": 0.04021485300108907,
+      "timeout_seconds": 120.0,
+      "returncode": 0,
+      "timed_out": false,
+      "stdout": "Visualization created: /home/dokja/Documents/code/AUM/pipeline/output/controlled_phase3_2026-08-23T19-02-47/pipeline_2026-08-23T19-02-47_visualization.html\n",
+      "stderr": "",
+      "ok": true,
+      "stdout_chars": 156,
+      "stderr_chars": 0
+    }
+  }
+}

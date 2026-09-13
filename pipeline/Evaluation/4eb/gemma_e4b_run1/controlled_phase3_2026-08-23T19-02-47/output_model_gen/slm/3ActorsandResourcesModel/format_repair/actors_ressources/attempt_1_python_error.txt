@@ -1,0 +1,1 @@
+CONNECTIONS line 6: Disallowed connection pattern in 'Print Media Department belongs to MultiHeat': Organizational Unit belongs to Organizational Unit

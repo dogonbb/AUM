@@ -1,0 +1,45 @@
+ELEMENTS
+Individual ProductOwner
+Role ProductOwner
+Organizational Unit ProductDevelopment
+Role ProductDesigner
+Individual ProductDesigner
+Resource HeatPump
+Organizational Unit Marketing
+Organizational Unit SocialMediaGroup
+Organizational Unit PrintMediaGroup
+Organizational Unit Company
+Resource PrintingPress
+Individual PrintDesigner
+Role PrintDesigner
+Individual SocialMediaDesigner
+Role SocialMediaDesigner
+Individual ContentSpecialist
+Role ContentSpecialist
+Individual Operator
+Role Operator
+Individual GeneralManager
+Role GeneralManager
+
+CONNECTIONS
+Individual ProductOwner plays Role ProductOwner
+Role ProductOwner works in Organizational Unit ProductDevelopment
+Individual ProductDesigner plays Role ProductDesigner
+Role ProductDesigner works in Organizational Unit ProductDevelopment
+Role ProductDesigner responsible for Resource HeatPump
+Organizational Unit SocialMediaGroup Total-PartOF Organizational Unit Marketing
+Organizational Unit PrintMediaGroup Total-PartOF Organizational Unit Marketing
+Resource PrintingPress belongs to Organizational Unit PrintMediaGroup
+Individual PrintDesigner plays Role PrintDesigner
+Role PrintDesigner works in Organizational Unit PrintMediaGroup
+Individual SocialMediaDesigner plays Role SocialMediaDesigner
+Role SocialMediaDesigner works in Organizational Unit SocialMediaGroup
+Individual ContentSpecialist plays Role ContentSpecialist
+Role ContentSpecialist works in Organizational Unit SocialMediaGroup
+Individual Operator plays Role Operator
+Role Operator works in Organizational Unit PrintMediaGroup
+Role Operator maintains Resource PrintingPress
+Individual GeneralManager plays Role GeneralManager
+Role GeneralManager works in Organizational Unit Company
+Organizational Unit ProductDevelopment Partial-PartOF Organizational Unit Company
+Organizational Unit Marketing Partial-PartOF Organizational Unit Company

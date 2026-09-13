@@ -1,0 +1,85 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         a57420cd-d29e-4977-bf47-2b4592283494
+Status:                         OK
+Mode:                           models_only
+Started:                        2026-09-13T00:45:39.681+02:00
+Finished:                       2026-09-13T01:11:56.219+02:00
+Total runtime seconds:          1576.539
+Parameter file:                  C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:4b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  26538
+Output tokens:                  65698
+Total tokens:                   92236
+Model restarts:                 4
+Format repair attempts:         5
+ADL merger seconds:             0.339
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK': 1, 'OK_AFTER_FORMAT_REPAIR': 5}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: controlled_phase2
+----------------------------------------------------------------------------------------------------
+Status:                  OK
+Scenario directory:      C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\scenarios\controlled_phase2
+Run directory:           C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\output\controlled_phase2_2026-09-13T00-45-39
+Duration seconds:         1576.458
+Model stage status:       OK
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:controlled_phase2:GoalModel:goal.txt | status=OK | seconds=65.683 | format_repairs=0
+    attempt=1 reason=None seconds=65.662 prompt_tokens=1181 output_tokens=4944
+      slm_attempt=1 status=OK seed=42 seconds=64.463 restart=no
+  MODEL model:controlled_phase2:BusinessProcessModel:business_process.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=123.126 | format_repairs=1
+    attempt=1 reason=python_error seconds=79.182 prompt_tokens=1332 output_tokens=5972
+      slm_attempt=1 status=OK seed=42 seconds=77.751 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=42.502 restart=no
+  MODEL model:controlled_phase2:ActorsResourcesModel:actors_ressources.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=183.593 | format_repairs=1
+    attempt=1 reason=python_error seconds=101.897 prompt_tokens=2013 output_tokens=7569
+      slm_attempt=1 status=OK seed=42 seconds=100.489 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=80.264 restart=no
+  MODEL model:controlled_phase2:ConceptsModel:concept.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=423.329 | format_repairs=1
+    attempt=1 reason=python_error seconds=357.902 prompt_tokens=1543 output_tokens=8121
+      slm_attempt=1 status=REPETITION seed=42 seconds=237.088 restart=yes error=The same thinking block was generated 10 times: '* Wait, check if I need to use `1:1` for "Energy-efficiency" and "Energy consumption"? No text supports it. * Okay.'
+      slm_attempt=2 status=OK seed=43 seconds=115.894 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=63.992 restart=no
+  MODEL model:controlled_phase2:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=488.872 | format_repairs=1
+    attempt=1 reason=python_error seconds=110.645 prompt_tokens=1969 output_tokens=8185
+      slm_attempt=1 status=OK seed=42 seconds=109.445 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=REPETITION seed=42 seconds=171.633 restart=yes error=The same thinking block was generated 10 times: "Okay, let's consider the possibility that the error message is correct and I need to fix the output by ensuring the ELEMENTS section contains these elements *ex"
+      slm_attempt=2 status=REPETITION seed=43 seconds=120.204 restart=yes error=The same thinking block was generated 10 times: '* Wait, I need to check if there are any other errors in the provided output that might be "semantic validation errors" mentioned in the instructions ("Correct '
+      slm_attempt=3 status=OK seed=44 seconds=77.894 restart=no
+  MODEL model:controlled_phase2:ProductServiceModel:product.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=291.393 | format_repairs=1
+    attempt=1 reason=python_error seconds=202.422 prompt_tokens=1368 output_tokens=6099
+      slm_attempt=1 status=REPETITION seed=42 seconds=111.288 restart=yes error=The same thinking block was generated 10 times: '* Wait, check if I should use `PartOF (AND)` for Smart-Heat components. * Actually, looking at the definition of `part_of`: "A part_of B means that Component A '
+      slm_attempt=2 status=OK seed=43 seconds=86.262 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=87.536 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

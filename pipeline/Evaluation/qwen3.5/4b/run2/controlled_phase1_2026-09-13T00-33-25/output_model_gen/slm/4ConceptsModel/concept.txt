@@ -1,0 +1,13 @@
+ELEMENTS
+Concept Energy-efficiency
+Concept Energy consumption
+Concept Customer survey
+Concept Feature
+Concept Target feature
+Concept Specification document
+
+CONNECTIONS
+Target feature Partial-ISA Feature
+Specification document Partial-PartOF Feature
+Energy-efficiency Partial-PartOF Energy consumption
+Customer survey 1:n Target feature

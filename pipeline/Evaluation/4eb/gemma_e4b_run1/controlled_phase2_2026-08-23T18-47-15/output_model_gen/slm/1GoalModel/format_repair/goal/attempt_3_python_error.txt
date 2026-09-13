@@ -1,0 +1,1 @@
+CONNECTIONS line 1: Direct connection 'supports' must have exactly one source: 'Minimize heat pump energy consumption, Produce remaining energy with integrated PV module supports Provide most energy-efficient heating solution'

@@ -1,0 +1,41 @@
+Multiple validation errors (18):
+  1. ELEMENTS line 1: Unknown element type in line 'ElementType Process Plan Marketing Campaign'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  2. ELEMENTS line 2: Unknown element type in line 'ElementType Process Run Social Media Campaign'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  3. ELEMENTS line 3: Unknown element type in line 'ElementType Process Run Print Media Campaign'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  4. ELEMENTS line 4: Unknown element type in line 'ElementType Process Supervise Campaign Results'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  5. ELEMENTS line 5: Unknown element type in line 'ElementType Information Set Campaign Target Document'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  6. ELEMENTS line 6: Unknown element type in line 'ElementType Information Set Campaign Plan'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  7. ELEMENTS line 7: Unknown element type in line 'ElementType Information Set Campaign Statistics'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  8. ELEMENTS line 8: Unknown element type in line 'ElementType Information Set Campaign Result Document'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  9. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Campaign Target Document' is not defined under ELEMENTS.
+  2. Target 'Plan Marketing Campaign' is not defined under ELEMENTS.
+  10. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Plan Marketing Campaign' is not defined under ELEMENTS.
+  2. Target 'Campaign Plan' is not defined under ELEMENTS.
+  11. CONNECTIONS line 3: Multiple validation errors (3):
+  1. Source 'Plan Marketing Campaign' is not defined under ELEMENTS.
+  2. Target 'Run Social Media Campaign' is not defined under ELEMENTS.
+  3. Target 'Run Print Media Campaign' is not defined under ELEMENTS.
+  12. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Run Social Media Campaign' is not defined under ELEMENTS.
+  2. Target 'Campaign Plan' is not defined under ELEMENTS.
+  13. CONNECTIONS line 5: Multiple validation errors (2):
+  1. Source 'Run Print Media Campaign' is not defined under ELEMENTS.
+  2. Target 'Campaign Plan' is not defined under ELEMENTS.
+  14. CONNECTIONS line 6: Multiple validation errors (2):
+  1. Source 'Run Social Media Campaign' is not defined under ELEMENTS.
+  2. Target 'Campaign Statistics' is not defined under ELEMENTS.
+  15. CONNECTIONS line 7: Multiple validation errors (2):
+  1. Source 'Run Print Media Campaign' is not defined under ELEMENTS.
+  2. Target 'Campaign Statistics' is not defined under ELEMENTS.
+  16. CONNECTIONS line 8: Multiple validation errors (2):
+  1. Source 'Campaign Statistics' is not defined under ELEMENTS.
+  2. Target 'Supervise Campaign Results' is not defined under ELEMENTS.
+  17. CONNECTIONS line 9: Multiple validation errors (3):
+  1. Source 'Run Social Media Campaign' is not defined under ELEMENTS.
+  2. Source 'Run Print Media Campaign' is not defined under ELEMENTS.
+  3. Target 'Supervise Campaign Results' is not defined under ELEMENTS.
+  18. CONNECTIONS line 10: Multiple validation errors (2):
+  1. Source 'Supervise Campaign Results' is not defined under ELEMENTS.
+  2. Target 'Campaign Result Document' is not defined under ELEMENTS.

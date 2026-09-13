@@ -1,0 +1,3 @@
+Multiple validation errors (2):
+  1. CONNECTIONS line 4: Disallowed connection pattern in 'Minimize the energy consumption of the heat pump hinders Energy consumption of the current product version is too high': Goal hinders Problem
+  2. CONNECTIONS line 11: Disallowed connection pattern in 'Control unit has to be connected to the Internet, Company does not have much experience with online information processing AND Inability to provide required status information': Cause AND Problem

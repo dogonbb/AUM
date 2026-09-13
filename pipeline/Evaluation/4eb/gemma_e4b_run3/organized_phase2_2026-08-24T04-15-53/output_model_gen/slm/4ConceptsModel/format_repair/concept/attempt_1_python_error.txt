@@ -1,0 +1,4 @@
+Multiple validation errors (3):
+  1. CONNECTIONS line 2: Disallowed connection pattern in 'Heat pump has attribute Energy-efficiency': Concept has attribute Concept
+  2. CONNECTIONS line 3: Disallowed connection pattern in 'Heat pump has attribute Energy consumption': Concept has attribute Concept
+  3. CONNECTIONS line 4: Disallowed connection pattern in 'Heat pump has attribute Feature': Concept has attribute Concept

@@ -1,0 +1,26 @@
+ELEMENTS
+Goal Provide the most energy-efficient heating solution on the market
+Goal Minimize the energy consumption of the heat pump
+Goal Produce the remaining energy required by the heat pump with the integrated photovoltaic module
+Goal Provide services supporting high availability of the heat pump
+Problem Energy consumption of the current product version is too high
+Goal Develop a new heat extractor with very low energy consumption
+Goal Re-design the existing heat extractor by adapting it for a new refrigerant
+Problem Period available for the development is very short
+Problem New refrigerants are very expensive
+Constraint Maximum energy production of the photovoltaic module is 50 kWh
+Problem Company does not have much experience with online information processing
+Opportunity Early implementing the new European regulation for energy-efficient heating that requires continuous monitoring of devices
+
+CONNECTIONS
+Minimize the energy consumption of the heat pump supports Provide the most energy-efficient heating solution on the market
+Produce the remaining energy required by the heat pump with the integrated photovoltaic module supports Provide the most energy-efficient heating solution on the market
+Provide services supporting high availability of the heat pump supports Provide the most energy-efficient heating solution on the market
+Develop a new heat extractor with very low energy consumption, Re-design the existing heat extractor by adapting it for a new refrigerant OR Minimize the energy consumption of the heat pump
+Energy consumption of the current product version is too high hinders Minimize the energy consumption of the heat pump
+Period available for the development is very short hinders Develop a new heat extractor with very low energy consumption
+Period available for the development is very short hinders Re-design the existing heat extractor by adapting it for a new refrigerant
+New refrigerants are very expensive hinders Re-design the existing heat extractor by adapting it for a new refrigerant
+Maximum energy production of the photovoltaic module is 50 kWh hinders Produce the remaining energy required by the heat pump with the integrated photovoltaic module
+Company does not have much experience with online information processing hinders Provide services supporting high availability of the heat pump
+Early implementing the new European regulation for energy-efficient heating that requires continuous monitoring of devices supports Provide the most energy-efficient heating solution on the market

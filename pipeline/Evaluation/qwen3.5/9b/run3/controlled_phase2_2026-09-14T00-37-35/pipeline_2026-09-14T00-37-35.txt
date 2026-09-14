@@ -1,0 +1,72 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         a6227f71-e195-4932-814d-46883d66169a
+Status:                         OK
+Mode:                           models_only
+Started:                        2026-09-14T00:37:35.053+00:00
+Finished:                       2026-09-14T01:17:11.913+00:00
+Total runtime seconds:          2376.861
+Parameter file:                  /kaggle/working/AUM/pipeline/parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:9b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  9406
+Output tokens:                  40373
+Total tokens:                   49779
+Model restarts:                 1
+Format repair attempts:         0
+ADL merger seconds:             0.100
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK': 6}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: controlled_phase2
+----------------------------------------------------------------------------------------------------
+Status:                  OK
+Scenario directory:      /kaggle/working/AUM/pipeline/scenarios/controlled_phase2
+Run directory:           /kaggle/working/AUM/pipeline/output/controlled_phase2_2026-09-14T00-37-35
+Duration seconds:         2376.855
+Model stage status:       OK
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:controlled_phase2:GoalModel:goal.txt | status=OK | seconds=308.032 | format_repairs=0
+    attempt=1 reason=None seconds=308.031 prompt_tokens=1181 output_tokens=6783
+      slm_attempt=1 status=OK seed=42 seconds=307.929 restart=no
+  MODEL model:controlled_phase2:BusinessProcessModel:business_process.txt | status=OK | seconds=124.188 | format_repairs=0
+    attempt=1 reason=None seconds=124.188 prompt_tokens=1332 output_tokens=2728
+      slm_attempt=1 status=OK seed=42 seconds=124.082 restart=no
+  MODEL model:controlled_phase2:ActorsResourcesModel:actors_ressources.txt | status=OK | seconds=338.553 | format_repairs=0
+    attempt=1 reason=None seconds=338.553 prompt_tokens=2013 output_tokens=7440
+      slm_attempt=1 status=OK seed=42 seconds=338.446 restart=no
+  MODEL model:controlled_phase2:ConceptsModel:concept.txt | status=OK | seconds=998.725 | format_repairs=0
+    attempt=1 reason=None seconds=998.725 prompt_tokens=1543 output_tokens=9988
+      slm_attempt=1 status=REPETITION seed=42 seconds=532.264 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check if I need to output `ElementType` in CONNECTIONS lines.** * No.'
+      slm_attempt=2 status=OK seed=43 seconds=466.222 restart=no
+  MODEL model:controlled_phase2:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=210.997 | format_repairs=0
+    attempt=1 reason=None seconds=210.997 prompt_tokens=1969 output_tokens=4642
+      slm_attempt=1 status=OK seed=42 seconds=210.892 restart=no
+  MODEL model:controlled_phase2:ProductServiceModel:product.txt | status=OK | seconds=396.253 | format_repairs=0
+    attempt=1 reason=None seconds=396.252 prompt_tokens=1368 output_tokens=8792
+      slm_attempt=1 status=OK seed=42 seconds=396.141 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

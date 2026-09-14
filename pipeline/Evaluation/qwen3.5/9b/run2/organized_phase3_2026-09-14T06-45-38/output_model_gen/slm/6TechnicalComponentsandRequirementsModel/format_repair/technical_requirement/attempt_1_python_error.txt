@@ -1,0 +1,28 @@
+Multiple validation errors (14):
+  1. ELEMENTS line 1: Unknown element type in 'Production System'. Allowed: Information System Non-Functional Requirement, Information System Functional Requirement, Information System Requirement, Information System Problem, Information System Goal, IS Non-Functional Requirement, IS Functional Requirement, IS Technical Component, IS Requirement, Technical Component, Problem, Goal
+  2. ELEMENTS line 2: Unknown element type in 'Version Management System'. Allowed: Information System Non-Functional Requirement, Information System Functional Requirement, Information System Requirement, Information System Problem, Information System Goal, IS Non-Functional Requirement, IS Functional Requirement, IS Technical Component, IS Requirement, Technical Component, Problem, Goal
+  3. ELEMENTS line 3: Unknown element type in 'Database System'. Allowed: Information System Non-Functional Requirement, Information System Functional Requirement, Information System Requirement, Information System Problem, Information System Goal, IS Non-Functional Requirement, IS Functional Requirement, IS Technical Component, IS Requirement, Technical Component, Problem, Goal
+  4. ELEMENTS line 4: Unknown element type in 'Transaction Middleware'. Allowed: Information System Non-Functional Requirement, Information System Functional Requirement, Information System Requirement, Information System Problem, Information System Goal, IS Non-Functional Requirement, IS Functional Requirement, IS Technical Component, IS Requirement, Technical Component, Problem, Goal
+  5. ELEMENTS line 5: Unknown element type in 'User Interface'. Allowed: Information System Non-Functional Requirement, Information System Functional Requirement, Information System Requirement, Information System Problem, Information System Goal, IS Non-Functional Requirement, IS Functional Requirement, IS Technical Component, IS Requirement, Technical Component, Problem, Goal
+  6. ELEMENTS line 6: Unknown element type in 'Social Media Studio'. Allowed: Information System Non-Functional Requirement, Information System Functional Requirement, Information System Requirement, Information System Problem, Information System Goal, IS Non-Functional Requirement, IS Functional Requirement, IS Technical Component, IS Requirement, Technical Component, Problem, Goal
+  7. ELEMENTS line 7: Unknown element type in 'SM Authoring System'. Allowed: Information System Non-Functional Requirement, Information System Functional Requirement, Information System Requirement, Information System Problem, Information System Goal, IS Non-Functional Requirement, IS Functional Requirement, IS Technical Component, IS Requirement, Technical Component, Problem, Goal
+  8. ELEMENTS line 8: Unknown element type in 'SM Life System'. Allowed: Information System Non-Functional Requirement, Information System Functional Requirement, Information System Requirement, Information System Problem, Information System Goal, IS Non-Functional Requirement, IS Functional Requirement, IS Technical Component, IS Requirement, Technical Component, Problem, Goal
+  9. ELEMENTS line 9: Unknown element type in 'SM Repository'. Allowed: Information System Non-Functional Requirement, Information System Functional Requirement, Information System Requirement, Information System Problem, Information System Goal, IS Non-Functional Requirement, IS Functional Requirement, IS Technical Component, IS Requirement, Technical Component, Problem, Goal
+  10. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Version Management System' is not defined under ELEMENTS.
+  2. Target 'Production System' is not defined under ELEMENTS.
+  11. CONNECTIONS line 2: Multiple validation errors (4):
+  1. Source 'Database System' is not defined under ELEMENTS.
+  2. Source 'Transaction Middleware' is not defined under ELEMENTS.
+  3. Source 'User Interface' is not defined under ELEMENTS.
+  4. Target 'Production System' is not defined under ELEMENTS.
+  12. CONNECTIONS line 3: Multiple validation errors (3):
+  1. Source 'SM Authoring System' is not defined under ELEMENTS.
+  2. Source 'SM Life System' is not defined under ELEMENTS.
+  3. Target 'Social Media Studio' is not defined under ELEMENTS.
+  13. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'SM Repository' is not defined under ELEMENTS.
+  2. Target 'SM Authoring System' is not defined under ELEMENTS.
+  14. CONNECTIONS line 5: Multiple validation errors (2):
+  1. Source 'SM Repository' is not defined under ELEMENTS.
+  2. Target 'SM Life System' is not defined under ELEMENTS.

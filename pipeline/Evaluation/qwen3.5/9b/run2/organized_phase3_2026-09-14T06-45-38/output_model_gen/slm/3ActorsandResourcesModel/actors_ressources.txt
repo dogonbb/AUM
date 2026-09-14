@@ -1,0 +1,18 @@
+ELEMENTS
+Organizational Unit MultiHeat
+Organizational Unit Product Development Department
+Organizational Unit Marketing Department
+Organizational Unit Social Media Group
+Organizational Unit Print Media Group
+Role Product Owner
+Role Product Designer
+Resource Heat Pump
+Resource Printing Press
+
+CONNECTIONS
+Product Owner works in Product Development Department
+Product Designer works in Product Development Department
+Social Media Group, Print Media Group Total-PartOF Marketing Department
+Product Development Department, Marketing Department Partial-PartOF MultiHeat
+Printing Press belongs to Print Media Group
+Product Designer responsible for Heat Pump

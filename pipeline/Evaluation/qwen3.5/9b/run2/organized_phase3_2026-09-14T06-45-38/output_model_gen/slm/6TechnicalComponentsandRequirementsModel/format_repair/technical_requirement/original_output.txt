@@ -1,0 +1,17 @@
+ELEMENTS
+Production System
+Version Management System
+Database System
+Transaction Middleware
+User Interface
+Social Media Studio
+SM Authoring System
+SM Life System
+SM Repository
+
+CONNECTIONS
+Version Management System supports Production System
+Database System, Transaction Middleware, User Interface Total-PartOF Production System
+SM Authoring System, SM Life System Total-PartOF Social Media Studio
+SM Repository supports SM Authoring System
+SM Repository supports SM Life System

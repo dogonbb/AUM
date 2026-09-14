@@ -1,0 +1,12 @@
+ELEMENTS
+Individual Individual_1
+Individual Individual_2
+Role Product Owner
+Role Product Designer
+Organizational Unit Product Development Department
+
+CONNECTIONS
+Individual_1 plays Product Owner
+Individual_2 plays Product Designer
+Product Owner works in Product Development Department
+Product Designer works in Product Development Department

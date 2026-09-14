@@ -1,0 +1,4 @@
+Multiple validation errors (3):
+  1. Duplicate element names found: Feature
+  2. CONNECTIONS line 4: Disallowed connection pattern in 'Heat pump has attribute Energy-efficiency': Concept has attribute Concept
+  3. CONNECTIONS line 5: Disallowed connection pattern in 'Heat pump has attribute Energy consumption': Concept has attribute Concept

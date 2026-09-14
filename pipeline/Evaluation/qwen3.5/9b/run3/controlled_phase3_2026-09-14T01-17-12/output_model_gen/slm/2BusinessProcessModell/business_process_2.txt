@@ -1,0 +1,21 @@
+ELEMENTS
+Process plan marketing campaign
+Process run social media campaign
+Process run print media campaign
+Process supervise campaign results
+Information Set campaign target document
+Information Set campaign plan
+Information Set campaign statistics
+Information Set campaign result document
+
+CONNECTIONS
+campaign target document Input plan marketing campaign
+plan marketing campaign Output campaign plan
+plan marketing campaign Split (AND) run social media campaign, run print media campaign
+campaign plan Input run social media campaign
+campaign plan Input run print media campaign
+run social media campaign Output campaign statistics
+run print media campaign Output campaign statistics
+run social media campaign, run print media campaign Join (AND) supervise campaign results
+campaign statistics Input supervise campaign results
+supervise campaign results Output campaign result document

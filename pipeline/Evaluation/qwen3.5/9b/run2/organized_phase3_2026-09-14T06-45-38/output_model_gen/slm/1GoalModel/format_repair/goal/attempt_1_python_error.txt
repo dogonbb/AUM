@@ -1,0 +1,35 @@
+Multiple validation errors (17):
+  1. ELEMENTS line 1: Unknown element type 'ElementType' in line 'ElementType Goal Provide the most energy-efficient heating solution on the market'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  2. ELEMENTS line 2: Unknown element type 'ElementType' in line 'ElementType Goal Minimize the energy consumption of the heat pump'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  3. ELEMENTS line 3: Unknown element type 'ElementType' in line 'ElementType Goal Produce the remaining energy required by the heat pump with the integrated photovoltaic module'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  4. ELEMENTS line 4: Unknown element type 'ElementType' in line 'ElementType Goal Develop a new heat extractor with very low energy consumption'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  5. ELEMENTS line 5: Unknown element type 'ElementType' in line 'ElementType Goal Re-design the existing heat extractor by adapting it for a new refrigerant'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  6. ELEMENTS line 6: Unknown element type 'ElementType' in line 'ElementType Problem Energy consumption of the current product version is too high'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  7. ELEMENTS line 7: Unknown element type 'ElementType' in line 'ElementType Problem Period available for the development is very short'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  8. ELEMENTS line 8: Unknown element type 'ElementType' in line 'ElementType Problem New refrigerants are very expensive'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  9. ELEMENTS line 9: Unknown element type 'ElementType' in line 'ElementType Constraint Maximum energy production of the photovoltaic module is 50 kWh'. Allowed: Cause, Constraint, Goal, Opportunity, Problem
+  10. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'Minimize the energy consumption of the heat pump' is not defined under ELEMENTS.
+  2. Target 'Provide the most energy-efficient heating solution on the market' is not defined under ELEMENTS.
+  11. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'Produce the remaining energy required by the heat pump with the integrated photovoltaic module' is not defined under ELEMENTS.
+  2. Target 'Provide the most energy-efficient heating solution on the market' is not defined under ELEMENTS.
+  12. CONNECTIONS line 3: Multiple validation errors (3):
+  1. Source 'Develop a new heat extractor with very low energy consumption' is not defined under ELEMENTS.
+  2. Source 'Re-design the existing heat extractor by adapting it for a new refrigerant' is not defined under ELEMENTS.
+  3. Target 'Minimize the energy consumption of the heat pump' is not defined under ELEMENTS.
+  13. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'Energy consumption of the current product version is too high' is not defined under ELEMENTS.
+  2. Target 'Minimize the energy consumption of the heat pump' is not defined under ELEMENTS.
+  14. CONNECTIONS line 5: Multiple validation errors (2):
+  1. Source 'Period available for the development is very short' is not defined under ELEMENTS.
+  2. Target 'Develop a new heat extractor with very low energy consumption' is not defined under ELEMENTS.
+  15. CONNECTIONS line 6: Multiple validation errors (2):
+  1. Source 'Period available for the development is very short' is not defined under ELEMENTS.
+  2. Target 'Re-design the existing heat extractor by adapting it for a new refrigerant' is not defined under ELEMENTS.
+  16. CONNECTIONS line 7: Multiple validation errors (2):
+  1. Source 'New refrigerants are very expensive' is not defined under ELEMENTS.
+  2. Target 'Re-design the existing heat extractor by adapting it for a new refrigerant' is not defined under ELEMENTS.
+  17. CONNECTIONS line 8: Multiple validation errors (2):
+  1. Source 'Maximum energy production of the photovoltaic module is 50 kWh' is not defined under ELEMENTS.
+  2. Target 'Produce the remaining energy required by the heat pump with the integrated photovoltaic module' is not defined under ELEMENTS.

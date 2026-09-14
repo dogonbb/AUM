@@ -1,0 +1,29 @@
+ELEMENTS
+Goal Provide most energy-efficient heating solution on the market
+Problem energy consumption of the current product version is too high
+Goal minimize the energy consumption of the heat pump
+Goal produce the remaining energy required by the heat pump with the integrated photovoltaic module
+Goal provide services supporting high availability of the heat pump
+Constraint maximum energy production of the photovoltaic module is 50 kWh
+Goal develop a new heat extractor with very low energy consumption
+Goal re-design the existing heat extractor by adapting it for a new refrigerant
+Problem short period available for the development
+Problem new refrigerants are very expensive
+Problem control unit has to be connected to the Internet
+Problem company does not have much experience with online information processing
+Opportunity new European regulation for energy-efficient heating that requires continuous monitoring of devices
+
+CONNECTIONS
+energy consumption of the current product version is too high hinders Provide most energy-efficient heating solution on the market
+minimize the energy consumption of the heat pump supports Provide most energy-efficient heating solution on the market
+produce the remaining energy required by the heat pump with the integrated photovoltaic module supports Provide most energy-efficient heating solution on the market
+provide services supporting high availability of the heat pump supports Provide most energy-efficient heating solution on the market
+maximum energy production of the photovoltaic module is 50 kWh hinders produce the remaining energy required by the heat pump with the integrated photovoltaic module
+develop a new heat extractor with very low energy consumption supports minimize the energy consumption of the heat pump
+re-design the existing heat extractor by adapting it for a new refrigerant supports minimize the energy consumption of the heat pump
+short period available for the development hinders develop a new heat extractor with very low energy consumption
+new refrigerants are very expensive hinders re-design the existing heat extractor by adapting it for a new refrigerant
+control unit has to be connected to the Internet hinders provide services supporting high availability of the heat pump
+company does not have much experience with online information processing hinders provide services supporting high availability of the heat pump
+new European regulation for energy-efficient heating that requires continuous monitoring of devices supports provide services supporting high availability of the heat pump
+develop a new heat extractor with very low energy consumption, re-design the existing heat extractor by adapting it for a new refrigerant OR minimize the energy consumption of the heat pump

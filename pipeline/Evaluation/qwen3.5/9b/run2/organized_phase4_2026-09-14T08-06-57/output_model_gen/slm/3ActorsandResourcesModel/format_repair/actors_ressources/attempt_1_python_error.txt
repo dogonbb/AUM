@@ -1,0 +1,5 @@
+Multiple validation errors (4):
+  1. CONNECTIONS line 13: Disallowed connection pattern in 'Role_GeneralManager responsible for Org_ProductDevelopmentDept': Role responsible for Organizational Unit
+  2. CONNECTIONS line 14: Disallowed connection pattern in 'Role_GeneralManager responsible for Org_MarketingDept': Role responsible for Organizational Unit
+  3. CONNECTIONS line 16: Disallowed connection pattern in 'Org_ProductDevelopmentDept belongs to Org_MultiHeat': Organizational Unit belongs to Organizational Unit
+  4. CONNECTIONS line 17: Disallowed connection pattern in 'Org_MarketingDept belongs to Org_MultiHeat': Organizational Unit belongs to Organizational Unit

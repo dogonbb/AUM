@@ -1,0 +1,24 @@
+ELEMENTS
+Individual Person_ProductOwner
+Individual Person_ProductDesigner
+Role Product Owner
+Role Product Designer
+Resource Heat Pump
+Resource Printing Press
+Organizational Unit MultiHeat
+Organizational Unit Product Development Department
+Organizational Unit Marketing Department
+Organizational Unit Social Media Group
+Organizational Unit Print Media Group
+
+CONNECTIONS
+Person_ProductOwner plays Product Owner
+Person_ProductDesigner plays Product Designer
+Product Owner works in Product Development Department
+Product Designer works in Product Development Department
+Product Development Department relation MultiHeat
+Marketing Department relation MultiHeat
+Social Media Group, Print Media Group Total-PartOF Marketing Department
+Printing Press belongs to Print Media Group
+Product Designer responsible for Heat Pump
+Person_ProductOwner relation Person_ProductDesigner

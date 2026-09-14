@@ -1,0 +1,75 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         98bf379f-030e-455f-8382-ee0958dea5aa
+Status:                         OK
+Mode:                           models_only
+Started:                        2026-09-14T05:20:08.093+02:00
+Finished:                       2026-09-14T06:17:28.144+02:00
+Total runtime seconds:          3440.051
+Parameter file:                  C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:9b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  9146
+Output tokens:                  34018
+Total tokens:                   43164
+Model restarts:                 4
+Format repair attempts:         0
+ADL merger seconds:             0.190
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK': 6}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: organized_phase1
+----------------------------------------------------------------------------------------------------
+Status:                  OK
+Scenario directory:      C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\scenarios\organized_phase1
+Run directory:           C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\output\organized_phase1_2026-09-14T05-20-08
+Duration seconds:         3439.994
+Model stage status:       OK
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:organized_phase1:GoalModel:goal.txt | status=OK | seconds=84.402 | format_repairs=0
+    attempt=1 reason=None seconds=84.391 prompt_tokens=1124 output_tokens=3684
+      slm_attempt=1 status=OK seed=42 seconds=84.267 restart=no
+  MODEL model:organized_phase1:BusinessProcessModel:business_process.txt | status=OK | seconds=116.471 | format_repairs=0
+    attempt=1 reason=None seconds=116.455 prompt_tokens=1293 output_tokens=4902
+      slm_attempt=1 status=OK seed=42 seconds=116.331 restart=no
+  MODEL model:organized_phase1:ActorsResourcesModel:actors_ressources.txt | status=OK | seconds=2515.459 | format_repairs=0
+    attempt=1 reason=None seconds=2515.446 prompt_tokens=1986 output_tokens=5401
+      slm_attempt=1 status=REPETITION seed=42 seconds=196.454 restart=yes error=The same thinking block was generated 10 times: '* **Wait, checking Rule 25:** "Do not write explanations...". Okay.'
+      slm_attempt=2 status=TIMEOUT seed=43 seconds=1800.092 restart=yes error=The SLM request exceeded the configured total limit of 1800.00 seconds.
+      slm_attempt=3 status=REPETITION seed=44 seconds=368.660 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check if I need to add a Goal element.** * No.'
+      slm_attempt=4 status=OK seed=45 seconds=143.448 restart=no
+  MODEL model:organized_phase1:ConceptsModel:concept.txt | status=OK | seconds=243.703 | format_repairs=0
+    attempt=1 reason=None seconds=243.686 prompt_tokens=1457 output_tokens=9214
+      slm_attempt=1 status=OK seed=42 seconds=243.561 restart=no
+  MODEL model:organized_phase1:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=324.781 | format_repairs=0
+    attempt=1 reason=None seconds=324.766 prompt_tokens=1958 output_tokens=4514
+      slm_attempt=1 status=REPETITION seed=42 seconds=202.386 restart=yes error=The same thinking block was generated 10 times: '* Wait, I\'ll check if I should use "Information System Non-Functional Requirement" or "Information System Requirement". Rule 5 says NFR for quality attributes. '
+      slm_attempt=2 status=OK seed=43 seconds=120.049 restart=no
+  MODEL model:organized_phase1:ProductServiceModel:product.txt | status=OK | seconds=154.947 | format_repairs=0
+    attempt=1 reason=None seconds=154.933 prompt_tokens=1328 output_tokens=6303
+      slm_attempt=1 status=OK seed=42 seconds=154.810 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

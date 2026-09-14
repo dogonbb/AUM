@@ -1,0 +1,9 @@
+ELEMENTS
+Goal Provide_Energy_Efficient_Heating
+Goal Minimize_Energy_Consumption
+Goal Produce_Remaining_Energy_with_PV
+Problem High_Current_Energy_Consumption
+
+CONNECTIONS
+Minimize_Energy_Consumption, Produce_Remaining_Energy_with_PV AND Provide_Energy_Efficient_Heating
+High_Current_Energy_Consumption hinders Provide_Energy_Efficient_Heating

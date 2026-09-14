@@ -1,0 +1,9 @@
+ELEMENTS
+Technical Component Production System
+Technical Component Version Management System
+Information System Goal Support Product Innovation Process
+
+CONNECTIONS
+Version Management System supports Production System
+Production System has goal Support Product Innovation Process
+Version Management System has goal Support Product Innovation Process

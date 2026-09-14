@@ -1,0 +1,90 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         e29cc699-5542-4601-aef3-35c3abff20d5
+Status:                         COMPLETED_WITH_ERRORS
+Mode:                           models_only
+Started:                        2026-09-14T02:36:01.061+00:00
+Finished:                       2026-09-14T05:20:35.984+00:00
+Total runtime seconds:          9874.923
+Parameter file:                  /kaggle/working/AUM/pipeline/parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:9b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  17055
+Output tokens:                  78233
+Total tokens:                   95288
+Model restarts:                 9
+Format repair attempts:         2
+ADL merger seconds:             0.096
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK': 5, 'OK_AFTER_FORMAT_REPAIR': 2, 'FAILED_SLM': 1}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: controlled_phase4
+----------------------------------------------------------------------------------------------------
+Status:                  COMPLETED_WITH_ERRORS
+Scenario directory:      /kaggle/working/AUM/pipeline/scenarios/controlled_phase4
+Run directory:           /kaggle/working/AUM/pipeline/output/controlled_phase4_2026-09-14T02-36-01
+Duration seconds:         9874.917
+Model stage status:       COMPLETED_WITH_ERRORS
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:controlled_phase4:GoalModel:goal.txt | status=OK | seconds=375.812 | format_repairs=0
+    attempt=1 reason=None seconds=375.811 prompt_tokens=1421 output_tokens=8222
+      slm_attempt=1 status=OK seed=42 seconds=375.697 restart=no
+  MODEL model:controlled_phase4:BusinessProcessModel:business_process_1.txt | status=OK | seconds=209.444 | format_repairs=0
+    attempt=1 reason=None seconds=209.443 prompt_tokens=1334 output_tokens=4630
+      slm_attempt=1 status=OK seed=42 seconds=209.339 restart=no
+  MODEL model:controlled_phase4:BusinessProcessModel:business_process_2.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=1456.933 | format_repairs=1
+    attempt=1 reason=python_error seconds=1257.253 prompt_tokens=1357 output_tokens=8815
+      slm_attempt=1 status=REPETITION seed=42 seconds=845.297 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check "External Process"**: * None.'
+      slm_attempt=2 status=OK seed=43 seconds=411.718 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=199.572 restart=no
+  MODEL model:controlled_phase4:BusinessProcessModel:business_process_3.txt | status=OK | seconds=452.626 | format_repairs=0
+    attempt=1 reason=None seconds=452.626 prompt_tokens=1385 output_tokens=9920
+      slm_attempt=1 status=OK seed=42 seconds=452.516 restart=no
+  MODEL model:controlled_phase4:ActorsResourcesModel:actors_ressources.txt | status=OK | seconds=932.647 | format_repairs=0
+    attempt=1 reason=None seconds=932.647 prompt_tokens=2162 output_tokens=10333
+      slm_attempt=1 status=REPETITION seed=42 seconds=455.039 restart=yes error=The same thinking block was generated 10 times: '* Wait, check Rule 25: "Do not write explanations...". * Okay.'
+      slm_attempt=2 status=OK seed=43 seconds=477.365 restart=no
+  MODEL model:controlled_phase4:ConceptsModel:concept.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=3761.951 | format_repairs=1
+    attempt=1 reason=python_error seconds=2588.308 prompt_tokens=1750 output_tokens=12177
+      slm_attempt=1 status=REPETITION seed=42 seconds=718.092 restart=yes error=The same thinking block was generated 10 times: '* *Wait, check `Campaign plan` connection:* * Text: "describes what social media activities...". * `Campaign statistics`: "summarizes the response rates for the'
+      slm_attempt=2 status=REPETITION seed=43 seconds=787.721 restart=yes error=The same thinking block was generated 10 times: '* **Wait, Check `Customer survey`, `Specification document`, `Design description`, `Zero-emission energy production`, `Campaign plan`**: * Concepts. No connecti'
+      slm_attempt=3 status=REPETITION seed=44 seconds=512.174 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check `Order confirmation` composition.** * `Order confirmation Partial-PartOF Verified order specification` * `Order confirmation Partial-PartOF Deli'
+      slm_attempt=4 status=OK seed=45 seconds=569.831 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=REPETITION seed=42 seconds=678.147 restart=yes error=The same thinking block was generated 10 times: '**Wait, check `Attribute target group`, etc.:** Keep them.'
+      slm_attempt=2 status=OK seed=43 seconds=495.251 restart=no
+  MODEL model:controlled_phase4:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=FAILED_SLM | seconds=2278.830 | format_repairs=0
+    attempt=1 reason=slm_error seconds=2278.830 prompt_tokens=0 output_tokens=0
+      slm_attempt=1 status=REPETITION seed=42 seconds=710.672 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check if `distributed database` is a valid name.** Text: "distributed database". Yes.'
+      slm_attempt=2 status=REPETITION seed=43 seconds=646.298 restart=yes error=The same thinking block was generated 10 times: '* **Wait, checking Rule 18:** "Do not write explanations...". Okay.'
+      slm_attempt=3 status=REPETITION seed=44 seconds=422.447 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check Rule 18:** "Do not write explanations...". * Just the output.'
+      slm_attempt=4 status=REPETITION seed=45 seconds=499.034 restart=no error=The same thinking block was generated 10 times: '* **Wait, check Rule 15:** "Use connector-based connections when the case explicitly describes grouped, decomposed...". Does "consists of" imply Total-PartOF? Y'
+  MODEL model:controlled_phase4:ProductServiceModel:product.txt | status=OK | seconds=406.570 | format_repairs=0
+    attempt=1 reason=None seconds=406.570 prompt_tokens=1441 output_tokens=9202
+      slm_attempt=1 status=OK seed=42 seconds=406.465 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

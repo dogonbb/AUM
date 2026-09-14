@@ -1,0 +1,261 @@
+{
+  "format": "4em-pipeline-artifact-manifest-v1",
+  "scenario_name": "controlled_phase1",
+  "scenario_directory": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1",
+  "run_directory": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17",
+  "created_at": "2026-09-14T02:21:59.582+02:00",
+  "artifacts": [
+    {
+      "scenario_name": "controlled_phase1",
+      "model_id": "GoalModel",
+      "model_folder": "1GoalModel",
+      "model_display_name": "Goal Model",
+      "model_type": "Goal Model",
+      "source_scenario_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\1GoalModel\\goal.txt",
+      "source_relative_path": "goal.txt",
+      "source_stem": "goal",
+      "adl_model_name": "controlled_phase1_GoalModel_goal",
+      "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\1GoalModel\\goal.txt",
+      "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\1GoalModel\\goal.adl",
+      "status": "OK",
+      "task_id": "model:controlled_phase1:GoalModel:goal.txt",
+      "slm_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\1GoalModel\\goal.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 206,
+        "modified_at": "2026-09-14T02:04:52.687273+02:00",
+        "sha256": "9897999e7a703b7276cd4590a4a38727d7a2f6cb2030f768502845b3f8b35a1b"
+      },
+      "adl_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\1GoalModel\\goal.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 3428,
+        "modified_at": "2026-09-14T02:04:52.819272+02:00",
+        "sha256": "d972fb34283d8418b3d13d926129682cc996a9d6592437ab4a4550870f0e71f4"
+      },
+      "source_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\1GoalModel\\goal.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 282,
+        "modified_at": "2026-07-25T12:51:38.155587+02:00",
+        "sha256": "e2cfab87ade68b23647dd42fff01ace2c6cfac133cd7ceac1a414b9a369237e1"
+      }
+    },
+    {
+      "scenario_name": "controlled_phase1",
+      "model_id": "BusinessProcessModel",
+      "model_folder": "2BusinessProcessModell",
+      "model_display_name": "Business Process Model",
+      "model_type": "Business Process Model",
+      "source_scenario_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\2BusinessProcessModell\\business_process.txt",
+      "source_relative_path": "business_process.txt",
+      "source_stem": "business_process",
+      "adl_model_name": "controlled_phase1_BusinessProcessModel_business_process",
+      "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\2BusinessProcessModell\\business_process.txt",
+      "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\2BusinessProcessModell\\business_process.adl",
+      "status": "OK",
+      "task_id": "model:controlled_phase1:BusinessProcessModel:business_process.txt",
+      "slm_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\2BusinessProcessModell\\business_process.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 405,
+        "modified_at": "2026-09-14T02:07:38.243430+02:00",
+        "sha256": "79e96dbdf2cc1db77a697e36a92fe0fb99da200e11ea84fc4b1709df792ef273"
+      },
+      "adl_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\2BusinessProcessModell\\business_process.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 6175,
+        "modified_at": "2026-09-14T02:07:38.360059+02:00",
+        "sha256": "76627d3e68d9efd239cb0b7b4856f378fe9b0858be20f1a164a7b18a71db7023"
+      },
+      "source_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\2BusinessProcessModell\\business_process.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 502,
+        "modified_at": "2026-07-25T12:51:38.223314+02:00",
+        "sha256": "0aa4f5d738f7385c60912b3dc338f7ef652a2606861d0b7facb14f61428b8500"
+      }
+    },
+    {
+      "scenario_name": "controlled_phase1",
+      "model_id": "ActorsResourcesModel",
+      "model_folder": "3ActorsandResourcesModel",
+      "model_display_name": "Actors and Resources Model",
+      "model_type": "Actors and Resources Model",
+      "source_scenario_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\3ActorsandResourcesModel\\actors_ressources.txt",
+      "source_relative_path": "actors_ressources.txt",
+      "source_stem": "actors_ressources",
+      "adl_model_name": "controlled_phase1_ActorsResourcesModel_actors_ressources",
+      "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\3ActorsandResourcesModel\\actors_ressources.txt",
+      "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\3ActorsandResourcesModel\\actors_ressources.adl",
+      "status": "OK",
+      "task_id": "model:controlled_phase1:ActorsResourcesModel:actors_ressources.txt",
+      "slm_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\3ActorsandResourcesModel\\actors_ressources.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 282,
+        "modified_at": "2026-09-14T02:10:39.720944+02:00",
+        "sha256": "33921a00c382111d7762912afe81806cc168fa0b3f167a5a2df789afb32f0633"
+      },
+      "adl_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\3ActorsandResourcesModel\\actors_ressources.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 4990,
+        "modified_at": "2026-09-14T02:10:39.835092+02:00",
+        "sha256": "caf822580487f643ce119b91dc61505444dc0412d02b6abc33e3ecd6488a60f7"
+      },
+      "source_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\3ActorsandResourcesModel\\actors_ressources.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 334,
+        "modified_at": "2026-07-25T12:51:38.084129+02:00",
+        "sha256": "db7930d3635af1de2f36a9ef310305a82196bfb8a78e3f1b27984a114e2c469a"
+      }
+    },
+    {
+      "scenario_name": "controlled_phase1",
+      "model_id": "ConceptsModel",
+      "model_folder": "4ConceptsModel",
+      "model_display_name": "Concepts Model",
+      "model_type": "Concepts Model",
+      "source_scenario_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\4ConceptsModel\\concept.txt",
+      "source_relative_path": "concept.txt",
+      "source_stem": "concept",
+      "adl_model_name": "controlled_phase1_ConceptsModel_concept",
+      "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\4ConceptsModel\\concept.txt",
+      "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\4ConceptsModel\\concept.adl",
+      "status": "OK",
+      "task_id": "model:controlled_phase1:ConceptsModel:concept.txt",
+      "slm_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\4ConceptsModel\\concept.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 354,
+        "modified_at": "2026-09-14T02:15:28.165205+02:00",
+        "sha256": "99619c2f22bbcdf60e5c610e9c80a99e798ec2d85ae68765d760ec723b8261a3"
+      },
+      "adl_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\4ConceptsModel\\concept.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 7508,
+        "modified_at": "2026-09-14T02:15:28.281594+02:00",
+        "sha256": "621bcebc0aaeb2919f3da1b96b7070b2c4fcace31fea87ea74033bc063083ac4"
+      },
+      "source_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\4ConceptsModel\\concept.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 634,
+        "modified_at": "2026-07-25T12:51:38.189607+02:00",
+        "sha256": "03fa66e7b7a26cb76224a515ea6f88df6cfab41b9e32075285fa22e5bb0607be"
+      }
+    },
+    {
+      "scenario_name": "controlled_phase1",
+      "model_id": "TechnicalComponentsRequirementsModel",
+      "model_folder": "6TechnicalComponentsandRequirementsModel",
+      "model_display_name": "Technical Components and Requirements Model",
+      "model_type": "Technical Components and Requirements Model",
+      "source_scenario_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\6TechnicalComponentsandRequirementsModel\\technical_requirement.txt",
+      "source_relative_path": "technical_requirement.txt",
+      "source_stem": "technical_requirement",
+      "adl_model_name": "controlled_phase1_TechnicalComponentsRequirementsModel_technical_requirement",
+      "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\6TechnicalComponentsandRequirementsModel\\technical_requirement.txt",
+      "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\6TechnicalComponentsandRequirementsModel\\technical_requirement.adl",
+      "status": "OK",
+      "task_id": "model:controlled_phase1:TechnicalComponentsRequirementsModel:technical_requirement.txt",
+      "slm_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\6TechnicalComponentsandRequirementsModel\\technical_requirement.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 325,
+        "modified_at": "2026-09-14T02:19:03.955463+02:00",
+        "sha256": "4773254be50de8fcd099ddb6b133cd35260a2e39faffc4894493f0fea439ac57"
+      },
+      "adl_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\6TechnicalComponentsandRequirementsModel\\technical_requirement.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 5006,
+        "modified_at": "2026-09-14T02:19:04.071875+02:00",
+        "sha256": "53b3a1b2c2f916c7999dd9e25ece82fd81389877be8b4157765a025dbbdc95df"
+      },
+      "source_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\6TechnicalComponentsandRequirementsModel\\technical_requirement.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 189,
+        "modified_at": "2026-07-25T12:51:38.118915+02:00",
+        "sha256": "0d497761c0b88baeeec579dd9e9f60f20b625ab5468a67dd448dae67a3c38f1f"
+      }
+    },
+    {
+      "scenario_name": "controlled_phase1",
+      "model_id": "ProductServiceModel",
+      "model_folder": "7ProductServiceModel",
+      "model_display_name": "Product / Service Model",
+      "model_type": "Product / Service Model",
+      "source_scenario_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\7ProductServiceModel\\product.txt",
+      "source_relative_path": "product.txt",
+      "source_stem": "product",
+      "adl_model_name": "controlled_phase1_ProductServiceModel_product",
+      "slm_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\7ProductServiceModel\\product.txt",
+      "adl_file": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\7ProductServiceModel\\product.adl",
+      "status": "OK",
+      "task_id": "model:controlled_phase1:ProductServiceModel:product.txt",
+      "slm_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\slm\\7ProductServiceModel\\product.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 209,
+        "modified_at": "2026-09-14T02:21:59.451583+02:00",
+        "sha256": "82a2c262f8cdd8b2f6abc2894d7fee3bb0a841e8d38440308f50ebb732fe1b20"
+      },
+      "adl_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\output\\controlled_phase1_2026-09-14T02-03-17\\output_model_gen\\adl\\7ProductServiceModel\\product.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 5280,
+        "modified_at": "2026-09-14T02:21:59.562925+02:00",
+        "sha256": "593a8f3631048d7b0b598b23b96cea61f8fcae07f042bae003e4c2361e6ab5cc"
+      },
+      "source_file_info": {
+        "path": "C:\\Users\\dariu_sf\\OneDrive\\Dokumente\\AUM\\Projekt\\AUM\\pipeline\\scenarios\\controlled_phase1\\7ProductServiceModel\\product.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 152,
+        "modified_at": "2026-07-25T12:51:38.258310+02:00",
+        "sha256": "353e2fe1055d543e5d853011120cb9e23d2d9ccaa4ddaa1a9676fd425d0bb1a0"
+      }
+    }
+  ]
+}

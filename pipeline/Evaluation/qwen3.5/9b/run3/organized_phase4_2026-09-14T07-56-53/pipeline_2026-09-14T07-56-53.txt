@@ -1,0 +1,85 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         57ade90e-8cca-4421-8ebc-c37286ea929d
+Status:                         COMPLETED_WITH_ERRORS
+Mode:                           models_only
+Started:                        2026-09-14T07:56:53.571+00:00
+Finished:                       2026-09-14T10:49:51.572+00:00
+Total runtime seconds:          10378.001
+Parameter file:                  /kaggle/working/AUM/pipeline/parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:9b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  15924
+Output tokens:                  81967
+Total tokens:                   97891
+Model restarts:                 4
+Format repair attempts:         2
+ADL merger seconds:             0.095
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK': 6, 'FAILED_PYTHON': 1, 'OK_AFTER_FORMAT_REPAIR': 1}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: organized_phase4
+----------------------------------------------------------------------------------------------------
+Status:                  COMPLETED_WITH_ERRORS
+Scenario directory:      /kaggle/working/AUM/pipeline/scenarios/organized_phase4
+Run directory:           /kaggle/working/AUM/pipeline/output/organized_phase4_2026-09-14T07-56-53
+Duration seconds:         10377.996
+Model stage status:       COMPLETED_WITH_ERRORS
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:organized_phase4:GoalModel:goal.txt | status=OK | seconds=516.840 | format_repairs=0
+    attempt=1 reason=None seconds=516.840 prompt_tokens=1342 output_tokens=11257
+      slm_attempt=1 status=OK seed=42 seconds=516.727 restart=no
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_1.txt | status=OK | seconds=211.835 | format_repairs=0
+    attempt=1 reason=None seconds=211.835 prompt_tokens=1328 output_tokens=4701
+      slm_attempt=1 status=OK seed=42 seconds=211.726 restart=no
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_2.txt | status=OK | seconds=416.764 | format_repairs=0
+    attempt=1 reason=None seconds=416.764 prompt_tokens=1312 output_tokens=9216
+      slm_attempt=1 status=OK seed=42 seconds=416.654 restart=no
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_3.txt | status=OK | seconds=518.735 | format_repairs=0
+    attempt=1 reason=None seconds=518.734 prompt_tokens=1348 output_tokens=11346
+      slm_attempt=1 status=OK seed=42 seconds=518.624 restart=no
+  MODEL model:organized_phase4:ActorsResourcesModel:actors_ressources.txt | status=FAILED_PYTHON | seconds=6626.286 | format_repairs=1
+    attempt=1 reason=python_error seconds=598.895 prompt_tokens=2125 output_tokens=12838
+      slm_attempt=1 status=OK seed=42 seconds=598.786 restart=no
+    FORMAT REPAIR attempt=1 status=FAILED_SLM
+      slm_attempt=1 status=REPETITION seed=42 seconds=627.008 restart=yes error=The same thinking block was generated 10 times: 'Wait, but what about `ProductDesigner`? "Individual ProductDesigner plays Role ProductDesigner". If I remove `Individual ProductDesigner`, then this connection '
+      slm_attempt=2 status=TIMEOUT seed=43 seconds=1800.005 restart=yes error=The SLM request exceeded the configured total limit of 1800.00 seconds.
+      slm_attempt=3 status=TIMEOUT seed=44 seconds=1800.005 restart=yes error=The SLM request exceeded the configured total limit of 1800.00 seconds.
+      slm_attempt=4 status=TIMEOUT seed=45 seconds=1800.004 restart=no error=The SLM request exceeded the configured total limit of 1800.00 seconds.
+  MODEL model:organized_phase4:ConceptsModel:concept.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=1446.533 | format_repairs=1
+    attempt=1 reason=python_error seconds=1079.033 prompt_tokens=1713 output_tokens=10491
+      slm_attempt=1 status=REPETITION seed=42 seconds=587.168 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check `Order confirmation`**: * Total-PartOF `Verified order specification`, `Delivery order`.'
+      slm_attempt=2 status=OK seed=43 seconds=491.625 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=367.386 restart=no
+  MODEL model:organized_phase4:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=329.623 | format_repairs=0
+    attempt=1 reason=None seconds=329.623 prompt_tokens=2040 output_tokens=7268
+      slm_attempt=1 status=OK seed=42 seconds=329.514 restart=no
+  MODEL model:organized_phase4:ProductServiceModel:product.txt | status=OK | seconds=311.274 | format_repairs=0
+    attempt=1 reason=None seconds=311.274 prompt_tokens=1429 output_tokens=6873
+      slm_attempt=1 status=OK seed=42 seconds=311.170 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

@@ -1,0 +1,10 @@
+ELEMENTS
+Role Product Owner
+Organizational Unit Product Development Department
+Resource Smart-Heat
+Organizational Unit Company
+
+CONNECTIONS
+Product Owner works in Product Development Department
+Product Owner responsible for Smart-Heat
+Product Development Department relation Company

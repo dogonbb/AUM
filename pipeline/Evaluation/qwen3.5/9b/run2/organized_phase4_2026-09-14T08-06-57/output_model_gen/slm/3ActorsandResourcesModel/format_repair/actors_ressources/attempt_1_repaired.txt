@@ -1,0 +1,39 @@
+ELEMENTS
+Individual Individual_Speaker
+Role Role_ProductOwner
+Role Role_ProductDesigner
+Role Role_PrintDesigner
+Role Role_SocialMediaDesigner
+Role Role_Operator
+Role Role_ContentSpecialist
+Role Role_GeneralManager
+Resource Resource_SmartHeatProduct
+Resource Resource_HeatPump
+Resource Resource_PrintingPress
+Resource Resource_SocialMediaCampaign
+Resource Resource_PrintMediaCampaign
+Organizational Unit Org_ProductDevelopmentDept
+Organizational Unit Org_MultiHeat
+Organizational Unit Org_MarketingDept
+Organizational Unit Org_SocialMediaGroup
+Organizational Unit Org_PrintMediaGroup
+
+CONNECTIONS
+Individual_Speaker plays Role_ProductOwner
+Role_ProductOwner works in Org_ProductDevelopmentDept
+Role_ProductOwner responsible for Resource_SmartHeatProduct
+Role_ProductDesigner works in Org_ProductDevelopmentDept
+Role_ProductDesigner responsible for Resource_HeatPump
+Role_PrintDesigner works in Org_PrintMediaGroup
+Role_PrintDesigner responsible for Resource_PrintMediaCampaign
+Role_SocialMediaDesigner works in Org_SocialMediaGroup
+Role_SocialMediaDesigner responsible for Resource_SocialMediaCampaign
+Role_Operator works in Org_PrintMediaGroup
+Role_Operator maintains Resource_PrintingPress
+Role_ContentSpecialist works in Org_SocialMediaGroup
+Role_GeneralManager relation Org_ProductDevelopmentDept
+Role_GeneralManager relation Org_MarketingDept
+Role_GeneralManager works in Org_MultiHeat
+Org_ProductDevelopmentDept, Org_MarketingDept Total-PartOF Org_MultiHeat
+Org_SocialMediaGroup, Org_PrintMediaGroup Total-PartOF Org_MarketingDept
+Resource_PrintingPress belongs to Org_PrintMediaGroup

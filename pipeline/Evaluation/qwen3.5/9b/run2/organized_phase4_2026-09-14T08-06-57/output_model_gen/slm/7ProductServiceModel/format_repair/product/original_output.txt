@@ -1,0 +1,29 @@
+ELEMENTS
+Product Smart-Heat
+Component Indoor Module
+Component Outdoor Module
+Component Photovoltaic Module
+Component Outdoor Air Exchange Unit
+Feature Energy-efficient
+Feature Zero-emission energy production
+Service Maintenance and Trouble-Shooting
+Component Annual Service
+Component Repair
+Component Service Kit
+Feature Quick response to error situations
+Feature Discount prices in case of repairs
+Feature Personal service technician
+
+CONNECTIONS
+Indoor Module part_of Smart-Heat
+Outdoor Module part_of Smart-Heat
+Photovoltaic Module part_of Outdoor Module
+Outdoor Air Exchange Unit part_of Outdoor Module
+Energy-efficient requires Smart-Heat
+Zero-emission energy production requires Photovoltaic Module
+Quick response to error situations requires Maintenance and Trouble-Shooting
+Discount prices in case of repairs requires Maintenance and Trouble-Shooting
+Personal service technician requires Maintenance and Trouble-Shooting
+Annual Service part_of Maintenance and Trouble-Shooting
+Repair part_of Maintenance and Trouble-Shooting
+Service Kit part_of Maintenance and Trouble-Shooting

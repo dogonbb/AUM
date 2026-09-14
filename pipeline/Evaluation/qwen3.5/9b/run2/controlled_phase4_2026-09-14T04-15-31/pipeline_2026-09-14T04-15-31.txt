@@ -1,0 +1,87 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         41912eb6-4acd-49b3-87bf-925e299564d1
+Status:                         OK
+Mode:                           models_only
+Started:                        2026-09-14T04:15:31.271+02:00
+Finished:                       2026-09-14T05:20:07.746+02:00
+Total runtime seconds:          3876.475
+Parameter file:                  C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:9b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  33177
+Output tokens:                  103955
+Total tokens:                   137132
+Model restarts:                 2
+Format repair attempts:         4
+ADL merger seconds:             0.176
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK_AFTER_FORMAT_REPAIR': 4, 'OK': 4}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: controlled_phase4
+----------------------------------------------------------------------------------------------------
+Status:                  OK
+Scenario directory:      C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\scenarios\controlled_phase4
+Run directory:           C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\output\controlled_phase4_2026-09-14T04-15-31
+Duration seconds:         3876.420
+Model stage status:       OK
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:controlled_phase4:GoalModel:goal.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=417.532 | format_repairs=1
+    attempt=1 reason=python_error seconds=261.114 prompt_tokens=1421 output_tokens=9710
+      slm_attempt=1 status=OK seed=42 seconds=260.940 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=156.236 restart=no
+  MODEL model:controlled_phase4:BusinessProcessModel:business_process_1.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=356.649 | format_repairs=1
+    attempt=1 reason=python_error seconds=235.013 prompt_tokens=1334 output_tokens=8949
+      slm_attempt=1 status=OK seed=42 seconds=234.839 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=121.451 restart=no
+  MODEL model:controlled_phase4:BusinessProcessModel:business_process_2.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=549.839 | format_repairs=1
+    attempt=1 reason=python_error seconds=430.245 prompt_tokens=1357 output_tokens=14355
+      slm_attempt=1 status=OK seed=42 seconds=430.060 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=119.408 restart=no
+  MODEL model:controlled_phase4:BusinessProcessModel:business_process_3.txt | status=OK | seconds=839.112 | format_repairs=0
+    attempt=1 reason=None seconds=839.097 prompt_tokens=1385 output_tokens=14274
+      slm_attempt=1 status=REPETITION seed=42 seconds=403.252 restart=yes error=The same thinking block was generated 10 times: '* Wait, checking if I should use `ElementType` in ELEMENTS line or just the type. * Instruction: `ElementType <name_1>`. * So `ElementType External Process Subm'
+      slm_attempt=2 status=OK seed=43 seconds=433.393 restart=no
+  MODEL model:controlled_phase4:ActorsResourcesModel:actors_ressources.txt | status=OK | seconds=733.061 | format_repairs=0
+    attempt=1 reason=None seconds=733.045 prompt_tokens=2162 output_tokens=8219
+      slm_attempt=1 status=REPETITION seed=42 seconds=499.190 restart=yes error=The same thinking block was generated 10 times: '* Wait, check if `MultiHeat relation Product Development Department`. Yes. * Wait, check if `MultiHeat relation Marketing Department`. Yes. * Wait, check if `Mu'
+      slm_attempt=2 status=OK seed=43 seconds=231.421 restart=no
+  MODEL model:controlled_phase4:ConceptsModel:concept.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=529.696 | format_repairs=1
+    attempt=1 reason=python_error seconds=277.528 prompt_tokens=1750 output_tokens=10046
+      slm_attempt=1 status=OK seed=42 seconds=277.356 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=251.984 restart=no
+  MODEL model:controlled_phase4:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=252.462 | format_repairs=0
+    attempt=1 reason=None seconds=252.450 prompt_tokens=2046 output_tokens=9160
+      slm_attempt=1 status=OK seed=42 seconds=252.279 restart=no
+  MODEL model:controlled_phase4:ProductServiceModel:product.txt | status=OK | seconds=197.805 | format_repairs=0
+    attempt=1 reason=None seconds=197.790 prompt_tokens=1441 output_tokens=7707
+      slm_attempt=1 status=OK seed=42 seconds=197.618 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

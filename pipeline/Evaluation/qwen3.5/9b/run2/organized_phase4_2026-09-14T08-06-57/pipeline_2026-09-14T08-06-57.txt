@@ -1,0 +1,86 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         6167179c-6bca-4250-9e31-562dc2ea3dd6
+Status:                         OK
+Mode:                           models_only
+Started:                        2026-09-14T08:06:57.771+02:00
+Finished:                       2026-09-14T09:12:09.575+02:00
+Total runtime seconds:          3911.803
+Parameter file:                  C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:9b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  26921
+Output tokens:                  116808
+Total tokens:                   143729
+Model restarts:                 1
+Format repair attempts:         4
+ADL merger seconds:             0.192
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK': 4, 'OK_AFTER_FORMAT_REPAIR': 4}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: organized_phase4
+----------------------------------------------------------------------------------------------------
+Status:                  OK
+Scenario directory:      C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\scenarios\organized_phase4
+Run directory:           C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\output\organized_phase4_2026-09-14T08-06-57
+Duration seconds:         3911.741
+Model stage status:       OK
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:organized_phase4:GoalModel:goal.txt | status=OK | seconds=952.952 | format_repairs=0
+    attempt=1 reason=None seconds=952.937 prompt_tokens=1342 output_tokens=14020
+      slm_attempt=1 status=REPETITION seed=42 seconds=530.189 restart=yes error=The same thinking block was generated 10 times: '* **Wait, check if I need to connect P2/P3 to G5/G6?** * Yes.'
+      slm_attempt=2 status=OK seed=43 seconds=420.314 restart=no
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_1.txt | status=OK | seconds=169.435 | format_repairs=0
+    attempt=1 reason=None seconds=169.419 prompt_tokens=1328 output_tokens=6723
+      slm_attempt=1 status=OK seed=42 seconds=169.232 restart=no
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_2.txt | status=OK | seconds=321.373 | format_repairs=0
+    attempt=1 reason=None seconds=321.353 prompt_tokens=1312 output_tokens=11402
+      slm_attempt=1 status=OK seed=42 seconds=321.167 restart=no
+  MODEL model:organized_phase4:BusinessProcessModel:business_process_3.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=457.587 | format_repairs=1
+    attempt=1 reason=python_error seconds=315.853 prompt_tokens=1348 output_tokens=11224
+      slm_attempt=1 status=OK seed=42 seconds=315.672 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=141.540 restart=no
+  MODEL model:organized_phase4:ActorsResourcesModel:actors_ressources.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=621.810 | format_repairs=1
+    attempt=1 reason=python_error seconds=277.660 prompt_tokens=2125 output_tokens=9749
+      slm_attempt=1 status=OK seed=42 seconds=277.481 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=343.940 restart=no
+  MODEL model:organized_phase4:ConceptsModel:concept.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=604.475 | format_repairs=1
+    attempt=1 reason=python_error seconds=373.887 prompt_tokens=1713 output_tokens=12574
+      slm_attempt=1 status=OK seed=42 seconds=373.701 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=230.386 restart=no
+  MODEL model:organized_phase4:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=299.395 | format_repairs=0
+    attempt=1 reason=None seconds=299.369 prompt_tokens=2040 output_tokens=10361
+      slm_attempt=1 status=OK seed=42 seconds=299.152 restart=no
+  MODEL model:organized_phase4:ProductServiceModel:product.txt | status=OK_AFTER_FORMAT_REPAIR | seconds=484.401 | format_repairs=1
+    attempt=1 reason=python_error seconds=241.471 prompt_tokens=1429 output_tokens=8991
+      slm_attempt=1 status=OK seed=42 seconds=241.280 restart=no
+    FORMAT REPAIR attempt=1 status=OK
+      slm_attempt=1 status=OK seed=42 seconds=242.738 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

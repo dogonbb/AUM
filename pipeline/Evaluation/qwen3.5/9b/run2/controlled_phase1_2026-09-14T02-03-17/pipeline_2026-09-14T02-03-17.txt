@@ -1,0 +1,71 @@
+4EM PIPELINE RUNTIME REPORT
+====================================================================================================
+
+Run ID:                         674315b3-f1bc-484b-8ae6-76560f9108ca
+Status:                         OK
+Mode:                           models_only
+Started:                        2026-09-14T02:03:17.489+02:00
+Finished:                       2026-09-14T02:21:59.805+02:00
+Total runtime seconds:          1122.316
+Parameter file:                  C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\parameter.json
+
+SLM CONFIGURATION
+----------------------------------------------------------------------------------------------------
+Provider:                       ollama
+Base URL:                       http://localhost:11434
+Model:                          qwen3.5:9b
+Thinking:                       True
+Timeout seconds:                1800
+Thinking repetition enabled:    True
+Thinking repetition limit:      10
+Thinking minimum block chars:   40
+Seed mode:                      incremental
+Temperature:                    0.2
+
+TOTALS
+----------------------------------------------------------------------------------------------------
+Scenarios:                      1
+Prompt tokens:                  9127
+Output tokens:                  43861
+Total tokens:                   52988
+Model restarts:                 0
+Format repair attempts:         0
+ADL merger seconds:             0.197
+Intermodel integration seconds: 0.000
+Model statuses:                 {'OK': 6}
+Intermodel statuses:            {}
+
+SCENARIOS
+====================================================================================================
+
+Scenario: controlled_phase1
+----------------------------------------------------------------------------------------------------
+Status:                  OK
+Scenario directory:      C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\scenarios\controlled_phase1
+Run directory:           C:\Users\dariu_sf\OneDrive\Dokumente\AUM\Projekt\AUM\pipeline\output\controlled_phase1_2026-09-14T02-03-17
+Duration seconds:         1122.229
+Model stage status:       OK
+Merge stage status:       OK
+Intermodel stage status:  SKIPPED_MODELS_ONLY
+  MODEL model:controlled_phase1:GoalModel:goal.txt | status=OK | seconds=95.265 | format_repairs=0
+    attempt=1 reason=None seconds=95.247 prompt_tokens=1127 output_tokens=3635
+      slm_attempt=1 status=OK seed=42 seconds=95.106 restart=no
+  MODEL model:controlled_phase1:BusinessProcessModel:business_process.txt | status=OK | seconds=165.533 | format_repairs=0
+    attempt=1 reason=None seconds=165.521 prompt_tokens=1299 output_tokens=6832
+      slm_attempt=1 status=OK seed=42 seconds=165.395 restart=no
+  MODEL model:controlled_phase1:ActorsResourcesModel:actors_ressources.txt | status=OK | seconds=181.476 | format_repairs=0
+    attempt=1 reason=None seconds=181.461 prompt_tokens=1972 output_tokens=7140
+      slm_attempt=1 status=OK seed=42 seconds=181.337 restart=no
+  MODEL model:controlled_phase1:ConceptsModel:concept.txt | status=OK | seconds=288.441 | format_repairs=0
+    attempt=1 reason=None seconds=288.429 prompt_tokens=1454 output_tokens=10782
+      slm_attempt=1 status=OK seed=42 seconds=288.302 restart=no
+  MODEL model:controlled_phase1:TechnicalComponentsRequirementsModel:technical_requirement.txt | status=OK | seconds=215.789 | format_repairs=0
+    attempt=1 reason=None seconds=215.775 prompt_tokens=1948 output_tokens=8292
+      slm_attempt=1 status=OK seed=42 seconds=215.651 restart=no
+  MODEL model:controlled_phase1:ProductServiceModel:product.txt | status=OK | seconds=175.487 | format_repairs=0
+    attempt=1 reason=None seconds=175.475 prompt_tokens=1327 output_tokens=7180
+      slm_attempt=1 status=OK seed=42 seconds=175.354 restart=no
+
+The JSON report contains all recorded request metadata, token counts,
+attempt timings, restart reasons, command arguments, return codes, stdout,
+stderr, file sizes, hashes, and error tracebacks.

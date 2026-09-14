@@ -1,0 +1,10 @@
+ELEMENTS
+Role Product Owner
+Role Product Designer
+Organizational Unit Product Development Department
+Resource Heat Pump Smart-Heat
+
+CONNECTIONS
+Product Owner works in Product Development Department
+Product Designer works in Product Development Department
+Product Owner relation Heat Pump Smart-Heat

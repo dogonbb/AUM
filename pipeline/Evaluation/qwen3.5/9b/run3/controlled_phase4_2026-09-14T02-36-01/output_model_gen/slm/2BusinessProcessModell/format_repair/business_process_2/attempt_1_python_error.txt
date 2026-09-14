@@ -1,0 +1,4 @@
+Multiple validation errors (3):
+  1. CONNECTIONS line 4: Disallowed connection pattern in 'run social media campaign Input campaign plan': Process Input Information Set
+  2. CONNECTIONS line 5: Disallowed connection pattern in 'run print media campaign Input campaign plan': Process Input Information Set
+  3. CONNECTIONS line 9: Disallowed connection pattern in 'supervise campaign results Input campaign statistics': Process Input Information Set

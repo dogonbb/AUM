@@ -1,0 +1,23 @@
+ELEMENTS
+Product Smart-Heat
+Component indoor module
+Component outdoor module
+Component photovoltaic module
+Component outdoor air exchange unit
+Feature energy-efficient
+Service maintenance and trouble-shooting
+Service annual service
+Service repair
+Product service kit
+Feature zero-emission energy production
+
+CONNECTIONS
+indoor module PartOF (AND) Smart-Heat
+outdoor module PartOF (AND) Smart-Heat
+photovoltaic module PartOF (AND) outdoor module
+outdoor air exchange unit PartOF (AND) outdoor module
+energy-efficient PartOF (AND) Smart-Heat
+zero-emission energy production PartOF (AND) photovoltaic module
+maintenance and trouble-shooting PartOF (AND) annual service
+repair PartOF (AND) maintenance and trouble-shooting
+service kit PartOF (AND) maintenance and trouble-shooting

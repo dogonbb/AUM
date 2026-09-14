@@ -1,0 +1,40 @@
+Multiple validation errors (19):
+  1. ELEMENTS line 1: Unknown element type in line 'ElementType Process check order validity'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  2. ELEMENTS line 2: Unknown element type in line 'ElementType External Process customer submits order'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  3. ELEMENTS line 3: Unknown element type in line 'ElementType Information Set order specification'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  4. ELEMENTS line 4: Unknown element type in line 'ElementType Process handle customer order'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  5. ELEMENTS line 5: Unknown element type in line 'ElementType Information Set verified order specification'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  6. ELEMENTS line 6: Unknown element type in line 'ElementType Process check availability of the ordered product'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  7. ELEMENTS line 7: Unknown element type in line 'ElementType Process check customer status'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  8. ELEMENTS line 8: Unknown element type in line 'ElementType Process check configuration'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  9. ELEMENTS line 9: Unknown element type in line 'ElementType Information Set order confirmation'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  10. ELEMENTS line 10: Unknown element type in line 'ElementType Process prepare product delivery'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  11. ELEMENTS line 11: Unknown element type in line 'ElementType Information Set delivery order'. Allowed: External Process, Information Set, Join (AND), Join (OR), Process, Split (AND), Split (OR)
+  12. CONNECTIONS line 1: Multiple validation errors (2):
+  1. Source 'customer submits order' is not defined under ELEMENTS.
+  2. Target 'order specification' is not defined under ELEMENTS.
+  13. CONNECTIONS line 2: Multiple validation errors (2):
+  1. Source 'order specification' is not defined under ELEMENTS.
+  2. Target 'check order validity' is not defined under ELEMENTS.
+  14. CONNECTIONS line 3: Multiple validation errors (2):
+  1. Source 'check order validity' is not defined under ELEMENTS.
+  2. Target 'verified order specification' is not defined under ELEMENTS.
+  15. CONNECTIONS line 4: Multiple validation errors (2):
+  1. Source 'verified order specification' is not defined under ELEMENTS.
+  2. Target 'handle customer order' is not defined under ELEMENTS.
+  16. CONNECTIONS line 5: Multiple validation errors (4):
+  1. Source 'handle customer order' is not defined under ELEMENTS.
+  2. Target 'check availability of the ordered product' is not defined under ELEMENTS.
+  3. Target 'check customer status' is not defined under ELEMENTS.
+  4. Target 'check configuration' is not defined under ELEMENTS.
+  17. CONNECTIONS line 6: Multiple validation errors (4):
+  1. Source 'check availability of the ordered product' is not defined under ELEMENTS.
+  2. Source 'check customer status' is not defined under ELEMENTS.
+  3. Source 'check configuration' is not defined under ELEMENTS.
+  4. Target 'order confirmation' is not defined under ELEMENTS.
+  18. CONNECTIONS line 7: Multiple validation errors (2):
+  1. Source 'order confirmation' is not defined under ELEMENTS.
+  2. Target 'prepare product delivery' is not defined under ELEMENTS.
+  19. CONNECTIONS line 8: Multiple validation errors (2):
+  1. Source 'prepare product delivery' is not defined under ELEMENTS.
+  2. Target 'delivery order' is not defined under ELEMENTS.

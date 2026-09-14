@@ -1,0 +1,15 @@
+ELEMENTS
+Individual Person_1
+Individual Person_2
+Role Product Owner
+Role Product Designer
+Organizational Unit Product Development Department
+Resource Heat Pump
+
+CONNECTIONS
+Person_1 plays Product Owner
+Person_2 plays Product Designer
+Product Owner works in Product Development Department
+Product Designer works in Product Development Department
+Product Owner responsible for Heat Pump
+Product Designer responsible for Heat Pump

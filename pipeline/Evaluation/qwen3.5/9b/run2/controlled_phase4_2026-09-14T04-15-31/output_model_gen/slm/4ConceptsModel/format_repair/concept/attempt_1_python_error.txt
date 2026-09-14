@@ -1,0 +1,1 @@
+CONNECTIONS line 5: Target 'Verified order specification, Delivery order' is not defined under ELEMENTS.

@@ -1,0 +1,16 @@
+ELEMENTS
+ElementType Target Setting
+ElementType Define Product Specification
+ElementType Product Design
+ElementType Customer Survey
+ElementType List of Target Features
+ElementType Specification Document
+ElementType Design Description
+
+CONNECTIONS
+Customer Survey Input Target Setting
+Target Setting Output List of Target Features
+List of Target Features Input Define Product Specification
+Define Product Specification Output Specification Document
+Specification Document Input Product Design
+Product Design Output Design Description

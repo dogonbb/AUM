@@ -1,0 +1,151 @@
+ELEMENTS
+Process plan marketing campaign
+Process run social media campaign
+Process run print media campaign
+Process supervise campaign results
+Information Set campaign target document
+Information Set campaign plan
+Information Set campaign statistics
+Information Set campaign result document
+
+CONNECTIONS
+campaign target document Input plan marketing campaign
+plan marketing campaign Output campaign plan
+campaign plan Split (AND) run social media campaign, run print media campaign
+run social media campaign Output campaign statistics
+run print media campaign Output campaign statistics
+run social media campaign Join (AND) run print media campaign, supervise campaign results
+run print media campaign Join (AND) run social media campaign, supervise campaign results
+campaign statistics Input supervise campaign results
+supervise campaign results Output campaign result document
+
+Wait, I need to check the Join syntax again. `<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>`.
+My previous draft: `run social media campaign Join (AND) run print media campaign, supervise campaign results`. This is wrong. It should be `run social media campaign`, `run print media campaign` Join (AND) `supervise campaign results`.
+Correct syntax: `<element name_1>, <element name_2> Join (AND) <element name>`.
+So: `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+
+Also check Split syntax: `<element name> Split (AND) <element name_1>, <element name_2>`.
+So: `campaign plan Split (AND) run social media campaign, run print media campaign`.
+
+Wait, I need to ensure the element names in CONNECTIONS match exactly.
+Also, check if I should use Input/Output for `campaign plan` as well as Split?
+If I use Split, it connects `campaign plan` to the processes. Do I need `campaign plan` Input `run social media campaign`?
+Usually, Split replaces the direct connection for that branch. I will omit the direct Input connection for the split branch to avoid redundancy, relying on the Split connector.
+However, for `campaign statistics`, since they produce it and Supervise consumes it, I need Output/Input connections.
+For `campaign plan`, `plan marketing campaign` Output `campaign plan`. Then `campaign plan` Split (AND) ...
+This seems correct.
+
+Wait, check the Join syntax again. `<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>`.
+So: `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+
+One more check: "Use Input only when an Information Set is used as input".
+If I use Split/Join connectors, do they count as Input? No, they are Connector-based connections.
+So for `campaign plan` -> Processes, I use Split.
+For `Processes` -> `supervise`, I use Join.
+For `campaign statistics` -> `supervise`, I use Input.
+This is allowed.
+
+Wait, check if `campaign plan` needs to be connected via Input/Output as well?
+If I use Split, it implies the flow. But does it satisfy "Use Input only when..."?
+The rule says "Use Input only when...". It doesn't say "You MUST use Input for all data flows". It says "Use Input [type] only when...".
+So using Split is allowed for branching.
+Okay.
+
+Wait, check the Join syntax in my draft: `run social media campaign Join (AND) run print media campaign, supervise campaign results`. This implies `run social media campaign` is the source of the join? No, the syntax is `<sources> Join (AND) <destination>`.
+So `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+
+Wait, check the Split syntax: `campaign plan Split (AND) run social media campaign, run print media campaign`.
+
+Okay, final check on elements list.
+Processes: 4.
+InfoSets: 4.
+Total 8.
+
+Connections:
+1. `campaign target document` Input `plan marketing campaign`
+2. `plan marketing campaign` Output `campaign plan`
+3. `campaign plan` Split (AND) `run social media campaign`, `run print media campaign`
+4. `run social media campaign` Output `campaign statistics`
+5. `run print media campaign` Output `campaign statistics`
+6. `run social media campaign`, `run print media campaign` Join (AND) `supervise campaign results`
+7. `campaign statistics` Input `supervise campaign results`
+8. `supervise campaign results` Output `campaign result document`
+
+Wait, check rule 12: "Every element used in CONNECTIONS must be listed exactly once in ELEMENTS."
+This means I cannot list an element in ELEMENTS if it is not used in CONNECTIONS? Or does it mean if I use it in CONNECTIONS, it MUST be in ELEMENTS?
+"Every element used in CONNECTIONS must be listed exactly once in ELEMENTS."
+It implies: If Element X is in CONNECTIONS, then Element X is in ELEMENTS.
+It does not forbid unused elements in ELEMENTS, but typically we don't create unused ones.
+I will ensure all 8 are used in connections.
+`campaign target document`: Used in Input.
+`plan marketing campaign`: Used in Output and Split (source).
+`run social media campaign`: Used in Split (dest), Output, Join (source).
+`run print media campaign`: Used in Split (dest), Output, Join (source).
+`supervise campaign results`: Used in Join (dest), Input, Output.
+`campaign plan`: Used in Output, Split (source).
+`campaign statistics`: Used in Output (x2), Input.
+`campaign result document`: Used in Output.
+All used.
+
+Wait, check the Join syntax again. `<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>`.
+So `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+Correct.
+
+Wait, check if I need to list `campaign plan` in ELEMENTS? Yes.
+Check if I need to list `campaign statistics` in ELEMENTS? Yes.
+
+Okay, ready.
+
+One detail: "Use relation only for unlabeled direct connections between Process and External Process".
+I am not using relations.
+"Use Input only when an Information Set is used as input for a Process or External Process."
+I am using Input for `campaign target document` -> `plan marketing campaign` and `campaign statistics` -> `supervise campaign results`.
+This is correct.
+
+Wait, check the Join syntax again. `<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>`.
+So `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+Correct.
+
+Wait, check the Split syntax. `<element name> Split (AND) <element name_1>, <element name_2>, <element name_3>`.
+So `campaign plan Split (AND) run social media campaign, run print media campaign`.
+Correct.
+
+Wait, check if I should use `relation` for `plan marketing campaign` -> `run social media campaign`? No, that's a branch.
+Okay.
+
+One final check on the Join syntax: `<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>`.
+Does it allow 2 elements? Yes.
+So `run social media campaign, run print media campaign Join (AND) supervise campaign results`.
+
+Wait, check the Output syntax: `<element name> Output <element name>`.
+`plan marketing campaign` Output `campaign plan`.
+`run social media campaign` Output `campaign statistics`.
+`run print media campaign` Output `campaign statistics`.
+`supervise campaign results` Output `campaign result document`.
+
+Wait, check the Input syntax: `<element name> Input <element name>`.
+`campaign target document` Input `plan marketing campaign`.
+`campaign statistics` Input `supervise campaign results`.
+
+Okay. I will write the output now.
+</think>
+
+ELEMENTS
+Process plan marketing campaign
+Process run social media campaign
+Process run print media campaign
+Process supervise campaign results
+Information Set campaign target document
+Information Set campaign plan
+Information Set campaign statistics
+Information Set campaign result document
+
+CONNECTIONS
+campaign target document Input plan marketing campaign
+plan marketing campaign Output campaign plan
+campaign plan Split (AND) run social media campaign, run print media campaign
+run social media campaign Output campaign statistics
+run print media campaign Output campaign statistics
+run social media campaign, run print media campaign Join (AND) supervise campaign results
+campaign statistics Input supervise campaign results
+supervise campaign results Output campaign result document

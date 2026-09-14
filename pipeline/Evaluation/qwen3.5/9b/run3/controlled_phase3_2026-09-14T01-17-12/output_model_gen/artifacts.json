@@ -1,0 +1,303 @@
+{
+  "format": "4em-pipeline-artifact-manifest-v1",
+  "scenario_name": "controlled_phase3",
+  "scenario_directory": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3",
+  "run_directory": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12",
+  "created_at": "2026-09-14T02:36:00.697+00:00",
+  "artifacts": [
+    {
+      "scenario_name": "controlled_phase3",
+      "model_id": "GoalModel",
+      "model_folder": "1GoalModel",
+      "model_display_name": "Goal Model",
+      "model_type": "Goal Model",
+      "source_scenario_file": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/1GoalModel/goal.txt",
+      "source_relative_path": "goal.txt",
+      "source_stem": "goal",
+      "adl_model_name": "controlled_phase3_GoalModel_goal",
+      "slm_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/1GoalModel/goal.txt",
+      "adl_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/1GoalModel/goal.adl",
+      "status": "OK",
+      "task_id": "model:controlled_phase3:GoalModel:goal.txt",
+      "slm_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/1GoalModel/goal.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 1560,
+        "modified_at": "2026-09-14T01:23:04.460277+00:00",
+        "sha256": "a6861e7b5a42fb38f1057775346a5377d1653eebc2fb1e591ab78590c5f61d7d"
+      },
+      "adl_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/1GoalModel/goal.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 9518,
+        "modified_at": "2026-09-14T01:23:04.553286+00:00",
+        "sha256": "fb6fd5e3663a7de3ea3f741eb4e189d3f6d4ee7c92cada51087f15b619493a33"
+      },
+      "source_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/1GoalModel/goal.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 1173,
+        "modified_at": "2026-09-13T13:28:52.831007+00:00",
+        "sha256": "222ad80d5c3f17231b859005d205c64857b1a3d273a48ebf09cec27fd4b14249"
+      }
+    },
+    {
+      "scenario_name": "controlled_phase3",
+      "model_id": "BusinessProcessModel",
+      "model_folder": "2BusinessProcessModell",
+      "model_display_name": "Business Process Model",
+      "model_type": "Business Process Model",
+      "source_scenario_file": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/2BusinessProcessModell/business_process_1.txt",
+      "source_relative_path": "business_process_1.txt",
+      "source_stem": "business_process_1",
+      "adl_model_name": "controlled_phase3_BusinessProcessModel_business_process_1",
+      "slm_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/2BusinessProcessModell/business_process_1.txt",
+      "adl_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/2BusinessProcessModell/business_process_1.adl",
+      "status": "OK",
+      "task_id": "model:controlled_phase3:BusinessProcessModel:business_process_1.txt",
+      "slm_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/2BusinessProcessModell/business_process_1.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 548,
+        "modified_at": "2026-09-14T01:26:36.022791+00:00",
+        "sha256": "d39afa6487df26ffbc91d57d885cb9c4ecee22d77bd066bfd1d5adb8f68e292e"
+      },
+      "adl_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/2BusinessProcessModell/business_process_1.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 7144,
+        "modified_at": "2026-09-14T01:26:36.114799+00:00",
+        "sha256": "4ccf70dad444bc0a6699da685ed598bd4d6a037e999d847fa256425ec34bc052"
+      },
+      "source_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/2BusinessProcessModell/business_process_1.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 685,
+        "modified_at": "2026-09-13T13:28:52.884888+00:00",
+        "sha256": "46030f0e50a11ea04a7c2ac2e7be7d656894c50b1d7808a426720bfb3c80bd51"
+      }
+    },
+    {
+      "scenario_name": "controlled_phase3",
+      "model_id": "BusinessProcessModel",
+      "model_folder": "2BusinessProcessModell",
+      "model_display_name": "Business Process Model",
+      "model_type": "Business Process Model",
+      "source_scenario_file": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/2BusinessProcessModell/business_process_2.txt",
+      "source_relative_path": "business_process_2.txt",
+      "source_stem": "business_process_2",
+      "adl_model_name": "controlled_phase3_BusinessProcessModel_business_process_2",
+      "slm_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/2BusinessProcessModell/business_process_2.txt",
+      "adl_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/2BusinessProcessModell/business_process_2.adl",
+      "status": "OK_AFTER_FORMAT_REPAIR",
+      "task_id": "model:controlled_phase3:BusinessProcessModel:business_process_2.txt",
+      "slm_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/2BusinessProcessModell/business_process_2.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 890,
+        "modified_at": "2026-09-14T01:51:12.597943+00:00",
+        "sha256": "871abb7e468a49b6b3b04b30e79266805f68e66930cf6aa1c4fd3051e521a66b"
+      },
+      "adl_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/2BusinessProcessModell/business_process_2.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 10024,
+        "modified_at": "2026-09-14T01:51:12.694952+00:00",
+        "sha256": "ab79933ea35904cd289db18c9bc6dc67d9061e0fed5527a8441212ab959ad438"
+      },
+      "source_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/2BusinessProcessModell/business_process_2.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 821,
+        "modified_at": "2026-09-13T13:28:52.900811+00:00",
+        "sha256": "3de2ab6a90821623050bc95327c3036d1b7dfb888a11f2bc748a2e2265308852"
+      }
+    },
+    {
+      "scenario_name": "controlled_phase3",
+      "model_id": "ActorsResourcesModel",
+      "model_folder": "3ActorsandResourcesModel",
+      "model_display_name": "Actors and Resources Model",
+      "model_type": "Actors and Resources Model",
+      "source_scenario_file": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/3ActorsandResourcesModel/actors_ressources.txt",
+      "source_relative_path": "actors_ressources.txt",
+      "source_stem": "actors_ressources",
+      "adl_model_name": "controlled_phase3_ActorsResourcesModel_actors_ressources",
+      "slm_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+      "adl_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl",
+      "status": "OK_AFTER_FORMAT_REPAIR",
+      "task_id": "model:controlled_phase3:ActorsResourcesModel:actors_ressources.txt",
+      "slm_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/3ActorsandResourcesModel/actors_ressources.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 593,
+        "modified_at": "2026-09-14T02:04:22.307511+00:00",
+        "sha256": "139434296d685b0099b98799a9d90ec61b16e91f92c5e9c57b556dcbfac528ea"
+      },
+      "adl_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/3ActorsandResourcesModel/actors_ressources.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 8142,
+        "modified_at": "2026-09-14T02:04:22.400520+00:00",
+        "sha256": "23c866301e9e88001672105e50ed5b56b08d699b390a384c29c17f8ecd202539"
+      },
+      "source_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/3ActorsandResourcesModel/actors_ressources.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 825,
+        "modified_at": "2026-09-13T13:28:52.883939+00:00",
+        "sha256": "190aa8256177656b7f465b61ff1164681262db4ca9a251a99c1257fa6390e128"
+      }
+    },
+    {
+      "scenario_name": "controlled_phase3",
+      "model_id": "ConceptsModel",
+      "model_folder": "4ConceptsModel",
+      "model_display_name": "Concepts Model",
+      "model_type": "Concepts Model",
+      "source_scenario_file": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/4ConceptsModel/concept.txt",
+      "source_relative_path": "concept.txt",
+      "source_stem": "concept",
+      "adl_model_name": "controlled_phase3_ConceptsModel_concept",
+      "slm_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/4ConceptsModel/concept.txt",
+      "adl_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/4ConceptsModel/concept.adl",
+      "status": "OK",
+      "task_id": "model:controlled_phase3:ConceptsModel:concept.txt",
+      "slm_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/4ConceptsModel/concept.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 971,
+        "modified_at": "2026-09-14T02:11:48.770799+00:00",
+        "sha256": "214187281479a0430a87945388b3a7b4fbd6922383ee55d980a5dc5b85eed9e1"
+      },
+      "adl_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/4ConceptsModel/concept.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 12263,
+        "modified_at": "2026-09-14T02:11:48.873810+00:00",
+        "sha256": "e5ee3f34e3bbddf0a8fcec02932c5eb22db240b5c336e1beeddcca8e00a59217"
+      },
+      "source_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/4ConceptsModel/concept.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 1566,
+        "modified_at": "2026-09-13T13:28:52.904022+00:00",
+        "sha256": "b12e84e3e23155b96f2c93e2dfdcbd74df36d0fa0b8e8e6816cf981be9fdaeb3"
+      }
+    },
+    {
+      "scenario_name": "controlled_phase3",
+      "model_id": "TechnicalComponentsRequirementsModel",
+      "model_folder": "6TechnicalComponentsandRequirementsModel",
+      "model_display_name": "Technical Components and Requirements Model",
+      "model_type": "Technical Components and Requirements Model",
+      "source_scenario_file": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+      "source_relative_path": "technical_requirement.txt",
+      "source_stem": "technical_requirement",
+      "adl_model_name": "controlled_phase3_TechnicalComponentsRequirementsModel_technical_requirement",
+      "slm_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+      "adl_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/6TechnicalComponentsandRequirementsModel/technical_requirement.adl",
+      "status": "OK",
+      "task_id": "model:controlled_phase3:TechnicalComponentsRequirementsModel:technical_requirement.txt",
+      "slm_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 612,
+        "modified_at": "2026-09-14T02:28:03.406311+00:00",
+        "sha256": "0c007c4bf270aa4bc67ea17d3abc6aa6d9407de1acf0404e040d795af019c139"
+      },
+      "adl_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/6TechnicalComponentsandRequirementsModel/technical_requirement.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 8932,
+        "modified_at": "2026-09-14T02:28:03.500320+00:00",
+        "sha256": "25f72492fb5b62fb81c912ef2674de823cfbe4df219eedc82ebad739ab31a47c"
+      },
+      "source_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/6TechnicalComponentsandRequirementsModel/technical_requirement.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 579,
+        "modified_at": "2026-09-13T13:28:52.926373+00:00",
+        "sha256": "ea11ddb0b36dc6f9d88cb8b9f003d7320d087408c3c403cd375b8c41c604927e"
+      }
+    },
+    {
+      "scenario_name": "controlled_phase3",
+      "model_id": "ProductServiceModel",
+      "model_folder": "7ProductServiceModel",
+      "model_display_name": "Product / Service Model",
+      "model_type": "Product / Service Model",
+      "source_scenario_file": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/7ProductServiceModel/product.txt",
+      "source_relative_path": "product.txt",
+      "source_stem": "product",
+      "adl_model_name": "controlled_phase3_ProductServiceModel_product",
+      "slm_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/7ProductServiceModel/product.txt",
+      "adl_file": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/7ProductServiceModel/product.adl",
+      "status": "OK",
+      "task_id": "model:controlled_phase3:ProductServiceModel:product.txt",
+      "slm_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/slm/7ProductServiceModel/product.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 776,
+        "modified_at": "2026-09-14T02:36:00.587583+00:00",
+        "sha256": "3d90a937d81899ee174e20fc4aa3d0e7f79a7d589a7327dc98af5fbb58c7d2bc"
+      },
+      "adl_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/output/controlled_phase3_2026-09-14T01-17-12/output_model_gen/adl/7ProductServiceModel/product.adl",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 12694,
+        "modified_at": "2026-09-14T02:36:00.683592+00:00",
+        "sha256": "7053ab0b0f226b19b8497f2e6a300084528a5a8dbbbeaa29b716b7a11306a912"
+      },
+      "source_file_info": {
+        "path": "/kaggle/working/AUM/pipeline/scenarios/controlled_phase3/7ProductServiceModel/product.txt",
+        "exists": true,
+        "is_file": true,
+        "is_directory": false,
+        "size_bytes": 594,
+        "modified_at": "2026-09-13T13:28:52.899505+00:00",
+        "sha256": "5a97c5c8206329091f9c88a629a5767f00a552203cc141c76d7ddb9c87fe7aa1"
+      }
+    }
+  ]
+}

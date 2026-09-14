@@ -1,0 +1,26 @@
+ELEMENTS
+Goal Provide the most energy-efficient heating solution on the market
+Goal Minimize the energy consumption of the heat pump
+Goal Produce the remaining energy required by the heat pump with the integrated photovoltaic module
+Goal Provide services supporting high availability of the heat pump
+Problem The energy consumption of the current product version is too high
+Goal Develop a new heat extractor with very low energy consumption
+Goal Re-design the existing heat extractor by adapting it for a new refrigerant
+Constraint The period available for the development is very short
+Constraint New refrigerants are very expensive
+Constraint The maximum energy production of the photovoltaic module is 50 kWh
+Problem The company does not have much experience with online information processing
+Opportunity Early implementing the new European regulation for energy-efficient heating
+
+CONNECTIONS
+Minimize the energy consumption of the heat pump supports Provide the most energy-efficient heating solution on the market
+Produce the remaining energy required by the heat pump with the integrated photovoltaic module supports Provide the most energy-efficient heating solution on the market
+Provide services supporting high availability of the heat pump supports Provide the most energy-efficient heating solution on the market
+The energy consumption of the current product version is too high hinders Minimize the energy consumption of the heat pump
+Develop a new heat extractor with very low energy consumption, Re-design the existing heat extractor by adapting it for a new refrigerant OR Minimize the energy consumption of the heat pump
+The period available for the development is very short hinders Develop a new heat extractor with very low energy consumption
+The period available for the development is very short hinders Re-design the existing heat extractor by adapting it for a new refrigerant
+New refrigerants are very expensive hinders Re-design the existing heat extractor by adapting it for a new refrigerant
+The maximum energy production of the photovoltaic module is 50 kWh hinders Produce the remaining energy required by the heat pump with the integrated photovoltaic module
+The company does not have much experience with online information processing hinders Provide services supporting high availability of the heat pump
+Early implementing the new European regulation for energy-efficient heating supports Provide the most energy-efficient heating solution on the market

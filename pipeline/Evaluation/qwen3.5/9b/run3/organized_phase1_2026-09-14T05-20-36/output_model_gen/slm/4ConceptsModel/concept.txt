@@ -1,0 +1,17 @@
+ELEMENTS
+Concept Energy-efficiency
+Concept Energy consumption
+Concept Customer survey
+Concept Feature
+Concept Target feature
+Concept Specification document
+Concept Product
+Concept Customer
+Attribute kilowatt-hours
+
+CONNECTIONS
+Target feature Partial-ISA Feature
+Feature Partial-PartOF Product
+Energy consumption has attribute kilowatt-hours
+Customer survey 1:n Customer
+Specification document 1:1 Product

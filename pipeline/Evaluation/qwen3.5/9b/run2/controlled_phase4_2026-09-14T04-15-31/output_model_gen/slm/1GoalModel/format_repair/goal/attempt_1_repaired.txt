@@ -1,0 +1,25 @@
+ELEMENTS
+Goal Provide the most energy-efficient heating solution on the market
+Problem Energy consumption of the current product version is too high
+Goal Minimize the energy consumption of the heat pump
+Goal Produce the remaining energy required by the heat pump with the integrated photovoltaic module
+Goal Provide services supporting high availability of the heat pump
+Constraint Maximum energy production of the photovoltaic module is 50 kWh
+Goal Develop a new heat extractor with very low energy consumption
+Goal Re-design the existing heat extractor by adapting it for a new refrigerant
+Problem Short period available for the development
+Problem New refrigerants are very expensive
+Problem Control unit has to be connected to the Internet to provide the status information required for the service
+Problem Company does not have much experience with online information processing
+Opportunity New European regulation for energy-efficient heating that requires continuous monitoring of devices
+
+CONNECTIONS
+Minimize the energy consumption of the heat pump, Produce the remaining energy required by the heat pump with the integrated photovoltaic module, Provide services supporting high availability of the heat pump AND Provide the most energy-efficient heating solution on the market
+Energy consumption of the current product version is too high hinders Provide the most energy-efficient heating solution on the market
+Maximum energy production of the photovoltaic module is 50 kWh hinders Produce the remaining energy required by the heat pump with the integrated photovoltaic module
+Develop a new heat extractor with very low energy consumption, Re-design the existing heat extractor by adapting it for a new refrigerant OR Minimize the energy consumption of the heat pump
+Short period available for the development hinders Develop a new heat extractor with very low energy consumption
+New refrigerants are very expensive hinders Re-design the existing heat extractor by adapting it for a new refrigerant
+Control unit has to be connected to the Internet to provide the status information required for the service hinders Provide services supporting high availability of the heat pump
+Company does not have much experience with online information processing hinders Provide services supporting high availability of the heat pump
+New European regulation for energy-efficient heating that requires continuous monitoring of devices supports Provide services supporting high availability of the heat pump

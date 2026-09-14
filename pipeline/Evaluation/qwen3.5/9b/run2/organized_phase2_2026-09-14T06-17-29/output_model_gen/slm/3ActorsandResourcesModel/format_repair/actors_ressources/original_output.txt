@@ -1,0 +1,15 @@
+ELEMENTS
+ElementType Individual
+ElementType Individual
+ElementType Role
+ElementType Role
+ElementType Organizational Unit
+ElementType Resource
+
+CONNECTIONS
+Individual_1 plays Product Owner
+Individual_2 plays Product Designer
+Product Owner works in Product Development Department
+Product Designer works in Product Development Department
+Product Owner responsible for Heat Pump
+Product Designer responsible for Heat Pump

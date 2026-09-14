@@ -1,3 +1,0 @@
-Multiple validation errors (2):
-  1. CONNECTIONS line 3: Disallowed connection pattern in 'Photovoltaic module part_of Outdoor module': Component part_of Component
-  2. CONNECTIONS line 4: Disallowed connection pattern in 'Outdoor air exchange unit part_of Outdoor module': Component part_of Component

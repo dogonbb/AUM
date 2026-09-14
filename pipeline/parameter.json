@@ -1,14 +1,14 @@
 {
   "execution": {
-    "mode": "full",
-    "overwrite": false,
+    "mode": "intermodel_only",
+    "overwrite": true,
     "continue_after_failure": true,
     "selected_scenario": "controlled_phase1"
   },
   "slm": {
     "provider": "ollama",
     "base_url": "http://localhost:11434",
-    "model": "qwen3.5:4b",
+    "model": "gemma4:e4b",
     "thinking": true,
     "timeout_seconds": 1800,
     "log_thinking": false,
@@ -26,13 +26,13 @@
     }
   },
   "retry": {
-    "max_restart": 5,
+    "max_restart": 3,
     "seed_mode": "incremental",
     "seed_increment": 1
   },
   "format_repair": {
     "enabled": true,
-    "max_attempts": 5,
+    "max_attempts": 3,
     "general_prompt_path": "prompts/format_repair/general_repair_prompt.txt"
   },
   "paths": {
@@ -264,7 +264,8 @@
   ],
   "intermodel": {
     "enabled": true,
-    "format_prompt_path": "prompts/format_repair/Format_IntermodelRelationships.txt",
+    "repair_prompt_path": "prompts/format_repair/intermodel_repair_prompt.txt",
+    "format_prompt_path": "prompts/format_repair/IndividualIntermodelRelationshipsRepair.txt",
     "output_filename_template": "intermodel_{source_adl_model_name}__{target_adl_model_name}.txt",
     "no_relationship_marker": "NO_INTERMODEL_RELATIONSHIPS",
     "pairs": [
@@ -332,65 +333,65 @@
         "enabled": true,
         "scenario_name": "controlled_phase1",
         "scenario_directory": "scenarios/controlled_phase1",
-        "artifact_manifest": "output/controlled_phase1_run/output_model_gen/artifacts.json",
-        "input_adl": "output/controlled_phase1_run/output_model_gen/complete_adl_file_here.adl",
-        "output_run_directory": "output/controlled_phase1_run"
+        "artifact_manifest": "output/controlled_phase1_gemma4_4b_run/output_model_gen/artifacts.json",
+        "input_adl": "output/controlled_phase1_gemma4_4b_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/controlled_phase1_gemma4_4b_run"
       },
       {
         "enabled": true,
         "scenario_name": "controlled_phase2",
         "scenario_directory": "scenarios/controlled_phase2",
-        "artifact_manifest": "output/controlled_phase2_run/output_model_gen/artifacts.json",
-        "input_adl": "output/controlled_phase2_run/output_model_gen/complete_adl_file_here.adl",
-        "output_run_directory": "output/controlled_phase2_run"
+        "artifact_manifest": "output/controlled_phase2_gemma4_4b_run/output_model_gen/artifacts.json",
+        "input_adl": "output/controlled_phase2_gemma4_4b_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/controlled_phase2_gemma4_4b_run"
       },
       {
         "enabled": true,
         "scenario_name": "controlled_phase3",
         "scenario_directory": "scenarios/controlled_phase3",
-        "artifact_manifest": "output/controlled_phase3_run/output_model_gen/artifacts.json",
-        "input_adl": "output/controlled_phase3_run/output_model_gen/complete_adl_file_here.adl",
-        "output_run_directory": "output/controlled_phase3_run"
+        "artifact_manifest": "output/controlled_phase3_gemma4_4b_run/output_model_gen/artifacts.json",
+        "input_adl": "output/controlled_phase3_gemma4_4b_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/controlled_phase3_gemma4_4b_run"
       },
       {
         "enabled": true,
         "scenario_name": "controlled_phase4",
         "scenario_directory": "scenarios/controlled_phase4",
-        "artifact_manifest": "output/controlled_phase4_run/output_model_gen/artifacts.json",
-        "input_adl": "output/controlled_phase4_run/output_model_gen/complete_adl_file_here.adl",
-        "output_run_directory": "output/controlled_phase4_run"
+        "artifact_manifest": "output/controlled_phase4_gemma4_4b_run/output_model_gen/artifacts.json",
+        "input_adl": "output/controlled_phase4_gemma4_4b_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/controlled_phase4_gemma4_4b_run"
       },
       {
         "enabled": true,
         "scenario_name": "organized_phase1",
         "scenario_directory": "scenarios/organized_phase1",
-        "artifact_manifest": "output/organized_phase1_run/output_model_gen/artifacts.json",
-        "input_adl": "output/organized_phase1_run/output_model_gen/complete_adl_file_here.adl",
-        "output_run_directory": "output/organized_phase1_run"
+        "artifact_manifest": "output/organized_phase1_gemma4_4b_run/output_model_gen/artifacts.json",
+        "input_adl": "output/organized_phase1_gemma4_4b_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/organized_phase1_gemma4_4b_run"
       },
       {
         "enabled": true,
         "scenario_name": "organized_phase2",
         "scenario_directory": "scenarios/organized_phase2",
-        "artifact_manifest": "output/organized_phase2_run/output_model_gen/artifacts.json",
-        "input_adl": "output/organized_phase2_run/output_model_gen/complete_adl_file_here.adl",
-        "output_run_directory": "output/organized_phase2_run"
+        "artifact_manifest": "output/organized_phase2_gemma4_4b_run/output_model_gen/artifacts.json",
+        "input_adl": "output/organized_phase2_gemma4_4b_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/organized_phase2_gemma4_4b_run"
       },
       {
         "enabled": true,
         "scenario_name": "organized_phase3",
         "scenario_directory": "scenarios/organized_phase3",
-        "artifact_manifest": "output/organized_phase3_run/output_model_gen/artifacts.json",
-        "input_adl": "output/organized_phase3_run/output_model_gen/complete_adl_file_here.adl",
-        "output_run_directory": "output/organized_phase3_run"
+        "artifact_manifest": "output/organized_phase3_gemma4_4b_run/output_model_gen/artifacts.json",
+        "input_adl": "output/organized_phase3_gemma4_4b_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/organized_phase3_gemma4_4b_run"
       },
       {
         "enabled": true,
         "scenario_name": "organized_phase4",
         "scenario_directory": "scenarios/organized_phase4",
-        "artifact_manifest": "output/organized_phase4_run/output_model_gen/artifacts.json",
-        "input_adl": "output/organized_phase4_run/output_model_gen/complete_adl_file_here.adl",
-        "output_run_directory": "output/organized_phase4_run"
+        "artifact_manifest": "output/organized_phase4_gemma4_4b_run/output_model_gen/artifacts.json",
+        "input_adl": "output/organized_phase4_gemma4_4b_run/output_model_gen/complete_adl_file_here.adl",
+        "output_run_directory": "output/organized_phase4_gemma4_4b_run"
       }
     ]
   },

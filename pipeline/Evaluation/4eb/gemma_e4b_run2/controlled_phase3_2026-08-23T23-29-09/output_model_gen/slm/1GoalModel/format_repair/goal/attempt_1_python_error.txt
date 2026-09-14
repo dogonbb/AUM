@@ -1,3 +1,0 @@
-Multiple validation errors (2):
-  1. CONNECTIONS line 2: Target 'Minimize heat pump energy consumption AND Produce remaining energy with PV module' is not defined under ELEMENTS.
-  2. CONNECTIONS line 3: Target 'Develop new low energy heat extractor OR Re-design heat extractor for new refrigerant' is not defined under ELEMENTS.

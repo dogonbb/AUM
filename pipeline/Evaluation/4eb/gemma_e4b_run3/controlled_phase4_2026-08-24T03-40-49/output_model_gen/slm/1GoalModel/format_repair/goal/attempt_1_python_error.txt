@@ -1,7 +1,0 @@
-Multiple validation errors (6):
-  1. CONNECTIONS line 5: Target 'Develop new low-consumption heat extractor OR Re-design heat extractor for new refrigerant' is not defined under ELEMENTS.
-  2. CONNECTIONS line 6: Disallowed connection pattern in 'Develop new low-consumption heat extractor hinders Short development period': Goal hinders Problem
-  3. CONNECTIONS line 7: Disallowed connection pattern in 'Re-design heat extractor for new refrigerant hinders New refrigerants are very expensive': Goal hinders Problem
-  4. CONNECTIONS line 8: Disallowed connection pattern in 'Provide services supporting high availability hinders Control unit must connect to Internet for status information': Goal hinders Constraint
-  5. CONNECTIONS line 9: Disallowed connection pattern in 'Provide services supporting high availability hinders Lack of online information processing experience': Goal hinders Problem
-  6. CONNECTIONS line 11: No valid connection type found in: 'Produce remaining energy via PV module hindered by Max PV module energy production is 50 kWh'. Allowed: AND, AND/OR, OR, causes, contradicts, hinders, supports

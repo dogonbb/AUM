@@ -1,1 +1,0 @@
-CONNECTIONS line 2: Disallowed connection pattern in 'Outdoor module part_of Smart-Heat': Product part_of Product

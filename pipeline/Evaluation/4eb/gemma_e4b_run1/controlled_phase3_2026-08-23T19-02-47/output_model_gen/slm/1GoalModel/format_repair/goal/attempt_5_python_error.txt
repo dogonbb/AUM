@@ -1,4 +1,0 @@
-Multiple validation errors (3):
-  1. CONNECTIONS line 3: Target 'Re-design heat extractor for new refrigerant supports Minimize heat pump energy consumption' is not defined under ELEMENTS.
-  2. CONNECTIONS line 5: Disallowed connection pattern in 'Short development period hinders Develop new low energy heat extractor': Cause hinders Goal
-  3. CONNECTIONS line 6: Disallowed connection pattern in 'New refrigerants are very expensive hinders Re-design heat extractor for new refrigerant': Cause hinders Goal

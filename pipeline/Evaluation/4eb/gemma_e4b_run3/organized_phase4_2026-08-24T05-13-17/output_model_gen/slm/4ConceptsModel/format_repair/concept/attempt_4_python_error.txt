@@ -1,1 +1,0 @@
-CONNECTIONS line 1: No valid connection type found in: 'Partial-ISA Feature'. Allowed: 1:1, 1:n, Partial-ISA, Partial-PartOF, Total-ISA, Total-PartOF, has attribute, n:m

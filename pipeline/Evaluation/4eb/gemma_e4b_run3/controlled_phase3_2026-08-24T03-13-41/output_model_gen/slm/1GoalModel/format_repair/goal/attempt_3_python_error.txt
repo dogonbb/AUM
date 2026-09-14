@@ -1,3 +1,0 @@
-Multiple validation errors (2):
-  1. CONNECTIONS line 2: Target 'supports Provide most energy-efficient heating solution' is not defined under ELEMENTS.
-  2. CONNECTIONS line 3: Target 'supports Minimize heat pump energy consumption' is not defined under ELEMENTS.

@@ -1,6 +1,0 @@
-ELEMENTS
-Goal Provide_Efficient_Heating_Solution
-Problem High_Current_Product_Consumption
-
-CONNECTIONS
-High_Current_Product_Consumption hinders Provide_Efficient_Heating_Solution

@@ -1,6 +1,0 @@
-ELEMENTS
-Goal Provide Most Energy-Efficient Heating Solution
-Problem High Energy Consumption of Current Product
-
-CONNECTIONS
-High Energy Consumption of Current Product hinders Provide Most Energy-Efficient Heating Solution

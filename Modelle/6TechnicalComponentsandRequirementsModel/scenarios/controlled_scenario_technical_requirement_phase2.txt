@@ -1,1 +1,0 @@
-The technical components supporting the product innovation process are the production system and the version management system. The version management system supports the production system. The production system consists of three components: the database system, the transaction middleware and the user interface component.

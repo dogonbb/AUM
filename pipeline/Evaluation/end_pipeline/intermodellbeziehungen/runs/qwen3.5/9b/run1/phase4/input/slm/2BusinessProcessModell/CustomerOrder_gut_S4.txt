@@ -1,0 +1,19 @@
+ELEMENTS
+External Process Submit customer order
+Information Set Order specification
+Process Check order validity
+Information Set rejected order specification
+Information Set verified order specification
+Process Handle customer order
+Process Reject customer order
+Information Set Order confirmation
+Process Prepare product delivery
+
+CONNECTIONS
+Submit customer order Output Order specification
+Order specification Input Check order validity
+rejected order specification Input Reject customer order
+verified order specification Input Handle customer order
+Handle customer order Output Order confirmation
+Order confirmation Input Prepare product delivery
+Check order validity Split (OR) verified order specification, rejected order specification

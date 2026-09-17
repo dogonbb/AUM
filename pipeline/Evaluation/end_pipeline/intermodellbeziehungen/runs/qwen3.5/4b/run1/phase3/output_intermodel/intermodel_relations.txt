@@ -1,0 +1,33 @@
+[ARM_gut_S3 -> GM_gut_S3]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Product designer is responsible for Minimize energy consumption of heat pump
+
+[ARM_gut_S3 -> BPM_gut_S3]
+Product Owner performs target setting
+Product Owner performs define the product specification
+Product designer performs Product design
+
+[ARM_gut_S3 -> Marketing_gut_S3]
+Marketing department is responsible for Plan marketing campaign
+Marketing department is responsible for Run social media campaign
+Marketing department is responsible for Run print media campaign
+Marketing department is responsible for Supervise campaign results
+
+[ARM_gut_S3 -> PM_gut_S3]
+Product Owner is responsible for Smart Heat
+Product designer is responsible for energy-efficient
+
+[Marketing_gut_S3 -> TRM_gut_S3]
+Run social media campaign uses Social media studio
+
+[TRM_gut_S3 -> CM_gut_S3]
+Production system supports Product
+Version management system supports Product
+Social media studio supports Campaign plan
+Production system supports Specification Document
+Version management system supports Target Feature
+Version management system supports Customer Survey
+Social media studio supports Campaign target document
+Production system supports Feature
+Social media studio supports Campaign statistics
+Production system supports Design description

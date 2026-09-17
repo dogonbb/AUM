@@ -1,0 +1,16 @@
+Goal Providing most energy-efficient heating solution in market relates to Heat pump
+Goal Providing most energy-efficient heating solution in market relates to Product
+Goal Providing most energy-efficient heating solution in market relates to Energy-efficiency
+Problem Energy consumption of current product version is too high relates to Product
+Problem Energy consumption of current product version is too high relates to Version
+Problem Energy consumption of current product version is too high relates to Energy consumption
+Goal Minimize energy consumption of heat pump relates to Heat pump
+Goal Minimize energy consumption of heat pump relates to Energy consumption
+Goal Produce remaining energy required by heat pump with photovoltaic module relates to Zero-emission energy production
+Constraint Maximum energy production of photovoltaic module is 50 kWh Affects Zero-emission energy production
+Goal Develop new heat extractor with very low energy consumption requires Design description
+Goal Develop new heat extractor with very low energy consumption requires Specification Document
+Goal Re-design existing heat extractor bay adapting it for a new refrigerant requires Design description
+Goal Re-design existing heat extractor bay adapting it for a new refrigerant requires Specification Document
+Goal Provide services supporting high availability of heat pump motivates Feature
+Opportunity New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates Feature

@@ -1,0 +1,8 @@
+Providing most energy-efficient heating solution in market motivates Production system
+New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates Database system
+control unit needs Internet to provide status information requires Technical Component Transaction middleware
+Develop new heat extractor with very low energy consumption motivates Product planning system
+Re-design existing heat extractor bay adapting it for a new refrigerant motivates Product planning system
+Energy consumption of current product version is too high hinders Production system
+Provide services supporting high availability of heat pump requires User interface
+Minimize energy consumption of heat pump supports Production system

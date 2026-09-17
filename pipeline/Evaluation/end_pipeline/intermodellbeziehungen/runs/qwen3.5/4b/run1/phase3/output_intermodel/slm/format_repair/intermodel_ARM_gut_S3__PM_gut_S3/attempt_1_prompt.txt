@@ -1,0 +1,345 @@
+## General explanation
+
+You repair an already generated intermodel relationship output after the Python integrator failed to process it.
+
+Follow this order strictly:
+1. Review the complete generated output and the complete Python error before making changes.
+2. Correct every reported formatting violation throughout the file, while preserving semantic content wherever possible.
+3. Correct every reported semantic validation error using the scenario texts, model explanation, original intermodel generation rules, and required output format. Make only the smallest content changes required for the Python integrator to accept the output.
+
+The Python error may contain a numbered `Multiple validation errors` list, including multiple errors for one line. Resolve every listed error in one repaired output. Do not stop after fixing the first item. Check every line named in the error list and keep every source and target element name exactly consistent with the existing elements in its respective model. Preserve the required source-to-target direction.
+
+Connector enumeration values are source-model-specific. Use only the exact
+case-sensitive connector list and allowed target element types contained in the
+supplied intermodel generation rules; never translate, normalize, underscore,
+or change the capitalization of an enumeration value.
+
+For a semantic correction, use only information present in the supplied scenario texts, model explanation, and intermodel generation rules. Do not invent elements, names, facts, or relationships. Remove, replace, or add only what is necessary to resolve the reported validation errors. Preserve every unaffected name and relationship exactly.
+
+Do not add `ELEMENTS` or `CONNECTIONS` sections and do not reproduce internal relationships from either model. Do not add a model-pair header; the pipeline adds that header separately during validation and aggregation.
+
+Return only the complete repaired output. Do not provide an explanation, Markdown, code fences, or introductory or concluding text.
+
+## Scenario texts
+
+In the company, the role of the product owner for the heat pump “Smart-Heat” is responsible for the product innovation process and also has the responsibility to reach the goal of the most energy-efficient heating solution. The product owner works in the product development department, an organisational unit of MultiHeat. The role of product designer also works in the product development department. The product designer is responsible for the sub-goal of minimizing the energy consumption of the heat pump. MultiHeat has three more organizational units: the marketing department, the social media group, and the print media group. The print media group and the social media group are both part of the marketing department. The printing press is a resource of the MultiHeat that belongs to the print media department.
+
+---
+
+The “Smart-Heat” product is a heat pump that consists of two components: the indoor module and the outdoor module. The outdoor module also consists of two modules: the photovoltaic module and the outdoor air exchange unit. Smart-Heat has the feature of being energy-efficient. The photovoltaic module has the feature of zero-emission energy production. In addition to Smart-Heat, the company also offers a service product called “maintenance and trouble-shooting”. This product consists of the service modules “annual service” and “repair”, and of the product “service kit”.
+
+## Model explanation
+
+### Source model semantics
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Actors and Resources Model
+
+## Purpose of the model
+
+The Actors and Resources Model describes the organisational actors and non-human resources of an enterprise and the relationships between them. It represents who participates in the enterprise, which roles and organisational units exist, which resources are used, and how responsibilities, assignments, dependencies, and organisational structures are arranged.
+
+## Element types
+
+- Individual
+- Role
+- Resource
+- Organizational Unit
+
+## Meaning of element types
+
+- Individual: A named or otherwise identifiable person in the enterprise.
+- Role: A function, position, responsibility, or organisational role that may be performed by an Individual or, depending on the context, associated with an Organizational Unit.
+- Resource: A non-human resource such as a machine, system, equipment item, tool, material, information system, or other asset used by the enterprise.
+- Organizational Unit: An organisational structure such as a group, department, division, section, project, team, subsidiary, or comparable unit.
+
+## Internal connection types
+
+Direct connections:
+
+- relation
+- plays
+- works in
+- works at
+- supplies
+- interacts with
+- navigates
+- responsible for
+- belongs to
+- maintains
+
+Connector-based connections:
+
+- Partial-ISA
+- Total-ISA
+- Partial-PartOF
+- Total-PartOF
+
+## Meaning of internal connections
+
+- A relation B: A has a direct relationship to B when no more specific connection type describes the relationship.
+- A plays B: Individual A performs, holds, or assumes Role B.
+- A works in B: Role A works within Organizational Unit B.
+- A works at B: Role A works at the organisational unit or organisational location represented by B.
+- A supplies B: Role A provides or delivers something to Organizational Unit B.
+- A interacts with B: Resource A communicates, exchanges information, or directly interacts with Resource B.
+- A navigates B: Organizational Unit A uses or navigates Resource B.
+- A responsible for B: Role or Organizational Unit A has responsibility for Resource B.
+- A belongs to B: Resource A is assigned to, forms part of, or belongs to Organizational Unit B.
+- A maintains B: Role A maintains, supports, or keeps Resource B operational.
+- A, B, C Partial-ISA D: A, B, and C are specialisations of D, but the listed specialisations are not necessarily complete.
+- A, B, C Total-ISA D: A, B, and C are specialisations of D and together completely cover D.
+- A, B, C Partial-PartOF D: A, B, and C are parts of D, but the listed parts are not necessarily complete.
+- A, B, C Total-PartOF D: A, B, and C are parts of D and together completely compose D.
+
+## Structural rules
+
+- Individuals represent persons, while Roles represent functions, positions, or responsibilities.
+- A person and the role performed by that person are represented as separate elements.
+- An organisational unit and a role associated with that unit are represented as separate elements when both are relevant.
+- Resources represent non-human assets only.
+- ISA connections represent classification or specialisation.
+- PartOF connections represent organisational or resource composition.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, causes, constraints, opportunities, business processes, business rules, products, services, concepts, or technical requirements as model elements.
+
+### Target model semantics
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Product / Service Model
+
+## Purpose of the model
+
+The Product / Service Model describes the products and services offered by the enterprise. It represents products, services, their components, and customer-relevant features. The model also describes composition, specialisation, variants, alternatives, and dependencies among these elements.
+
+## Element types
+
+- Product
+- Service
+- Component
+- Feature
+
+## Meaning of element types
+
+- Product: An offering provided to customers. A Product may be physical, digital, virtual, or service-related and may provide attributes, benefits, functions, or uses that satisfy customer needs.
+- Service: A specialisation of Product that is offered as a service and is created or delivered through a process.
+- Component: A distinguishable part of a Product or Service that is supplied by a partner or produced within the enterprise.
+- Feature: A characteristic, capability, or function of a Product or Service that provides value to customers or target groups.
+
+## Internal connection types
+
+Direct connections:
+
+- part_of
+- is_a
+- requires
+
+Connector-based connections:
+
+- PartOF (AND)
+- PartOF (OR)
+- PartOF (XOR)
+- Total-ISA
+- Partial-ISA
+
+## Meaning of internal connections
+
+- A part_of B: Component A is a direct part of Product or Service B.
+- A is_a B: Product or Service A is a specialisation, version, variant, or subtype of Product or Service B.
+- A requires B: A depends on or needs B in order to work.
+- A, B, C PartOF (AND) D: A, B, and C are all parts of D.
+- A, B, C PartOF (OR) D: One or more of A, B, and C may be parts of D.
+- A, B, C PartOF (XOR) D: Exactly one of A, B, and C may be part of D.
+- A, B, C Total-ISA D: A, B, and C are specialisations of D and together form the complete set of variants.
+- A, B, C Partial-ISA D: A, B, and C are specialisations of D, but the listed variants are not necessarily complete.
+
+## Structural rules
+
+- Products represent offerings or product variants.
+- Services represent explicitly described service offerings.
+- Components represent physical or technical parts of Products or Services.
+- Features represent functions, capabilities, or measurable customer-relevant characteristics.
+- Direct PartOF connections connect Components to Products or Services; PartOF connectors may group Product, Service, Component, and Feature elements.
+- Direct ISA connections connect Products and Services; ISA connectors may group Product, Service, Component, and Feature elements.
+- Requires represents a dependency, especially a Feature dependency on a Component, Product, or Service.
+- AND, OR, and XOR distinguish mandatory, optional, and mutually exclusive compositions.
+- Total-ISA and Partial-ISA distinguish complete and incomplete variant sets.
+- Connector-based connections may have one or more sources; a single-source connector is valid.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, actors, roles, resources, concepts, technical requirements, business processes, markets, or business rules as model elements.
+
+### Existing source model
+
+ELEMENTS
+Role Product Owner
+Organizational Unit Product development department
+Role Product designer
+Organizational Unit Multi-Heat
+Organizational Unit Marketing department
+Organizational Unit Social media group
+Organizational Unit Print media group
+Resource Printing press
+
+CONNECTIONS
+Product Owner works in Product development department
+Product designer works in Product development department
+Printing press belongs to Print media group
+Product development department, Marketing department Total-PartOF Multi-Heat
+Social media group, Print media group Total-PartOF Marketing department
+
+### Existing target model
+
+ELEMENTS
+Product Smart Heat
+Component indoor module
+Component outdoor module
+Feature energy-efficient
+Product Heat pump
+Component Photovoltaic module
+Component Outdoor air exchange unit
+Feature Zero-emission energy production
+Product Maintenance and trouble-shooting
+Product Annual service
+Product Repair
+Product Service kit
+
+CONNECTIONS
+Smart Heat is_a Heat pump
+energy-efficient requires Smart Heat
+Zero-emission energy production requires Photovoltaic module
+indoor module, outdoor module PartOF (AND) Smart Heat
+Photovoltaic module, Outdoor air exchange unit PartOF (AND) outdoor module
+Annual service, Repair, Service kit PartOF (AND) Maintenance and trouble-shooting
+
+## Original intermodel generation rules
+
+## Task
+
+Identify all semantically meaningful intermodel relationships from elements of the source model to elements of the target model.
+
+Consider every element of the source model as a possible source. As targets, use
+only elements whose element type is listed as allowed for the target model below.
+
+However, create a relationship only when it is supported by the meanings of the two elements and by the provided case descriptions.
+
+Do not create a relationship merely because the two elements contain similar words.
+Do not create speculative relationships that are not supported by the available information.
+Do not create relationships between two elements belonging to the same model.
+
+## Source-model intermodel connector rules
+
+Source model: Actors and Resources Model
+
+Allowed connectors (exact enumeration values):
+- play
+- is responsible for
+- defines
+- empty
+- performs
+
+`empty` means that a relationship exists but no more specific connector applies.
+Connector spelling, spaces, and capitalization are significant.
+
+Connector meanings (always source -> target):
+- `play`: the source actor or organisational unit plays the target role.
+- `is responsible for`: the source bears explicit responsibility for the target.
+- `defines`: the source specifies or determines the target.
+- `empty`: an explicit association exists but no specific allowed connector describes it; use only as a last resort.
+- `performs`: the source carries out the target process or activity.
+
+Interpret every connector from source to target. Do not reverse a relationship
+merely to make its label sound natural. Preserve connector capitalization and
+spaces exactly.
+
+## Target-model reference rules
+
+Allowed target element types:
+- Product
+- Service
+- Feature
+
+Use no other target element types.
+
+Use the element types exactly as written in the target model. If no target
+element type is allowed, return
+exactly `NO_INTERMODEL_RELATIONSHIPS`.
+
+## Direction
+
+Every returned relationship must start with an element from the source model and end with an element from the target model.
+
+Do not reverse the direction.
+
+## Output format
+
+Return only the intermodel relationships.
+
+Write exactly one relationship per line using the following syntax:
+
+<ElementNameFromModel1> <Connector> <ElementNameFromModel2>
+
+Use only the exact element names declared in the `ELEMENTS` sections of the
+source model and target model shown above.
+
+Do not include the element type before or after an element name.
+
+Do not prefix either element name with its element type. For example, if an
+element is declared as `Role Customer Service Representative`, use only
+`Customer Service Representative` as its name in a relationship line.
+
+## Output rules
+
+1. Return relationships only.
+2. Do not return an ELEMENTS section.
+3. Do not return a CONNECTIONS heading.
+4. Do not reproduce internal model relationships.
+5. Do not create new elements.
+6. Do not rename, shorten, translate, or normalize element names.
+7. Do not include element types in the relationships.
+8. Use only the allowed connectors.
+9. Do not include explanations, comments, bullet points, numbering, Markdown, or code fences.
+10. Create at most one relationship between any pair of elements. Do not connect the same source and target elements more than once, even with different connectors. Choose the single most specific applicable connector.
+11. If no meaningful intermodel relationship can be identified, return exactly:
+
+NO_INTERMODEL_RELATIONSHIPS
+
+## Required output format
+
+Return only the complete repaired output as plain text containing relationship lines for the one supplied model pair. Do not write a model-pair header, Markdown fences, bullets, numbering, comments, explanations, `ELEMENTS`, or `CONNECTIONS` headings.
+
+Write every relationship on its own line:
+`exact source element name connector exact target element name`
+
+The source element must belong to the supplied source model. The target element must belong to the supplied target model. Names must exactly match existing element names in those models. Do not include element types before element names.
+
+Use only the exact source-specific connectors stated in the supplied original
+intermodel generation rules. Preserve capitalization and spaces exactly. The target element
+type must also be allowed for the supplied directed model pair according
+to the original intermodel generation rules.
+
+Do not use pipes, `::`, arrows, or any alternative syntax even if a parser accepts it. Create at most one relationship between any pair of elements. If multiple relationships connect the same source and target elements, keep only the single most specific applicable connector.
+
+If no relationship exists, return exactly `NO_INTERMODEL_RELATIONSHIPS` on a single line and nothing else.
+
+## Python error
+
+Multiple validation errors (2):
+1. Relationship line 2: Relationship line 2: Source element 'Role Product Owner' was not found by INSTANCE name or Description in model 'ARM_gut_S3' (Actors and Resources Model). Names: Organizational Unit - 1, Organizational Unit - 2, Organizational Unit - 3, Organizational Unit - 4, Organizational Unit - 5, Organizational Unit - 6, Resource - 2, Role - 1, Role - 2, Total-PartOF-36721. Descriptions: Marketing department | Multi-Heat | Print media group | Printing press | Product Owner | Product designer | Product development department | Product development department
+2. Relationship line 3: Relationship line 3: Source element 'Role Product designer' was not found by INSTANCE name or Description in model 'ARM_gut_S3' (Actors and Resources Model). Names: Organizational Unit - 1, Organizational Unit - 2, Organizational Unit - 3, Organizational Unit - 4, Organizational Unit - 5, Organizational Unit - 6, Resource - 2, Role - 1, Role - 2, Total-PartOF-36721. Descriptions: Marketing department | Multi-Heat | Print media group | Printing press | Product Owner | Product designer | Product development department | Product development department
+
+## Output to repair
+
+Role Product Owner is responsible for Product Smart Heat
+Role Product designer is responsible for Feature energy-efficient

@@ -1,0 +1,8 @@
+customer survey uses Customer Survey
+target features uses Target Feature
+specification document uses Specification Document
+Design description uses Design description
+Product design uses Product
+target setting uses Customer Survey
+define the product specification uses Specification Document
+target setting uses Target Feature

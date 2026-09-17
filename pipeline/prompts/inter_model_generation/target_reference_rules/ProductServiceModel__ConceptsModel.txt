@@ -1,0 +1,4 @@
+Allowed target element types:
+- Concept
+
+Use no other target element types.

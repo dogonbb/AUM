@@ -1,0 +1,5 @@
+Smart Heat relates to Heat pump
+energy-efficient relates to Attribute Energy-efficiency
+Zero-emission energy production relates to Concept Zero-emission energy production
+Smart Heat relates to Product
+Heat pump relates to Heat pump

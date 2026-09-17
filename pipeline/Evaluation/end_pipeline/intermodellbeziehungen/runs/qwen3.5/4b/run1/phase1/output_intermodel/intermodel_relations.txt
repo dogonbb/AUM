@@ -1,0 +1,59 @@
+[GM_gut_S1 -> CM_gut_S1]
+Providing most energy-efficient heating solution in market requires Product
+Energy consumption of current product version is too high relates to Product
+Energy consumption of current product version is too high relates to Version
+
+[GM_gut_S1 -> BPM_gut_S1]
+Providing most energy-efficient heating solution in market motivates target setting
+Energy consumption of current product version is too high motivates define the product specification
+
+[GM_gut_S1 -> BPM_gut_Overview]
+Providing most energy-efficient heating solution in market motivates Product innovation process
+Energy consumption of current product version is too high motivates Product innovation process
+
+[GM_gut_S1 -> TRM_gut_S1]
+Providing most energy-efficient heating solution in market motivates Production system
+Energy consumption of current product version is too high motivates Version management system
+
+[GM_gut_S1 -> PM_gut_S1]
+Providing most energy-efficient heating solution in market requires energy-efficient
+
+[ARM_gut_S1 -> GM_gut_S1]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+
+[ARM_gut_S1 -> BPM_gut_S1]
+Product Owner performs target setting
+Product Owner performs define the product specification
+
+[ARM_gut_S1 -> BPM_gut_Overview]
+Product Owner is responsible for Product innovation process
+
+[ARM_gut_S1 -> PM_gut_S1]
+Product Owner is responsible for Smart Heat
+Product Owner is responsible for energy-efficient
+
+[BPM_gut_S1 -> CM_gut_S1]
+target setting Input Customer Survey
+target setting Output Target Feature
+define the product specification Input Target Feature
+define the product specification Output Specification Document
+
+[BPM_gut_Overview -> CM_gut_S1]
+Product innovation process Input Customer Survey
+Product innovation process Output Target Feature
+Product innovation process Output Specification Document
+
+[BPM_gut_Overview -> TRM_gut_S1]
+Product innovation process requires Production system
+Product innovation process requires Version management system
+
+[TRM_gut_S1 -> CM_gut_S1]
+Production system supports Product
+Version management system supports Target Feature
+
+[PM_gut_S1 -> CM_gut_S1]
+Smart Heat relates to Feature
+energy-efficient relates to Specification Document
+
+[PM_gut_S1 -> TRM_gut_S1]
+Smart Heat requires Production system

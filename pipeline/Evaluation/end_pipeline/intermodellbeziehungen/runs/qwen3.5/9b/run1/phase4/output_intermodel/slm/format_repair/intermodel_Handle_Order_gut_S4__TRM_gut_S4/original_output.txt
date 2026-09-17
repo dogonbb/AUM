@@ -1,0 +1,6 @@
+Process Check availability uses Technical Component Enterprise resource planning system
+Process Check customer status uses Technical Component Enterprise resource planning system
+Process Check configuration uses Technical Component Product planning system
+Process Check availability uses Technical Component Distributed database
+Process Check customer status uses Technical Component Distributed database
+Process Check configuration uses Technical Component Distributed database

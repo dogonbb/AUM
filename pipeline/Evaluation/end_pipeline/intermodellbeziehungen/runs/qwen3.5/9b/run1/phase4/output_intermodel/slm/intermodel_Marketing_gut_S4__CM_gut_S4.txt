@@ -1,0 +1,8 @@
+Plan marketing campaign Input Campaign target document
+Plan marketing campaign Output Campaign plan
+Run social media campaign Input Campaign plan
+Run social media campaign Output Campaign statistics
+Run print media campaign Input Campaign plan
+Run print media campaign Output Campaign statistics
+Supervise campaign results Input Campaign statistics
+Supervise campaign results Output Campaign result document

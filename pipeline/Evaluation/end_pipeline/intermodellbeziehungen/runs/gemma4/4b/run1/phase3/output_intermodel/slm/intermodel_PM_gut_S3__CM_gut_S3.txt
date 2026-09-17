@@ -1,0 +1,5 @@
+Smart Heat relates to Concept Heat pump
+Product Heat pump relates to Concept Product
+Feature energy-efficient relates to Concept Feature
+Feature Zero-emission energy production relates to Concept Zero-emission energy production
+Product Maintenance and trouble-shooting relates to Concept Product

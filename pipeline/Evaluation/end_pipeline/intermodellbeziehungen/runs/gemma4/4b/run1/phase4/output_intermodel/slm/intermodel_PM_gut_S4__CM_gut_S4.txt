@@ -1,0 +1,5 @@
+Smart Heat relates to Heat pump
+Heat pump relates to Heat pump
+Maintenance and trouble-shooting relates to Product
+Zero-emission energy production relates to Zero-emission energy production
+energy-efficient relates to Feature

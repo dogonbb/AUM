@@ -1,0 +1,8 @@
+Process Check availability uses Concept Product
+Process Check configuration uses Concept Specification Document
+Process Check customer status uses Concept Order specification
+Process Check availability Output Concept Order confirmation
+Process Check customer status Output Concept Order confirmation
+Process Check configuration Output Concept Order confirmation
+Information Set verified order specification Supports Concept Verified order specification
+Information Set Order confirmation Supports Concept Order confirmation

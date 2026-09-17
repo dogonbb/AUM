@@ -1,0 +1,3 @@
+Handle customer order uses Product planning system
+Handle customer order uses Enterprise resource planning system
+Handle customer order uses Distributed database

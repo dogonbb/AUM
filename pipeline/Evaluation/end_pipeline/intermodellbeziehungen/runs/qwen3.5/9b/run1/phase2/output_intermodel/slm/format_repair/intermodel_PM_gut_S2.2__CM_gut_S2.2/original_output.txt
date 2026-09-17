@@ -1,0 +1,10 @@
+Smart Heat requires Specification Document
+Smart Heat requires Design description
+Smart Heat relates to Concept Product
+Smart Heat relates to Concept Heat pump
+Heat pump requires Specification Document
+Heat pump requires Design description
+Heat pump relates to Concept Product
+Heat pump relates to Concept Heat pump
+energy-efficient relates to Concept Feature
+Zero-emission energy production relates to Concept Zero-emission energy production

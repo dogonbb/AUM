@@ -1,0 +1,10 @@
+target setting Input Customer Survey
+target setting Output Target Feature
+customer survey uses Customer Survey
+target features uses Target Feature
+define the product specification Output Specification Document
+specification document uses Specification Document
+Product design Output Design description
+Design description uses Design description
+specification document uses Product
+Design description uses Product

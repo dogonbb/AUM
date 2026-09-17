@@ -1,0 +1,6 @@
+Process - 1 uses Technical Component Production system
+Process - 2 uses Technical Component Production system
+Process - 4 uses Technical Component Production system
+Process - 1 uses Technical Component Version management system
+Process - 2 uses Technical Component Version management system
+Process - 4 uses Technical Component Version management system

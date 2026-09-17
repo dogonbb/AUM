@@ -1,0 +1,2 @@
+Multiple validation errors (1):
+1. Relationship line 3: Relationship line 3: Target element 'Production system' was not found by INSTANCE name or Description in model 'CM_gut_S4' (Concepts Model). Names: Attribute - 10, Attribute - 11, Attribute - 12, Attribute - 13, Attribute - 14, Attribute - 15, Attribute - 16, Attribute - 17, Attribute - 18, Attribute - 19. Descriptions: Campaign budget | Campaign end date | Campaign plan | Campaign result document | Campaign start date | Campaign statistics | Campaign target document | Customer Survey

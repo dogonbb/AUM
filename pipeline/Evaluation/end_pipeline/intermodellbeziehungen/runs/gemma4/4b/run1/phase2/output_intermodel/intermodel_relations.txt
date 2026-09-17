@@ -1,0 +1,43 @@
+[GM_gut_S2.2 -> CM_gut_S2.2]
+Providing most energy-efficient heating solution in market motivates Energy-efficiency
+Minimize energy consumption of heat pump requires Energy consumption
+Produce remaining energy required by heat pump with photovoltaic module motivates Zero-emission energy production
+Providing most energy-efficient heating solution in market relates to Heat pump
+
+[GM_gut_S2.2 -> BPM_gut_S2.2]
+Providing most energy-efficient heating solution in market Supports target setting
+Energy consumption of current product version is too high motivates target setting
+Minimize energy consumption of heat pump requires Product design
+Produce remaining energy required by heat pump with photovoltaic module requires Product design
+
+[GM_gut_S2.2 -> TRM_gut_S2.2]
+Providing most energy-efficient heating solution in market motivates Production system
+Minimize energy consumption of heat pump motivates Production system
+Produce remaining energy required by heat pump with photovoltaic module motivates Production system
+
+[GM_gut_S2.2 -> PM_gut_S2.2]
+Providing most energy-efficient heating solution in market motivates energy-efficient
+Minimize energy consumption of heat pump Supports energy-efficient
+Produce remaining energy required by heat pump with photovoltaic module Supports Zero-emission energy production
+Energy consumption of current product version is too high motivates energy-efficient
+
+[ARM_gut_S2.2 -> GM_gut_S2.2]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Product designer is responsible for Minimize energy consumption of heat pump
+
+[ARM_gut_S2.2 -> BPM_gut_S2.2]
+Product Owner performs target setting
+Product Owner performs define the product specification
+Product designer performs Product design
+
+[ARM_gut_S2.2 -> PM_gut_S2.2]
+Product Owner is responsible for energy-efficient
+Product designer is responsible for energy-efficient
+
+[BPM_gut_S2.2 -> CM_gut_S2.2]
+target setting uses Customer Survey
+target setting Output Target Feature
+define the product specification uses Target Feature
+define the product specification Output Specification Document
+Product design uses Specification Document
+Product design Output Design description

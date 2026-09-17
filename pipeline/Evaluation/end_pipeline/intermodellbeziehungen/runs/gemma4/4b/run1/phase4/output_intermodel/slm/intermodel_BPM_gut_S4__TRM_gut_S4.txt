@@ -1,0 +1,3 @@
+target setting uses Product planning system
+define the product specification uses Product planning system
+Product design uses Version management system

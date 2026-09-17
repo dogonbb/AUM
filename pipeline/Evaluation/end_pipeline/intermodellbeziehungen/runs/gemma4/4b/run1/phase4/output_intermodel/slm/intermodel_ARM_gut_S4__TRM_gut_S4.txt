@@ -1,0 +1,3 @@
+Product Owner is responsible for Production system
+Social media designer is responsible for Social media studio
+General Manager is responsible for Enterprise resource planning system

@@ -1,0 +1,7 @@
+target setting creates Campaign target document
+customer survey Supports Customer Survey
+target features Supports Target Feature
+define the product specification creates Product
+specification document Supports Specification Document
+Product design creates Design description
+Design description Supports Design description

@@ -1,0 +1,6 @@
+Goal requires Energy-efficiency
+Goal motivates Target Feature
+Goal requires Specification Document
+Problem Defined by Energy consumption
+Problem requires Target Feature
+Problem requires Specification Document

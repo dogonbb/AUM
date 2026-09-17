@@ -1,0 +1,6 @@
+Check availability uses Enterprise resource planning system
+Check customer status uses Enterprise resource planning system
+Check configuration uses Product planning system
+Check availability uses Distributed database
+Check customer status uses Distributed database
+Check configuration uses Distributed database

@@ -1,0 +1,355 @@
+{
+  "execution": {
+    "mode": "intermodel_only",
+    "overwrite": true,
+    "continue_after_failure": true,
+    "selected_scenario": "controlled_phase4"
+  },
+  "slm": {
+    "provider": "ollama",
+    "base_url": "http://127.0.0.1:11434",
+    "model": "qwen3.5:9b",
+    "thinking": true,
+    "timeout_seconds": 1800,
+    "log_thinking": false,
+    "thinking_repetition_enabled": true,
+    "thinking_repetition_limit": 10,
+    "thinking_repetition_min_block_chars": 40,
+    "show_stream_output": false,
+    "keep_alive": "5m",
+    "options": {
+      "temperature": 0.2,
+      "num_ctx": 131072,
+      "top_p": 0.9,
+      "seed": 42,
+      "num_predict": 131072
+    }
+  },
+  "retry": {
+    "max_restart": 3,
+    "seed_mode": "incremental",
+    "seed_increment": 1
+  },
+  "format_repair": {
+    "enabled": true,
+    "max_attempts": 3,
+    "general_prompt_path": "prompts/format_repair/general_repair_prompt.txt"
+  },
+  "paths": {
+    "scenarios_root": "scenarios",
+    "output_root": "output",
+    "scenario_run_directory_template": "{scenario_name}_{timestamp}",
+    "timestamp_format": "%Y-%m-%dT%H-%M-%S",
+    "thinking_log_directory": "thinking_logs",
+    "model_slm_directory": "output_model_gen/slm",
+    "model_adl_directory": "output_model_gen/adl",
+    "artifact_manifest_file": "output_model_gen/artifacts.json",
+    "merged_adl_file": "output_model_gen/{scenario_name}_models.adl",
+    "intermodel_slm_directory": "output_intermodel/slm",
+    "intermodel_aggregate_slm_file": "output_intermodel/intermodel_relations.txt",
+    "final_adl_file": "output_intermodel/{scenario_name}_with_intermodel_relations.adl",
+    "report_directory": "output/runtime_reports",
+    "report_json_filename": "pipeline_{timestamp}.json",
+    "report_text_filename": "pipeline_{timestamp}.txt",
+    "event_log_filename": "pipeline_{timestamp}.jsonl"
+  },
+  "files": {
+    "scenario_extensions": [
+      ".txt"
+    ]
+  },
+  "prompts": {
+    "intermodel_template": "prompts/inter_model_generation/inter_model_connections_descriptions/inter_model_gen_connections_template.txt"
+  },
+  "tools": {
+    "python_executable": "",
+    "default_python_timeout_seconds": 600,
+    "slm_restart": {
+      "enabled": true,
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "command": [
+        "{python}",
+        "scripts/restart_ollama_model.py",
+        "--model",
+        "{model}",
+        "--base-url",
+        "{base_url}"
+      ]
+    },
+    "adl_merger": {
+      "path": "scripts/adl_model_merger.py",
+      "cwd": ".",
+      "timeout_seconds": 600,
+      "command": [
+        "{python}",
+        "{merger_path}",
+        "{input_files}",
+        "--output",
+        "{output_adl}"
+      ]
+    },
+    "intermodel_integrator": {
+      "path": "scripts/add_intermodel_relations_slm.py",
+      "cwd": ".",
+      "timeout_seconds": 600,
+      "command": [
+        "{python}",
+        "{integrator_path}",
+        "{input_adl}",
+        "{relations_slm}",
+        "--output",
+        "{output_adl}",
+        "--overwrite"
+      ]
+    }
+  },
+  "models": [
+    {
+      "id": "GoalModel",
+      "enabled": true,
+      "scenario_folder": "1GoalModel",
+      "display_name": "Goal Model",
+      "model_type": "Goal Model",
+      "prompt_path": "prompts/model_generation/Prompt_GoalModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_GoalModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_GoalModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.txt",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_GoalModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    },
+    {
+      "id": "BusinessProcessModel",
+      "enabled": true,
+      "scenario_folder": "2BusinessProcessModell",
+      "display_name": "Business Process Model",
+      "model_type": "Business Process Model",
+      "prompt_path": "prompts/model_generation/Prompt_BusinessProcessModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_BusinessProcessModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_BusinessProcessModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.txt",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_BusinessProcessModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    },
+    {
+      "id": "ActorsResourcesModel",
+      "enabled": true,
+      "scenario_folder": "3ActorsandResourcesModel",
+      "display_name": "Actors and Resources Model",
+      "model_type": "Actors and Resources Model",
+      "prompt_path": "prompts/model_generation/Prompt_ActorsResourcesModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_ActorsResourcesModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_ActorsResourcesModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.txt",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_ActorsResourcesModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    },
+    {
+      "id": "ConceptsModel",
+      "enabled": true,
+      "scenario_folder": "4ConceptsModel",
+      "display_name": "Concepts Model",
+      "model_type": "Concepts Model",
+      "prompt_path": "prompts/model_generation/Prompt_ConceptModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_ConceptModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_ConceptModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.txt",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_ConceptModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    },
+    {
+      "id": "TechnicalComponentsRequirementsModel",
+      "enabled": true,
+      "scenario_folder": "6TechnicalComponentsandRequirementsModel",
+      "display_name": "Technical Components and Requirements Model",
+      "model_type": "Technical Components and Requirements Model",
+      "prompt_path": "prompts/model_generation/Prompt_TechnicalComponentsandRequirementsModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_TechnicalComponentsandRequirementsModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_TechnicalComponentsRequirementsModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.txt",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_TechnicalComponentsandRequirementsModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    },
+    {
+      "id": "ProductServiceModel",
+      "enabled": true,
+      "scenario_folder": "7ProductServiceModel",
+      "display_name": "Product / Service Model",
+      "model_type": "Product / Service Model",
+      "prompt_path": "prompts/model_generation/Prompt_ProductServiceModel.txt",
+      "description_path": "prompts/inter_model_generation/model_description/Description_ProductServiceModel.txt",
+      "format_prompt_path": "prompts/format_repair/Format_ProductServiceModel.txt",
+      "adl_model_name_template": "{scenario_name}_{model_id}_{source_relative_id}",
+      "slm_filename_template": "{source_stem}.txt",
+      "adl_filename_template": "{source_stem}.adl",
+      "converter": {
+        "path": "scripts/slm_to_adl/slm_to_adl_ProductServiceModel.py",
+        "cwd": ".",
+        "timeout_seconds": 600,
+        "command": [
+          "{python}",
+          "{converter_path}",
+          "{input_slm}",
+          "{output_adl}",
+          "--model-name",
+          "{adl_model_name}"
+        ]
+      }
+    }
+  ],
+  "intermodel": {
+    "enabled": true,
+    "repair_prompt_path": "prompts/format_repair/intermodel_repair_prompt.txt",
+    "format_prompt_path": "prompts/format_repair/IndividualIntermodelRelationshipsRepair.txt",
+    "output_filename_template": "intermodel_{source_adl_model_name}__{target_adl_model_name}.txt",
+    "no_relationship_marker": "NO_INTERMODEL_RELATIONSHIPS",
+    "pairs": [
+      [
+        "GoalModel",
+        "ConceptsModel"
+      ],
+      [
+        "GoalModel",
+        "BusinessProcessModel"
+      ],
+      [
+        "GoalModel",
+        "TechnicalComponentsRequirementsModel"
+      ],
+      [
+        "GoalModel",
+        "ProductServiceModel"
+      ],
+      [
+        "ActorsResourcesModel",
+        "GoalModel"
+      ],
+      [
+        "ActorsResourcesModel",
+        "BusinessProcessModel"
+      ],
+      [
+        "ActorsResourcesModel",
+        "TechnicalComponentsRequirementsModel"
+      ],
+      [
+        "ActorsResourcesModel",
+        "ProductServiceModel"
+      ],
+      [
+        "BusinessProcessModel",
+        "ConceptsModel"
+      ],
+      [
+        "BusinessProcessModel",
+        "TechnicalComponentsRequirementsModel"
+      ],
+      [
+        "TechnicalComponentsRequirementsModel",
+        "ConceptsModel"
+      ],
+      [
+        "ProductServiceModel",
+        "ConceptsModel"
+      ],
+      {
+        "enabled": false,
+        "source": "ProductServiceModel",
+        "target": "BusinessProcessModel",
+        "_comment": "Disabled: PSM -> BPM intermodel references are not technically supported by 4EM. Do not create an SLM task."
+      },
+      [
+        "ProductServiceModel",
+        "TechnicalComponentsRequirementsModel"
+      ]
+    ]
+  },
+  "intermodel_only": {
+    "jobs": [
+      {
+        "enabled": true,
+        "scenario_name": "controlled_phase4",
+        "scenario_directory": "scenarios/controlled_phase4",
+        "artifact_manifest": "input/artifacts.json",
+        "input_adl": "input/complete_adl_file_here.adl",
+        "output_run_directory": "run"
+      }
+    ]
+  },
+  "report": {
+    "include_prompt_text": false,
+    "include_slm_output_text": false,
+    "include_command_output": true
+  },
+  "visualization": {
+    "enabled": "on",
+    "script_path": "scripts/visualize_runtime_report.py",
+    "filename": "pipeline_{timestamp}_visualization.html",
+    "timeout_seconds": 120
+  }
+}

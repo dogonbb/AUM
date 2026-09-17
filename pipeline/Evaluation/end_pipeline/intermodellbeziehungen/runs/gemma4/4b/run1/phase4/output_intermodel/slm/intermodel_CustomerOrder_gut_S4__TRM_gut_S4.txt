@@ -1,0 +1,3 @@
+Handle customer order requires Product planning system
+Handle customer order requires Enterprise resource planning system
+Handle customer order requires Distributed database

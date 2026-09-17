@@ -1,0 +1,9 @@
+Source model: Concepts Model
+
+Allowed connectors: none.
+
+Return exactly `NO_INTERMODEL_RELATIONSHIPS`; this model has no outgoing
+intermodel connector enumeration.
+
+There are no connector meanings because no outgoing intermodel relationship
+can be generated from this source model.

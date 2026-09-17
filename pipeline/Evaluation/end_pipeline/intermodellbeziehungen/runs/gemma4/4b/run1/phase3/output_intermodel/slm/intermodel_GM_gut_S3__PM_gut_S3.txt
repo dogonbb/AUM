@@ -1,0 +1,18 @@
+Goal Providing most energy-efficient heating solution in market Supports Feature energy-efficient
+Problem Energy consumption of current product version is too high Hinders Feature energy-efficient
+Goal Minimize energy consumption of heat pump Supports Feature energy-efficient
+Goal Produce remaining energy required by heat pump with photovoltaic module Supports Feature energy-efficient
+Constraint Maximum energy production of photovoltaic module is 50 kWh Hinders Feature energy-efficient
+Goal Develop new heat extractor with very low energy consumption Supports Feature energy-efficient
+Goal Re-design existing heat extractor bay adapting it for a new refrigerant Supports Feature energy-efficient
+Problem Short period for development Hinders Feature energy-efficient
+Problem New refrigerants are very expensive Hinders Feature energy-efficient
+Goal Providing most energy-efficient heating solution in market Supports Feature Zero-emission energy production
+Problem Energy consumption of current product version is too high Hinders Feature Zero-emission energy production
+Goal Minimize energy consumption of heat pump Supports Feature Zero-emission energy production
+Goal Produce remaining energy required by heat pump with photovoltaic module Supports Feature Zero-emission energy production
+Constraint Maximum energy production of photovoltaic module is 50 kWh Hinders Feature Zero-emission energy production
+Goal Develop new heat extractor with very low energy consumption Supports Feature Zero-emission energy production
+Goal Re-design existing heat extractor bay adapting it for a new refrigerant Supports Feature Zero-emission energy production
+Problem Short period for development Hinders Feature Zero-emission energy production
+Problem New refrigerants are very expensive Hinders Feature Zero-emission energy production

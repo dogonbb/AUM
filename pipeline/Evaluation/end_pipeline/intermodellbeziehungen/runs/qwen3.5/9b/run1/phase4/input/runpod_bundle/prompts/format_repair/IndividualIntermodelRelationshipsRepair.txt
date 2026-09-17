@@ -1,0 +1,15 @@
+Return only the complete repaired output as plain text containing relationship lines for the one supplied model pair. Do not write a model-pair header, Markdown fences, bullets, numbering, comments, explanations, `ELEMENTS`, or `CONNECTIONS` headings.
+
+Write every relationship on its own line:
+`exact source element name connector exact target element name`
+
+The source element must belong to the supplied source model. The target element must belong to the supplied target model. Names must exactly match existing element names in those models. Do not include element types before element names.
+
+Use only the exact source-specific connectors stated in the supplied original
+intermodel generation rules. Preserve capitalization and spaces exactly. The target element
+type must also be allowed for the supplied directed model pair according
+to the original intermodel generation rules.
+
+Do not use pipes, `::`, arrows, or any alternative syntax even if a parser accepts it. Create at most one relationship between any pair of elements. If multiple relationships connect the same source and target elements, keep only the single most specific applicable connector.
+
+If no relationship exists, return exactly `NO_INTERMODEL_RELATIONSHIPS` on a single line and nothing else.

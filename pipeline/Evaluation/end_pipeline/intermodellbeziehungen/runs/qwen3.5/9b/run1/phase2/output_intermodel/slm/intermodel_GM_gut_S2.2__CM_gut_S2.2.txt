@@ -1,0 +1,7 @@
+Providing most energy-efficient heating solution in market relates to Energy-efficiency
+Energy consumption of current product version is too high relates to Energy consumption
+Minimize energy consumption of heat pump relates to Heat pump
+Minimize energy consumption of heat pump relates to Energy consumption
+Providing most energy-efficient heating solution in market relates to Heat pump
+Energy consumption of current product version is too high relates to Heat pump
+Produce remaining energy required by heat pump with photovoltaic module relates to Heat pump

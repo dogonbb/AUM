@@ -1,0 +1,6 @@
+Marketing department is responsible for Plan marketing campaign
+Marketing department is responsible for Run social media campaign
+Marketing department is responsible for Run print media campaign
+Marketing department is responsible for Supervise campaign results
+Social media group performs Run social media campaign
+Print media group performs Run print media campaign

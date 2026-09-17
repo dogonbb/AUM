@@ -1,0 +1,4 @@
+﻿SLM;Faktor;Berechnung
+Gemma 4 4B;37.279636222;Tokens = Zeit [s] * Faktor [Token/s]
+Qwen3.5 4B;17.953803222;Tokens = Zeit [s] * Faktor [Token/s]
+Qwen3.5 9B;51.286628421;Tokens = Zeit [s] * Faktor [Token/s]

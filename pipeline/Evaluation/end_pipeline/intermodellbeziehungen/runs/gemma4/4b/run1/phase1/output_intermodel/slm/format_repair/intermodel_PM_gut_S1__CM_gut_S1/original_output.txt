@@ -1,0 +1,4 @@
+Smart Heat relates to Concept Product
+indoor module relates to Concept Product
+outdoor module relates to Concept Product
+Feature energy-efficient relates to Concept Feature

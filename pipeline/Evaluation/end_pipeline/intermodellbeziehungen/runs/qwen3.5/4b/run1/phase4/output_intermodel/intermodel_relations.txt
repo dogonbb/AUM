@@ -1,0 +1,55 @@
+[GM_gut_S4 -> CM_gut_S4]
+Providing most energy-efficient heating solution in market requires Heat pump
+Minimize energy consumption of heat pump requires Energy consumption
+Develop new heat extractor with very low energy consumption requires Design description
+Re-design existing heat extractor bay adapting it for a new refrigerant requires Design description
+Produce remaining energy required by heat pump with photovoltaic module relates to Zero-emission energy production
+Provide services supporting high availability of heat pump relates to Heat pump
+Energy consumption of current product version is too high relates to Energy consumption
+Maximum energy production of photovoltaic module is 50 kWh Affects Zero-emission energy production
+
+[GM_gut_S4 -> TRM_gut_S4]
+Develop new heat extractor with very low energy consumption requires Version management system
+Re-design existing heat extractor bay adapting it for a new refrigerant requires Version management system
+Short period for development requires Version management system
+
+[GM_gut_S4 -> PM_gut_S4]
+Providing most energy-efficient heating solution in market requires energy-efficient
+Minimize energy consumption of heat pump requires energy-efficient
+Produce remaining energy required by heat pump with photovoltaic module requires Zero-emission energy production
+Provide services supporting high availability of heat pump requires Quick response to error situations
+
+[ARM_gut_S4 -> GM_gut_S4]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Product designer is responsible for Minimize energy consumption of heat pump
+
+[ARM_gut_S4 -> BPM_gut_S4]
+Product Owner performs target setting
+Product Owner performs define the product specification
+Product designer performs Product design
+
+[ARM_gut_S4 -> Marketing_gut_S4]
+Print designer is responsible for Run print media campaign
+Social media designer is responsible for Run social media campaign
+Marketing department is responsible for Plan marketing campaign
+Marketing department is responsible for Run social media campaign
+Marketing department is responsible for Run print media campaign
+Marketing department is responsible for Supervise campaign results
+
+[Marketing_gut_S4 -> CM_gut_S4]
+Plan marketing campaign Output Campaign plan
+Plan marketing campaign Input Campaign target document
+Run social media campaign Output Campaign statistics
+Run print media campaign Output Campaign statistics
+Run social media campaign Input Campaign plan
+Run print media campaign Input Campaign plan
+Supervise campaign results Input Campaign statistics
+Supervise campaign results Output Campaign result document
+
+[Marketing_gut_S4 -> TRM_gut_S4]
+Run social media campaign uses Social media studio
+
+[CustomerOrder_gut_S4 -> TRM_gut_S4]
+Handle customer order uses Product planning system
+Handle customer order uses Enterprise resource planning system
+Handle customer order uses Distributed database

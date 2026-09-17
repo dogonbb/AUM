@@ -1,0 +1,3 @@
+Role Product Owner performs Process target setting
+Role Product Owner performs Process define the product specification
+Role Product designer performs Process Product design

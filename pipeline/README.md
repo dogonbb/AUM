@@ -217,12 +217,19 @@ The restart command must be enabled:
 }
 ```
 
-If a model converter or the intermodel integrator fails, the pipeline sends
-the malformed output, Python error, scenario source content, model
-explanation, generation rules, and its exact formatting specification to the
-SLM. For a model task, the matching scenario source text is included; for
-intermodel integration, all scenario source texts are included. Scenario and
-source-file names are omitted. The SLM must first check the formatting.
+Regular model repairs use `general_repair_prompt.txt`. Individual intermodel
+repairs use the separately configured
+`intermodel.repair_prompt_path` (`intermodel_repair_prompt.txt`) so that no
+model-only `ELEMENTS`/`CONNECTIONS` instructions are included.
+
+After every model or intermodel generation, the pipeline immediately validates
+that individual output with the corresponding Python converter or integrator.
+If validation fails, it sends only that malformed output together with the
+Python error, relevant scenario source content, model explanation, generation
+rules, and exact formatting specification to the SLM. For an intermodel task,
+only the source/target pair is repaired; the aggregated intermodel file is not
+sent to the repair model. Scenario and source-file names are omitted. The SLM
+must first check the formatting.
 If formatting is wrong, it may repair formatting only. If formatting is
 already correct, it may make the smallest content change needed to resolve the
 reported validation error, without inventing scenario information. Original
@@ -232,7 +239,9 @@ attempt is included in the runtime JSON.
 The complete repair prompt and all model-specific explanations are in English.
 It reuses each model's configured `description_path` and, for regular model
 repairs, the rules from its original generation prompt (without the original
-task suffix). Its generated sections are `General explanation`, `Scenario
+task suffix). Intermodel repairs reuse the task, connector, direction, output,
+and output-rule sections of the rendered pair-generation prompt. The generated
+repair-prompt sections are `General explanation`, `Scenario
 texts`, `Model explanation`, `Original model generation rules`, `Required
 output format`, `Python error`, and `Output to repair`. The scenario directory
 name itself is intentionally not included.

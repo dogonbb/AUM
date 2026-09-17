@@ -1,0 +1,4 @@
+Process Plan marketing campaign uses Technical Component Social media studio
+Process Run social media campaign uses Technical Component Social media studio
+Process Run print media campaign uses Technical Component Social media studio
+Process Supervise campaign results uses Technical Component Social media studio

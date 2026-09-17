@@ -1,0 +1,9 @@
+Providing most energy-efficient heating solution in market motivates Technical Component Production system
+Goal Provide services supporting high availability of heat pump requires Technical Component Database system
+New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates Technical Component Database system
+Problem control unit needs Internet to provide status information requires Technical Component Transaction middleware
+Goal Develop new heat extractor with very low energy consumption motivates Technical Component Product planning system
+Goal Re-design existing heat extractor bay adapting it for a new refrigerant motivates Technical Component Product planning system
+Problem Energy consumption of current product version is too high hinders Technical Component Production system
+Goal Provide services supporting high availability of heat pump requires Technical Component User interface
+Goal Minimize energy consumption of heat pump supports Technical Component Production system

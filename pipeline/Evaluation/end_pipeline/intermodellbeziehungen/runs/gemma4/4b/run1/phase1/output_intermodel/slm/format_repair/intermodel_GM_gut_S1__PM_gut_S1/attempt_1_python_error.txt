@@ -1,0 +1,2 @@
+Multiple validation errors (1):
+1. Relationship line 3: Relationship line uses connector 'hinders', which is not valid for source model type 'Goal Model'. Allowed: 'Supports', 'Hinders', 'Contradicts', 'Affects', 'Defined by', 'motivates', 'requires', 'uses', 'relates to'.

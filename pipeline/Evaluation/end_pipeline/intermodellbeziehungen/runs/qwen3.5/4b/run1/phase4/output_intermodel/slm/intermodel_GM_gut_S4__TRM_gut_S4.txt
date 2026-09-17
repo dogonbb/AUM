@@ -1,0 +1,3 @@
+Develop new heat extractor with very low energy consumption requires Version management system
+Re-design existing heat extractor bay adapting it for a new refrigerant requires Version management system
+Short period for development requires Version management system

@@ -1,0 +1,3 @@
+Product Owner performs target setting
+Product Owner performs define the product specification
+Product designer performs Product design

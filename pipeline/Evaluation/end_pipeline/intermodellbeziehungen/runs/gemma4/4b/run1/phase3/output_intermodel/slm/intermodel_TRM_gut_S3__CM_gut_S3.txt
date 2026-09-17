@@ -1,0 +1,6 @@
+Production system supports Product
+Version management system supports Version
+Social media studio supports Campaign plan
+SM authoring system supports Social media activities
+SM life system supports Social media activities
+SM repository supports Social media activities

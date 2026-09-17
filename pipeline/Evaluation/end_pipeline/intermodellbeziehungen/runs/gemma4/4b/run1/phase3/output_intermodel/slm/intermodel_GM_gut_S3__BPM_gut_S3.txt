@@ -1,0 +1,9 @@
+Providing most energy-efficient heating solution in market motivates target setting
+Energy consumption of current product version is too high motivates target setting
+Minimize energy consumption of heat pump requires define the product specification
+Produce remaining energy required by heat pump with photovoltaic module requires define the product specification
+Maximum energy production of photovoltaic module is 50 kWh Affects define the product specification
+Develop new heat extractor with very low energy consumption requires define the product specification
+Re-design existing heat extractor bay adapting it for a new refrigerant requires define the product specification
+Short period for development Affects Product design
+New refrigerants are very expensive Affects Product design

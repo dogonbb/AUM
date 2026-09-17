@@ -1,0 +1,78 @@
+Providing most energy-efficient heating solution in market motivates target setting
+Providing most energy-efficient heating solution in market motivates define the product specification
+Providing most energy-efficient heating solution in market motivates Product design
+Providing most energy-efficient heating solution in market motivates target features
+Providing most energy-efficient heating solution in market motivates specification document
+Providing most energy-efficient heating solution in market motivates Design description
+Energy consumption of current product version is too high motivates target setting
+Energy consumption of current product version is too high motivates define the product specification
+Energy consumption of current product version is too high motivates Product design
+Energy consumption of current product version is too high motivates target features
+Energy consumption of current product version is too high motivates specification document
+Energy consumption of current product version is too high motivates Design description
+Minimize energy consumption of heat pump motivates target setting
+Minimize energy consumption of heat pump motivates define the product specification
+Minimize energy consumption of heat pump motivates Product design
+Minimize energy consumption of heat pump motivates target features
+Minimize energy consumption of heat pump motivates specification document
+Minimize energy consumption of heat pump motivates Design description
+Produce remaining energy required by heat pump with photovoltaic module motivates target setting
+Produce remaining energy required by heat pump with photovoltaic module motivates define the product specification
+Produce remaining energy required by heat pump with photovoltaic module motivates Product design
+Produce remaining energy required by heat pump with photovoltaic module motivates target features
+Produce remaining energy required by heat pump with photovoltaic module motivates specification document
+Produce remaining energy required by heat pump with photovoltaic module motivates Design description
+Maximum energy production of photovoltaic module is 50 kWh affects target setting
+Maximum energy production of photovoltaic module is 50 kWh affects define the product specification
+Maximum energy production of photovoltaic module is 50 kWh affects Product design
+Maximum energy production of photovoltaic module is 50 kWh affects target features
+Maximum energy production of photovoltaic module is 50 kWh affects specification document
+Maximum energy production of photovoltaic module is 50 kWh affects Design description
+Develop new heat extractor with very low energy consumption motivates target setting
+Develop new heat extractor with very low energy consumption motivates define the product specification
+Develop new heat extractor with very low energy consumption motivates Product design
+Develop new heat extractor with very low energy consumption motivates target features
+Develop new heat extractor with very low energy consumption motivates specification document
+Develop new heat extractor with very low energy consumption motivates Design description
+Re-design existing heat extractor bay adapting it for a new refrigerant motivates target setting
+Re-design existing heat extractor bay adapting it for a new refrigerant motivates define the product specification
+Re-design existing heat extractor bay adapting it for a new refrigerant motivates Product design
+Re-design existing heat extractor bay adapting it for a new refrigerant motivates target features
+Re-design existing heat extractor bay adapting it for a new refrigerant motivates specification document
+Re-design existing heat extractor bay adapting it for a new refrigerant motivates Design description
+Short period for development motivates target setting
+Short period for development motivates define the product specification
+Short period for development motivates Product design
+Short period for development motivates target features
+Short period for development motivates specification document
+Short period for development motivates Design description
+New refrigerants are very expensive motivates target setting
+New refrigerants are very expensive motivates define the product specification
+New refrigerants are very expensive motivates Product design
+New refrigerants are very expensive motivates target features
+New refrigerants are very expensive motivates specification document
+New refrigerants are very expensive motivates Design description
+Provide services supporting high availability of heat pump motivates target setting
+Provide services supporting high availability of heat pump motivates define the product specification
+Provide services supporting high availability of heat pump motivates Product design
+Provide services supporting high availability of heat pump motivates target features
+Provide services supporting high availability of heat pump motivates specification document
+Provide services supporting high availability of heat pump motivates Design description
+control unit needs Internet to provide status information motivates target setting
+control unit needs Internet to provide status information motivates define the product specification
+control unit needs Internet to provide status information motivates Product design
+control unit needs Internet to provide status information motivates target features
+control unit needs Internet to provide status information motivates specification document
+control unit needs Internet to provide status information motivates Design description
+Company has not much experience with online information processing motivates target setting
+Company has not much experience with online information processing motivates define the product specification
+Company has not much experience with online information processing motivates Product design
+Company has not much experience with online information processing motivates target features
+Company has not much experience with online information processing motivates specification document
+Company has not much experience with online information processing motivates Design description
+New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates target setting
+New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates define the product specification
+New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates Product design
+New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates target features
+New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates specification document
+New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates Design description

@@ -1,0 +1,25 @@
+Source model: Goal Model
+
+Allowed connectors (exact enumeration values):
+- Supports
+- Hinders
+- Contradicts
+- Affects
+- Defined by
+- motivates
+- requires
+- uses
+- relates to
+
+Connector spelling and capitalization are case-sensitive.
+
+Connector meanings (always source -> target):
+- `Supports`: the source positively contributes to achieving or satisfying the target.
+- `Hinders`: the source obstructs, weakens, or negatively affects the target.
+- `Contradicts`: the source is logically or practically incompatible with the target.
+- `Affects`: the source has a stated influence on the target whose polarity is unclear.
+- `Defined by`: the source is specified, clarified, or operationally defined by the target.
+- `motivates`: the source provides the reason or business motivation for the target.
+- `requires`: achieving or addressing the source depends on the target being present or fulfilled.
+- `uses`: the source explicitly uses the target as a means, input, or resource.
+- `relates to`: an explicit relevant association exists and no more specific allowed connector applies; use only as a last resort.

@@ -1,0 +1,10 @@
+Production system supports Product
+Version management system supports Product
+Social media studio supports Campaign plan
+Production system supports Specification Document
+Version management system supports Target Feature
+Version management system supports Customer Survey
+Social media studio supports Campaign target document
+Production system supports Feature
+Social media studio supports Campaign statistics
+Production system supports Design description

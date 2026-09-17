@@ -1,0 +1,61 @@
+[GM_gut_S1 -> CM_gut_S1]
+Providing most energy-efficient heating solution in market requires Energy-efficiency
+Providing most energy-efficient heating solution in market motivates Target Feature
+Providing most energy-efficient heating solution in market requires Specification Document
+Energy consumption of current product version is too high Defined by Energy consumption
+Energy consumption of current product version is too high requires Target Feature
+Energy consumption of current product version is too high requires Specification Document
+
+[GM_gut_S1 -> BPM_gut_S1]
+Providing most energy-efficient heating solution in market motivates target setting
+Providing most energy-efficient heating solution in market motivates define the product specification
+Providing most energy-efficient heating solution in market requires customer survey
+Providing most energy-efficient heating solution in market requires target features
+Providing most energy-efficient heating solution in market requires specification document
+Energy consumption of current product version is too high motivates target setting
+Energy consumption of current product version is too high motivates define the product specification
+Energy consumption of current product version is too high requires target features
+Energy consumption of current product version is too high requires specification document
+
+[GM_gut_S1 -> TRM_gut_S1]
+Providing most energy-efficient heating solution in market motivates Production system
+Providing most energy-efficient heating solution in market motivates Version management system
+Energy consumption of current product version is too high motivates Production system
+Energy consumption of current product version is too high motivates Version management system
+
+[GM_gut_S1 -> PM_gut_S1]
+Providing most energy-efficient heating solution in market Defined by energy-efficient
+Energy consumption of current product version is too high Hinders energy-efficient
+
+[ARM_gut_S1 -> GM_gut_S1]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+
+[ARM_gut_S1 -> BPM_gut_S1]
+Product Owner performs target setting
+Product Owner performs define the product specification
+
+[ARM_gut_S1 -> PM_gut_S1]
+Product Owner is responsible for Smart Heat
+Product Owner is responsible for energy-efficient
+
+[BPM_gut_S1 -> CM_gut_S1]
+customer survey Supports Customer Survey
+target features Supports Target Feature
+specification document Supports Specification Document
+define the product specification creates Product
+define the product specification Output Specification Document
+
+[BPM_gut_S1 -> TRM_gut_S1]
+target setting uses Production system
+define the product specification uses Production system
+define the product specification uses Version management system
+
+[TRM_gut_S1 -> CM_gut_S1]
+Version management system supports Product
+Production system has requirement Specification Document
+
+[PM_gut_S1 -> CM_gut_S1]
+Smart Heat relates to Product
+indoor module relates to Product
+outdoor module relates to Product
+energy-efficient relates to Feature

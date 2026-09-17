@@ -1,0 +1,4 @@
+Role Product Owner is responsible for Product Smart Heat
+Role Product designer is responsible for Feature energy-efficient
+Organizational Unit Product development department is responsible for Product Smart Heat
+Organizational Unit Multi-Heat is responsible for Product Smart Heat

@@ -1,0 +1,5 @@
+Production system supports Product
+Version management system supports Production system
+Product planning system supports Product
+Enterprise resource planning system supports Order specification
+Social media studio supports Campaign plan

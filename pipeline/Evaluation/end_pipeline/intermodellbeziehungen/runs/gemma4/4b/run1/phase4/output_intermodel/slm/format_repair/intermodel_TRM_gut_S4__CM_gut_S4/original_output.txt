@@ -1,0 +1,5 @@
+Technical Component Production system supports Product
+Technical Component Version management system supports Product
+Technical Component Product planning system supports Product
+Technical Component Enterprise resource planning system supports Order specification
+Technical Component Social media studio supports Campaign plan

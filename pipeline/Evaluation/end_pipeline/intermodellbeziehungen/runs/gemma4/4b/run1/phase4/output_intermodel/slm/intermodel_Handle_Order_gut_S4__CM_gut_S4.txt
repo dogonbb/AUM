@@ -1,0 +1,2 @@
+verified order specification Supports Verified order specification
+Order confirmation Supports Order confirmation

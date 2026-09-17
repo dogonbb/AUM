@@ -1,0 +1,360 @@
+## General explanation
+
+You repair an already generated intermodel relationship output after the Python integrator failed to process it.
+
+Follow this order strictly:
+1. Review the complete generated output and the complete Python error before making changes.
+2. Correct every reported formatting violation throughout the file, while preserving semantic content wherever possible.
+3. Correct every reported semantic validation error using the scenario texts, model explanation, original intermodel generation rules, and required output format. Make only the smallest content changes required for the Python integrator to accept the output.
+
+The Python error may contain a numbered `Multiple validation errors` list, including multiple errors for one line. Resolve every listed error in one repaired output. Do not stop after fixing the first item. Check every line named in the error list and keep every source and target element name exactly consistent with the existing elements in its respective model. Preserve the required source-to-target direction.
+
+Connector enumeration values are source-model-specific. Use only the exact
+case-sensitive connector list and allowed target element types contained in the
+supplied intermodel generation rules; never translate, normalize, underscore,
+or change the capitalization of an enumeration value.
+
+For a semantic correction, use only information present in the supplied scenario texts, model explanation, and intermodel generation rules. Do not invent elements, names, facts, or relationships. Remove, replace, or add only what is necessary to resolve the reported validation errors. Preserve every unaffected name and relationship exactly.
+
+Do not add `ELEMENTS` or `CONNECTIONS` sections and do not reproduce internal relationships from either model. Do not add a model-pair header; the pipeline adds that header separately during validation and aggregation.
+
+Return only the complete repaired output. Do not provide an explanation, Markdown, code fences, or introductory or concluding text.
+
+## Scenario texts
+
+Our company MultiHeat develops and manufactures heat pumps for family homes. The goal of the company is to provide the most energy-efficient heating solution on the market. The problem that hinders reaching the high-level goal is that the energy consumption of the current product version is too high. This high-level goal can be divided into three sub-goals: sub-goal 1 is to minimize the energy consumption of the heat pump, sub-goal 2 is to produce the remaining energy required by the heat pump with the integrated photovoltaic module, and sub-goal 3 is to provide services supporting high availability of the heat pump. There is a constraint related to sub-goal 2: the maximum energy production of the photovoltaic module is 50 kWh. Sub-goal 1 also can be refined into two sub-goals: sub-goal 11 is to develop a new heat extractor with very low energy consumption, and sub-goal 12 is to re-design the existing heat extractor by adapting it for a new refrigerant. Sub-goal 11 and sub-goal 12 are alternate sub-goals, i.e., only one of them has to be reached to reach sub-goal 1. The problem that hinders sub-goal 11 is the short period available for the development and the problem that hinders sub-goal 12 is that new refrigerants are very expensive. The problems that hinder sub-goal 3 are that the control unit has to be connected to the Internet to provide the status information required for the service and that the company does not have much experience with online information processing. The opportunity connected to sub-goal 3 is a new European regulation for energy-efficient heating that requires continuous monitoring of devices.
+
+---
+
+The “Smart-Heat” product is a heat pump that consists of two components: the indoor module and the outdoor module. The outdoor module also consists of two modules: the photovoltaic module and the outdoor air exchange unit. Smart-Heat has the feature of being energy-efficient. The photovoltaic module has the feature of zero-emission energy production. In addition to Smart-Heat, the company also offers a service product called “maintenance and trouble-shooting”. This product consists of the service modules “annual service” and “repair”, and of the product “service kit”. The features of “maintenance and trouble-shooting” are quick response to error situations, discount prices in case of repairs and personal service technician.
+
+## Model explanation
+
+### Source model semantics
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Goal Model
+
+## Purpose of the model
+
+The Goal Model describes what the enterprise and its employees want to achieve, avoid, or take advantage of. It represents desired states, undesirable states, their causes, external restrictions, and favourable opportunities. The model also explains why processes, rules, requirements, and other enterprise-model elements exist.
+
+## Element types
+
+- Goal
+- Problem
+- Cause
+- Constraint
+- Opportunity
+
+## Meaning of element types
+
+- Goal: A desired state, aim, need, requirement, vision, direction, or measurable business objective.
+- Problem: An undesirable current or possible future state that hinders the achievement of goals. Threats and weaknesses are represented as Problems.
+- Cause: A reason, condition, or situation that produces or explains a Problem or Opportunity.
+- Constraint: An external restriction, rule, law, policy, or fixed limitation.
+- Opportunity: A favourable situation that the enterprise may want to exploit.
+
+## Internal connection types
+
+Direct connections:
+
+- supports
+- hinders
+- contradicts
+- causes
+
+Connector-based connections:
+
+- AND
+- OR
+- AND/OR
+
+## Meaning of internal connections
+
+- A supports B: A helps, enables, contributes to, or positively influences B.
+- A hinders B: A obstructs, weakens, prevents, or negatively influences B.
+- A contradicts B: A is in conflict with B.
+- A causes B: A produces, leads to, or explains B.
+- A, B, C AND D: A, B, and C jointly contribute to or decompose D, and all are required.
+- A, B, C OR D: A, B, and C are alternative contributors to or decompositions of D.
+- A, B, C AND/OR D: A, B, and C form a mixed mandatory or optional decomposition of D.
+
+## Structural rules
+
+- Desired states and objectives are represented as Goals.
+- Undesirable states, threats, and weaknesses are represented as Problems.
+- Reasons for Problems or Opportunities are represented as Causes.
+- External restrictions are represented as Constraints.
+- Favourable situations are represented as Opportunities.
+- Supports represents positive influence.
+- Hinders represents negative influence on a Goal.
+- Contradicts represents a genuine conflict between Goals.
+- Causes connects a Cause to a Problem or Opportunity.
+- Connector-based connections represent grouped or decomposed elements.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent products, services, components, features, actors, roles, resources, concepts, technical components, requirements, processes, markets, or business rules as model elements.
+
+### Target model semantics
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Product / Service Model
+
+## Purpose of the model
+
+The Product / Service Model describes the products and services offered by the enterprise. It represents products, services, their components, and customer-relevant features. The model also describes composition, specialisation, variants, alternatives, and dependencies among these elements.
+
+## Element types
+
+- Product
+- Service
+- Component
+- Feature
+
+## Meaning of element types
+
+- Product: An offering provided to customers. A Product may be physical, digital, virtual, or service-related and may provide attributes, benefits, functions, or uses that satisfy customer needs.
+- Service: A specialisation of Product that is offered as a service and is created or delivered through a process.
+- Component: A distinguishable part of a Product or Service that is supplied by a partner or produced within the enterprise.
+- Feature: A characteristic, capability, or function of a Product or Service that provides value to customers or target groups.
+
+## Internal connection types
+
+Direct connections:
+
+- part_of
+- is_a
+- requires
+
+Connector-based connections:
+
+- PartOF (AND)
+- PartOF (OR)
+- PartOF (XOR)
+- Total-ISA
+- Partial-ISA
+
+## Meaning of internal connections
+
+- A part_of B: Component A is a direct part of Product or Service B.
+- A is_a B: Product or Service A is a specialisation, version, variant, or subtype of Product or Service B.
+- A requires B: A depends on or needs B in order to work.
+- A, B, C PartOF (AND) D: A, B, and C are all parts of D.
+- A, B, C PartOF (OR) D: One or more of A, B, and C may be parts of D.
+- A, B, C PartOF (XOR) D: Exactly one of A, B, and C may be part of D.
+- A, B, C Total-ISA D: A, B, and C are specialisations of D and together form the complete set of variants.
+- A, B, C Partial-ISA D: A, B, and C are specialisations of D, but the listed variants are not necessarily complete.
+
+## Structural rules
+
+- Products represent offerings or product variants.
+- Services represent explicitly described service offerings.
+- Components represent physical or technical parts of Products or Services.
+- Features represent functions, capabilities, or measurable customer-relevant characteristics.
+- Direct PartOF connections connect Components to Products or Services; PartOF connectors may group Product, Service, Component, and Feature elements.
+- Direct ISA connections connect Products and Services; ISA connectors may group Product, Service, Component, and Feature elements.
+- Requires represents a dependency, especially a Feature dependency on a Component, Product, or Service.
+- AND, OR, and XOR distinguish mandatory, optional, and mutually exclusive compositions.
+- Total-ISA and Partial-ISA distinguish complete and incomplete variant sets.
+- Connector-based connections may have one or more sources; a single-source connector is valid.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, actors, roles, resources, concepts, technical requirements, business processes, markets, or business rules as model elements.
+
+### Existing source model
+
+ELEMENTS
+Goal Providing most energy-efficient heating solution in market
+Problem Energy consumption of current product version is too high
+Goal Minimize energy consumption of heat pump
+Goal Produce remaining energy required by heat pump with photovoltaic module
+Constraint Maximum energy production of photovoltaic module is 50 kWh
+Goal Develop new heat extractor with very low energy consumption
+Goal Re-design existing heat extractor bay adapting it for a new refrigerant
+Problem Short period for development
+Problem New refrigerants are very expensive
+Goal Provide services supporting high availability of heat pump
+Problem control unit needs Internet to provide status information
+Problem Company has not much experience with online information processing
+Opportunity New european regulation for energy-efficient heating that requires continuous monitoring of devices
+
+CONNECTIONS
+Energy consumption of current product version is too high hinders Providing most energy-efficient heating solution in market
+Maximum energy production of photovoltaic module is 50 kWh hinders Produce remaining energy required by heat pump with photovoltaic module
+Short period for development hinders Develop new heat extractor with very low energy consumption
+New refrigerants are very expensive hinders Re-design existing heat extractor bay adapting it for a new refrigerant
+control unit needs Internet to provide status information hinders Provide services supporting high availability of heat pump
+Company has not much experience with online information processing hinders Provide services supporting high availability of heat pump
+New european regulation for energy-efficient heating that requires continuous monitoring of devices supports Provide services supporting high availability of heat pump
+Minimize energy consumption of heat pump, Produce remaining energy required by heat pump with photovoltaic module, Provide services supporting high availability of heat pump AND Providing most energy-efficient heating solution in market
+Develop new heat extractor with very low energy consumption, Re-design existing heat extractor bay adapting it for a new refrigerant OR Minimize energy consumption of heat pump
+
+### Existing target model
+
+ELEMENTS
+Product Smart Heat
+Component indoor module
+Component outdoor module
+Feature energy-efficient
+Product Heat pump
+Component Photovoltaic module
+Component Outdoor air exchange unit
+Feature Zero-emission energy production
+Product Maintenance and trouble-shooting
+Product Annual service
+Product Repair
+Product Service kit
+Feature Quick response to error situations
+Feature Discount prices in case of repairs
+Feature Personal service technician
+
+CONNECTIONS
+Smart Heat is_a Heat pump
+energy-efficient requires Smart Heat
+Zero-emission energy production requires Photovoltaic module
+indoor module, outdoor module PartOF (AND) Smart Heat
+Photovoltaic module, Outdoor air exchange unit PartOF (AND) outdoor module
+Annual service, Repair, Service kit PartOF (AND) Maintenance and trouble-shooting
+Quick response to error situations, Discount prices in case of repairs, Personal service technician PartOF (AND) Maintenance and trouble-shooting
+
+## Original intermodel generation rules
+
+## Task
+
+Identify all semantically meaningful intermodel relationships from elements of the source model to elements of the target model.
+
+Consider every element of the source model as a possible source. As targets, use
+only elements whose element type is listed as allowed for the target model below.
+
+However, create a relationship only when it is supported by the meanings of the two elements and by the provided case descriptions.
+
+Do not create a relationship merely because the two elements contain similar words.
+Do not create speculative relationships that are not supported by the available information.
+Do not create relationships between two elements belonging to the same model.
+
+## Source-model intermodel connector rules
+
+Source model: Goal Model
+
+Allowed connectors (exact enumeration values):
+- Supports
+- Hinders
+- Contradicts
+- Affects
+- Defined by
+- motivates
+- requires
+- uses
+- relates to
+
+Connector spelling and capitalization are case-sensitive.
+
+Connector meanings (always source -> target):
+- `Supports`: the source positively contributes to achieving or satisfying the target.
+- `Hinders`: the source obstructs, weakens, or negatively affects the target.
+- `Contradicts`: the source is logically or practically incompatible with the target.
+- `Affects`: the source has a stated influence on the target whose polarity is unclear.
+- `Defined by`: the source is specified, clarified, or operationally defined by the target.
+- `motivates`: the source provides the reason or business motivation for the target.
+- `requires`: achieving or addressing the source depends on the target being present or fulfilled.
+- `uses`: the source explicitly uses the target as a means, input, or resource.
+- `relates to`: an explicit relevant association exists and no more specific allowed connector applies; use only as a last resort.
+
+Interpret every connector from source to target. Do not reverse a relationship
+merely to make its label sound natural. Preserve connector capitalization and
+spaces exactly.
+
+## Target-model reference rules
+
+Allowed target element types:
+- Feature
+
+Use no other target element types.
+
+Use the element types exactly as written in the target model. If no target
+element type is allowed, return
+exactly `NO_INTERMODEL_RELATIONSHIPS`.
+
+## Direction
+
+Every returned relationship must start with an element from the source model and end with an element from the target model.
+
+Do not reverse the direction.
+
+## Output format
+
+Return only the intermodel relationships.
+
+Write exactly one relationship per line using the following syntax:
+
+<ElementNameFromModel1> <Connector> <ElementNameFromModel2>
+
+Use only the exact element names declared in the `ELEMENTS` sections of the
+source model and target model shown above.
+
+Do not include the element type before or after an element name.
+
+Do not prefix either element name with its element type. For example, if an
+element is declared as `Role Customer Service Representative`, use only
+`Customer Service Representative` as its name in a relationship line.
+
+## Output rules
+
+1. Return relationships only.
+2. Do not return an ELEMENTS section.
+3. Do not return a CONNECTIONS heading.
+4. Do not reproduce internal model relationships.
+5. Do not create new elements.
+6. Do not rename, shorten, translate, or normalize element names.
+7. Do not include element types in the relationships.
+8. Use only the allowed connectors.
+9. Do not include explanations, comments, bullet points, numbering, Markdown, or code fences.
+10. Create at most one relationship between any pair of elements. Do not connect the same source and target elements more than once, even with different connectors. Choose the single most specific applicable connector.
+11. If no meaningful intermodel relationship can be identified, return exactly:
+
+NO_INTERMODEL_RELATIONSHIPS
+
+## Required output format
+
+Return only the complete repaired output as plain text containing relationship lines for the one supplied model pair. Do not write a model-pair header, Markdown fences, bullets, numbering, comments, explanations, `ELEMENTS`, or `CONNECTIONS` headings.
+
+Write every relationship on its own line:
+`exact source element name connector exact target element name`
+
+The source element must belong to the supplied source model. The target element must belong to the supplied target model. Names must exactly match existing element names in those models. Do not include element types before element names.
+
+Use only the exact source-specific connectors stated in the supplied original
+intermodel generation rules. Preserve capitalization and spaces exactly. The target element
+type must also be allowed for the supplied directed model pair according
+to the original intermodel generation rules.
+
+Do not use pipes, `::`, arrows, or any alternative syntax even if a parser accepts it. Create at most one relationship between any pair of elements. If multiple relationships connect the same source and target elements, keep only the single most specific applicable connector.
+
+If no relationship exists, return exactly `NO_INTERMODEL_RELATIONSHIPS` on a single line and nothing else.
+
+## Python error
+
+Multiple validation errors (1):
+1. Relationship line 9: Relationship line 9: Source element 'New european regulation for energy-efficient heating that' was not found by INSTANCE name or Description in model 'GM_gut_S4' (Goal Model). Names: AND-36563, Constraint - 1, Goal - 1, OR-36706, Opportunity - 1, Problem - 1, Problem - 2, Problem - 3, Problem - 4, Problem - 5. Descriptions: Company has not much experience with online information processing | Develop new heat extractor with very low energy consumption | Energy consumption of current product version is too high | Maximum energy production of photovoltaic module is 50 kWh | Minimize energy consumption of heat pump | New european regulation for energy-efficient heating that requires continuous monitoring of devices | New refrigerants are very expensive | Produce remaining energy required by heat pump with photovoltaic module
+
+## Output to repair
+
+Providing most energy-efficient heating solution in market Supports energy-efficient
+Energy consumption of current product version is too high Hinders energy-efficient
+Minimize energy consumption of heat pump Supports energy-efficient
+Produce remaining energy required by heat pump with photovoltaic module Supports Zero-emission energy production
+Develop new heat extractor with very low energy consumption Supports energy-efficient
+Provide services supporting high availability of heat pump Supports Quick response to error situations
+Provide services supporting high availability of heat pump Supports Personal service technician
+New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates energy-efficient

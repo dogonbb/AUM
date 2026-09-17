@@ -2,9 +2,8 @@
 Merge one 4EM ADL file with a text file containing intermodel relationships.
 
 Element resolution order:
-1. exact normalized INSTANCE name
-2. unique tolerant INSTANCE-name match (redundant prefix / shortened name)
-3. exact normalized Description value
+1. exact INSTANCE name
+2. exact Description value
 
 The input ADL is never modified.
 """
@@ -18,69 +17,26 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable
 
+try:
+    from .intermodel_rules import (
+        CONNECTORS_BY_SOURCE_MODEL,
+        REFERENCE_CLASSES,
+        adl_connector_value,
+        canonical_model_type,
+    )
+except ImportError:  # Direct execution: python scripts/add_intermodel_relations_slm.py
+    from intermodel_rules import (  # type: ignore[no-redef]
+        CONNECTORS_BY_SOURCE_MODEL,
+        REFERENCE_CLASSES,
+        adl_connector_value,
+        canonical_model_type,
+    )
 
 SUPPORTED_CONNECTORS = {
-    "play",
-    "plays",
-    "supports",
-    "empty",
-    "defines",
-    "is_responsible_for",
-    "performs",
+    connector
+    for connectors in CONNECTORS_BY_SOURCE_MODEL.values()
+    for connector in connectors
 }
-
-MODEL_ALIASES = {
-    "GoalModel": {"goalmodel", "goal", "goalandproblemmodel", "goalproblemmodel"},
-    "BusinessRuleModel": {"businessrulemodel", "businessrulesmodel", "businessrule"},
-    "ConceptsModel": {"conceptmodel", "conceptsmodel", "concept", "concepts"},
-    "BusinessProcessModel": {"businessprocessmodel", "businessprocess", "processmodel"},
-    "ActorsandResourcesModel": {
-        "actorandresourcemodel", "actorsandresourcesmodel",
-        "actorresourcemodel", "actorsresourcesmodel",
-    },
-    "TechnicalComponentsandRequirementsModel": {
-        "technicalcomponentandrequirementmodel",
-        "technicalcomponentsandrequirementsmodel",
-        "technicalcomponentrequirementsmodel",
-        "technicalrequirementsmodel",
-        "tcrmodel",
-    },
-    "ProductServiceModel": {
-        "productservicemodel", "productservice", "productmodel",
-    },
-}
-
-DESCRIPTION_TYPE_PREFIXES = {
-    "Goal",
-    "Problem",
-    "Cause",
-    "Constraint",
-    "Opportunity",
-    "Individual",
-    "Role",
-    "Resource",
-    "Organizational Unit",
-    "Process",
-    "External Process",
-    "Information Set",
-    "Concept",
-    "Attribute",
-    "Information System Goal",
-    "Information System Problem",
-    "Information System Requirement",
-    "Information System Functional Requirement",
-    "Information System Non-Functional Requirement",
-    "Technical Component",
-    "IS Technical Component",
-    "IS Requirement",
-    "Product",
-    "Service",
-    "Component",
-    "Feature",
-    "ProductService",
-    "Unspecific/Product/Service",
-}
-
 
 class MergeError(RuntimeError):
     pass
@@ -214,35 +170,11 @@ def parse_adl(text: str) -> dict[str, Model]:
 
 
 def build_model_lookup(models: dict[str, Model]) -> dict[str, str]:
-    lookup: dict[str, str] = {}
-
-    def add(alias: str, internal_name: str) -> None:
-        key = normalize(alias)
-        if key and key not in lookup:
-            lookup[key] = internal_name
-
-    for internal_name, model in models.items():
-        add(internal_name, internal_name)
-        add(model.model_type, internal_name)
-
-    for canonical_name, aliases in MODEL_ALIASES.items():
-        target_aliases = {normalize(canonical_name), *(normalize(x) for x in aliases)}
-        actual = None
-        for internal_name, model in models.items():
-            candidates = {normalize(internal_name), normalize(model.model_type)}
-            if candidates & target_aliases:
-                actual = internal_name
-                break
-        if actual:
-            add(canonical_name, actual)
-            for alias in aliases:
-                add(alias, actual)
-
-    return lookup
+    return {internal_name: internal_name for internal_name in models}
 
 
 def resolve_model(raw_name: str, model_lookup: dict[str, str], line_number: int) -> str:
-    model = model_lookup.get(normalize(raw_name))
+    model = model_lookup.get(raw_name)
     if model:
         return model
     known = ", ".join(sorted(set(model_lookup.values())))
@@ -265,20 +197,7 @@ def parse_relationship_text(text: str, model_lookup: dict[str, str]) -> list[Rel
     connectors = connector_pattern()
 
     section_pattern = re.compile(
-        r"^\[\s*(?P<source>.+?)\s*(?:->|=>|\bto\b)\s*(?P<target>.+?)\s*\]$",
-        re.IGNORECASE,
-    )
-    pipe_pattern = re.compile(
-        rf"^(?P<source_model>[^|]+?)\s*\|\s*"
-        rf"(?P<source_element>[^|]+?)\s*\|\s*"
-        rf"(?P<connector>{connectors})\s*\|\s*"
-        rf"(?P<target_model>[^|]+?)\s*\|\s*"
-        rf"(?P<target_element>.+?)$"
-    )
-    qualified_pattern = re.compile(
-        rf"^(?P<source_model>.+?)::(?P<source_element>.+?)\s+"
-        rf"(?P<connector>{connectors})\s+"
-        rf"(?P<target_model>.+?)::(?P<target_element>.+?)$"
+        r"^\[\s*(?P<source>.+?)\s+->\s+(?P<target>.+?)\s*\]$"
     )
     simple_pattern = re.compile(
         rf"^(?P<source_element>.+?)\s+"
@@ -286,14 +205,17 @@ def parse_relationship_text(text: str, model_lookup: dict[str, str]) -> list[Rel
         rf"(?P<target_element>.+?)$"
     )
 
+    nonempty_lines = [line.strip() for line in text.splitlines() if line.strip()]
+    if nonempty_lines == ["NO_INTERMODEL_RELATIONSHIPS"]:
+        return []
+    if "NO_INTERMODEL_RELATIONSHIPS" in nonempty_lines:
+        raise MergeError(
+            "NO_INTERMODEL_RELATIONSHIPS must be the only non-empty line."
+        )
+
     for line_number, raw_line in enumerate(text.splitlines(), start=1):
         line = raw_line.strip()
-        if (
-            not line
-            or line.startswith("#")
-            or line.startswith("//")
-            or line == "NO_INTERMODEL_RELATIONSHIPS"
-        ):
+        if not line:
             continue
 
         section_match = section_pattern.fullmatch(line)
@@ -302,30 +224,6 @@ def parse_relationship_text(text: str, model_lookup: dict[str, str]) -> list[Rel
                 resolve_model(section_match.group("source"), model_lookup, line_number),
                 resolve_model(section_match.group("target"), model_lookup, line_number),
             )
-            continue
-
-        pipe_match = pipe_pattern.fullmatch(line)
-        if pipe_match:
-            relations.append(Relation(
-                resolve_model(pipe_match.group("source_model"), model_lookup, line_number),
-                resolve_model(pipe_match.group("target_model"), model_lookup, line_number),
-                pipe_match.group("source_element").strip(),
-                pipe_match.group("connector"),
-                pipe_match.group("target_element").strip(),
-                line_number,
-            ))
-            continue
-
-        qualified_match = qualified_pattern.fullmatch(line)
-        if qualified_match:
-            relations.append(Relation(
-                resolve_model(qualified_match.group("source_model"), model_lookup, line_number),
-                resolve_model(qualified_match.group("target_model"), model_lookup, line_number),
-                qualified_match.group("source_element").strip(),
-                qualified_match.group("connector"),
-                qualified_match.group("target_element").strip(),
-                line_number,
-            ))
             continue
 
         simple_match = simple_pattern.fullmatch(line)
@@ -377,41 +275,18 @@ def resolve_instance(
     """
     Resolution order:
     1. exact name
-    2. unique tolerant name match
-    3. exact description
-    4. description with a redundant 4EM element-type prefix
+    2. exact description
     """
-    key = normalize(value)
-
     # 1. Exact INSTANCE name.
-    exact = model.instances.get(key)
-    if exact:
-        return exact, "name_exact"
+    exact_names = [item for item in model.instances.values() if item.name == value]
+    if len(exact_names) == 1:
+        return exact_names[0], "name_exact"
 
-    # 2a. Redundant type/name prefix, e.g. "Goal Goal - 1".
-    suffix_matches = [
-        item for name_key, item in model.instances.items()
-        if name_key and key.endswith(name_key)
+    # 2. Exact Description value. SLM element names are stored as Description
+    # values by some converters, so this is an exact canonical lookup as well.
+    description_matches = [
+        item for item in model.instances.values() if item.description == value
     ]
-    if suffix_matches:
-        longest_length = max(len(normalize(item.name)) for item in suffix_matches)
-        longest = [
-            item for item in suffix_matches
-            if len(normalize(item.name)) == longest_length
-        ]
-        if len(longest) == 1:
-            return longest[0], "name_suffix"
-
-    # 2b. Unique shortened name, e.g. "Goal" for "Goal - 1".
-    prefix_matches = [
-        item for name_key, item in model.instances.items()
-        if key and name_key.startswith(key)
-    ]
-    if len(prefix_matches) == 1:
-        return prefix_matches[0], "name_prefix"
-
-    # 3. Exact Description value.
-    description_matches = model.descriptions.get(key, [])
     if len(description_matches) == 1:
         return description_matches[0], "description_exact"
     if len(description_matches) > 1:
@@ -421,39 +296,6 @@ def resolve_instance(
         # intermodel_only run remains executable.
         first = min(description_matches, key=lambda item: item.start)
         return first, "description_exact_duplicate_first"
-
-    # 4. Description with a redundant element-type prefix. Some SLM answers
-    # return "Attribute Energy-efficiency" although the prompt requires only
-    # "Energy-efficiency". Accept the prefix only when it is a known 4EM type,
-    # then resolve the remaining text through the Description index.
-    type_prefixes = {
-        normalize(prefix) for prefix in DESCRIPTION_TYPE_PREFIXES
-    }
-    type_prefixes.update(
-        normalize(item.element_type) for item in model.instances.values()
-    )
-    prefixed_description_matches: list[Instance] = []
-    for prefix in sorted(type_prefixes, key=len, reverse=True):
-        if not prefix or not key.startswith(prefix):
-            continue
-        remainder = key[len(prefix):]
-        if not remainder:
-            continue
-        prefixed_description_matches.extend(
-            model.descriptions.get(remainder, [])
-        )
-
-    unique_prefixed_matches = {
-        normalize(item.name): item for item in prefixed_description_matches
-    }
-    if len(unique_prefixed_matches) == 1:
-        return next(iter(unique_prefixed_matches.values())), "description_type_prefix"
-    if len(unique_prefixed_matches) > 1:
-        first = min(
-            unique_prefixed_matches.values(),
-            key=lambda item: item.start,
-        )
-        return first, "description_type_prefix_duplicate_first"
 
     available_names = sorted(item.name for item in model.instances.values())
     available_descriptions = sorted(
@@ -478,91 +320,45 @@ def four_em_record_type(
     source: Instance,
     target_model: Model,
     target: Instance,
-) -> tuple[str, bool] | None:
-    """Return the 4EM record Type and whether Type precedes interref.
-
-    The rules mirror records exported by the confirmed-valid Controlled_S1.adl.
-    SLM connector words are not copied into ADL because the record enumeration
-    is defined by the 4EM source model, source class and target model.
-    """
-    source_model_type = normalize(source_model.model_type)
-    target_model_type = normalize(target_model.model_type)
-
-    if (
-        source_model_type == normalize("Actors and Resources Model")
-        and source.element_type == "Role"
-    ):
-        if (
-            target_model_type == normalize("Goal Model")
-            and target.element_type == "Goal"
-        ):
-            return "is responsible for", True
-        if (
-            target_model_type == normalize("Business Process Model")
-            and target.element_type == "Process"
-        ):
-            if "overview" in normalize(target_model.internal_name):
-                return "is responsible for", True
-            return "performs", True
-
-    if (
-        source_model_type == normalize("Business Process Model")
-        and source.element_type == "Information Set"
-        and target_model_type == normalize("Concepts Model")
-        and target.element_type == "Concept"
-    ):
-        return "Output", True
-
-    if (
-        source_model_type
-        == normalize("Technical Components and Requirements Model")
-        and source.element_type == "IS Technical Component"
-        and target_model_type == normalize("Goal Model")
-        and target.element_type == "Goal"
-    ):
-        return "supports", True
-
-    if (
-        source_model_type == normalize("Product-Service-Model")
-        and source.element_type == "Unspecific/Product/Service"
-        and target_model_type == normalize("Concepts Model")
-        and target.element_type == "Concept"
-    ):
-        return "relates to", False
-
-    return None
+    connector: str,
+) -> tuple[str, bool]:
+    """Validate the source-specific enum and return its exact ADL value."""
+    source_type = canonical_model_type(source_model.model_type)
+    allowed = CONNECTORS_BY_SOURCE_MODEL.get(source_type)
+    if allowed is None:
+        raise MergeError(
+            f"Unknown source model type '{source_model.model_type}'."
+        )
+    if connector not in allowed:
+        choices = ", ".join(repr(item) for item in allowed) or "<none>"
+        raise MergeError(
+            f"Relationship line uses connector {connector!r}, which is not valid "
+            f"for source model type '{source_model.model_type}'. Allowed: {choices}."
+        )
+    return adl_connector_value(connector), True
 
 
-def potentially_supported_model_pair(
+def validate_reference_class(
     source_model: Model,
     target_model: Model,
-) -> bool:
+    target: Instance,
+) -> None:
     pair = (
-        normalize(source_model.model_type),
-        normalize(target_model.model_type),
+        canonical_model_type(source_model.model_type),
+        canonical_model_type(target_model.model_type),
     )
-    return pair in {
-        (
-            normalize("Actors and Resources Model"),
-            normalize("Goal Model"),
-        ),
-        (
-            normalize("Actors and Resources Model"),
-            normalize("Business Process Model"),
-        ),
-        (
-            normalize("Business Process Model"),
-            normalize("Concepts Model"),
-        ),
-        (
-            normalize("Technical Components and Requirements Model"),
-            normalize("Goal Model"),
-        ),
-        (
-            normalize("Product-Service-Model"),
-            normalize("Concepts Model"),
-        ),
-    }
+    allowed = REFERENCE_CLASSES.get(pair)
+    if allowed is None:
+        raise MergeError(
+            f"Intermodel pair '{pair[0]}' -> '{pair[1]}' is not supported."
+        )
+    if target.element_type not in allowed:
+        choices = ", ".join(allowed) or "<none>"
+        raise MergeError(
+            f"Target class '{target.element_type}' cannot be referenced from "
+            f"'{source_model.model_type}' to '{target_model.model_type}'. "
+            f"Allowed target classes: {choices}."
+        )
 
 
 def create_record(
@@ -649,19 +445,13 @@ def apply_relations(
     ] = {}
     added = 0
     skipped_existing = 0
+    validation_errors: list[str] = []
     resolution_counts: dict[str, int] = {}
     existing_cache: dict[tuple[str, str], set[tuple[str, str, str]]] = {}
 
     for relation in relations:
         source_model = models[relation.source_model]
         target_model = models[relation.target_model]
-
-        if not potentially_supported_model_pair(source_model, target_model):
-            skipped_existing += 1
-            resolution_counts["unsupported_4em_relation_skipped"] = (
-                resolution_counts.get("unsupported_4em_relation_skipped", 0) + 1
-            )
-            continue
 
         try:
             source, source_method = resolve_instance(
@@ -670,10 +460,13 @@ def apply_relations(
             target, target_method = resolve_instance(
                 target_model, relation.target_element, relation, "Target"
             )
-        except MergeError:
-            skipped_existing += 1
-            resolution_counts["unresolved_supported_relation_skipped"] = (
-                resolution_counts.get("unresolved_supported_relation_skipped", 0) + 1
+            validate_reference_class(source_model, target_model, target)
+            four_em_rule = four_em_record_type(
+                source_model, source, target_model, target, relation.connector
+            )
+        except MergeError as exc:
+            validation_errors.append(
+                f"Relationship line {relation.line_number}: {exc}"
             )
             continue
         resolution_counts[f"source_{source_method}"] = (
@@ -683,15 +476,6 @@ def apply_relations(
             resolution_counts.get(f"target_{target_method}", 0) + 1
         )
 
-        four_em_rule = four_em_record_type(
-            source_model, source, target_model, target
-        )
-        if four_em_rule is None:
-            skipped_existing += 1
-            resolution_counts["unsupported_4em_relation_skipped"] = (
-                resolution_counts.get("unsupported_4em_relation_skipped", 0) + 1
-            )
-            continue
         adl_type, type_first = four_em_rule
 
         cache_key = (source_model.internal_name, normalize(source.name))
@@ -719,6 +503,15 @@ def apply_relations(
         grouped.setdefault(group_key, []).append((target_model, target))
         existing_cache[cache_key].add(relation_key)
         added += 1
+
+    if validation_errors:
+        details = "\n".join(
+            f"{index}. {message}"
+            for index, message in enumerate(validation_errors, start=1)
+        )
+        raise MergeError(
+            f"Multiple validation errors ({len(validation_errors)}):\n{details}"
+        )
 
     insertions: dict[int, list[str]] = {}
     for (position, adl_type, type_first, _target_model), targets in grouped.items():
@@ -787,7 +580,7 @@ def main() -> int:
         print(f"Created: {output_path}")
         print(f"Relationships read: {len(relations)}")
         print(f"Relationships added: {added}")
-        print(f"Skipped (already present or unsupported target): {skipped}")
+        print(f"Skipped (already present): {skipped}")
         print("Resolution counts:")
         for key in sorted(resolution_counts):
             print(f"  {key}: {resolution_counts[key]}")

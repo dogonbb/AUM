@@ -1,0 +1,68 @@
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Goal Model
+
+## Purpose of the model
+
+The Goal Model describes what the enterprise and its employees want to achieve, avoid, or take advantage of. It represents desired states, undesirable states, their causes, external restrictions, and favourable opportunities. The model also explains why processes, rules, requirements, and other enterprise-model elements exist.
+
+## Element types
+
+- Goal
+- Problem
+- Cause
+- Constraint
+- Opportunity
+
+## Meaning of element types
+
+- Goal: A desired state, aim, need, requirement, vision, direction, or measurable business objective.
+- Problem: An undesirable current or possible future state that hinders the achievement of goals. Threats and weaknesses are represented as Problems.
+- Cause: A reason, condition, or situation that produces or explains a Problem or Opportunity.
+- Constraint: An external restriction, rule, law, policy, or fixed limitation.
+- Opportunity: A favourable situation that the enterprise may want to exploit.
+
+## Internal connection types
+
+Direct connections:
+
+- supports
+- hinders
+- contradicts
+- causes
+
+Connector-based connections:
+
+- AND
+- OR
+- AND/OR
+
+## Meaning of internal connections
+
+- A supports B: A helps, enables, contributes to, or positively influences B.
+- A hinders B: A obstructs, weakens, prevents, or negatively influences B.
+- A contradicts B: A is in conflict with B.
+- A causes B: A produces, leads to, or explains B.
+- A, B, C AND D: A, B, and C jointly contribute to or decompose D, and all are required.
+- A, B, C OR D: A, B, and C are alternative contributors to or decompositions of D.
+- A, B, C AND/OR D: A, B, and C form a mixed mandatory or optional decomposition of D.
+
+## Structural rules
+
+- Desired states and objectives are represented as Goals.
+- Undesirable states, threats, and weaknesses are represented as Problems.
+- Reasons for Problems or Opportunities are represented as Causes.
+- External restrictions are represented as Constraints.
+- Favourable situations are represented as Opportunities.
+- Supports represents positive influence.
+- Hinders represents negative influence on a Goal.
+- Contradicts represents a genuine conflict between Goals.
+- Causes connects a Cause to a Problem or Opportunity.
+- Connector-based connections represent grouped or decomposed elements.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent products, services, components, features, actors, roles, resources, concepts, technical components, requirements, processes, markets, or business rules as model elements.

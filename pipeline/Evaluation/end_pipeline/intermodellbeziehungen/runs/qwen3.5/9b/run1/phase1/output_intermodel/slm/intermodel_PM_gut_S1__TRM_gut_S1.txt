@@ -1,0 +1,2 @@
+Smart Heat requires Production system
+Smart Heat requires Version management system

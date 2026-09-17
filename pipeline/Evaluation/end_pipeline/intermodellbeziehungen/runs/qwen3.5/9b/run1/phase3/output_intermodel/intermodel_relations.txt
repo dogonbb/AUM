@@ -1,0 +1,117 @@
+[GM_gut_S3 -> CM_gut_S3]
+Providing most energy-efficient heating solution in market relates to Energy-efficiency
+Energy consumption of current product version is too high relates to Energy consumption
+Minimize energy consumption of heat pump relates to Energy consumption
+Produce remaining energy required by heat pump with photovoltaic module relates to Zero-emission energy production
+Providing most energy-efficient heating solution in market requires Heat pump
+Energy consumption of current product version is too high relates to Product
+Develop new heat extractor with very low energy consumption relates to Heat pump
+Re-design existing heat extractor bay adapting it for a new refrigerant uses Design description
+
+[GM_gut_S3 -> BPM_gut_S3]
+Providing most energy-efficient heating solution in market motivates target setting
+Energy consumption of current product version is too high motivates target setting
+Minimize energy consumption of heat pump motivates Product design
+Produce remaining energy required by heat pump with photovoltaic module motivates Product design
+Develop new heat extractor with very low energy consumption motivates Product design
+Re-design existing heat extractor bay adapting it for a new refrigerant motivates Product design
+Short period for development Affects Product design
+New refrigerants are very expensive Affects Product design
+Maximum energy production of photovoltaic module is 50 kWh Affects Product design
+
+[GM_gut_S3 -> TRM_gut_S3]
+Providing most energy-efficient heating solution in market motivates Production system
+Providing most energy-efficient heating solution in market motivates Version management system
+
+[GM_gut_S3 -> PM_gut_S3]
+Providing most energy-efficient heating solution in market motivates energy-efficient
+Energy consumption of current product version is too high motivates energy-efficient
+Minimize energy consumption of heat pump motivates energy-efficient
+Develop new heat extractor with very low energy consumption motivates energy-efficient
+Produce remaining energy required by heat pump with photovoltaic module motivates Zero-emission energy production
+
+[ARM_gut_S3 -> GM_gut_S3]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Product designer is responsible for Minimize energy consumption of heat pump
+Multi-Heat is responsible for Providing most energy-efficient heating solution in market
+
+[ARM_gut_S3 -> BPM_gut_S3]
+Product Owner performs target setting
+Product Owner performs define the product specification
+Product designer performs Product design
+
+[ARM_gut_S3 -> Marketing_gut_S3]
+Marketing department is responsible for Plan marketing campaign
+Marketing department is responsible for Run social media campaign
+Marketing department is responsible for Run print media campaign
+Marketing department is responsible for Supervise campaign results
+
+[ARM_gut_S3 -> TRM_gut_S3]
+Product Owner empty Production system
+Product Owner empty Version management system
+Product development department empty Production system
+Product development department empty Version management system
+Product designer empty Production system
+Marketing department empty Social media studio
+Social media group empty Social media studio
+
+[ARM_gut_S3 -> PM_gut_S3]
+Product Owner is responsible for Smart Heat
+Product Owner is responsible for energy-efficient
+Product designer is responsible for energy-efficient
+
+[BPM_gut_S3 -> CM_gut_S3]
+target setting Input Customer Survey
+target setting Output Target Feature
+customer survey uses Customer Survey
+target features uses Target Feature
+define the product specification Output Specification Document
+specification document uses Specification Document
+Product design Output Design description
+Design description uses Design description
+specification document uses Product
+Design description uses Product
+
+[Marketing_gut_S3 -> CM_gut_S3]
+Plan marketing campaign Input Campaign target document
+Plan marketing campaign Output Campaign plan
+Run social media campaign Input Campaign plan
+Run social media campaign Output Campaign statistics
+Run print media campaign Input Campaign plan
+Run print media campaign Output Campaign statistics
+Supervise campaign results Input Campaign statistics
+Supervise campaign results Output Campaign result document
+
+[BPM_gut_S3 -> TRM_gut_S3]
+target setting uses Production system
+define the product specification uses Production system
+Product design uses Production system
+target setting uses Version management system
+define the product specification uses Version management system
+Product design uses Version management system
+
+[Marketing_gut_S3 -> TRM_gut_S3]
+Run social media campaign uses Social media studio
+
+[TRM_gut_S3 -> CM_gut_S3]
+Production system supports Product
+Version management system supports Product
+Production system supports Feature
+Version management system supports Feature
+Production system supports Target Feature
+Version management system supports Target Feature
+Production system supports Specification Document
+Production system supports Design description
+Social media studio supports Campaign plan
+Social media studio supports Campaign target document
+Social media studio supports Campaign statistics
+Social media studio supports Campaign result document
+
+[PM_gut_S3 -> CM_gut_S3]
+Smart Heat relates to Heat pump
+Heat pump relates to Heat pump
+energy-efficient relates to Feature
+Zero-emission energy production relates to Zero-emission energy production
+
+[PM_gut_S3 -> TRM_gut_S3]
+Smart Heat requires Production system

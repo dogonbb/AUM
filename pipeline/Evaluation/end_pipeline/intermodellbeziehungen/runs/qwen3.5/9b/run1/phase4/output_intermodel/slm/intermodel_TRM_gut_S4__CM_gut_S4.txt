@@ -1,0 +1,30 @@
+Production system supports Product
+Production system supports Feature
+Production system supports Target Feature
+Production system supports Specification Document
+Production system supports Design description
+Version management system supports Product
+Version management system supports Feature
+Version management system supports Target Feature
+Version management system supports Specification Document
+Version management system supports Design description
+Version management system supports Version
+Social media studio supports Campaign target document
+Social media studio supports Campaign plan
+Social media studio supports Campaign statistics
+Social media studio supports Campaign result document
+Product planning system supports Order specification
+Product planning system supports Rejected order specification
+Product planning system supports Verified order specification
+Product planning system supports Order confirmation
+Product planning system supports Delivery order
+Enterprise resource planning system supports Order specification
+Enterprise resource planning system supports Rejected order specification
+Enterprise resource planning system supports Verified order specification
+Enterprise resource planning system supports Order confirmation
+Enterprise resource planning system supports Delivery order
+Distributed database supports Order specification
+Distributed database supports Rejected order specification
+Distributed database supports Verified order specification
+Distributed database supports Order confirmation
+Distributed database supports Delivery order

@@ -1,0 +1,64 @@
+[GM_gut_S1 -> BPM_gut_S1]
+Providing most energy-efficient heating solution in market motivates target setting
+Energy consumption of current product version is too high motivates define the product specification
+
+[GM_gut_S1 -> BPM_gut_Overview]
+Providing most energy-efficient heating solution in market motivates Product innovation process
+Energy consumption of current product version is too high requires Product innovation process
+
+[GM_gut_S1 -> TRM_gut_S1]
+Providing most energy-efficient heating solution in market motivates Production system
+Providing most energy-efficient heating solution in market motivates Version management system
+Energy consumption of current product version is too high relates to Version management system
+Energy consumption of current product version is too high relates to Production system
+
+[GM_gut_S1 -> PM_gut_S1]
+Providing most energy-efficient heating solution in market motivates energy-efficient
+
+[ARM_gut_S1 -> GM_gut_S1]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+
+[ARM_gut_S1 -> BPM_gut_S1]
+Product Owner performs target setting
+Product Owner performs define the product specification
+
+[ARM_gut_S1 -> BPM_gut_Overview]
+Product Owner is responsible for Product innovation process
+
+[ARM_gut_S1 -> TRM_gut_S1]
+Product Owner is responsible for Production system
+Product Owner is responsible for Version management system
+
+[ARM_gut_S1 -> PM_gut_S1]
+Product Owner is responsible for Smart Heat
+Product Owner is responsible for energy-efficient
+
+[BPM_gut_Overview -> CM_gut_S1]
+Product innovation process Input Customer Survey
+Product innovation process Output Target Feature
+Product innovation process Output Specification Document
+
+[BPM_gut_S1 -> TRM_gut_S1]
+target setting uses Production system
+target setting uses Version management system
+define the product specification uses Production system
+define the product specification uses Version management system
+
+[BPM_gut_Overview -> TRM_gut_S1]
+Product innovation process uses Production system
+Product innovation process uses Version management system
+
+[TRM_gut_S1 -> CM_gut_S1]
+Production system supports Product
+Version management system supports Product
+Version management system supports Target Feature
+
+[PM_gut_S1 -> CM_gut_S1]
+Smart Heat relates to Product
+energy-efficient relates to Feature
+energy-efficient relates to Specification Document
+Smart Heat relates to Specification Document
+
+[PM_gut_S1 -> TRM_gut_S1]
+Smart Heat requires Production system
+Smart Heat requires Version management system

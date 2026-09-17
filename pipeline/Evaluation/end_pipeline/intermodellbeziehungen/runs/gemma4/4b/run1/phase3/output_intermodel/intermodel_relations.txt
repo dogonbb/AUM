@@ -1,0 +1,76 @@
+[GM_gut_S3 -> CM_gut_S3]
+Providing most energy-efficient heating solution in market motivates Energy-efficiency
+Energy consumption of current product version is too high Defined by Energy consumption
+Minimize energy consumption of heat pump Supports Energy consumption
+Produce remaining energy required by heat pump with photovoltaic module Supports Zero-emission energy production
+Develop new heat extractor with very low energy consumption Supports Energy-efficiency
+Re-design existing heat extractor bay adapting it for a new refrigerant Supports Heat pump
+Maximum energy production of photovoltaic module is 50 kWh Hinders Energy consumption
+
+[GM_gut_S3 -> BPM_gut_S3]
+Providing most energy-efficient heating solution in market motivates target setting
+Energy consumption of current product version is too high motivates target setting
+Minimize energy consumption of heat pump requires define the product specification
+Produce remaining energy required by heat pump with photovoltaic module requires define the product specification
+Maximum energy production of photovoltaic module is 50 kWh Affects define the product specification
+Develop new heat extractor with very low energy consumption requires define the product specification
+Re-design existing heat extractor bay adapting it for a new refrigerant requires define the product specification
+Short period for development Affects Product design
+New refrigerants are very expensive Affects Product design
+
+[ARM_gut_S3 -> GM_gut_S3]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Product designer is responsible for Minimize energy consumption of heat pump
+
+[ARM_gut_S3 -> BPM_gut_S3]
+Product Owner performs target setting
+Product Owner performs define the product specification
+Product designer performs Product design
+
+[ARM_gut_S3 -> Marketing_gut_S3]
+Marketing department is responsible for Plan marketing campaign
+Marketing department is responsible for Run social media campaign
+Marketing department is responsible for Run print media campaign
+Marketing department is responsible for Supervise campaign results
+Social media group performs Run social media campaign
+Print media group performs Run print media campaign
+
+[ARM_gut_S3 -> TRM_gut_S3]
+Product Owner is responsible for Production system
+
+[BPM_gut_S3 -> CM_gut_S3]
+target setting uses Customer Survey
+target setting creates Target Feature
+define the product specification uses Target Feature
+define the product specification creates Specification Document
+Product design uses Specification Document
+Product design creates Design description
+
+[Marketing_gut_S3 -> CM_gut_S3]
+Plan marketing campaign requires Campaign target document
+Plan marketing campaign creates Campaign plan
+Run social media campaign uses Campaign plan
+Run print media campaign uses Campaign plan
+Run social media campaign creates Campaign statistics
+Run print media campaign creates Campaign statistics
+Supervise campaign results uses Campaign statistics
+Supervise campaign results creates Campaign result document
+
+[BPM_gut_S3 -> TRM_gut_S3]
+target setting Supports Production system
+target setting Supports Version management system
+define the product specification Supports Production system
+define the product specification Supports Version management system
+Product design Supports Production system
+Product design Supports Version management system
+
+[Marketing_gut_S3 -> TRM_gut_S3]
+Run social media campaign uses Social media studio
+
+[TRM_gut_S3 -> CM_gut_S3]
+Production system supports Product
+Version management system supports Version
+Social media studio supports Campaign plan
+SM authoring system supports Social media activities
+SM life system supports Social media activities
+SM repository supports Social media activities

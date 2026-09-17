@@ -1,0 +1,6 @@
+target setting Supports Production system
+target setting Supports Version management system
+define the product specification Supports Production system
+define the product specification Supports Version management system
+Product design Supports Production system
+Product design Supports Version management system

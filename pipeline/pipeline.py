@@ -49,6 +49,7 @@ import shlex
 import socket
 import subprocess
 import sys
+import tempfile
 import time
 import traceback
 import urllib.error
@@ -58,6 +59,10 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence, TextIO
+
+from scripts.intermodel_rules import (
+    CONNECTORS_BY_SOURCE_MODEL,
+)
 
 
 VALID_MODES = {"full", "models_only", "intermodel_only"}
@@ -555,6 +560,29 @@ def validate_static_paths(ctx: RunContext, models: Sequence[ModelDefinition]) ->
         paths_to_check.extend(
             [("Intermodel prompt template", template), ("Intermodel integrator", integrator)]
         )
+        source_ids = {source_id for source_id, _ in intermodel_pairs(ctx)}
+        for source_id in sorted(source_ids):
+            paths_to_check.append(
+                (
+                    f"Intermodel source rules for {source_id}",
+                    ctx.project_root
+                    / "prompts"
+                    / "inter_model_generation"
+                    / "source_connection_rules"
+                    / f"{source_id}.txt",
+                )
+            )
+        for source_id, target_id in intermodel_pairs(ctx):
+            paths_to_check.append(
+                (
+                    f"Intermodel target rules for {source_id} -> {target_id}",
+                    ctx.project_root
+                    / "prompts"
+                    / "inter_model_generation"
+                    / "target_reference_rules"
+                    / f"{source_id}__{target_id}.txt",
+                )
+            )
 
     if bool(dotted_get(ctx.config, "format_repair.enabled", False)):
         paths_to_check.append(
@@ -573,6 +601,15 @@ def validate_static_paths(ctx: RunContext, models: Sequence[ModelDefinition]) ->
                     resolve_path(
                         ctx.project_root,
                         require(ctx.config, "intermodel.format_prompt_path"),
+                    ),
+                )
+            )
+            paths_to_check.append(
+                (
+                    "Intermodel repair prompt",
+                    resolve_path(
+                        ctx.project_root,
+                        require(ctx.config, "intermodel.repair_prompt_path"),
                     ),
                 )
             )
@@ -1292,12 +1329,57 @@ def build_format_repair_prompt(
     python_error: str,
     model_description: str = "",
     model_generation_rules: str = "",
+    general_prompt_path: Path | None = None,
+    format_prompt_replacements: Mapping[str, str] | None = None,
 ) -> str:
-    general_path = resolve_path(
+    general_path = general_prompt_path or resolve_path(
         ctx.project_root, require(ctx.config, "format_repair.general_prompt_path")
     )
+    prompt_replacements = format_prompt_replacements or {}
+    general_prompt = read_text(general_path)
+    format_prompt = read_text(format_prompt_path)
+    structured_placeholder = "<ScenarioTexts>"
+    if structured_placeholder in general_prompt:
+        replacements = {
+            "<ScenarioTexts>": context_description.strip(),
+            "<OriginalIntermodelGenerationRules>": model_generation_rules.strip(),
+            "<RequiredOutputFormat>": format_prompt.strip(),
+            "<PythonError>": python_error.strip(),
+            "<OutputToRepair>": malformed_output.strip(),
+            **prompt_replacements,
+        }
+        result = general_prompt
+        for placeholder, value in replacements.items():
+            result = result.replace(placeholder, value)
+        unresolved = sorted(
+            placeholder for placeholder in replacements if placeholder in result
+        )
+        if unresolved:
+            raise PipelineError(
+                "Unresolved repair prompt placeholders: " + ", ".join(unresolved)
+            )
+        return result.rstrip() + "\n"
+    for placeholder, value in prompt_replacements.items():
+        general_prompt = general_prompt.replace(placeholder, value)
+    for placeholder, value in prompt_replacements.items():
+        format_prompt = format_prompt.replace(placeholder, value)
+    unresolved = []
+    for placeholder in prompt_replacements:
+        if placeholder in general_prompt or placeholder in format_prompt:
+            unresolved.append(placeholder)
+    required_placeholder = "<SourceIntermodelConnectionRules>"
+    if (
+        required_placeholder in general_prompt
+        or required_placeholder in format_prompt
+    ):
+        unresolved.append(required_placeholder)
+    if unresolved:
+        raise PipelineError(
+            "Unresolved repair prompt placeholders: "
+            + ", ".join(sorted(set(unresolved)))
+        )
     sections = [
-        read_text(general_path).rstrip(),
+        general_prompt.rstrip(),
         "## Scenario texts\n\n" + context_description.strip(),
     ]
     if model_description.strip():
@@ -1309,7 +1391,7 @@ def build_format_repair_prompt(
         )
     sections.extend(
         [
-            "## Required output format\n\n" + read_text(format_prompt_path).strip(),
+            "## Required output format\n\n" + format_prompt.strip(),
             "## Python error\n\n" + python_error.strip(),
             "## Output to repair\n\n" + malformed_output.strip(),
         ]
@@ -1350,30 +1432,51 @@ def build_model_repair_context(
     return read_text(source_file).strip()
 
 
-def build_intermodel_repair_context(ctx: RunContext, scenario: ScenarioRun) -> str:
-    extensions = {
-        normalized_extension(str(item)).casefold()
-        for item in dotted_get(ctx.config, "files.scenario_extensions", [".txt"])
-    }
-    source_files = sorted(
-        path
-        for path in scenario.scenario_directory.rglob("*")
-        if path.is_file() and path.suffix.casefold() in extensions
-    )
-    return "\n\n---\n\n".join(read_text(path).strip() for path in source_files)
+def build_intermodel_pair_repair_context(
+    source: ModelArtifact,
+    target: ModelArtifact,
+) -> str:
+    texts = [read_text(source.source_scenario_file).strip()]
+    target_text = read_text(target.source_scenario_file).strip()
+    if target_text not in texts:
+        texts.append(target_text)
+    return "\n\n---\n\n".join(texts)
 
 
-def build_intermodel_model_description(ctx: RunContext) -> str:
-    sections = [
-        "The output describes relationships between elements of existing 4EM models."
+def build_intermodel_pair_model_description(
+    source: ModelArtifact,
+    target: ModelArtifact,
+    model_by_id: Mapping[str, ModelDefinition],
+) -> str:
+    source_type = model_by_id[source.model_id].display_name
+    target_type = model_by_id[target.model_id].display_name
+    descriptions = [
+        "The output describes relationships from elements of "
+        f"the {source_type} to elements of the {target_type}.",
+        read_text(model_by_id[source.model_id].description_path).strip(),
     ]
-    for model_config in dotted_get(ctx.config, "models", []):
-        description_path = model_config.get("description_path")
-        if model_config.get("enabled", True) and description_path:
-            sections.append(
-                read_text(resolve_path(ctx.project_root, description_path)).strip()
-            )
-    return "\n\n".join(sections)
+    target_description = read_text(
+        model_by_id[target.model_id].description_path
+    ).strip()
+    if target_description not in descriptions:
+        descriptions.append(target_description)
+    descriptions.extend(
+        [
+            "## Existing source model\n\n"
+            f"The following is the source {source_type}:\n\n"
+            + read_text(source.slm_file).strip(),
+            "## Existing target model\n\n"
+            f"The following is the target {target_type}:\n\n"
+            + read_text(target.slm_file).strip(),
+        ]
+    )
+    return "\n\n".join(descriptions)
+
+
+def intermodel_generation_rules(rendered_prompt: str) -> str:
+    marker = "## Task"
+    index = rendered_prompt.find(marker)
+    return rendered_prompt[index:].strip() if index >= 0 else rendered_prompt.strip()
 
 
 def repair_format(
@@ -1387,6 +1490,8 @@ def repair_format(
     task_id: str,
     model_description: str = "",
     model_generation_rules_text: str = "",
+    general_prompt_path: Path | None = None,
+    format_prompt_replacements: Mapping[str, str] | None = None,
 ) -> tuple[str, dict[str, Any]]:
     """Repair formatting first, otherwise validation content; preserve the input."""
     repair_directory.mkdir(parents=True, exist_ok=True)
@@ -1404,6 +1509,8 @@ def repair_format(
         python_error,
         model_description,
         model_generation_rules_text,
+        general_prompt_path,
+        format_prompt_replacements,
     )
     prompt_path = repair_directory / f"attempt_{attempt_number}_prompt.txt"
     write_text_atomic(prompt_path, prompt)
@@ -2026,14 +2133,26 @@ def render_intermodel_prompt(
     source_definition = model_by_id[source.model_id]
     target_definition = model_by_id[target.model_id]
     replacements = {
-        "<ModelName1>": source.adl_model_name,
-        "<ModelName2>": target.adl_model_name,
         "<Model1Descr>": read_text(source_definition.description_path),
         "<Model2Descr>": read_text(target_definition.description_path),
         "<Model1Elements>": read_text(source.slm_file),
         "<Model2Elements>": read_text(target.slm_file),
         "<Model1Description>": read_text(source.source_scenario_file),
         "<Model2Description>": read_text(target.source_scenario_file),
+        "<SourceIntermodelConnectionRules>": read_text(
+            ctx.project_root
+            / "prompts"
+            / "inter_model_generation"
+            / "source_connection_rules"
+            / f"{source.model_id}.txt"
+        ).strip(),
+        "<TargetIntermodelReferenceRules>": read_text(
+            ctx.project_root
+            / "prompts"
+            / "inter_model_generation"
+            / "target_reference_rules"
+            / f"{source.model_id}__{target.model_id}.txt"
+        ).strip(),
     }
     result = template
     for placeholder, value in replacements.items():
@@ -2074,11 +2193,22 @@ def intermodel_tasks(
     ctx: RunContext,
     artifacts: Sequence[ModelArtifact],
 ) -> list[tuple[ModelArtifact, ModelArtifact]]:
+    excluded_names = dotted_get(
+        ctx.config, "intermodel.excluded_adl_model_name_substrings", []
+    )
+    if not isinstance(excluded_names, list) or not all(
+        isinstance(value, str) for value in excluded_names
+    ):
+        raise PipelineError(
+            "intermodel.excluded_adl_model_name_substrings must be an array of strings."
+        )
+    excluded = tuple(value.casefold() for value in excluded_names if value)
     available = [
         artifact
         for artifact in artifacts
         if artifact.slm_file.is_file()
         and artifact.status in {"OK", "OK_AFTER_FORMAT_REPAIR", "SKIPPED_EXISTING", "EXISTING"}
+        and not any(value in artifact.adl_model_name.casefold() for value in excluded)
     ]
     by_model: dict[str, list[ModelArtifact]] = {}
     for artifact in available:
@@ -2127,6 +2257,7 @@ def run_intermodel_task(
     target: ModelArtifact,
     prompt_template: str,
     model_by_id: Mapping[str, ModelDefinition],
+    input_adl: Path,
     force_regenerate: bool,
 ) -> tuple[Path | None, dict[str, Any]]:
     output_file = intermodel_output_file(ctx, scenario, source, target)
@@ -2146,6 +2277,7 @@ def run_intermodel_task(
         "output_file": str(output_file),
         "started_at": iso_now(),
         "attempts": [],
+        "format_repairs": [],
     }
 
     overwrite = bool(dotted_get(ctx.config, "execution.overwrite", False))
@@ -2178,22 +2310,6 @@ def run_intermodel_task(
             attempt["slm_attempts"] = slm_attempts
             attempt["slm"] = slm_report(ctx, result, prompt)
             write_text_atomic(output_file, result.answer)
-            attempt.update(
-                {
-                    "output": file_info(output_file),
-                    "finished_at": iso_now(),
-                    "duration_seconds": time.perf_counter() - attempt_started_perf,
-                }
-            )
-            report.update(
-                {
-                    "status": "OK",
-                    "output": file_info(output_file),
-                    "finished_at": iso_now(),
-                    "duration_seconds": time.perf_counter() - started_perf,
-                }
-            )
-            return output_file, report
         except SLMTimeoutError as exc:
             attempt["slm_attempts"] = getattr(exc, "slm_attempts", [])
             attempt.update(
@@ -2235,6 +2351,181 @@ def run_intermodel_task(
                 }
             )
             return None, report
+
+        validation_ok, validation_report, validation_error = validate_intermodel_output(
+            ctx, input_adl, output_file, source, target
+        )
+        attempt["validation"] = validation_report
+        attempt.update(
+            {
+                "output": file_info(output_file),
+                "finished_at": iso_now(),
+                "duration_seconds": time.perf_counter() - attempt_started_perf,
+            }
+        )
+        if validation_ok:
+            report.update(
+                {
+                    "status": "OK",
+                    "output": file_info(output_file),
+                    "finished_at": iso_now(),
+                    "duration_seconds": time.perf_counter() - started_perf,
+                }
+            )
+            return output_file, report
+
+        repair_enabled = bool(dotted_get(ctx.config, "format_repair.enabled", False))
+        max_repairs = int(dotted_get(ctx.config, "format_repair.max_attempts", 0))
+        repair_directory = (
+            output_file.parent / "format_repair" / safe_name(output_file.stem)
+        )
+        format_prompt = resolve_path(
+            ctx.project_root, require(ctx.config, "intermodel.format_prompt_path")
+        )
+        for repair_number in range(1, max_repairs + 1 if repair_enabled else 1):
+            try:
+                repaired, repair_report = repair_format(
+                    ctx,
+                    output_file,
+                    format_prompt,
+                    build_intermodel_pair_repair_context(source, target),
+                    validation_error,
+                    repair_directory,
+                    repair_number,
+                    task_id,
+                    "",
+                    intermodel_generation_rules(prompt),
+                    resolve_path(
+                        ctx.project_root,
+                        require(ctx.config, "intermodel.repair_prompt_path"),
+                    ),
+                    {
+                        "<SourceModelDescription>": read_text(
+                            model_by_id[source.model_id].description_path
+                        ).strip(),
+                        "<TargetModelDescription>": read_text(
+                            model_by_id[target.model_id].description_path
+                        ).strip(),
+                        "<ExistingSourceModel>": read_text(source.slm_file).strip(),
+                        "<ExistingTargetModel>": read_text(target.slm_file).strip(),
+                    },
+                )
+            except Exception as exc:
+                report["format_repairs"].append(
+                    {
+                        "attempt_number": repair_number,
+                        "status": "FAILED_SLM",
+                        "error_type": type(exc).__name__,
+                        "error_message": str(exc),
+                        "slm_attempts": getattr(exc, "slm_attempts", []),
+                    }
+                )
+                break
+            write_text_atomic(output_file, repaired + ("\n" if repaired else ""))
+            validation_ok, validation_report, validation_error = (
+                validate_intermodel_output(
+                    ctx, input_adl, output_file, source, target
+                )
+            )
+            repair_report["validation"] = validation_report
+            repair_report["status"] = (
+                "OK" if validation_ok else "FAILED_PYTHON"
+            )
+            report["format_repairs"].append(repair_report)
+            if validation_ok:
+                report.update(
+                    {
+                        "status": "OK_AFTER_FORMAT_REPAIR",
+                        "output": file_info(output_file),
+                        "finished_at": iso_now(),
+                        "duration_seconds": time.perf_counter() - started_perf,
+                    }
+                )
+                return output_file, report
+
+        report.update(
+            {
+                "status": "FAILED_INTERMODEL_VALIDATION",
+                "final_error": validation_error,
+                "finished_at": iso_now(),
+                "duration_seconds": time.perf_counter() - started_perf,
+            }
+        )
+        return None, report
+
+
+def validate_intermodel_output(
+    ctx: RunContext,
+    input_adl: Path,
+    output_file: Path,
+    source: ModelArtifact,
+    target: ModelArtifact,
+) -> tuple[bool, dict[str, Any], str]:
+    body = clean_slm_answer(read_text(output_file)).strip()
+    no_marker = str(
+        dotted_get(
+            ctx.config,
+            "intermodel.no_relationship_marker",
+            "NO_INTERMODEL_RELATIONSHIPS",
+        )
+    )
+    if body == no_marker:
+        return True, {"status": "OK_NO_RELATIONSHIPS"}, ""
+    if not body:
+        error = (
+            "The intermodel output is empty. Return valid relationship lines or "
+            f"exactly {no_marker}."
+        )
+        return False, {"status": "FAILED", "error_message": error}, error
+
+    integrator = require(ctx.config, "tools.intermodel_integrator")
+    if not isinstance(integrator, dict):
+        raise PipelineError("tools.intermodel_integrator must be an object.")
+    command = require(integrator, "command")
+    if not isinstance(command, list):
+        raise PipelineError("tools.intermodel_integrator.command must be an array.")
+    integrator_path = resolve_path(ctx.project_root, require(integrator, "path"))
+    python_executable = str(
+        dotted_get(ctx.config, "tools.python_executable", "") or sys.executable
+    )
+    wrapped = (
+        f"[{source.adl_model_name} -> {target.adl_model_name}]\n{body}\n"
+    )
+    with tempfile.TemporaryDirectory(
+        prefix="intermodel_validation_", dir=str(output_file.parent)
+    ) as temporary_directory:
+        temporary_root = Path(temporary_directory)
+        relations_file = temporary_root / "relations.txt"
+        validation_adl = temporary_root / "validation.adl"
+        write_text_atomic(relations_file, wrapped)
+        values = {
+            "python": python_executable,
+            "project_root": ctx.project_root,
+            "integrator_path": integrator_path,
+            "input_adl": input_adl,
+            "relations_slm": relations_file,
+            "output_adl": validation_adl,
+            "scenario_name": source.scenario_name,
+        }
+        result = run_external_command(
+            command,
+            values,
+            resolve_path(ctx.project_root, integrator.get("cwd", ".")),
+            float(integrator["timeout_seconds"])
+            if integrator.get("timeout_seconds") is not None
+            else float(
+                dotted_get(ctx.config, "tools.default_python_timeout_seconds", 600)
+            ),
+        )
+        report = command_report(ctx, result)
+        ok = result.ok and validation_adl.is_file()
+        if ok:
+            return True, report, ""
+        error = concise_command_error(
+            result,
+            "The individual intermodel output could not be integrated.",
+        )
+        return False, report, error
 
 
 def aggregate_intermodel_slm(
@@ -2343,6 +2634,7 @@ def run_intermodel_stage(
                 target,
                 prompt_template,
                 model_by_id,
+                input_adl,
                 force_regenerate,
             )
             task_reports.append(task_report)
@@ -2382,64 +2674,6 @@ def run_intermodel_stage(
             else float(dotted_get(ctx.config, "tools.default_python_timeout_seconds", 600)),
         )
 
-        format_repairs: list[dict[str, Any]] = []
-        repair_enabled = bool(dotted_get(ctx.config, "format_repair.enabled", False))
-        max_repairs = int(dotted_get(ctx.config, "format_repair.max_attempts", 0))
-        intermodel_format_prompt = resolve_path(
-            ctx.project_root, require(ctx.config, "intermodel.format_prompt_path")
-        )
-        repair_directory = scenario.intermodel_aggregate_slm.parent / "format_repair"
-        for repair_number in range(1, max_repairs + 1 if repair_enabled else 1):
-            if integration_result.ok and scenario.final_adl.is_file():
-                break
-            python_error = concise_command_error(
-                integration_result, "The intermodel integration script failed."
-            )
-            try:
-                repaired, repair_report = repair_format(
-                    ctx,
-                    scenario.intermodel_aggregate_slm,
-                    intermodel_format_prompt,
-                    build_intermodel_repair_context(ctx, scenario),
-                    python_error,
-                    repair_directory,
-                    repair_number,
-                    f"intermodel:{scenario.scenario_name}",
-                    build_intermodel_model_description(ctx),
-                )
-            except Exception as exc:
-                format_repairs.append(
-                    {
-                        "attempt_number": repair_number,
-                        "status": "FAILED_SLM",
-                        "error_type": type(exc).__name__,
-                        "error_message": str(exc),
-                        "slm_attempts": getattr(exc, "slm_attempts", []),
-                    }
-                )
-                break
-            write_text_atomic(
-                scenario.intermodel_aggregate_slm,
-                repaired + ("\n" if repaired else ""),
-            )
-            if scenario.final_adl.exists():
-                scenario.final_adl.unlink()
-            integration_result = run_external_command(
-                command,
-                values,
-                resolve_path(ctx.project_root, integrator.get("cwd", ".")),
-                float(integrator["timeout_seconds"])
-                if integrator.get("timeout_seconds") is not None
-                else float(dotted_get(ctx.config, "tools.default_python_timeout_seconds", 600)),
-            )
-            repair_report["integration_command"] = command_report(ctx, integration_result)
-            repair_report["status"] = (
-                "OK"
-                if integration_result.ok and scenario.final_adl.is_file()
-                else "FAILED_PYTHON"
-            )
-            format_repairs.append(repair_report)
-
         batch = {
             "batch_number": batch_number,
             "started_at": iso_now(),
@@ -2454,7 +2688,7 @@ def run_intermodel_stage(
             ],
             "aggregate_slm": file_info(scenario.intermodel_aggregate_slm),
             "integration_command": command_report(ctx, integration_result),
-            "format_repairs": format_repairs,
+            "format_repairs": [],
             "duration_seconds": time.perf_counter() - batch_started_perf,
         }
         stage["batches"].append(batch)

@@ -1,0 +1,6 @@
+Allowed target element types:
+- Process
+- External Process
+- Information Set
+
+Use no other target element types.

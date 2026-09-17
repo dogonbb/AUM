@@ -1,0 +1,6 @@
+﻿Modell;System;Umrechnungsfaktor_Token_Zeit;Umrechnungsfaktor_Abbruchzeit_Token
+Gemma 4 4B;System A;0.026824296;141.583402624
+Qwen3.5 4B;System C;0.055698505;107.048947531
+Qwen3.5 4B;System B;0.055698505;51.909730998
+Qwen3.5 9B;System E;0.019498260;111.369494419
+Qwen3.5 9B;System D;0.019498260;42.538028464

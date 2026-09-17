@@ -1,0 +1,4 @@
+Run social media campaign uses Social media studio
+Run social media campaign uses SM authoring system
+Run social media campaign uses SM life system
+Run social media campaign uses SM repository

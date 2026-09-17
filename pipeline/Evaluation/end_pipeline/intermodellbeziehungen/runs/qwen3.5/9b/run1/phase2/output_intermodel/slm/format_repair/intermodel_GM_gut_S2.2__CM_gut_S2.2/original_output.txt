@@ -1,0 +1,7 @@
+Goal Providing most energy-efficient heating solution in market relates to Attribute Energy-efficiency
+Problem Energy consumption of current product version is too high relates to Attribute Energy consumption
+Goal Minimize energy consumption of heat pump relates to Concept Heat pump
+Goal Minimize energy consumption of heat pump relates to Attribute Energy consumption
+Goal Providing most energy-efficient heating solution in market relates to Concept Heat pump
+Problem Energy consumption of current product version is too high relates to Concept Heat pump
+Goal Produce remaining energy required by heat pump with photovoltaic module relates to Concept Heat pump

@@ -1,0 +1,22 @@
+Output the repaired model only in the following format:
+
+ELEMENTS
+ElementType <name_1>
+ElementType <name_2>
+ElementType <name_3>
+...
+
+CONNECTIONS
+<element name> relation <element name>
+<element name> Input <element name>
+<element name> Output <element name>
+<element name> Split (AND) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (AND) <element name>
+<element name> Split (OR) <element name_1>, <element name_2>, <element name_3>
+<element name_1>, <element name_2>, <element name_3> Join (OR) <element name>
+
+Replace every placeholder in angle brackets with an actual existing name; do not output the angle brackets themselves. Replace `ElementType` with exactly one allowed type: `Process`, `External Process`, or `Information Set`. Split and Join are connection operators, not element types, and must never be declared under `ELEMENTS`.
+
+Write `ELEMENTS` and `CONNECTIONS` exactly as shown and in this order. Write one element or connection per line. Separate multiple sources or targets with a comma followed by one space. Split has exactly one source and at least two targets. Join has at least two sources and exactly one target. A direct relation, Input, or Output connection has exactly one source and one target.
+
+Do not include element types in `CONNECTIONS`. Every referenced name must exactly match one declaration in `ELEMENTS`, and every element name must be declared exactly once. Preserve the exact spelling and capitalization of `relation`, `Input`, `Output`, `Split`, `Join`, `AND`, and `OR`. Output plain text only: no Markdown fences, bullets, numbering, comments, explanations, or additional sections.

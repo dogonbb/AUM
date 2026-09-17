@@ -1,0 +1,6 @@
+target setting uses Customer Survey
+target setting creates Target Feature
+define the product specification uses Target Feature
+define the product specification creates Specification Document
+Product design uses Specification Document
+Product design creates Design description

@@ -1,0 +1,346 @@
+## General explanation
+
+You repair an already generated intermodel relationship output after the Python integrator failed to process it.
+
+Follow this order strictly:
+1. Review the complete generated output and the complete Python error before making changes.
+2. Correct every reported formatting violation throughout the file, while preserving semantic content wherever possible.
+3. Correct every reported semantic validation error using the scenario texts, model explanation, original intermodel generation rules, and required output format. Make only the smallest content changes required for the Python integrator to accept the output.
+
+The Python error may contain a numbered `Multiple validation errors` list, including multiple errors for one line. Resolve every listed error in one repaired output. Do not stop after fixing the first item. Check every line named in the error list and keep every source and target element name exactly consistent with the existing elements in its respective model. Preserve the required source-to-target direction.
+
+Connector enumeration values are source-model-specific. Use only the exact
+case-sensitive connector list and allowed target element types contained in the
+supplied intermodel generation rules; never translate, normalize, underscore,
+or change the capitalization of an enumeration value.
+
+For a semantic correction, use only information present in the supplied scenario texts, model explanation, and intermodel generation rules. Do not invent elements, names, facts, or relationships. Remove, replace, or add only what is necessary to resolve the reported validation errors. Preserve every unaffected name and relationship exactly.
+
+Do not add `ELEMENTS` or `CONNECTIONS` sections and do not reproduce internal relationships from either model. Do not add a model-pair header; the pipeline adds that header separately during validation and aggregation.
+
+Return only the complete repaired output. Do not provide an explanation, Markdown, code fences, or introductory or concluding text.
+
+## Scenario texts
+
+In the company, the role of the product owner for the heat pump “Smart-Heat” is responsible for the product innovation process and also has the responsibility to reach the goal of the most energy-efficient heating solution. The product owner works in the product development department, an organisational unit of MultiHeat. The role of product designer also works in the product development department. The product designer is responsible for the sub-goal of minimizing the energy consumption of the heat pump. MultiHeat has three more organizational units: the marketing department, the social media group, and the print media group. The print media group and the social media group are both part of the marketing department. The printing press is a resource of the MultiHeat that belongs to the print media department. The role of print designer works in the print media group and is responsible for the process “run print media campaign”. The role of printing press operator also works in the print media group and operates the printing press. The role of social media designer works in the social media group and is responsible for the process “run social media campaign”. The role of content specialist also works in the social media group. The role of the general manager manages the company MultiHeat. All departments mentioned are part of the company.
+
+---
+
+The product innovation process starts with the sub-process of target setting, which receives the customer survey as input information and produces the list of target features as output information. The target feature list is the input for the next sub-process, which is to define the product specification. This sub-process has the specification document as output, which is the input for the next sub-process “product design”. This sub-process has the design description as output and is the last step in the innovation process. The product owner performs the target setting and the product specification sub-process. The product designer performs the product design sub-process.
+
+## Model explanation
+
+### Source model semantics
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Actors and Resources Model
+
+## Purpose of the model
+
+The Actors and Resources Model describes the organisational actors and non-human resources of an enterprise and the relationships between them. It represents who participates in the enterprise, which roles and organisational units exist, which resources are used, and how responsibilities, assignments, dependencies, and organisational structures are arranged.
+
+## Element types
+
+- Individual
+- Role
+- Resource
+- Organizational Unit
+
+## Meaning of element types
+
+- Individual: A named or otherwise identifiable person in the enterprise.
+- Role: A function, position, responsibility, or organisational role that may be performed by an Individual or, depending on the context, associated with an Organizational Unit.
+- Resource: A non-human resource such as a machine, system, equipment item, tool, material, information system, or other asset used by the enterprise.
+- Organizational Unit: An organisational structure such as a group, department, division, section, project, team, subsidiary, or comparable unit.
+
+## Internal connection types
+
+Direct connections:
+
+- relation
+- plays
+- works in
+- works at
+- supplies
+- interacts with
+- navigates
+- responsible for
+- belongs to
+- maintains
+
+Connector-based connections:
+
+- Partial-ISA
+- Total-ISA
+- Partial-PartOF
+- Total-PartOF
+
+## Meaning of internal connections
+
+- A relation B: A has a direct relationship to B when no more specific connection type describes the relationship.
+- A plays B: Individual A performs, holds, or assumes Role B.
+- A works in B: Role A works within Organizational Unit B.
+- A works at B: Role A works at the organisational unit or organisational location represented by B.
+- A supplies B: Role A provides or delivers something to Organizational Unit B.
+- A interacts with B: Resource A communicates, exchanges information, or directly interacts with Resource B.
+- A navigates B: Organizational Unit A uses or navigates Resource B.
+- A responsible for B: Role or Organizational Unit A has responsibility for Resource B.
+- A belongs to B: Resource A is assigned to, forms part of, or belongs to Organizational Unit B.
+- A maintains B: Role A maintains, supports, or keeps Resource B operational.
+- A, B, C Partial-ISA D: A, B, and C are specialisations of D, but the listed specialisations are not necessarily complete.
+- A, B, C Total-ISA D: A, B, and C are specialisations of D and together completely cover D.
+- A, B, C Partial-PartOF D: A, B, and C are parts of D, but the listed parts are not necessarily complete.
+- A, B, C Total-PartOF D: A, B, and C are parts of D and together completely compose D.
+
+## Structural rules
+
+- Individuals represent persons, while Roles represent functions, positions, or responsibilities.
+- A person and the role performed by that person are represented as separate elements.
+- An organisational unit and a role associated with that unit are represented as separate elements when both are relevant.
+- Resources represent non-human assets only.
+- ISA connections represent classification or specialisation.
+- PartOF connections represent organisational or resource composition.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, causes, constraints, opportunities, business processes, business rules, products, services, concepts, or technical requirements as model elements.
+
+### Target model semantics
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Business Process Model
+
+## Purpose of the model
+
+The Business Process Model describes enterprise processes, their interactions, and the flow of information between them. It represents internal processes, relevant external processes, information sets, and branching or joining structures. The model explains how information is consumed as input, produced as output, and transferred between process elements.
+
+## Element types
+
+- Process
+- External Process
+- Information Set
+
+## Meaning of element types
+
+- Process: A collection of activities within the enterprise or problem domain that consumes input, produces output, is controlled by rules, may have a performer or responsible actor, and uses resources and time.
+- External Process: A collection of activities outside the organisational scope that communicates with processes in the problem domain and may act as a source or destination of information.
+- Information Set: A set of information transferred from one Process or External Process to another.
+
+## Internal connection types
+
+Direct connections:
+
+- relation
+- Input
+- Output
+
+Connector-based connections:
+
+- Split (AND)
+- Join (AND)
+- Split (OR)
+- Join (OR)
+
+## Meaning of internal connections
+
+- A relation B: A is directly connected to B by an unlabeled business-process relation.
+- A Input B: Information Set A is used as input by Process or External Process B.
+- A Output B: Process or External Process A produces Information Set B as output.
+- A Split (AND) B, C, D: A branches to B, C, and D, and all branches apply.
+- A Split (OR) B, C, D: A branches to B, C, and D as alternatives.
+- A, B, C Join (AND) D: A, B, and C are joined before D, and all incoming branches apply.
+- A, B, C Join (OR) D: A, B, and C are alternative incoming branches joined before D.
+
+## Structural rules
+
+- Internal enterprise activities are represented as Process.
+- Activities outside the organisational scope are represented as External Process.
+- Transferred information is represented as Information Set.
+- Input connections lead from Information Sets to Processes or External Processes.
+- Output connections lead from Processes or External Processes to Information Sets.
+- AND connectors represent parallel or jointly required branches.
+- OR connectors represent alternative branches.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, causes, constraints, opportunities, actors, roles, organisational units, products, services, concepts, business rules, or technical requirements as model elements.
+
+### Existing source model
+
+ELEMENTS
+Role Product Owner
+Organizational Unit Product development department
+Role Product designer
+Organizational Unit Multi-Heat
+Organizational Unit Marketing department
+Organizational Unit Social media group
+Organizational Unit Print media group
+Resource Printing press
+Role Print designer
+Role Printing press operator
+Role Social media designer
+Role Content specialist
+Role General Manager
+
+CONNECTIONS
+Product Owner works in Product development department
+Product designer works in Product development department
+Printing press belongs to Print media group
+Print designer works in Print media group
+Printing press operator works in Print media group
+Printing press operator relation Printing press
+Social media designer works in Social media group
+Content specialist works in Social media group
+General Manager works in Multi-Heat
+Product development department, Marketing department Total-PartOF Multi-Heat
+Social media group, Print media group Total-PartOF Marketing department
+
+### Existing target model
+
+ELEMENTS
+Process target setting
+Information Set customer survey
+Information Set target features
+Process define the product specification
+Information Set specification document
+Process Product design
+Information Set Design description
+
+CONNECTIONS
+target setting Output target features
+customer survey Input target setting
+target features Input define the product specification
+define the product specification Output specification document
+specification document Input Product design
+Product design Output Design description
+
+## Original intermodel generation rules
+
+## Task
+
+Identify all semantically meaningful intermodel relationships from elements of the source model to elements of the target model.
+
+Consider every element of the source model as a possible source. As targets, use
+only elements whose element type is listed as allowed for the target model below.
+
+However, create a relationship only when it is supported by the meanings of the two elements and by the provided case descriptions.
+
+Do not create a relationship merely because the two elements contain similar words.
+Do not create speculative relationships that are not supported by the available information.
+Do not create relationships between two elements belonging to the same model.
+
+## Source-model intermodel connector rules
+
+Source model: Actors and Resources Model
+
+Allowed connectors (exact enumeration values):
+- play
+- is responsible for
+- defines
+- empty
+- performs
+
+`empty` means that a relationship exists but no more specific connector applies.
+Connector spelling, spaces, and capitalization are significant.
+
+Connector meanings (always source -> target):
+- `play`: the source actor or organisational unit plays the target role.
+- `is responsible for`: the source bears explicit responsibility for the target.
+- `defines`: the source specifies or determines the target.
+- `empty`: an explicit association exists but no specific allowed connector describes it; use only as a last resort.
+- `performs`: the source carries out the target process or activity.
+
+Interpret every connector from source to target. Do not reverse a relationship
+merely to make its label sound natural. Preserve connector capitalization and
+spaces exactly.
+
+## Target-model reference rules
+
+Allowed target element types:
+- Process
+- External Process
+- Information Set
+
+Use no other target element types.
+
+Use the element types exactly as written in the target model. If no target
+element type is allowed, return
+exactly `NO_INTERMODEL_RELATIONSHIPS`.
+
+## Direction
+
+Every returned relationship must start with an element from the source model and end with an element from the target model.
+
+Do not reverse the direction.
+
+## Output format
+
+Return only the intermodel relationships.
+
+Write exactly one relationship per line using the following syntax:
+
+<ElementNameFromModel1> <Connector> <ElementNameFromModel2>
+
+Use only the exact element names declared in the `ELEMENTS` sections of the
+source model and target model shown above.
+
+Do not include the element type before or after an element name.
+
+Do not prefix either element name with its element type. For example, if an
+element is declared as `Role Customer Service Representative`, use only
+`Customer Service Representative` as its name in a relationship line.
+
+## Output rules
+
+1. Return relationships only.
+2. Do not return an ELEMENTS section.
+3. Do not return a CONNECTIONS heading.
+4. Do not reproduce internal model relationships.
+5. Do not create new elements.
+6. Do not rename, shorten, translate, or normalize element names.
+7. Do not include element types in the relationships.
+8. Use only the allowed connectors.
+9. Do not include explanations, comments, bullet points, numbering, Markdown, or code fences.
+10. Create at most one relationship between any pair of elements. Do not connect the same source and target elements more than once, even with different connectors. Choose the single most specific applicable connector.
+11. If no meaningful intermodel relationship can be identified, return exactly:
+
+NO_INTERMODEL_RELATIONSHIPS
+
+## Required output format
+
+Return only the complete repaired output as plain text containing relationship lines for the one supplied model pair. Do not write a model-pair header, Markdown fences, bullets, numbering, comments, explanations, `ELEMENTS`, or `CONNECTIONS` headings.
+
+Write every relationship on its own line:
+`exact source element name connector exact target element name`
+
+The source element must belong to the supplied source model. The target element must belong to the supplied target model. Names must exactly match existing element names in those models. Do not include element types before element names.
+
+Use only the exact source-specific connectors stated in the supplied original
+intermodel generation rules. Preserve capitalization and spaces exactly. The target element
+type must also be allowed for the supplied directed model pair according
+to the original intermodel generation rules.
+
+Do not use pipes, `::`, arrows, or any alternative syntax even if a parser accepts it. Create at most one relationship between any pair of elements. If multiple relationships connect the same source and target elements, keep only the single most specific applicable connector.
+
+If no relationship exists, return exactly `NO_INTERMODEL_RELATIONSHIPS` on a single line and nothing else.
+
+## Python error
+
+Multiple validation errors (3):
+1. Relationship line 2: Relationship line 2: Source element 'Role Product Owner' was not found by INSTANCE name or Description in model 'ARM_gut_S4' (Actors and Resources Model). Names: Organizational Unit - 1, Organizational Unit - 2, Organizational Unit - 3, Organizational Unit - 4, Organizational Unit - 5, Organizational Unit - 6, Resource - 2, Role - 1, Role - 2, Role - 3. Descriptions: Content specialist | General Manager | Marketing department | Multi-Heat | Print designer | Print media group | Printing press | Printing press operator
+2. Relationship line 3: Relationship line 3: Source element 'Role Product Owner' was not found by INSTANCE name or Description in model 'ARM_gut_S4' (Actors and Resources Model). Names: Organizational Unit - 1, Organizational Unit - 2, Organizational Unit - 3, Organizational Unit - 4, Organizational Unit - 5, Organizational Unit - 6, Resource - 2, Role - 1, Role - 2, Role - 3. Descriptions: Content specialist | General Manager | Marketing department | Multi-Heat | Print designer | Print media group | Printing press | Printing press operator
+3. Relationship line 4: Relationship line 4: Source element 'Role Product designer' was not found by INSTANCE name or Description in model 'ARM_gut_S4' (Actors and Resources Model). Names: Organizational Unit - 1, Organizational Unit - 2, Organizational Unit - 3, Organizational Unit - 4, Organizational Unit - 5, Organizational Unit - 6, Resource - 2, Role - 1, Role - 2, Role - 3. Descriptions: Content specialist | General Manager | Marketing department | Multi-Heat | Print designer | Print media group | Printing press | Printing press operator
+
+## Output to repair
+
+Role Product Owner performs Process target setting
+Role Product Owner performs Process define the product specification
+Role Product designer performs Process Product design

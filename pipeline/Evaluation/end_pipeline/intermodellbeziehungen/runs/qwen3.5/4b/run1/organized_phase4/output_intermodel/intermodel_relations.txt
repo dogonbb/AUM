@@ -1,0 +1,39 @@
+[GM_gut_S4 -> PM_gut_S4]
+Providing most energy-efficient heating solution in market requires energy-efficient
+Produce remaining energy required by heat pump with photovoltaic module requires Zero-emission energy production
+Provide services supporting high availability of heat pump requires Quick response to error situations
+
+[ARM_gut_S4 -> PM_gut_S4]
+Product Owner is responsible for Smart Heat
+Product designer is responsible for energy-efficient
+
+[Marketing_gut_S4 -> CM_gut_S4]
+Plan marketing campaign Output Campaign plan
+Plan marketing campaign Input Campaign target document
+Run social media campaign Input Campaign plan
+Run print media campaign Input Campaign plan
+Run social media campaign Output Campaign statistics
+Run print media campaign Output Campaign statistics
+Supervise campaign results Output Campaign result document
+Supervise campaign results Input Campaign statistics
+
+[Marketing_gut_S4 -> TRM_gut_S4]
+Run social media campaign uses Social media studio
+
+[CustomerOrder_gut_S4 -> TRM_gut_S4]
+Handle customer order uses Product planning system
+Handle customer order uses Enterprise resource planning system
+
+[Handle_Order_gut_S4 -> TRM_gut_S4]
+Check availability uses Product planning system
+Check customer status uses Enterprise resource planning system
+Check configuration uses Product planning system
+
+[TRM_gut_S4 -> CM_gut_S4]
+Production system supports Product
+Version management system supports Specification Document
+Product planning system supports Order specification
+Enterprise resource planning system supports Order specification
+Social media studio supports Campaign plan
+Distributed database supports Order specification
+SM repository supports Campaign plan

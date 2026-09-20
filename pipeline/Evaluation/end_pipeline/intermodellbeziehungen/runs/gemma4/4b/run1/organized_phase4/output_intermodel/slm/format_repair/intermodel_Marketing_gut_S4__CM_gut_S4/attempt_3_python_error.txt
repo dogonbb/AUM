@@ -1,0 +1,3 @@
+Multiple validation errors (2):
+1. Relationship line 6: Relationship line uses connector 'supports', which is not valid for source model type 'Business Process Model'. Allowed: 'Input', 'Output', 'Triggers', 'Supports', 'uses', 'creates', 'motivates', 'requires'.
+2. Relationship line 7: Relationship line uses connector 'supports', which is not valid for source model type 'Business Process Model'. Allowed: 'Input', 'Output', 'Triggers', 'Supports', 'uses', 'creates', 'motivates', 'requires'.

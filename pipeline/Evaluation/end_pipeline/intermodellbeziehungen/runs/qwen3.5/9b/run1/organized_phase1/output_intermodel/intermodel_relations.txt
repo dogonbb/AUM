@@ -1,0 +1,53 @@
+[GM_gut_S1 -> CM_gut_S1]
+Providing most energy-efficient heating solution in market relates to Product
+Energy consumption of current product version is too high relates to Product
+Providing most energy-efficient heating solution in market relates to Energy-efficiency
+Energy consumption of current product version is too high relates to Energy consumption
+
+[GM_gut_S1 -> BPM_gut_S1]
+Providing most energy-efficient heating solution in market motivates target setting
+Providing most energy-efficient heating solution in market motivates define the product specification
+Energy consumption of current product version is too high motivates target setting
+Energy consumption of current product version is too high motivates define the product specification
+
+[GM_gut_S1 -> TRM_gut_S1]
+Providing most energy-efficient heating solution in market motivates Production system
+Providing most energy-efficient heating solution in market motivates Version management system
+Energy consumption of current product version is too high requires Production system
+Energy consumption of current product version is too high requires Version management system
+
+[GM_gut_S1 -> PM_gut_S1]
+Providing most energy-efficient heating solution in market requires energy-efficient
+Energy consumption of current product version is too high motivates energy-efficient
+
+[ARM_gut_S1 -> GM_gut_S1]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+
+[ARM_gut_S1 -> BPM_gut_S1]
+Product Owner is responsible for target setting
+Product Owner is responsible for define the product specification
+
+[ARM_gut_S1 -> PM_gut_S1]
+Product Owner is responsible for Smart Heat
+Product Owner is responsible for energy-efficient
+
+[BPM_gut_S1 -> CM_gut_S1]
+target setting Input Customer Survey
+target setting Output Target Feature
+define the product specification Input Target Feature
+define the product specification Output Specification Document
+
+[TRM_gut_S1 -> CM_gut_S1]
+Production system supports Product
+Version management system supports Product
+
+[PM_gut_S1 -> CM_gut_S1]
+Smart Heat relates to Product
+energy-efficient relates to Feature
+energy-efficient motivates Target Feature
+Smart Heat relates to Specification Document
+Smart Heat relates to Customer Survey
+
+[PM_gut_S1 -> TRM_gut_S1]
+Smart Heat requires Production system
+Smart Heat requires Version management system

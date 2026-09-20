@@ -1,0 +1,1174 @@
+szenario;modell;phase;modellpaar;startelement;connection;end_element;gruppe
+controlled;gemm4_e4b;1;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;requires;Attribute Energy-efficiency;class_2
+controlled;gemm4_e4b;1;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;requires;Concept Specification Document;class_1
+controlled;gemm4_e4b;1;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;motivates;Concept Target Feature;class_1
+controlled;gemm4_e4b;1;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+controlled;gemm4_e4b;1;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process define the product specification;class_1
+controlled;gemm4_e4b;1;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;requires;Information Set customer survey;class_0
+controlled;gemm4_e4b;1;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;requires;Information Set target features;class_1
+controlled;gemm4_e4b;1;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;requires;Information Set specification document;class_1
+controlled;gemm4_e4b;1;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;connector_class_2
+controlled;gemm4_e4b;1;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;connector_class_2
+controlled;gemm4_e4b;1;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;Defined by;Feature energy-efficient;class_2
+controlled;gemm4_e4b;1;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;Defined by;Attribute Energy consumption;class_2
+controlled;gemm4_e4b;1;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;requires;Concept Target Feature;class_0
+controlled;gemm4_e4b;1;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;requires;Concept Specification Document;class_0
+controlled;gemm4_e4b;1;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process target setting;class_1
+controlled;gemm4_e4b;1;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process define the product specification;class_1
+controlled;gemm4_e4b;1;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;requires;Information Set target features;class_1
+controlled;gemm4_e4b;1;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;requires;Information Set specification document;class_1
+controlled;gemm4_e4b;1;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;motivates;IS Technical Component Production system;class_0
+controlled;gemm4_e4b;1;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;motivates;IS Technical Component Version management system;class_0
+controlled;gemm4_e4b;1;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;Hinders;Feature energy-efficient;class_1
+controlled;gemm4_e4b;1;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;gemm4_e4b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;gemm4_e4b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;gemm4_e4b;1;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+controlled;gemm4_e4b;1;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+controlled;gemm4_e4b;1;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Production system;class_1
+controlled;gemm4_e4b;1;Business Process Model -> Concept Model;Information Set customer survey;Supports;Concept Customer Survey;connector_class_2
+controlled;gemm4_e4b;1;Business Process Model -> Concept Model;Information Set target features;Supports;Concept Target Feature;connector_class_2
+controlled;gemm4_e4b;1;Business Process Model -> Concept Model;Process define the product specification;creates;Concept Product;class_0
+controlled;gemm4_e4b;1;Business Process Model -> Concept Model;Process define the product specification;Output;Concept Specification Document;class_2
+controlled;gemm4_e4b;1;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Production system;class_1
+controlled;gemm4_e4b;1;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Version management system;class_1
+controlled;gemm4_e4b;1;Business Process Model -> Concept Model;Information Set specification document;Supports;Concept Specification Document;connector_class_2
+controlled;gemm4_e4b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;has requirement;Concept Specification Document;class_0
+controlled;gemm4_e4b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Product;class_1
+controlled;gemm4_e4b;1;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Product;reference
+controlled;gemm4_e4b;1;Product/Service Model -> Concept Model;Component indoor module;relates to;Concept Product;class_1
+controlled;gemm4_e4b;1;Product/Service Model -> Concept Model;Component outdoor module;relates to;Concept Product;class_1
+controlled;gemm4_e4b;1;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+controlled;gemm4_e4b;2;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;motivates;Attribute Energy-efficiency;class_2
+controlled;gemm4_e4b;2;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;relates to;Concept Heat pump;class_1
+controlled;gemm4_e4b;2;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;Supports;Process target setting;class_1
+controlled;gemm4_e4b;2;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;connector_class_2
+controlled;gemm4_e4b;2;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;motivates;Feature energy-efficient;class_2
+controlled;gemm4_e4b;2;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process target setting;class_1
+controlled;gemm4_e4b;2;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;motivates;Feature energy-efficient;class_1
+controlled;gemm4_e4b;2;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;requires;Attribute Energy consumption;class_2
+controlled;gemm4_e4b;2;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;requires;Process Product design;class_1
+controlled;gemm4_e4b;2;Goal Model -> Technical Components/Requirements Model;Goal Minimize energy consumption of heat pump;motivates;IS Technical Component Production system;class_0
+controlled;gemm4_e4b;2;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;Supports;Feature energy-efficient;class_1
+controlled;gemm4_e4b;2;Goal Model -> Concept Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Concept Zero-emission energy production;connector_class_2
+controlled;gemm4_e4b;2;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;requires;Process Product design;class_1
+controlled;gemm4_e4b;2;Goal Model -> Technical Components/Requirements Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;IS Technical Component Production system;class_0
+controlled;gemm4_e4b;2;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;Supports;Feature Zero-emission energy production;class_1
+controlled;gemm4_e4b;2;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;gemm4_e4b;2;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;gemm4_e4b;2;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;gemm4_e4b;2;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+controlled;gemm4_e4b;2;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+controlled;gemm4_e4b;2;Actors/Resources Model -> Business Process Model;Role Product designer;performs;Process Product design;reference
+controlled;gemm4_e4b;2;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+controlled;gemm4_e4b;2;Business Process Model -> Concept Model;Process target setting;uses;Concept Customer Survey;class_2
+controlled;gemm4_e4b;2;Business Process Model -> Concept Model;Process target setting;Output;Concept Target Feature;class_2
+controlled;gemm4_e4b;2;Business Process Model -> Concept Model;Process define the product specification;uses;Concept Target Feature;class_2
+controlled;gemm4_e4b;2;Business Process Model -> Concept Model;Process define the product specification;Output;Concept Specification Document;class_2
+controlled;gemm4_e4b;2;Business Process Model -> Concept Model;Process Product design;uses;Concept Specification Document;class_2
+controlled;gemm4_e4b;2;Business Process Model -> Concept Model;Process Product design;Output;Concept Design description;class_2
+controlled;gemm4_e4b;3;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;motivates;Attribute Energy-efficiency;class_2
+controlled;gemm4_e4b;3;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+controlled;gemm4_e4b;3;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;Defined by;Attribute Energy consumption;class_2
+controlled;gemm4_e4b;3;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process target setting;class_1
+controlled;gemm4_e4b;3;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;Supports;Attribute Energy consumption;class_2
+controlled;gemm4_e4b;3;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;requires;Process define the product specification;class_1
+controlled;gemm4_e4b;3;Goal Model -> Concept Model;Goal Produce remaining energy required by heat pump with photovoltaic module;Supports;Concept Zero-emission energy production;connector_class_2
+controlled;gemm4_e4b;3;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;requires;Process define the product specification;class_1
+controlled;gemm4_e4b;3;Goal Model -> Concept Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Hinders;Attribute Energy consumption;class_0
+controlled;gemm4_e4b;3;Goal Model -> Business Process Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Process define the product specification;class_1
+controlled;gemm4_e4b;3;Goal Model -> Concept Model;Goal Develop new heat extractor with very low energy consumption;Supports;Attribute Energy-efficiency;class_1
+controlled;gemm4_e4b;3;Goal Model -> Business Process Model;Goal Develop new heat extractor with very low energy consumption;requires;Process define the product specification;class_1
+controlled;gemm4_e4b;3;Goal Model -> Concept Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;Supports;Concept Heat pump;class_1
+controlled;gemm4_e4b;3;Goal Model -> Business Process Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;requires;Process define the product specification;class_1
+controlled;gemm4_e4b;3;Goal Model -> Business Process Model;Problem Short period for development;Affects;Process Product design;class_1
+controlled;gemm4_e4b;3;Goal Model -> Business Process Model;Problem New refrigerants are very expensive;Affects;Process Product design;class_1
+controlled;gemm4_e4b;3;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;gemm4_e4b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;gemm4_e4b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;gemm4_e4b;3;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;is responsible for;IS Technical Component Production system;class_0
+controlled;gemm4_e4b;3;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+controlled;gemm4_e4b;3;Actors/Resources Model -> Business Process Model;Role Product designer;performs;Process Product design;reference
+controlled;gemm4_e4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Plan marketing campaign;reference
+controlled;gemm4_e4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run social media campaign;reference
+controlled;gemm4_e4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run print media campaign;reference
+controlled;gemm4_e4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Supervise campaign results;reference
+controlled;gemm4_e4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Social media group;performs;Process Run social media campaign;class_1
+controlled;gemm4_e4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Print media group;performs;Process Run print media campaign;class_1
+controlled;gemm4_e4b;3;Business Process Model -> Concept Model;Process target setting;uses;Concept Customer Survey;class_2
+controlled;gemm4_e4b;3;Business Process Model -> Concept Model;Process target setting;creates;Concept Target Feature;class_2
+controlled;gemm4_e4b;3;Business Process Model -> Technical Components/Requirements Model;Process target setting;Supports;IS Technical Component Production system;class_0
+controlled;gemm4_e4b;3;Business Process Model -> Technical Components/Requirements Model;Process target setting;Supports;IS Technical Component Version management system;class_0
+controlled;gemm4_e4b;3;Business Process Model -> Concept Model;Process define the product specification;uses;Concept Target Feature;class_2
+controlled;gemm4_e4b;3;Business Process Model -> Concept Model;Process define the product specification;creates;Concept Specification Document;class_2
+controlled;gemm4_e4b;3;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;Supports;IS Technical Component Production system;class_0
+controlled;gemm4_e4b;3;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;Supports;IS Technical Component Version management system;class_0
+controlled;gemm4_e4b;3;Business Process Model -> Concept Model;Process Product design;uses;Concept Specification Document;class_2
+controlled;gemm4_e4b;3;Business Process Model -> Concept Model;Process Product design;creates;Concept Design description;class_2
+controlled;gemm4_e4b;3;Business Process Model -> Technical Components/Requirements Model;Process Product design;Supports;IS Technical Component Production system;class_0
+controlled;gemm4_e4b;3;Business Process Model -> Technical Components/Requirements Model;Process Product design;Supports;IS Technical Component Version management system;class_0
+controlled;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+controlled;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Attribute Version;class_1
+controlled;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign plan;class_1
+controlled;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM life system;supports;Attribute Social media activities;class_1
+controlled;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM authoring system;supports;Attribute Social media activities;class_1
+controlled;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM repository;supports;Attribute Social media activities;class_1
+controlled;gemm4_e4b;3;Marketing Model -> Concept Model;Process Plan marketing campaign;requires;Concept Campaign target document;class_2
+controlled;gemm4_e4b;3;Marketing Model -> Concept Model;Process Plan marketing campaign;creates;Concept Campaign plan;class_2
+controlled;gemm4_e4b;3;Marketing Model -> Concept Model;Process Run social media campaign;uses;Concept Campaign plan;class_2
+controlled;gemm4_e4b;3;Marketing Model -> Concept Model;Process Run social media campaign;creates;Concept Campaign statistics;class_2
+controlled;gemm4_e4b;3;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component Social media studio;class_1
+controlled;gemm4_e4b;3;Marketing Model -> Concept Model;Process Run print media campaign;uses;Concept Campaign plan;class_2
+controlled;gemm4_e4b;3;Marketing Model -> Concept Model;Process Run print media campaign;creates;Concept Campaign statistics;class_2
+controlled;gemm4_e4b;3;Marketing Model -> Concept Model;Process Supervise campaign results;uses;Concept Campaign statistics;class_2
+controlled;gemm4_e4b;3;Marketing Model -> Concept Model;Process Supervise campaign results;creates;Concept Campaign result document;class_2
+controlled;gemm4_e4b;4;Goal Model -> Customer Order Model;Goal Providing most energy-efficient heating solution in market;motivates;External Process Submit customer order;class_0
+controlled;gemm4_e4b;4;Goal Model -> Customer Order Model;Problem Company has not much experience with online information processing;Affects;Process Handle customer order;class_0
+controlled;gemm4_e4b;4;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;gemm4_e4b;4;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;gemm4_e4b;4;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;gemm4_e4b;4;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;is responsible for;IS Technical Component Production system;class_0
+controlled;gemm4_e4b;4;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+controlled;gemm4_e4b;4;Actors/Resources Model -> Product/Service Model;Organizational Unit Product development department;is responsible for;Unspecific/Product/Service Smart Heat;class_0
+controlled;gemm4_e4b;4;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+controlled;gemm4_e4b;4;Actors/Resources Model -> Business Process Model;Role Product designer;performs;Process Product design;reference
+controlled;gemm4_e4b;4;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+controlled;gemm4_e4b;4;Actors/Resources Model -> Technical Components/Requirements Model;Role Social media designer;is responsible for;IS Technical Component Social media studio;class_0
+controlled;gemm4_e4b;4;Actors/Resources Model -> Technical Components/Requirements Model;Role General Manager;is responsible for;IS Technical Component Enterprise resource planning system;class_0
+controlled;gemm4_e4b;4;Actors/Resources Model -> Product/Service Model;Role General Manager;is responsible for;Unspecific/Product/Service Smart Heat;class_0
+controlled;gemm4_e4b;4;Business Process Model -> Concept Model;Process target setting;creates;Concept Campaign target document;class_0
+controlled;gemm4_e4b;4;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Product planning system;class_0
+controlled;gemm4_e4b;4;Business Process Model -> Concept Model;Information Set customer survey;Supports;Concept Customer Survey;connector_class_2
+controlled;gemm4_e4b;4;Business Process Model -> Concept Model;Information Set target features;Supports;Concept Target Feature;connector_class_2
+controlled;gemm4_e4b;4;Business Process Model -> Concept Model;Process define the product specification;creates;Concept Product;class_0
+controlled;gemm4_e4b;4;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Product planning system;class_0
+controlled;gemm4_e4b;4;Business Process Model -> Concept Model;Information Set specification document;Supports;Concept Specification Document;connector_class_2
+controlled;gemm4_e4b;4;Business Process Model -> Concept Model;Process Product design;creates;Concept Design description;class_2
+controlled;gemm4_e4b;4;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Version management system;class_1
+controlled;gemm4_e4b;4;Business Process Model -> Concept Model;Information Set Design description;Supports;Concept Design description;connector_class_2
+controlled;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+controlled;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Product;class_1
+controlled;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign plan;class_1
+controlled;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Product planning system;supports;Concept Product;class_0
+controlled;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Enterprise resource planning system;supports;Concept Order specification;class_1
+controlled;gemm4_e4b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Heat pump;class_2
+controlled;gemm4_e4b;4;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+controlled;gemm4_e4b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Heat pump;reference
+controlled;gemm4_e4b;4;Product/Service Model -> Concept Model;Feature Zero-emission energy production;relates to;Concept Zero-emission energy production;reference
+controlled;gemm4_e4b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Maintenance and trouble-shooting;relates to;Concept Product;class_2
+controlled;gemm4_e4b;4;Marketing Model -> Concept Model;Process Plan marketing campaign;requires;Concept Campaign target document;class_2
+controlled;gemm4_e4b;4;Marketing Model -> Concept Model;Process Plan marketing campaign;creates;Concept Campaign plan;class_2
+controlled;gemm4_e4b;4;Marketing Model -> Concept Model;Process Run social media campaign;uses;Concept Campaign plan;class_2
+controlled;gemm4_e4b;4;Marketing Model -> Concept Model;Process Run social media campaign;Supports;Concept Campaign statistics;class_2
+controlled;gemm4_e4b;4;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component Social media studio;class_1
+controlled;gemm4_e4b;4;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component SM authoring system;class_1
+controlled;gemm4_e4b;4;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component SM life system;class_1
+controlled;gemm4_e4b;4;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component SM repository;class_1
+controlled;gemm4_e4b;4;Marketing Model -> Concept Model;Process Run print media campaign;uses;Concept Campaign plan;class_2
+controlled;gemm4_e4b;4;Marketing Model -> Concept Model;Process Run print media campaign;Supports;Concept Campaign statistics;class_2
+controlled;gemm4_e4b;4;Marketing Model -> Concept Model;Process Supervise campaign results;uses;Concept Campaign statistics;class_2
+controlled;gemm4_e4b;4;Marketing Model -> Concept Model;Process Supervise campaign results;creates;Concept Campaign result document;class_2
+controlled;gemm4_e4b;4;Customer Order Model -> Concept Model;External Process Submit customer order;creates;Concept Order specification;class_2
+controlled;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Check order validity;uses;Concept Order specification;class_2
+controlled;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Check order validity;creates;Concept Verified order specification;class_2
+controlled;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Check order validity;creates;Concept Rejected order specification;class_2
+controlled;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Handle customer order;uses;Concept Order specification;class_1
+controlled;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Handle customer order;creates;Concept Order confirmation;class_2
+controlled;gemm4_e4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;requires;IS Technical Component Product planning system;class_2
+controlled;gemm4_e4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;requires;IS Technical Component Enterprise resource planning system;class_2
+controlled;gemm4_e4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;requires;IS Technical Component Distributed database;class_1
+controlled;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Reject customer order;uses;Concept Rejected order specification;class_2
+controlled;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Prepare product delivery;requires;Concept Order confirmation;class_2
+controlled;gemm4_e4b;4;Handle Order Model -> Concept Model;Information Set verified order specification;Supports;Concept Verified order specification;connector_class_2
+controlled;gemm4_e4b;4;Handle Order Model -> Concept Model;Information Set Order confirmation;Supports;Concept Order confirmation;connector_class_2
+organized;gemm4_e4b;1;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;motivates;Attribute Energy-efficiency;class_2
+organized;gemm4_e4b;1;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;requires;Concept Target Feature;class_1
+organized;gemm4_e4b;1;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process define the product specification;class_1
+organized;gemm4_e4b;1;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;connector_class_2
+organized;gemm4_e4b;1;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;connector_class_2
+organized;gemm4_e4b;1;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;requires;Feature energy-efficient;class_2
+organized;gemm4_e4b;1;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Attribute Energy consumption;class_2
+organized;gemm4_e4b;1;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;motivates;Concept Target Feature;class_1
+organized;gemm4_e4b;1;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process target setting;class_1
+organized;gemm4_e4b;1;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Information Set target features;class_1
+organized;gemm4_e4b;1;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;Hinders;IS Technical Component Production system;class_0
+organized;gemm4_e4b;1;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;motivates;Feature energy-efficient;class_1
+organized;gemm4_e4b;1;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+organized;gemm4_e4b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process target setting;connector_class_2
+organized;gemm4_e4b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process define the product specification;connector_class_2
+organized;gemm4_e4b;1;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;gemm4_e4b;1;Actors/Resources Model -> Goal Model;Organizational Unit Product development department;is responsible for;Goal Providing most energy-efficient heating solution in market;class_0
+organized;gemm4_e4b;1;Actors/Resources Model -> Goal Model;Organizational Unit Product development department;is responsible for;Problem Energy consumption of current product version is too high;class_0
+organized;gemm4_e4b;1;Actors/Resources Model -> Business Process Model;Organizational Unit Product development department;performs;Process target setting;class_1
+organized;gemm4_e4b;1;Actors/Resources Model -> Business Process Model;Organizational Unit Product development department;performs;Process define the product specification;class_1
+organized;gemm4_e4b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+organized;gemm4_e4b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Specification Document;class_1
+organized;gemm4_e4b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;has requirement;Concept Target Feature;class_0
+organized;gemm4_e4b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Product;class_1
+organized;gemm4_e4b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Attribute Version;class_1
+organized;gemm4_e4b;2;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;Supports;Attribute Energy-efficiency;class_2
+organized;gemm4_e4b;2;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;relates to;Concept Heat pump;class_1
+organized;gemm4_e4b;2;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+organized;gemm4_e4b;2;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;connector_class_2
+organized;gemm4_e4b;2;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;Supports;Feature energy-efficient;class_2
+organized;gemm4_e4b;2;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;Defined by;Attribute Energy consumption;class_2
+organized;gemm4_e4b;2;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process target setting;class_1
+organized;gemm4_e4b;2;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;motivates;IS Technical Component Production system;class_0
+organized;gemm4_e4b;2;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;Hinders;Feature energy-efficient;class_1
+organized;gemm4_e4b;2;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;requires;Attribute Energy consumption;class_2
+organized;gemm4_e4b;2;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;requires;Process define the product specification;class_1
+organized;gemm4_e4b;2;Goal Model -> Technical Components/Requirements Model;Goal Minimize energy consumption of heat pump;Supports;IS Technical Component Production system;class_0
+organized;gemm4_e4b;2;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;Supports;Feature energy-efficient;class_1
+organized;gemm4_e4b;2;Goal Model -> Concept Model;Goal Produce remaining energy required by heat pump with photovoltaic module;Supports;Concept Zero-emission energy production;connector_class_2
+organized;gemm4_e4b;2;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;requires;Process define the product specification;class_1
+organized;gemm4_e4b;2;Goal Model -> Technical Components/Requirements Model;Goal Produce remaining energy required by heat pump with photovoltaic module;Supports;IS Technical Component Production system;class_0
+organized;gemm4_e4b;2;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;Supports;Feature Zero-emission energy production;class_1
+organized;gemm4_e4b;2;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+organized;gemm4_e4b;2;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process target setting;connector_class_2
+organized;gemm4_e4b;2;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process define the product specification;connector_class_2
+organized;gemm4_e4b;2;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;gemm4_e4b;2;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+organized;gemm4_e4b;2;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+organized;gemm4_e4b;2;Actors/Resources Model -> Business Process Model;Role Product designer;is responsible for;Process Product design;connector_class_1
+organized;gemm4_e4b;2;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Unspecific/Product/Service Heat pump;class_0
+organized;gemm4_e4b;2;Business Process Model -> Concept Model;Process target setting;uses;Concept Customer Survey;class_2
+organized;gemm4_e4b;2;Business Process Model -> Concept Model;Process target setting;creates;Concept Target Feature;class_2
+organized;gemm4_e4b;2;Business Process Model -> Concept Model;Process define the product specification;uses;Concept Target Feature;class_2
+organized;gemm4_e4b;2;Business Process Model -> Concept Model;Process define the product specification;creates;Concept Specification Document;class_2
+organized;gemm4_e4b;2;Business Process Model -> Concept Model;Process Product design;uses;Concept Specification Document;class_2
+organized;gemm4_e4b;2;Business Process Model -> Concept Model;Process Product design;creates;Concept Design description;class_2
+organized;gemm4_e4b;3;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;motivates;Concept Heat pump;class_1
+organized;gemm4_e4b;3;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+organized;gemm4_e4b;3;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;Supports;Feature energy-efficient;class_2
+organized;gemm4_e4b;3;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;Hinders;Attribute Energy-efficiency;class_1
+organized;gemm4_e4b;3;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process Product design;class_1
+organized;gemm4_e4b;3;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;Hinders;Feature energy-efficient;class_1
+organized;gemm4_e4b;3;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;Supports;Attribute Energy consumption;class_2
+organized;gemm4_e4b;3;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;requires;Process define the product specification;class_1
+organized;gemm4_e4b;3;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;Supports;Feature energy-efficient;class_1
+organized;gemm4_e4b;3;Goal Model -> Concept Model;Goal Produce remaining energy required by heat pump with photovoltaic module;Supports;Concept Zero-emission energy production;connector_class_2
+organized;gemm4_e4b;3;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;Supports;Feature Zero-emission energy production;class_1
+organized;gemm4_e4b;3;Goal Model -> Concept Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Attribute Energy-efficiency;class_0
+organized;gemm4_e4b;3;Goal Model -> Concept Model;Goal Develop new heat extractor with very low energy consumption;Supports;Attribute Energy consumption;class_2
+organized;gemm4_e4b;3;Goal Model -> Product/Service Model;Goal Develop new heat extractor with very low energy consumption;Supports;Feature energy-efficient;class_1
+organized;gemm4_e4b;3;Goal Model -> Concept Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;Supports;Concept Product;class_1
+organized;gemm4_e4b;3;Goal Model -> Product/Service Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;Supports;Feature energy-efficient;class_1
+organized;gemm4_e4b;3;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+organized;gemm4_e4b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process target setting;connector_class_2
+organized;gemm4_e4b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process define the product specification;connector_class_2
+organized;gemm4_e4b;3;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;is responsible for;IS Technical Component Production system;class_0
+organized;gemm4_e4b;3;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;gemm4_e4b;3;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+organized;gemm4_e4b;3;Actors/Resources Model -> Goal Model;Organizational Unit Product development department;is responsible for;Goal Providing most energy-efficient heating solution in market;class_0
+organized;gemm4_e4b;3;Actors/Resources Model -> Product/Service Model;Organizational Unit Product development department;is responsible for;Unspecific/Product/Service Smart Heat;class_0
+organized;gemm4_e4b;3;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+organized;gemm4_e4b;3;Actors/Resources Model -> Business Process Model;Role Product designer;is responsible for;Process Product design;connector_class_1
+organized;gemm4_e4b;3;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Unspecific/Product/Service Heat pump;class_0
+organized;gemm4_e4b;3;Actors/Resources Model -> Goal Model;Organizational Unit Multi-Heat;is responsible for;Goal Providing most energy-efficient heating solution in market;class_2
+organized;gemm4_e4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Plan marketing campaign;reference
+organized;gemm4_e4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run social media campaign;reference
+organized;gemm4_e4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run print media campaign;reference
+organized;gemm4_e4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Supervise campaign results;reference
+organized;gemm4_e4b;3;Business Process Model -> Concept Model;Process target setting;Input;Concept Customer Survey;class_2
+organized;gemm4_e4b;3;Business Process Model -> Concept Model;Process target setting;Output;Concept Target Feature;class_2
+organized;gemm4_e4b;3;Business Process Model -> Concept Model;Process define the product specification;Output;Concept Specification Document;class_2
+organized;gemm4_e4b;3;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Production system;class_1
+organized;gemm4_e4b;3;Business Process Model -> Technical Components/Requirements Model;Information Set specification document;requires;IS Technical Component Version management system;class_0
+organized;gemm4_e4b;3;Business Process Model -> Concept Model;Process Product design;Output;Concept Design description;class_2
+organized;gemm4_e4b;3;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Production system;class_1
+organized;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Design description;class_1
+organized;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;has requirement;Concept Specification Document;class_0
+organized;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign plan;class_1
+organized;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM life system;supports;Concept Campaign plan;class_1
+organized;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM authoring system;supports;Concept Campaign plan;class_1
+organized;gemm4_e4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM repository;supports;Concept Campaign plan;class_1
+organized;gemm4_e4b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Heat pump;class_2
+organized;gemm4_e4b;3;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+organized;gemm4_e4b;3;Product/Service Model -> Concept Model;Component Photovoltaic module;relates to;Concept Zero-emission energy production;class_2
+organized;gemm4_e4b;3;Marketing Model -> Concept Model;Process Plan marketing campaign;requires;Concept Campaign target document;class_2
+organized;gemm4_e4b;3;Marketing Model -> Concept Model;Process Plan marketing campaign;creates;Concept Campaign plan;class_2
+organized;gemm4_e4b;3;Marketing Model -> Concept Model;Process Run social media campaign;requires;Concept Campaign plan;class_2
+organized;gemm4_e4b;3;Marketing Model -> Concept Model;Process Run social media campaign;creates;Concept Campaign statistics;class_2
+organized;gemm4_e4b;3;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component Social media studio;class_1
+organized;gemm4_e4b;3;Marketing Model -> Concept Model;Process Run print media campaign;requires;Concept Campaign plan;class_2
+organized;gemm4_e4b;3;Marketing Model -> Concept Model;Process Run print media campaign;creates;Concept Campaign statistics;class_2
+organized;gemm4_e4b;3;Marketing Model -> Concept Model;Process Supervise campaign results;requires;Concept Campaign statistics;class_2
+organized;gemm4_e4b;3;Marketing Model -> Concept Model;Process Supervise campaign results;creates;Concept Campaign result document;class_2
+organized;gemm4_e4b;4;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+organized;gemm4_e4b;4;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process target setting;connector_class_2
+organized;gemm4_e4b;4;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process define the product specification;connector_class_2
+organized;gemm4_e4b;4;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process Product design;class_0
+organized;gemm4_e4b;4;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;is responsible for;IS Technical Component Production system;class_0
+organized;gemm4_e4b;4;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;gemm4_e4b;4;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+organized;gemm4_e4b;4;Actors/Resources Model -> Business Process Model;Role Product designer;performs;Process Product design;reference
+organized;gemm4_e4b;4;Actors/Resources Model -> Technical Components/Requirements Model;Role Product designer;performs;IS Technical Component Production system;class_0
+organized;gemm4_e4b;4;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+organized;gemm4_e4b;4;Actors/Resources Model -> Handle Order Model;Organizational Unit Multi-Heat;performs;Process Check availability;class_1
+organized;gemm4_e4b;4;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Plan marketing campaign;reference
+organized;gemm4_e4b;4;Actors/Resources Model -> Marketing Model;Organizational Unit Social media group;performs;Process Run social media campaign;class_1
+organized;gemm4_e4b;4;Actors/Resources Model -> Marketing Model;Organizational Unit Print media group;performs;Process Run print media campaign;class_1
+organized;gemm4_e4b;4;Actors/Resources Model -> Technical Components/Requirements Model;Role Social media designer;performs;IS Technical Component Social media studio;class_0
+organized;gemm4_e4b;4;Actors/Resources Model -> Marketing Model;Role General Manager;is responsible for;Process Plan marketing campaign;class_0
+organized;gemm4_e4b;4;Business Process Model -> Concept Model;Process target setting;Input;Concept Customer Survey;class_2
+organized;gemm4_e4b;4;Business Process Model -> Concept Model;Process target setting;Output;Concept Target Feature;class_2
+organized;gemm4_e4b;4;Business Process Model -> Concept Model;Process define the product specification;Input;Concept Target Feature;class_2
+organized;gemm4_e4b;4;Business Process Model -> Concept Model;Process define the product specification;Output;Concept Specification Document;class_2
+organized;gemm4_e4b;4;Business Process Model -> Concept Model;Process Product design;Input;Concept Specification Document;class_2
+organized;gemm4_e4b;4;Business Process Model -> Concept Model;Process Product design;Output;Concept Design description;class_2
+organized;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+organized;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Product;class_1
+organized;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign plan;class_1
+organized;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM life system;supports;Concept Campaign plan;class_1
+organized;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM authoring system;supports;Concept Campaign plan;class_1
+organized;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM repository;supports;Concept Campaign plan;class_1
+organized;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Product planning system;supports;Concept Order specification;class_1
+organized;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Enterprise resource planning system;supports;Concept Order specification;class_1
+organized;gemm4_e4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Distributed database;supports;Concept Order specification;class_1
+organized;gemm4_e4b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Heat pump;class_2
+organized;gemm4_e4b;4;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Heat pump;class_1
+organized;gemm4_e4b;4;Product/Service Model -> Concept Model;Component Photovoltaic module;relates to;Concept Zero-emission energy production;class_2
+organized;gemm4_e4b;4;Marketing Model -> Concept Model;Process Plan marketing campaign;requires;Concept Campaign target document;class_2
+organized;gemm4_e4b;4;Marketing Model -> Concept Model;Process Plan marketing campaign;creates;Concept Campaign plan;class_2
+organized;gemm4_e4b;4;Marketing Model -> Concept Model;Process Run social media campaign;uses;Concept Campaign plan;class_2
+organized;gemm4_e4b;4;Marketing Model -> Concept Model;Process Run social media campaign;Supports;Concept Campaign statistics;class_2
+organized;gemm4_e4b;4;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component SM authoring system;class_1
+organized;gemm4_e4b;4;Marketing Model -> Concept Model;Process Run print media campaign;uses;Concept Campaign plan;class_2
+organized;gemm4_e4b;4;Marketing Model -> Concept Model;Process Run print media campaign;Supports;Concept Campaign statistics;class_2
+organized;gemm4_e4b;4;Marketing Model -> Concept Model;Process Supervise campaign results;uses;Concept Campaign statistics;class_2
+organized;gemm4_e4b;4;Marketing Model -> Concept Model;Process Supervise campaign results;creates;Concept Campaign result document;class_2
+organized;gemm4_e4b;4;Customer Order Model -> Concept Model;External Process Submit customer order;creates;Concept Order specification;class_2
+organized;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Check order validity;uses;Concept Order specification;class_2
+organized;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Check order validity;creates;Concept Verified order specification;class_2
+organized;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Check order validity;creates;Concept Rejected order specification;class_2
+organized;gemm4_e4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Check order validity;requires;IS Technical Component Product planning system;class_0
+organized;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Handle customer order;creates;Concept Order confirmation;class_2
+organized;gemm4_e4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;requires;IS Technical Component Product planning system;class_2
+organized;gemm4_e4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;requires;IS Technical Component Enterprise resource planning system;class_2
+organized;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Reject customer order;uses;Concept Rejected order specification;class_2
+organized;gemm4_e4b;4;Customer Order Model -> Concept Model;Process Prepare product delivery;creates;Concept Delivery order;class_2
+organized;gemm4_e4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Prepare product delivery;requires;IS Technical Component Enterprise resource planning system;class_0
+organized;gemm4_e4b;4;Handle Order Model -> Concept Model;Process Check availability;uses;Concept Product;class_1
+organized;gemm4_e4b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check availability;requires;IS Technical Component Enterprise resource planning system;class_1
+organized;gemm4_e4b;4;Handle Order Model -> Concept Model;Process Check customer status;requires;Concept Order specification;class_1
+organized;gemm4_e4b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check customer status;requires;IS Technical Component Enterprise resource planning system;class_1
+organized;gemm4_e4b;4;Handle Order Model -> Concept Model;Process Check configuration;uses;Concept Specification Document;class_0
+organized;gemm4_e4b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check configuration;requires;IS Technical Component Product planning system;class_1
+organized;gemm4_e4b;4;Handle Order Model -> Concept Model;Information Set verified order specification;Output;Concept Verified order specification;class_2
+organized;gemm4_e4b;4;Handle Order Model -> Concept Model;Information Set Order confirmation;Output;Concept Order confirmation;class_2
+controlled;qwen3_5_4b;1;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;requires;Concept Product;class_1
+controlled;qwen3_5_4b;1;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+controlled;qwen3_5_4b;1;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;connector_class_2
+controlled;qwen3_5_4b;1;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;requires;Feature energy-efficient;class_2
+controlled;qwen3_5_4b;1;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Concept Product;class_2
+controlled;qwen3_5_4b;1;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Attribute Version;class_2
+controlled;qwen3_5_4b;1;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process define the product specification;class_1
+controlled;qwen3_5_4b;1;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;motivates;IS Technical Component Version management system;class_0
+controlled;qwen3_5_4b;1;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;qwen3_5_4b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;qwen3_5_4b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;qwen3_5_4b;1;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+controlled;qwen3_5_4b;1;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+controlled;qwen3_5_4b;1;Business Process Model -> Concept Model;Process target setting;Input;Concept Customer Survey;class_2
+controlled;qwen3_5_4b;1;Business Process Model -> Concept Model;Process target setting;Output;Concept Target Feature;class_2
+controlled;qwen3_5_4b;1;Business Process Model -> Concept Model;Process define the product specification;Input;Concept Target Feature;class_2
+controlled;qwen3_5_4b;1;Business Process Model -> Concept Model;Process define the product specification;Output;Concept Specification Document;class_2
+controlled;qwen3_5_4b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+controlled;qwen3_5_4b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Target Feature;class_1
+controlled;qwen3_5_4b;1;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Feature;class_2
+controlled;qwen3_5_4b;1;Product/Service Model -> Technical Components/Requirements Model;Unspecific/Product/Service Smart Heat;requires;IS Technical Component Production system;class_0
+controlled;qwen3_5_4b;1;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Specification Document;class_1
+controlled;qwen3_5_4b;2;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;requires;Attribute Energy-efficiency;class_2
+controlled;qwen3_5_4b;2;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;motivates;Concept Customer Survey;class_0
+controlled;qwen3_5_4b;2;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;requires;Process target setting;class_1
+controlled;qwen3_5_4b;2;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;requires;Feature energy-efficient;class_2
+controlled;qwen3_5_4b;2;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;requires;Attribute Energy consumption;class_2
+controlled;qwen3_5_4b;2;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Concept Product;class_2
+controlled;qwen3_5_4b;2;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;requires;Process target setting;class_1
+controlled;qwen3_5_4b;2;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;requires;Attribute Energy consumption;class_2
+controlled;qwen3_5_4b;2;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;requires;Process Product design;class_1
+controlled;qwen3_5_4b;2;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;requires;Feature energy-efficient;class_1
+controlled;qwen3_5_4b;2;Goal Model -> Concept Model;Goal Produce remaining energy required by heat pump with photovoltaic module;relates to;Concept Zero-emission energy production;reference
+controlled;qwen3_5_4b;2;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;requires;Process target setting;class_1
+controlled;qwen3_5_4b;2;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;requires;Feature Zero-emission energy production;class_1
+controlled;qwen3_5_4b;2;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;qwen3_5_4b;2;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;qwen3_5_4b;2;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;qwen3_5_4b;2;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+controlled;qwen3_5_4b;2;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+controlled;qwen3_5_4b;2;Actors/Resources Model -> Business Process Model;Role Product designer;performs;Process Product design;reference
+controlled;qwen3_5_4b;2;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+controlled;qwen3_5_4b;3;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;qwen3_5_4b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;qwen3_5_4b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;qwen3_5_4b;3;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+controlled;qwen3_5_4b;3;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+controlled;qwen3_5_4b;3;Actors/Resources Model -> Business Process Model;Role Product designer;performs;Process Product design;reference
+controlled;qwen3_5_4b;3;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+controlled;qwen3_5_4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Plan marketing campaign;reference
+controlled;qwen3_5_4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run social media campaign;reference
+controlled;qwen3_5_4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run print media campaign;reference
+controlled;qwen3_5_4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Supervise campaign results;reference
+controlled;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+controlled;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Specification Document;class_1
+controlled;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Feature;class_1
+controlled;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Design description;class_1
+controlled;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Product;class_1
+controlled;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Target Feature;class_1
+controlled;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Customer Survey;class_0
+controlled;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign plan;class_1
+controlled;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign target document;class_1
+controlled;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign statistics;class_1
+controlled;qwen3_5_4b;3;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component Social media studio;class_1
+controlled;qwen3_5_4b;4;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;requires;Concept Heat pump;class_1
+controlled;qwen3_5_4b;4;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;requires;Feature energy-efficient;class_2
+controlled;qwen3_5_4b;4;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Attribute Energy consumption;class_2
+controlled;qwen3_5_4b;4;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;requires;Attribute Energy consumption;class_2
+controlled;qwen3_5_4b;4;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;requires;Feature energy-efficient;class_1
+controlled;qwen3_5_4b;4;Goal Model -> Concept Model;Goal Produce remaining energy required by heat pump with photovoltaic module;relates to;Concept Zero-emission energy production;reference
+controlled;qwen3_5_4b;4;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;requires;Feature Zero-emission energy production;class_1
+controlled;qwen3_5_4b;4;Goal Model -> Concept Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Concept Zero-emission energy production;class_0
+controlled;qwen3_5_4b;4;Goal Model -> Concept Model;Goal Develop new heat extractor with very low energy consumption;requires;Concept Design description;class_1
+controlled;qwen3_5_4b;4;Goal Model -> Technical Components/Requirements Model;Goal Develop new heat extractor with very low energy consumption;requires;IS Technical Component Version management system;class_0
+controlled;qwen3_5_4b;4;Goal Model -> Concept Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;requires;Concept Design description;class_1
+controlled;qwen3_5_4b;4;Goal Model -> Technical Components/Requirements Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;requires;IS Technical Component Version management system;class_0
+controlled;qwen3_5_4b;4;Goal Model -> Technical Components/Requirements Model;Problem Short period for development;requires;IS Technical Component Version management system;class_0
+controlled;qwen3_5_4b;4;Goal Model -> Concept Model;Goal Provide services supporting high availability of heat pump;relates to;Concept Heat pump;class_2
+controlled;qwen3_5_4b;4;Goal Model -> Product/Service Model;Goal Provide services supporting high availability of heat pump;requires;Feature Quick response to error situations;class_1
+controlled;qwen3_5_4b;4;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;qwen3_5_4b;4;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;qwen3_5_4b;4;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;qwen3_5_4b;4;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+controlled;qwen3_5_4b;4;Actors/Resources Model -> Business Process Model;Role Product designer;performs;Process Product design;reference
+controlled;qwen3_5_4b;4;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Plan marketing campaign;reference
+controlled;qwen3_5_4b;4;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run social media campaign;reference
+controlled;qwen3_5_4b;4;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run print media campaign;reference
+controlled;qwen3_5_4b;4;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Supervise campaign results;reference
+controlled;qwen3_5_4b;4;Actors/Resources Model -> Marketing Model;Role Print designer;is responsible for;Process Run print media campaign;reference
+controlled;qwen3_5_4b;4;Actors/Resources Model -> Marketing Model;Role Social media designer;is responsible for;Process Run social media campaign;reference
+controlled;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Plan marketing campaign;Output;Concept Campaign plan;class_2
+controlled;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Plan marketing campaign;Input;Concept Campaign target document;class_2
+controlled;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Run social media campaign;Output;Concept Campaign statistics;class_2
+controlled;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Run social media campaign;Input;Concept Campaign plan;class_2
+controlled;qwen3_5_4b;4;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component Social media studio;class_1
+controlled;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Run print media campaign;Output;Concept Campaign statistics;class_2
+controlled;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Run print media campaign;Input;Concept Campaign plan;class_2
+controlled;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Supervise campaign results;Input;Concept Campaign statistics;class_2
+controlled;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Supervise campaign results;Output;Concept Campaign result document;class_2
+controlled;qwen3_5_4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;uses;IS Technical Component Product planning system;class_2
+controlled;qwen3_5_4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;uses;IS Technical Component Enterprise resource planning system;class_2
+controlled;qwen3_5_4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;uses;IS Technical Component Distributed database;class_1
+organized;qwen3_5_4b;1;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;requires;Concept Product;class_1
+organized;qwen3_5_4b;1;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;requires;Concept Target Feature;class_1
+organized;qwen3_5_4b;1;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;connector_class_2
+organized;qwen3_5_4b;1;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;requires;Feature energy-efficient;class_2
+organized;qwen3_5_4b;1;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;Hinders;Attribute Energy-efficiency;class_1
+organized;qwen3_5_4b;1;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;motivates;IS Technical Component Version management system;class_0
+organized;qwen3_5_4b;1;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;requires;Feature energy-efficient;class_1
+organized;qwen3_5_4b;1;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+organized;qwen3_5_4b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process target setting;connector_class_2
+organized;qwen3_5_4b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process define the product specification;connector_class_2
+organized;qwen3_5_4b;1;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;qwen3_5_4b;2;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;requires;Attribute Energy-efficiency;class_2
+organized;qwen3_5_4b;2;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+organized;qwen3_5_4b;2;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;requires;Feature energy-efficient;class_2
+organized;qwen3_5_4b;2;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;requires;Concept Product;class_2
+organized;qwen3_5_4b;2;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process target setting;class_1
+organized;qwen3_5_4b;2;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;requires;Feature energy-efficient;class_1
+organized;qwen3_5_4b;2;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;requires;Concept Heat pump;class_2
+organized;qwen3_5_4b;2;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;requires;Process define the product specification;class_1
+organized;qwen3_5_4b;2;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;requires;Feature energy-efficient;class_1
+organized;qwen3_5_4b;2;Goal Model -> Concept Model;Goal Produce remaining energy required by heat pump with photovoltaic module;requires;Concept Zero-emission energy production;connector_class_2
+organized;qwen3_5_4b;2;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;requires;Process Product design;class_1
+organized;qwen3_5_4b;2;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;requires;Feature Zero-emission energy production;class_1
+organized;qwen3_5_4b;2;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+organized;qwen3_5_4b;2;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process target setting;connector_class_2
+organized;qwen3_5_4b;2;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process define the product specification;connector_class_2
+organized;qwen3_5_4b;2;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;qwen3_5_4b;2;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+organized;qwen3_5_4b;2;Actors/Resources Model -> Business Process Model;Role Product designer;is responsible for;Process Product design;connector_class_1
+organized;qwen3_5_4b;2;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+organized;qwen3_5_4b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Product;class_2
+organized;qwen3_5_4b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Heat pump;class_2
+organized;qwen3_5_4b;2;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+organized;qwen3_5_4b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Heat pump;reference
+organized;qwen3_5_4b;2;Product/Service Model -> Concept Model;Feature Zero-emission energy production;relates to;Concept Feature;class_2
+organized;qwen3_5_4b;2;Product/Service Model -> Concept Model;Feature Zero-emission energy production;relates to;Concept Zero-emission energy production;reference
+organized;qwen3_5_4b;3;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;relates to;Concept Heat pump;class_1
+organized;qwen3_5_4b;3;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;relates to;Attribute Energy-efficiency;class_2
+organized;qwen3_5_4b;3;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Concept Product;class_2
+organized;qwen3_5_4b;3;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;requires;Attribute Energy consumption;class_2
+organized;qwen3_5_4b;3;Goal Model -> Concept Model;Goal Produce remaining energy required by heat pump with photovoltaic module;relates to;Concept Zero-emission energy production;reference
+organized;qwen3_5_4b;3;Goal Model -> Concept Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;relates to;Concept Product;class_1
+organized;qwen3_5_4b;3;Goal Model -> Concept Model;Goal Develop new heat extractor with very low energy consumption;requires;Concept Design description;class_1
+organized;qwen3_5_4b;3;Goal Model -> Concept Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;requires;Concept Design description;class_1
+organized;qwen3_5_4b;3;Goal Model -> Concept Model;Problem Short period for development;relates to;Concept Product;class_1
+organized;qwen3_5_4b;3;Goal Model -> Concept Model;Problem New refrigerants are very expensive;relates to;Concept Product;class_1
+organized;qwen3_5_4b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process target setting;connector_class_2
+organized;qwen3_5_4b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process define the product specification;connector_class_2
+organized;qwen3_5_4b;3;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;qwen3_5_4b;3;Actors/Resources Model -> Business Process Model;Role Product designer;performs;Process Product design;reference
+organized;qwen3_5_4b;3;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+organized;qwen3_5_4b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Plan marketing campaign;reference
+organized;qwen3_5_4b;3;Business Process Model -> Concept Model;Process target setting;Input;Concept Customer Survey;class_2
+organized;qwen3_5_4b;3;Business Process Model -> Concept Model;Process target setting;Output;Concept Target Feature;class_2
+organized;qwen3_5_4b;3;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Production system;class_1
+organized;qwen3_5_4b;3;Business Process Model -> Concept Model;Process define the product specification;Input;Concept Target Feature;class_2
+organized;qwen3_5_4b;3;Business Process Model -> Concept Model;Process define the product specification;Output;Concept Specification Document;class_2
+organized;qwen3_5_4b;3;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Version management system;class_1
+organized;qwen3_5_4b;3;Business Process Model -> Concept Model;Process Product design;Input;Concept Specification Document;class_2
+organized;qwen3_5_4b;3;Business Process Model -> Concept Model;Process Product design;Output;Concept Design description;class_2
+organized;qwen3_5_4b;3;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Production system;class_1
+organized;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+organized;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;applies to;Concept Target Feature;class_1
+organized;qwen3_5_4b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign plan;class_1
+organized;qwen3_5_4b;3;Marketing Model -> Concept Model;Process Plan marketing campaign;Input;Concept Campaign target document;class_2
+organized;qwen3_5_4b;3;Marketing Model -> Concept Model;Process Plan marketing campaign;creates;Concept Campaign plan;class_2
+organized;qwen3_5_4b;3;Marketing Model -> Concept Model;Process Run social media campaign;Input;Concept Campaign plan;class_2
+organized;qwen3_5_4b;3;Marketing Model -> Concept Model;Process Run social media campaign;creates;Concept Campaign statistics;class_2
+organized;qwen3_5_4b;3;Marketing Model -> Concept Model;Process Run print media campaign;Input;Concept Campaign plan;class_2
+organized;qwen3_5_4b;3;Marketing Model -> Concept Model;Process Run print media campaign;creates;Concept Campaign statistics;class_2
+organized;qwen3_5_4b;3;Marketing Model -> Concept Model;Process Supervise campaign results;creates;Concept Campaign result document;class_2
+organized;qwen3_5_4b;4;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;requires;Feature energy-efficient;class_2
+organized;qwen3_5_4b;4;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;requires;Feature Zero-emission energy production;class_1
+organized;qwen3_5_4b;4;Goal Model -> Product/Service Model;Goal Provide services supporting high availability of heat pump;requires;Feature Quick response to error situations;class_1
+organized;qwen3_5_4b;4;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;qwen3_5_4b;4;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+organized;qwen3_5_4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+organized;qwen3_5_4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Specification Document;class_1
+organized;qwen3_5_4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign plan;class_1
+organized;qwen3_5_4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM repository;supports;Concept Campaign plan;class_1
+organized;qwen3_5_4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Product planning system;supports;Concept Order specification;class_1
+organized;qwen3_5_4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Enterprise resource planning system;supports;Concept Order specification;class_1
+organized;qwen3_5_4b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Distributed database;supports;Concept Order specification;class_1
+organized;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Plan marketing campaign;Output;Concept Campaign plan;class_2
+organized;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Plan marketing campaign;Input;Concept Campaign target document;class_2
+organized;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Run social media campaign;Input;Concept Campaign plan;class_2
+organized;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Run social media campaign;Output;Concept Campaign statistics;class_2
+organized;qwen3_5_4b;4;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component Social media studio;class_1
+organized;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Run print media campaign;Input;Concept Campaign plan;class_2
+organized;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Run print media campaign;Output;Concept Campaign statistics;class_2
+organized;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Supervise campaign results;Output;Concept Campaign result document;class_2
+organized;qwen3_5_4b;4;Marketing Model -> Concept Model;Process Supervise campaign results;Input;Concept Campaign statistics;class_2
+organized;qwen3_5_4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;uses;IS Technical Component Product planning system;class_2
+organized;qwen3_5_4b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;uses;IS Technical Component Enterprise resource planning system;class_2
+organized;qwen3_5_4b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check availability;uses;IS Technical Component Product planning system;class_1
+organized;qwen3_5_4b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check customer status;uses;IS Technical Component Enterprise resource planning system;class_1
+organized;qwen3_5_4b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check configuration;uses;IS Technical Component Product planning system;class_1
+controlled;qwen9b;1;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+controlled;qwen9b;1;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;connector_class_2
+controlled;qwen9b;1;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;connector_class_2
+controlled;qwen9b;1;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;motivates;Feature energy-efficient;class_2
+controlled;qwen9b;1;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process define the product specification;class_1
+controlled;qwen9b;1;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;relates to;IS Technical Component Version management system;class_0
+controlled;qwen9b;1;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;relates to;IS Technical Component Production system;class_0
+controlled;qwen9b;1;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;qwen9b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;qwen9b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;qwen9b;1;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;is responsible for;IS Technical Component Production system;class_0
+controlled;qwen9b;1;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;is responsible for;IS Technical Component Version management system;class_0
+controlled;qwen9b;1;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+controlled;qwen9b;1;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+controlled;qwen9b;1;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Production system;class_1
+controlled;qwen9b;1;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Version management system;class_1
+controlled;qwen9b;1;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Production system;class_1
+controlled;qwen9b;1;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Version management system;class_1
+controlled;qwen9b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+controlled;qwen9b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Product;class_1
+controlled;qwen9b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Target Feature;class_1
+controlled;qwen9b;1;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Product;reference
+controlled;qwen9b;1;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Specification Document;class_1
+controlled;qwen9b;1;Product/Service Model -> Technical Components/Requirements Model;Unspecific/Product/Service Smart Heat;requires;IS Technical Component Production system;class_0
+controlled;qwen9b;1;Product/Service Model -> Technical Components/Requirements Model;Unspecific/Product/Service Smart Heat;requires;IS Technical Component Version management system;class_0
+controlled;qwen9b;1;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+controlled;qwen9b;1;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Specification Document;class_1
+controlled;qwen9b;2;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;relates to;Attribute Energy-efficiency;class_2
+controlled;qwen9b;2;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;relates to;Concept Heat pump;class_1
+controlled;qwen9b;2;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+controlled;qwen9b;2;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process define the product specification;class_1
+controlled;qwen9b;2;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process Product design;class_1
+controlled;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;connector_class_2
+controlled;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;connector_class_2
+controlled;qwen9b;2;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;motivates;Feature energy-efficient;class_2
+controlled;qwen9b;2;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Attribute Energy consumption;class_2
+controlled;qwen9b;2;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Concept Heat pump;class_1
+controlled;qwen9b;2;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process target setting;class_1
+controlled;qwen9b;2;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;relates to;Concept Heat pump;class_2
+controlled;qwen9b;2;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;relates to;Attribute Energy consumption;class_2
+controlled;qwen9b;2;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;motivates;Process define the product specification;class_1
+controlled;qwen9b;2;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;motivates;Process Product design;class_1
+controlled;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Minimize energy consumption of heat pump;motivates;IS Technical Component Production system;class_0
+controlled;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Minimize energy consumption of heat pump;motivates;IS Technical Component Version management system;class_0
+controlled;qwen9b;2;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;motivates;Feature energy-efficient;class_1
+controlled;qwen9b;2;Goal Model -> Concept Model;Goal Produce remaining energy required by heat pump with photovoltaic module;relates to;Concept Heat pump;class_2
+controlled;qwen9b;2;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Process define the product specification;class_1
+controlled;qwen9b;2;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Process Product design;class_1
+controlled;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;IS Technical Component Production system;class_0
+controlled;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;IS Technical Component Version management system;class_0
+controlled;qwen9b;2;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Feature Zero-emission energy production;class_1
+controlled;qwen9b;2;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;qwen9b;2;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;qwen9b;2;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;qwen9b;2;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+controlled;qwen9b;2;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+controlled;qwen9b;2;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+controlled;qwen9b;2;Actors/Resources Model -> Business Process Model;Role Product designer;performs;Process Product design;reference
+controlled;qwen9b;2;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+controlled;qwen9b;2;Business Process Model -> Concept Model;Process target setting;Input;Concept Customer Survey;class_2
+controlled;qwen9b;2;Business Process Model -> Concept Model;Process target setting;Output;Concept Target Feature;class_2
+controlled;qwen9b;2;Business Process Model -> Concept Model;Process target setting;Output;Concept Feature;class_0
+controlled;qwen9b;2;Business Process Model -> Concept Model;Process define the product specification;Input;Concept Target Feature;class_2
+controlled;qwen9b;2;Business Process Model -> Concept Model;Process define the product specification;Output;Concept Specification Document;class_2
+controlled;qwen9b;2;Business Process Model -> Concept Model;Process Product design;Input;Concept Specification Document;class_2
+controlled;qwen9b;2;Business Process Model -> Concept Model;Process Product design;Output;Concept Design description;class_2
+controlled;qwen9b;2;Business Process Model -> Concept Model;Process Product design;Output;Concept Product;class_0
+controlled;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;requires;Concept Specification Document;class_1
+controlled;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;requires;Concept Design description;class_1
+controlled;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Product;class_2
+controlled;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Heat pump;class_2
+controlled;qwen9b;2;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+controlled;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;requires;Concept Specification Document;class_1
+controlled;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;requires;Concept Design description;class_1
+controlled;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Product;class_2
+controlled;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Heat pump;reference
+controlled;qwen9b;2;Product/Service Model -> Concept Model;Feature Zero-emission energy production;relates to;Concept Zero-emission energy production;reference
+controlled;qwen9b;3;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;relates to;Attribute Energy-efficiency;class_2
+controlled;qwen9b;3;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;requires;Concept Heat pump;class_1
+controlled;qwen9b;3;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+controlled;qwen9b;3;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;connector_class_2
+controlled;qwen9b;3;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;connector_class_2
+controlled;qwen9b;3;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;motivates;Feature energy-efficient;class_2
+controlled;qwen9b;3;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Attribute Energy consumption;class_2
+controlled;qwen9b;3;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Concept Product;class_2
+controlled;qwen9b;3;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process target setting;class_1
+controlled;qwen9b;3;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;motivates;Feature energy-efficient;class_1
+controlled;qwen9b;3;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;relates to;Attribute Energy consumption;class_2
+controlled;qwen9b;3;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;motivates;Process Product design;class_1
+controlled;qwen9b;3;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;motivates;Feature energy-efficient;class_1
+controlled;qwen9b;3;Goal Model -> Concept Model;Goal Produce remaining energy required by heat pump with photovoltaic module;relates to;Concept Zero-emission energy production;reference
+controlled;qwen9b;3;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Process Product design;class_1
+controlled;qwen9b;3;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Feature Zero-emission energy production;class_1
+controlled;qwen9b;3;Goal Model -> Business Process Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Process Product design;class_1
+controlled;qwen9b;3;Goal Model -> Concept Model;Goal Develop new heat extractor with very low energy consumption;relates to;Concept Heat pump;class_1
+controlled;qwen9b;3;Goal Model -> Business Process Model;Goal Develop new heat extractor with very low energy consumption;motivates;Process Product design;class_1
+controlled;qwen9b;3;Goal Model -> Product/Service Model;Goal Develop new heat extractor with very low energy consumption;motivates;Feature energy-efficient;class_1
+controlled;qwen9b;3;Goal Model -> Concept Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;uses;Concept Design description;class_0
+controlled;qwen9b;3;Goal Model -> Business Process Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;Process Product design;class_1
+controlled;qwen9b;3;Goal Model -> Business Process Model;Problem Short period for development;Affects;Process Product design;class_1
+controlled;qwen9b;3;Goal Model -> Business Process Model;Problem New refrigerants are very expensive;Affects;Process Product design;class_1
+controlled;qwen9b;3;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;qwen9b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;qwen9b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;(empty);IS Technical Component Production system;class_1
+controlled;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;(empty);IS Technical Component Version management system;class_1
+controlled;qwen9b;3;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+controlled;qwen9b;3;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+controlled;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Organizational Unit Product development department;(empty);IS Technical Component Production system;class_1
+controlled;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Organizational Unit Product development department;(empty);IS Technical Component Version management system;class_1
+controlled;qwen9b;3;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+controlled;qwen9b;3;Actors/Resources Model -> Business Process Model;Role Product designer;performs;Process Product design;reference
+controlled;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Role Product designer;(empty);IS Technical Component Production system;class_1
+controlled;qwen9b;3;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+controlled;qwen9b;3;Actors/Resources Model -> Goal Model;Organizational Unit Multi-Heat;is responsible for;Goal Providing most energy-efficient heating solution in market;class_2
+controlled;qwen9b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Plan marketing campaign;reference
+controlled;qwen9b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run social media campaign;reference
+controlled;qwen9b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run print media campaign;reference
+controlled;qwen9b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Supervise campaign results;reference
+controlled;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Organizational Unit Marketing department;(empty);IS Technical Component Social media studio;class_1
+controlled;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Organizational Unit Social media group;(empty);IS Technical Component Social media studio;class_1
+controlled;qwen9b;3;Business Process Model -> Concept Model;Process target setting;Input;Concept Customer Survey;class_2
+controlled;qwen9b;3;Business Process Model -> Concept Model;Process target setting;Output;Concept Target Feature;class_2
+controlled;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Production system;class_1
+controlled;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Version management system;class_1
+controlled;qwen9b;3;Business Process Model -> Concept Model;Information Set customer survey;uses;Concept Customer Survey;connector_class_2
+controlled;qwen9b;3;Business Process Model -> Concept Model;Information Set target features;uses;Concept Target Feature;connector_class_2
+controlled;qwen9b;3;Business Process Model -> Concept Model;Process define the product specification;Output;Concept Specification Document;class_2
+controlled;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Production system;class_1
+controlled;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Version management system;class_1
+controlled;qwen9b;3;Business Process Model -> Concept Model;Information Set specification document;uses;Concept Specification Document;connector_class_2
+controlled;qwen9b;3;Business Process Model -> Concept Model;Information Set specification document;uses;Concept Product;class_0
+controlled;qwen9b;3;Business Process Model -> Concept Model;Process Product design;Output;Concept Design description;class_2
+controlled;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Production system;class_1
+controlled;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Version management system;class_1
+controlled;qwen9b;3;Business Process Model -> Concept Model;Information Set Design description;uses;Concept Design description;connector_class_2
+controlled;qwen9b;3;Business Process Model -> Concept Model;Information Set Design description;uses;Concept Product;class_0
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Feature;class_1
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Target Feature;class_1
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Specification Document;class_1
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Design description;class_1
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Product;class_1
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Feature;class_1
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Target Feature;class_1
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign plan;class_1
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign target document;class_1
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign statistics;class_1
+controlled;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign result document;class_1
+controlled;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Heat pump;class_2
+controlled;qwen9b;3;Product/Service Model -> Technical Components/Requirements Model;Unspecific/Product/Service Smart Heat;requires;IS Technical Component Production system;class_0
+controlled;qwen9b;3;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+controlled;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Heat pump;reference
+controlled;qwen9b;3;Product/Service Model -> Concept Model;Feature Zero-emission energy production;relates to;Concept Zero-emission energy production;reference
+controlled;qwen9b;3;Marketing Model -> Concept Model;Process Plan marketing campaign;Input;Concept Campaign target document;class_2
+controlled;qwen9b;3;Marketing Model -> Concept Model;Process Plan marketing campaign;Output;Concept Campaign plan;class_2
+controlled;qwen9b;3;Marketing Model -> Concept Model;Process Run social media campaign;Input;Concept Campaign plan;class_2
+controlled;qwen9b;3;Marketing Model -> Concept Model;Process Run social media campaign;Output;Concept Campaign statistics;class_2
+controlled;qwen9b;3;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component Social media studio;class_1
+controlled;qwen9b;3;Marketing Model -> Concept Model;Process Run print media campaign;Input;Concept Campaign plan;class_2
+controlled;qwen9b;3;Marketing Model -> Concept Model;Process Run print media campaign;Output;Concept Campaign statistics;class_2
+controlled;qwen9b;3;Marketing Model -> Concept Model;Process Supervise campaign results;Input;Concept Campaign statistics;class_2
+controlled;qwen9b;3;Marketing Model -> Concept Model;Process Supervise campaign results;Output;Concept Campaign result document;class_2
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process define the product specification;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process Product design;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Information Set target features;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Information Set specification document;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Information Set Design description;class_1
+controlled;qwen9b;4;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;motivates;Feature energy-efficient;class_2
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process target setting;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process define the product specification;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process Product design;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Information Set target features;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Information Set specification document;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Information Set Design description;class_1
+controlled;qwen9b;4;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;Hinders;Feature energy-efficient;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;motivates;Process target setting;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;motivates;Process define the product specification;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;motivates;Process Product design;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;motivates;Information Set target features;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;motivates;Information Set specification document;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;motivates;Information Set Design description;class_1
+controlled;qwen9b;4;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;Supports;Feature energy-efficient;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Process target setting;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Process define the product specification;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Process Product design;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Information Set target features;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Information Set specification document;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Information Set Design description;class_1
+controlled;qwen9b;4;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;Supports;Feature Zero-emission energy production;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Process target setting;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Process define the product specification;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Process Product design;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Information Set target features;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Information Set specification document;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Information Set Design description;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Develop new heat extractor with very low energy consumption;motivates;Process target setting;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Develop new heat extractor with very low energy consumption;motivates;Process define the product specification;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Develop new heat extractor with very low energy consumption;motivates;Process Product design;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Develop new heat extractor with very low energy consumption;motivates;Information Set target features;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Develop new heat extractor with very low energy consumption;motivates;Information Set specification document;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Develop new heat extractor with very low energy consumption;motivates;Information Set Design description;class_1
+controlled;qwen9b;4;Goal Model -> Technical Components/Requirements Model;Goal Develop new heat extractor with very low energy consumption;motivates;IS Technical Component Production system;class_0
+controlled;qwen9b;4;Goal Model -> Technical Components/Requirements Model;Goal Develop new heat extractor with very low energy consumption;motivates;IS Technical Component Version management system;class_0
+controlled;qwen9b;4;Goal Model -> Product/Service Model;Goal Develop new heat extractor with very low energy consumption;Supports;Feature energy-efficient;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;Process target setting;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;Process define the product specification;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;Process Product design;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;Information Set target features;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;Information Set specification document;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;Information Set Design description;class_1
+controlled;qwen9b;4;Goal Model -> Technical Components/Requirements Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;IS Technical Component Production system;class_0
+controlled;qwen9b;4;Goal Model -> Technical Components/Requirements Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;IS Technical Component Version management system;class_0
+controlled;qwen9b;4;Goal Model -> Product/Service Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;Supports;Feature energy-efficient;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Short period for development;motivates;Process target setting;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Short period for development;motivates;Process define the product specification;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Short period for development;motivates;Process Product design;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Short period for development;motivates;Information Set target features;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Short period for development;motivates;Information Set specification document;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Short period for development;motivates;Information Set Design description;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem New refrigerants are very expensive;motivates;Process target setting;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem New refrigerants are very expensive;motivates;Process define the product specification;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem New refrigerants are very expensive;motivates;Process Product design;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem New refrigerants are very expensive;motivates;Information Set target features;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem New refrigerants are very expensive;motivates;Information Set specification document;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem New refrigerants are very expensive;motivates;Information Set Design description;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Provide services supporting high availability of heat pump;motivates;Process target setting;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Provide services supporting high availability of heat pump;motivates;Process define the product specification;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Provide services supporting high availability of heat pump;motivates;Process Product design;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Provide services supporting high availability of heat pump;motivates;Information Set target features;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Provide services supporting high availability of heat pump;motivates;Information Set specification document;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Goal Provide services supporting high availability of heat pump;motivates;Information Set Design description;class_0
+controlled;qwen9b;4;Goal Model -> Product/Service Model;Goal Provide services supporting high availability of heat pump;Supports;Feature Quick response to error situations;class_1
+controlled;qwen9b;4;Goal Model -> Product/Service Model;Goal Provide services supporting high availability of heat pump;Supports;Feature Personal service technician;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem control unit needs Internet to provide status information;motivates;Process target setting;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem control unit needs Internet to provide status information;motivates;Process define the product specification;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem control unit needs Internet to provide status information;motivates;Process Product design;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem control unit needs Internet to provide status information;motivates;Information Set target features;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem control unit needs Internet to provide status information;motivates;Information Set specification document;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem control unit needs Internet to provide status information;motivates;Information Set Design description;class_1
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Company has not much experience with online information processing;motivates;Process target setting;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Company has not much experience with online information processing;motivates;Process define the product specification;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Company has not much experience with online information processing;motivates;Process Product design;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Company has not much experience with online information processing;motivates;Information Set target features;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Company has not much experience with online information processing;motivates;Information Set specification document;class_0
+controlled;qwen9b;4;Goal Model -> Business Process Model;Problem Company has not much experience with online information processing;motivates;Information Set Design description;class_0
+controlled;qwen9b;4;Goal Model -> Product/Service Model;Problem Company has not much experience with online information processing;Hinders;Feature Quick response to error situations;class_1
+controlled;qwen9b;4;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+controlled;qwen9b;4;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process target setting;reference
+controlled;qwen9b;4;Actors/Resources Model -> Business Process Model;Role Product Owner;performs;Process define the product specification;reference
+controlled;qwen9b;4;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+controlled;qwen9b;4;Actors/Resources Model -> Business Process Model;Role Product designer;performs;Process Product design;reference
+controlled;qwen9b;4;Business Process Model -> Concept Model;Process target setting;uses;Concept Customer Survey;class_2
+controlled;qwen9b;4;Business Process Model -> Concept Model;Process target setting;uses;Concept Target Feature;class_0
+controlled;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Production system;class_1
+controlled;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Version management system;class_1
+controlled;qwen9b;4;Business Process Model -> Concept Model;Information Set customer survey;uses;Concept Customer Survey;connector_class_2
+controlled;qwen9b;4;Business Process Model -> Concept Model;Information Set target features;uses;Concept Target Feature;connector_class_2
+controlled;qwen9b;4;Business Process Model -> Concept Model;Process define the product specification;uses;Concept Specification Document;class_0
+controlled;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Production system;class_1
+controlled;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Version management system;class_1
+controlled;qwen9b;4;Business Process Model -> Concept Model;Information Set specification document;uses;Concept Specification Document;connector_class_2
+controlled;qwen9b;4;Business Process Model -> Concept Model;Process Product design;uses;Concept Product;class_0
+controlled;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Production system;class_1
+controlled;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Version management system;class_1
+controlled;qwen9b;4;Business Process Model -> Concept Model;Information Set Design description;uses;Concept Design description;connector_class_2
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Feature;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Target Feature;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Specification Document;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Design description;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Product;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Feature;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Target Feature;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Specification Document;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Design description;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Attribute Version;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign target document;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign plan;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign statistics;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign result document;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Product planning system;supports;Concept Order specification;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Product planning system;supports;Concept Rejected order specification;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Product planning system;supports;Concept Verified order specification;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Product planning system;supports;Concept Order confirmation;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Product planning system;supports;Concept Delivery order;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Enterprise resource planning system;supports;Concept Order specification;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Enterprise resource planning system;supports;Concept Rejected order specification;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Enterprise resource planning system;supports;Concept Verified order specification;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Enterprise resource planning system;supports;Concept Order confirmation;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Enterprise resource planning system;supports;Concept Delivery order;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Distributed database;supports;Concept Order specification;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Distributed database;supports;Concept Rejected order specification;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Distributed database;supports;Concept Verified order specification;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Distributed database;supports;Concept Order confirmation;class_1
+controlled;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Distributed database;supports;Concept Delivery order;class_1
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Heat pump;class_2
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Component indoor module;relates to;Concept Design description;class_1
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Component outdoor module;relates to;Concept Design description;class_1
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Heat pump;reference
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Component Photovoltaic module;relates to;Concept Design description;class_1
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Component Outdoor air exchange unit;relates to;Concept Design description;class_1
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Feature Zero-emission energy production;relates to;Concept Zero-emission energy production;reference
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Maintenance and trouble-shooting;relates to;Concept Product;class_2
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Annual service;relates to;Concept Product;class_1
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Repair;relates to;Concept Product;class_1
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Service kit;relates to;Concept Product;class_2
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Feature Quick response to error situations;relates to;Concept Feature;class_1
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Feature Discount prices in case of repairs;relates to;Concept Feature;class_1
+controlled;qwen9b;4;Product/Service Model -> Concept Model;Feature Personal service technician;relates to;Concept Feature;class_1
+controlled;qwen9b;4;Marketing Model -> Concept Model;Process Plan marketing campaign;Input;Concept Campaign target document;class_2
+controlled;qwen9b;4;Marketing Model -> Concept Model;Process Plan marketing campaign;Output;Concept Campaign plan;class_2
+controlled;qwen9b;4;Marketing Model -> Technical Components/Requirements Model;Process Plan marketing campaign;uses;IS Technical Component Social media studio;class_1
+controlled;qwen9b;4;Marketing Model -> Concept Model;Process Run social media campaign;Input;Concept Campaign plan;class_2
+controlled;qwen9b;4;Marketing Model -> Concept Model;Process Run social media campaign;Output;Concept Campaign statistics;class_2
+controlled;qwen9b;4;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component Social media studio;class_1
+controlled;qwen9b;4;Marketing Model -> Concept Model;Process Run print media campaign;Input;Concept Campaign plan;class_2
+controlled;qwen9b;4;Marketing Model -> Concept Model;Process Run print media campaign;Output;Concept Campaign statistics;class_2
+controlled;qwen9b;4;Marketing Model -> Technical Components/Requirements Model;Process Run print media campaign;uses;IS Technical Component Social media studio;class_1
+controlled;qwen9b;4;Marketing Model -> Concept Model;Process Supervise campaign results;Input;Concept Campaign statistics;class_2
+controlled;qwen9b;4;Marketing Model -> Concept Model;Process Supervise campaign results;Output;Concept Campaign result document;class_2
+controlled;qwen9b;4;Marketing Model -> Technical Components/Requirements Model;Process Supervise campaign results;uses;IS Technical Component Social media studio;class_1
+controlled;qwen9b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;uses;IS Technical Component Product planning system;class_2
+controlled;qwen9b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;uses;IS Technical Component Enterprise resource planning system;class_2
+controlled;qwen9b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;uses;IS Technical Component Distributed database;class_1
+controlled;qwen9b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check availability;uses;IS Technical Component Enterprise resource planning system;class_1
+controlled;qwen9b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check availability;uses;IS Technical Component Distributed database;class_1
+controlled;qwen9b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check customer status;uses;IS Technical Component Enterprise resource planning system;class_1
+controlled;qwen9b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check customer status;uses;IS Technical Component Distributed database;class_1
+controlled;qwen9b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check configuration;uses;IS Technical Component Product planning system;class_1
+controlled;qwen9b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check configuration;uses;IS Technical Component Distributed database;class_1
+organized;qwen9b;1;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;relates to;Concept Product;class_1
+organized;qwen9b;1;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;relates to;Attribute Energy-efficiency;class_2
+organized;qwen9b;1;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+organized;qwen9b;1;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process define the product specification;class_1
+organized;qwen9b;1;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;connector_class_2
+organized;qwen9b;1;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;connector_class_2
+organized;qwen9b;1;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;requires;Feature energy-efficient;class_2
+organized;qwen9b;1;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Concept Product;class_2
+organized;qwen9b;1;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Attribute Energy consumption;class_2
+organized;qwen9b;1;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process target setting;class_1
+organized;qwen9b;1;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process define the product specification;class_1
+organized;qwen9b;1;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;requires;IS Technical Component Production system;class_0
+organized;qwen9b;1;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;requires;IS Technical Component Version management system;class_0
+organized;qwen9b;1;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;motivates;Feature energy-efficient;class_1
+organized;qwen9b;1;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+organized;qwen9b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process target setting;connector_class_2
+organized;qwen9b;1;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process define the product specification;connector_class_2
+organized;qwen9b;1;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;qwen9b;1;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+organized;qwen9b;1;Business Process Model -> Concept Model;Process target setting;Input;Concept Customer Survey;class_2
+organized;qwen9b;1;Business Process Model -> Concept Model;Process target setting;Output;Concept Target Feature;class_2
+organized;qwen9b;1;Business Process Model -> Concept Model;Process define the product specification;Input;Concept Target Feature;class_2
+organized;qwen9b;1;Business Process Model -> Concept Model;Process define the product specification;Output;Concept Specification Document;class_2
+organized;qwen9b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+organized;qwen9b;1;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Product;class_1
+organized;qwen9b;1;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Product;reference
+organized;qwen9b;1;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Specification Document;class_1
+organized;qwen9b;1;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Customer Survey;class_1
+organized;qwen9b;1;Product/Service Model -> Technical Components/Requirements Model;Unspecific/Product/Service Smart Heat;requires;IS Technical Component Production system;class_0
+organized;qwen9b;1;Product/Service Model -> Technical Components/Requirements Model;Unspecific/Product/Service Smart Heat;requires;IS Technical Component Version management system;class_0
+organized;qwen9b;1;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+organized;qwen9b;1;Product/Service Model -> Concept Model;Feature energy-efficient;motivates;Concept Target Feature;class_1
+organized;qwen9b;2;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+organized;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;connector_class_2
+organized;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;connector_class_2
+organized;qwen9b;2;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;motivates;Feature energy-efficient;class_2
+organized;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;motivates;IS Technical Component Production system;class_0
+organized;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Problem Energy consumption of current product version is too high;motivates;IS Technical Component Version management system;class_0
+organized;qwen9b;2;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;motivates;Feature energy-efficient;class_1
+organized;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Minimize energy consumption of heat pump;motivates;IS Technical Component Production system;class_0
+organized;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Minimize energy consumption of heat pump;motivates;IS Technical Component Version management system;class_0
+organized;qwen9b;2;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;motivates;Feature energy-efficient;class_1
+organized;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;IS Technical Component Production system;class_0
+organized;qwen9b;2;Goal Model -> Technical Components/Requirements Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;IS Technical Component Version management system;class_0
+organized;qwen9b;2;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Feature Zero-emission energy production;class_1
+organized;qwen9b;2;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+organized;qwen9b;2;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;is responsible for;IS Technical Component Production system;class_0
+organized;qwen9b;2;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;is responsible for;IS Technical Component Version management system;class_0
+organized;qwen9b;2;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;qwen9b;2;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+organized;qwen9b;2;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+organized;qwen9b;2;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Unspecific/Product/Service Heat pump;class_0
+organized;qwen9b;2;Actors/Resources Model -> Goal Model;Organizational Unit Organization;is responsible for;Goal Providing most energy-efficient heating solution in market;class_1
+organized;qwen9b;2;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Production system;class_1
+organized;qwen9b;2;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Version management system;class_1
+organized;qwen9b;2;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Production system;class_1
+organized;qwen9b;2;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Version management system;class_1
+organized;qwen9b;2;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Production system;class_1
+organized;qwen9b;2;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Version management system;class_1
+organized;qwen9b;2;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+organized;qwen9b;2;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Product;class_1
+organized;qwen9b;2;Technical Components/Requirements Model -> Concept Model;IS Technical Component Database system;supports;Concept Product;class_1
+organized;qwen9b;2;Technical Components/Requirements Model -> Concept Model;IS Technical Component Transaction middleware;supports;Concept Product;class_1
+organized;qwen9b;2;Technical Components/Requirements Model -> Concept Model;IS Technical Component User interface;applies to;Concept Design description;class_0
+organized;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Product;class_2
+organized;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Feature;class_2
+organized;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Heat pump;class_2
+organized;qwen9b;2;Product/Service Model -> Concept Model;Component indoor module;relates to;Concept Product;class_1
+organized;qwen9b;2;Product/Service Model -> Concept Model;Component outdoor module;relates to;Concept Product;class_1
+organized;qwen9b;2;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+organized;qwen9b;2;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Heat pump;class_1
+organized;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Heat pump;reference
+organized;qwen9b;2;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Product;class_2
+organized;qwen9b;2;Product/Service Model -> Concept Model;Component Photovoltaic module;relates to;Concept Zero-emission energy production;class_2
+organized;qwen9b;2;Product/Service Model -> Concept Model;Component Outdoor air exchange unit;relates to;Concept Product;class_1
+organized;qwen9b;2;Product/Service Model -> Concept Model;Feature Zero-emission energy production;relates to;Concept Zero-emission energy production;reference
+organized;qwen9b;3;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+organized;qwen9b;3;Goal Model -> Technical Components/Requirements Model;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Social media studio;class_0
+organized;qwen9b;3;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;motivates;Feature energy-efficient;class_2
+organized;qwen9b;3;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process target setting;class_1
+organized;qwen9b;3;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;requires;Feature energy-efficient;class_1
+organized;qwen9b;3;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;motivates;Feature energy-efficient;class_1
+organized;qwen9b;3;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Feature Zero-emission energy production;class_1
+organized;qwen9b;3;Goal Model -> Business Process Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Process Product design;class_1
+organized;qwen9b;3;Goal Model -> Technical Components/Requirements Model;Goal Develop new heat extractor with very low energy consumption;motivates;IS Technical Component Production system;class_0
+organized;qwen9b;3;Goal Model -> Technical Components/Requirements Model;Goal Develop new heat extractor with very low energy consumption;motivates;IS Technical Component Version management system;class_0
+organized;qwen9b;3;Goal Model -> Product/Service Model;Goal Develop new heat extractor with very low energy consumption;motivates;Feature energy-efficient;class_1
+organized;qwen9b;3;Goal Model -> Technical Components/Requirements Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;IS Technical Component Production system;class_0
+organized;qwen9b;3;Goal Model -> Technical Components/Requirements Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;IS Technical Component Version management system;class_0
+organized;qwen9b;3;Goal Model -> Business Process Model;Problem Short period for development;Hinders;Process Product design;class_1
+organized;qwen9b;3;Goal Model -> Business Process Model;Problem New refrigerants are very expensive;Hinders;Process Product design;class_1
+organized;qwen9b;3;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Providing most energy-efficient heating solution in market;reference
+organized;qwen9b;3;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Produce remaining energy required by heat pump with photovoltaic module;class_1
+organized;qwen9b;3;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Develop new heat extractor with very low energy consumption;class_0
+organized;qwen9b;3;Actors/Resources Model -> Goal Model;Role Product Owner;is responsible for;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;class_0
+organized;qwen9b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process target setting;connector_class_2
+organized;qwen9b;3;Actors/Resources Model -> Business Process Model;Role Product Owner;is responsible for;Process define the product specification;connector_class_2
+organized;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;(empty);IS Technical Component Production system;class_1
+organized;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Role Product Owner;(empty);IS Technical Component Version management system;class_1
+organized;qwen9b;3;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;qwen9b;3;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+organized;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Organizational Unit Product development department;(empty);IS Technical Component Production system;class_1
+organized;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Organizational Unit Product development department;(empty);IS Technical Component Version management system;class_1
+organized;qwen9b;3;Actors/Resources Model -> Goal Model;Role Product designer;is responsible for;Goal Minimize energy consumption of heat pump;reference
+organized;qwen9b;3;Actors/Resources Model -> Business Process Model;Role Product designer;is responsible for;Process Product design;connector_class_1
+organized;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Role Product designer;(empty);IS Technical Component Production system;class_1
+organized;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Role Product designer;(empty);IS Technical Component Version management system;class_1
+organized;qwen9b;3;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+organized;qwen9b;3;Actors/Resources Model -> Goal Model;Organizational Unit Multi-Heat;is responsible for;Goal Providing most energy-efficient heating solution in market;class_2
+organized;qwen9b;3;Actors/Resources Model -> Goal Model;Organizational Unit Multi-Heat;is responsible for;Goal Minimize energy consumption of heat pump;class_1
+organized;qwen9b;3;Actors/Resources Model -> Goal Model;Organizational Unit Multi-Heat;is responsible for;Goal Produce remaining energy required by heat pump with photovoltaic module;class_1
+organized;qwen9b;3;Actors/Resources Model -> Goal Model;Organizational Unit Multi-Heat;is responsible for;Goal Develop new heat extractor with very low energy consumption;class_1
+organized;qwen9b;3;Actors/Resources Model -> Goal Model;Organizational Unit Multi-Heat;is responsible for;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;class_1
+organized;qwen9b;3;Actors/Resources Model -> Product/Service Model;Organizational Unit Multi-Heat;is responsible for;Unspecific/Product/Service Maintenance and trouble-shooting;class_1
+organized;qwen9b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Plan marketing campaign;reference
+organized;qwen9b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run social media campaign;reference
+organized;qwen9b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run print media campaign;reference
+organized;qwen9b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Supervise campaign results;reference
+organized;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Organizational Unit Marketing department;(empty);IS Technical Component Social media studio;class_1
+organized;qwen9b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Social media group;performs;Process Run social media campaign;class_1
+organized;qwen9b;3;Actors/Resources Model -> Technical Components/Requirements Model;Organizational Unit Social media group;(empty);IS Technical Component Social media studio;class_1
+organized;qwen9b;3;Actors/Resources Model -> Marketing Model;Organizational Unit Print media group;performs;Process Run print media campaign;class_1
+organized;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Production system;class_1
+organized;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Version management system;class_1
+organized;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Production system;class_1
+organized;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Version management system;class_1
+organized;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Production system;class_1
+organized;qwen9b;3;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Version management system;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Specification Document;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Design description;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Product;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Attribute Version;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Feature;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Target Feature;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Database system;supports;Concept Product;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Database system;supports;Concept Specification Document;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Transaction middleware;supports;Concept Product;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component User interface;supports;Concept Product;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign target document;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign plan;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign statistics;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign result document;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Attribute Social media activities;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Attribute Print media products;class_0
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM life system;supports;Concept Campaign plan;class_1
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM repository;supports;Concept Product;class_0
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM repository;supports;Concept Feature;class_0
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM repository;supports;Attribute List of features;class_0
+organized;qwen9b;3;Technical Components/Requirements Model -> Concept Model;IS Technical Component SM repository;supports;Concept Specification Document;class_0
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Product;class_2
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Feature;class_2
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Design description;class_1
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Specification Document;class_1
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;motivates;Concept Customer Survey;class_0
+organized;qwen9b;3;Product/Service Model -> Concept Model;Component indoor module;relates to;Concept Design description;class_1
+organized;qwen9b;3;Product/Service Model -> Concept Model;Component outdoor module;relates to;Concept Design description;class_1
+organized;qwen9b;3;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Product;class_2
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Heat pump;reference
+organized;qwen9b;3;Product/Service Model -> Concept Model;Component Photovoltaic module;relates to;Concept Design description;class_1
+organized;qwen9b;3;Product/Service Model -> Concept Model;Component Photovoltaic module;relates to;Concept Zero-emission energy production;class_2
+organized;qwen9b;3;Product/Service Model -> Concept Model;Component Outdoor air exchange unit;relates to;Concept Design description;class_1
+organized;qwen9b;3;Product/Service Model -> Concept Model;Feature Zero-emission energy production;relates to;Concept Zero-emission energy production;reference
+organized;qwen9b;3;Product/Service Model -> Concept Model;Feature Zero-emission energy production;relates to;Concept Feature;class_2
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Maintenance and trouble-shooting;relates to;Concept Product;class_2
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Maintenance and trouble-shooting;motivates;Concept Customer Survey;class_0
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Annual service;relates to;Concept Product;class_1
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Repair;relates to;Concept Product;class_1
+organized;qwen9b;3;Product/Service Model -> Concept Model;Unspecific/Product/Service Service kit;relates to;Concept Product;class_2
+organized;qwen9b;3;Marketing Model -> Concept Model;Process Plan marketing campaign;Output;Concept Campaign plan;class_2
+organized;qwen9b;3;Marketing Model -> Concept Model;Process Plan marketing campaign;Input;Concept Campaign target document;class_2
+organized;qwen9b;3;Marketing Model -> Technical Components/Requirements Model;Process Plan marketing campaign;uses;IS Technical Component Social media studio;class_1
+organized;qwen9b;3;Marketing Model -> Concept Model;Process Run social media campaign;Input;Concept Campaign plan;class_2
+organized;qwen9b;3;Marketing Model -> Concept Model;Process Run social media campaign;Output;Concept Campaign statistics;class_2
+organized;qwen9b;3;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component Social media studio;class_1
+organized;qwen9b;3;Marketing Model -> Concept Model;Process Run print media campaign;Input;Concept Campaign plan;class_2
+organized;qwen9b;3;Marketing Model -> Concept Model;Process Run print media campaign;Output;Concept Campaign statistics;class_2
+organized;qwen9b;3;Marketing Model -> Concept Model;Process Supervise campaign results;Output;Concept Campaign result document;class_2
+organized;qwen9b;3;Marketing Model -> Concept Model;Process Supervise campaign results;Input;Concept Campaign statistics;class_2
+organized;qwen9b;3;Marketing Model -> Technical Components/Requirements Model;Process Supervise campaign results;uses;IS Technical Component Social media studio;class_1
+organized;qwen9b;4;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;relates to;Concept Heat pump;class_1
+organized;qwen9b;4;Goal Model -> Concept Model;Goal Providing most energy-efficient heating solution in market;relates to;Attribute Energy-efficiency;class_2
+organized;qwen9b;4;Goal Model -> Business Process Model;Goal Providing most energy-efficient heating solution in market;motivates;Process target setting;class_1
+organized;qwen9b;4;Goal Model -> Product/Service Model;Goal Providing most energy-efficient heating solution in market;motivates;Feature energy-efficient;class_2
+organized;qwen9b;4;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;Affects;Concept Product;class_2
+organized;qwen9b;4;Goal Model -> Concept Model;Problem Energy consumption of current product version is too high;relates to;Attribute Energy consumption;class_2
+organized;qwen9b;4;Goal Model -> Business Process Model;Problem Energy consumption of current product version is too high;motivates;Process Product design;class_1
+organized;qwen9b;4;Goal Model -> Product/Service Model;Problem Energy consumption of current product version is too high;motivates;Feature energy-efficient;class_1
+organized;qwen9b;4;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;requires;Concept Heat pump;class_2
+organized;qwen9b;4;Goal Model -> Concept Model;Goal Minimize energy consumption of heat pump;relates to;Attribute Energy consumption;class_2
+organized;qwen9b;4;Goal Model -> Business Process Model;Goal Minimize energy consumption of heat pump;motivates;Process Product design;class_1
+organized;qwen9b;4;Goal Model -> Product/Service Model;Goal Minimize energy consumption of heat pump;motivates;Feature energy-efficient;class_1
+organized;qwen9b;4;Goal Model -> Concept Model;Goal Produce remaining energy required by heat pump with photovoltaic module;relates to;Concept Zero-emission energy production;reference
+organized;qwen9b;4;Goal Model -> Business Process Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Process Product design;class_1
+organized;qwen9b;4;Goal Model -> Product/Service Model;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Feature Zero-emission energy production;class_1
+organized;qwen9b;4;Goal Model -> Concept Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Affects;Concept Product;class_1
+organized;qwen9b;4;Goal Model -> Business Process Model;Constraint Maximum energy production of photovoltaic module is 50 kWh;Hinders;Process Product design;class_1
+organized;qwen9b;4;Goal Model -> Concept Model;Goal Develop new heat extractor with very low energy consumption;relates to;Concept Design description;class_1
+organized;qwen9b;4;Goal Model -> Business Process Model;Goal Develop new heat extractor with very low energy consumption;motivates;Process Product design;class_1
+organized;qwen9b;4;Goal Model -> Concept Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;relates to;Concept Design description;class_1
+organized;qwen9b;4;Goal Model -> Business Process Model;Goal Re-design existing heat extractor bay adapting it for a new refrigerant;motivates;Process Product design;class_1
+organized;qwen9b;4;Goal Model -> Business Process Model;Problem Short period for development;Hinders;Process Product design;class_1
+organized;qwen9b;4;Goal Model -> Business Process Model;Problem New refrigerants are very expensive;Hinders;Process Product design;class_1
+organized;qwen9b;4;Goal Model -> Concept Model;Goal Provide services supporting high availability of heat pump;relates to;Concept Heat pump;class_2
+organized;qwen9b;4;Goal Model -> Business Process Model;Goal Provide services supporting high availability of heat pump;motivates;Process Product design;class_0
+organized;qwen9b;4;Goal Model -> Product/Service Model;Goal Provide services supporting high availability of heat pump;motivates;Feature Quick response to error situations;class_1
+organized;qwen9b;4;Goal Model -> Product/Service Model;Goal Provide services supporting high availability of heat pump;motivates;Feature Personal service technician;class_1
+organized;qwen9b;4;Goal Model -> Business Process Model;Problem control unit needs Internet to provide status information;Hinders;Process Product design;class_1
+organized;qwen9b;4;Goal Model -> Product/Service Model;Problem control unit needs Internet to provide status information;motivates;Feature Quick response to error situations;class_1
+organized;qwen9b;4;Goal Model -> Business Process Model;Problem Company has not much experience with online information processing;Hinders;Process Product design;class_0
+organized;qwen9b;4;Goal Model -> Product/Service Model;Problem Company has not much experience with online information processing;Hinders;Feature Quick response to error situations;class_1
+organized;qwen9b;4;Goal Model -> Product/Service Model;Problem Company has not much experience with online information processing;motivates;Feature Personal service technician;class_0
+organized;qwen9b;4;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Unspecific/Product/Service Smart Heat;class_2
+organized;qwen9b;4;Actors/Resources Model -> Product/Service Model;Role Product Owner;is responsible for;Feature energy-efficient;class_1
+organized;qwen9b;4;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Unspecific/Product/Service Heat pump;class_0
+organized;qwen9b;4;Actors/Resources Model -> Product/Service Model;Role Product designer;is responsible for;Feature energy-efficient;class_1
+organized;qwen9b;4;Actors/Resources Model -> Customer Order Model;Organizational Unit Multi-Heat;performs;Process Check order validity;class_1
+organized;qwen9b;4;Actors/Resources Model -> Customer Order Model;Organizational Unit Multi-Heat;performs;Process Handle customer order;class_1
+organized;qwen9b;4;Actors/Resources Model -> Customer Order Model;Organizational Unit Multi-Heat;performs;Process Reject customer order;class_1
+organized;qwen9b;4;Actors/Resources Model -> Customer Order Model;Organizational Unit Multi-Heat;performs;Process Prepare product delivery;class_1
+organized;qwen9b;4;Actors/Resources Model -> Handle Order Model;Organizational Unit Multi-Heat;performs;Process Check availability;class_1
+organized;qwen9b;4;Actors/Resources Model -> Handle Order Model;Organizational Unit Multi-Heat;performs;Process Check customer status;class_1
+organized;qwen9b;4;Actors/Resources Model -> Handle Order Model;Organizational Unit Multi-Heat;performs;Process Check configuration;class_1
+organized;qwen9b;4;Actors/Resources Model -> Product/Service Model;Organizational Unit Multi-Heat;is responsible for;Unspecific/Product/Service Smart Heat;class_1
+organized;qwen9b;4;Actors/Resources Model -> Product/Service Model;Organizational Unit Multi-Heat;is responsible for;Unspecific/Product/Service Maintenance and trouble-shooting;class_1
+organized;qwen9b;4;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Plan marketing campaign;reference
+organized;qwen9b;4;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run social media campaign;reference
+organized;qwen9b;4;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Run print media campaign;reference
+organized;qwen9b;4;Actors/Resources Model -> Marketing Model;Organizational Unit Marketing department;is responsible for;Process Supervise campaign results;reference
+organized;qwen9b;4;Actors/Resources Model -> Marketing Model;Role Print designer;is responsible for;Process Run print media campaign;reference
+organized;qwen9b;4;Actors/Resources Model -> Marketing Model;Role Printing press operator;performs;Process Run print media campaign;class_0
+organized;qwen9b;4;Actors/Resources Model -> Marketing Model;Role Social media designer;is responsible for;Process Run social media campaign;reference
+organized;qwen9b;4;Actors/Resources Model -> Product/Service Model;Role General Manager;is responsible for;Unspecific/Product/Service Smart Heat;class_0
+organized;qwen9b;4;Actors/Resources Model -> Product/Service Model;Role General Manager;is responsible for;Unspecific/Product/Service Maintenance and trouble-shooting;class_0
+organized;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Production system;class_1
+organized;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process target setting;uses;IS Technical Component Version management system;class_1
+organized;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Production system;class_1
+organized;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process define the product specification;uses;IS Technical Component Version management system;class_1
+organized;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Production system;class_1
+organized;qwen9b;4;Business Process Model -> Technical Components/Requirements Model;Process Product design;uses;IS Technical Component Version management system;class_1
+organized;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Production system;supports;Concept Product;class_1
+organized;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Version management system;supports;Concept Target Feature;class_1
+organized;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign plan;class_1
+organized;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Social media studio;supports;Concept Campaign statistics;class_1
+organized;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Product planning system;supports;Concept Order specification;class_1
+organized;qwen9b;4;Technical Components/Requirements Model -> Concept Model;IS Technical Component Enterprise resource planning system;supports;Concept Order confirmation;class_1
+organized;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Smart Heat;relates to;Concept Product;class_2
+organized;qwen9b;4;Product/Service Model -> Technical Components/Requirements Model;Unspecific/Product/Service Smart Heat;requires;IS Technical Component Enterprise resource planning system;class_0
+organized;qwen9b;4;Product/Service Model -> Concept Model;Component indoor module;relates to;Concept Product;class_1
+organized;qwen9b;4;Product/Service Model -> Concept Model;Component outdoor module;relates to;Concept Product;class_1
+organized;qwen9b;4;Product/Service Model -> Concept Model;Feature energy-efficient;relates to;Concept Feature;class_2
+organized;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Heat pump;reference
+organized;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Heat pump;relates to;Concept Product;class_2
+organized;qwen9b;4;Product/Service Model -> Concept Model;Component Photovoltaic module;relates to;Concept Zero-emission energy production;class_2
+organized;qwen9b;4;Product/Service Model -> Concept Model;Component Outdoor air exchange unit;relates to;Concept Product;class_1
+organized;qwen9b;4;Product/Service Model -> Concept Model;Feature Zero-emission energy production;relates to;Concept Zero-emission energy production;reference
+organized;qwen9b;4;Product/Service Model -> Concept Model;Feature Zero-emission energy production;relates to;Concept Feature;class_2
+organized;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Maintenance and trouble-shooting;relates to;Concept Product;class_2
+organized;qwen9b;4;Product/Service Model -> Technical Components/Requirements Model;Unspecific/Product/Service Maintenance and trouble-shooting;requires;IS Technical Component Enterprise resource planning system;class_0
+organized;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Annual service;relates to;Concept Product;class_1
+organized;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Repair;relates to;Concept Product;class_1
+organized;qwen9b;4;Product/Service Model -> Concept Model;Unspecific/Product/Service Service kit;relates to;Concept Product;class_2
+organized;qwen9b;4;Product/Service Model -> Concept Model;Feature Quick response to error situations;relates to;Concept Feature;class_1
+organized;qwen9b;4;Product/Service Model -> Concept Model;Feature Discount prices in case of repairs;relates to;Concept Feature;class_1
+organized;qwen9b;4;Product/Service Model -> Concept Model;Feature Personal service technician;relates to;Concept Feature;class_1
+organized;qwen9b;4;Marketing Model -> Technical Components/Requirements Model;Process Plan marketing campaign;uses;IS Technical Component Social media studio;class_1
+organized;qwen9b;4;Marketing Model -> Technical Components/Requirements Model;Process Run social media campaign;uses;IS Technical Component Social media studio;class_1
+organized;qwen9b;4;Marketing Model -> Technical Components/Requirements Model;Process Run print media campaign;uses;IS Technical Component Social media studio;class_1
+organized;qwen9b;4;Marketing Model -> Technical Components/Requirements Model;Process Supervise campaign results;uses;IS Technical Component Social media studio;class_1
+organized;qwen9b;4;Customer Order Model -> Concept Model;External Process Submit customer order;creates;Concept Order specification;class_2
+organized;qwen9b;4;Customer Order Model -> Concept Model;Process Check order validity;uses;Concept Order specification;class_2
+organized;qwen9b;4;Customer Order Model -> Concept Model;Process Check order validity;creates;Concept Rejected order specification;class_2
+organized;qwen9b;4;Customer Order Model -> Concept Model;Process Check order validity;creates;Concept Verified order specification;class_2
+organized;qwen9b;4;Customer Order Model -> Concept Model;Process Handle customer order;uses;Concept Verified order specification;class_2
+organized;qwen9b;4;Customer Order Model -> Concept Model;Process Handle customer order;creates;Concept Order confirmation;class_2
+organized;qwen9b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;uses;IS Technical Component Product planning system;class_2
+organized;qwen9b;4;Customer Order Model -> Technical Components/Requirements Model;Process Handle customer order;uses;IS Technical Component Enterprise resource planning system;class_2
+organized;qwen9b;4;Customer Order Model -> Concept Model;Process Reject customer order;uses;Concept Rejected order specification;class_2
+organized;qwen9b;4;Customer Order Model -> Concept Model;Process Prepare product delivery;uses;Concept Order confirmation;class_2
+organized;qwen9b;4;Customer Order Model -> Concept Model;Process Prepare product delivery;creates;Concept Delivery order;class_2
+organized;qwen9b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check availability;uses;IS Technical Component Enterprise resource planning system;class_1
+organized;qwen9b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check customer status;uses;IS Technical Component Enterprise resource planning system;class_1
+organized;qwen9b;4;Handle Order Model -> Technical Components/Requirements Model;Process Check configuration;uses;IS Technical Component Product planning system;class_1

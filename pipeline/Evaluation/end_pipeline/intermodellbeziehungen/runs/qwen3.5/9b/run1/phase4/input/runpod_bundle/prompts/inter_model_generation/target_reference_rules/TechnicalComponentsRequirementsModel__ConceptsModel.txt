@@ -1,5 +1,0 @@
-Allowed target element types:
-- Concept
-- Attribute
-
-Use no other target element types.

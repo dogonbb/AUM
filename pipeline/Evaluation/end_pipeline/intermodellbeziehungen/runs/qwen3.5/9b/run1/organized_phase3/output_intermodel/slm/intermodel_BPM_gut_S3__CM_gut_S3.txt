@@ -1,0 +1,6 @@
+Process target setting Input Concept Customer Survey
+Process target setting Output Concept Target Feature
+Process define the product specification Input Concept Target Feature
+Process define the product specification Output Concept Specification Document
+Process Product design Input Concept Specification Document
+Process Product design Output Concept Design description

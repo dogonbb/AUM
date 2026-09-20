@@ -1,0 +1,2 @@
+Product Owner is responsible for Production system
+Product Owner is responsible for Version management system

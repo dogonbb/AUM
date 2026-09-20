@@ -1,0 +1,2 @@
+Technical Component Production system supports Concept Product
+Technical Component Version management system supports Concept Product

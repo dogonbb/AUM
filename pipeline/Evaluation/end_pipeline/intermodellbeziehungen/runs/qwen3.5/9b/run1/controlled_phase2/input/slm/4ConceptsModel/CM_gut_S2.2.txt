@@ -1,0 +1,27 @@
+ELEMENTS
+Concept Customer Survey
+Concept Feature
+Concept Target Feature
+Concept Specification Document
+Concept Product
+Attribute Version
+Attribute Energy-efficiency
+Attribute Energy consumption
+Concept Design description
+Concept Zero-emission energy production
+Concept Heat pump
+Attribute List of features
+
+CONNECTIONS
+Customer Survey 1:n Target Feature
+Target Feature 1:1 Feature
+Specification Document 1:n Target Feature
+Specification Document 1:1 Product
+Product n:m Feature
+Product has attribute Version
+Design description 1:1 Product
+Zero-emission energy production 1:1 Feature
+Heat pump has attribute Energy-efficiency
+Heat pump has attribute Energy consumption
+Heat pump 1:1 Product
+Heat pump has attribute List of features

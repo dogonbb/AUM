@@ -1,0 +1,7 @@
+﻿Szenariotyp;SLM;Normalisierte_Laufzeit_h;Abbrueche;Timeouts;Reparaturen
+controlled;gemma4:e4b;5.26;0;0;61
+controlled;qwen3.5:4b;36.26;91;3;7
+controlled;qwen3.5:9b;15.37;57;6;32
+organized;gemma4:e4b;5.33;0;0;66
+organized;qwen3.5:4b;45.66;120;11;12
+organized;qwen3.5:9b;14.89;66;2;39

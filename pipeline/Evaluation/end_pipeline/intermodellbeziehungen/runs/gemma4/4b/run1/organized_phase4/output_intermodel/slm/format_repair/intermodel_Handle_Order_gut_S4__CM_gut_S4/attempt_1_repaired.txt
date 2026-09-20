@@ -1,0 +1,5 @@
+verified order specification Output Concept Verified order specification
+Order confirmation Output Concept Order confirmation
+Check availability uses Concept Product
+Check customer status requires Concept Order specification
+Check configuration uses Concept Specification Document

@@ -1,0 +1,3 @@
+Check availability requires Enterprise resource planning system
+Check customer status requires Enterprise resource planning system
+Check configuration requires Product planning system

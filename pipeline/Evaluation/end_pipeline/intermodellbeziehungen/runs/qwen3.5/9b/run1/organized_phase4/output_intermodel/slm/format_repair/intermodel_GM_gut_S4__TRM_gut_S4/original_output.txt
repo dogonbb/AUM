@@ -1,0 +1,10 @@
+Goal Providing most energy-efficient heating solution in market motivates Technical Component Production system
+Goal Providing most energy-efficient heating solution in market motivates Technical Component Version management system
+Goal Minimize energy consumption of heat pump motivates Technical Component Production system
+Goal Minimize energy consumption of heat pump motivates Technical Component Version management system
+Goal Develop new heat extractor with very low energy consumption motivates Technical Component Production system
+Goal Develop new heat extractor with very low energy consumption motivates Technical Component Version management system
+Goal Re-design existing heat extractor bay adapting it for a new refrigerant motivates Technical Component Production system
+Goal Re-design existing heat extractor bay adapting it for a new refrigerant motivates Technical Component Version management system
+Problem Energy consumption of current product version is too high motivates Technical Component Production system
+Problem Energy consumption of current product version is too high motivates Technical Component Version management system

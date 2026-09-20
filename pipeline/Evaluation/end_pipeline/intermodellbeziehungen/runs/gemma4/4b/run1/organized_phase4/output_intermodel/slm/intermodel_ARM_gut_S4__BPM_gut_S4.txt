@@ -1,0 +1,4 @@
+Product Owner is responsible for target setting
+Product Owner is responsible for define the product specification
+Product Owner is responsible for Product design
+Product designer performs Product design

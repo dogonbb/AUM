@@ -1,0 +1,13 @@
+Providing most energy-efficient heating solution in market motivates Process target setting
+Minimize energy consumption of heat pump motivates Process Product design
+Produce remaining energy required by heat pump with photovoltaic module motivates Process Product design
+Provide services supporting high availability of heat pump motivates Process Product design
+Develop new heat extractor with very low energy consumption motivates Process Product design
+Re-design existing heat extractor bay adapting it for a new refrigerant motivates Process Product design
+New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates Process target setting
+Energy consumption of current product version is too high motivates Process Product design
+Short period for development Hinders Process Product design
+New refrigerants are very expensive Hinders Process Product design
+Maximum energy production of photovoltaic module is 50 kWh Hinders Process Product design
+control unit needs Internet to provide status information Hinders Process Product design
+Company has not much experience with online information processing Hinders Process Product design

@@ -1,0 +1,5 @@
+Technical Component Production system supports Concept Product
+Technical Component Version management system supports Concept Product
+Technical Component Database system supports Concept Product
+Technical Component Transaction middleware supports Concept Product
+Technical Component User interface applies to Concept Design description

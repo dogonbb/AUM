@@ -1,0 +1,3 @@
+Check availability uses Enterprise resource planning system
+Check customer status uses Enterprise resource planning system
+Check configuration uses Product planning system

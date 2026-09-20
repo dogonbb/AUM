@@ -1,0 +1,34 @@
+modell;phase;startelement;connection;end_element;klassifikation
+gemm4_e4b;1;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;2
+gemm4_e4b;1;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;2
+gemm4_e4b;1;Role Product Owner;is responsible for;Process target setting;2
+gemm4_e4b;1;Role Product Owner;is responsible for;Process define the product specification;2
+gemm4_e4b;2;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;2
+gemm4_e4b;2;Goal Produce remaining energy required by heat pump with photovoltaic module;Supports;Concept Zero-emission energy production;2
+gemm4_e4b;2;Role Product Owner;is responsible for;Process target setting;2
+gemm4_e4b;2;Role Product Owner;is responsible for;Process define the product specification;2
+gemm4_e4b;2;Role Product designer;is responsible for;Process Product design;2
+gemm4_e4b;3;Goal Produce remaining energy required by heat pump with photovoltaic module;Supports;Concept Zero-emission energy production;2
+gemm4_e4b;3;Role Product Owner;is responsible for;Process target setting;2
+gemm4_e4b;3;Role Product Owner;is responsible for;Process define the product specification;2
+gemm4_e4b;3;Role Product designer;is responsible for;Process Product design;2
+gemm4_e4b;4;Role Product Owner;is responsible for;Process target setting;2
+gemm4_e4b;4;Role Product Owner;is responsible for;Process define the product specification;2
+qwen3_5_4b;1;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;2
+qwen3_5_4b;1;Role Product Owner;is responsible for;Process target setting;2
+qwen3_5_4b;1;Role Product Owner;is responsible for;Process define the product specification;2
+qwen3_5_4b;2;Goal Produce remaining energy required by heat pump with photovoltaic module;requires;Concept Zero-emission energy production;2
+qwen3_5_4b;2;Role Product Owner;is responsible for;Process target setting;2
+qwen3_5_4b;2;Role Product Owner;is responsible for;Process define the product specification;2
+qwen3_5_4b;2;Role Product designer;is responsible for;Process Product design;2
+qwen3_5_4b;3;Role Product Owner;is responsible for;Process target setting;2
+qwen3_5_4b;3;Role Product Owner;is responsible for;Process define the product specification;2
+qwen9b;1;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;2
+qwen9b;1;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;2
+qwen9b;1;Role Product Owner;is responsible for;Process target setting;2
+qwen9b;1;Role Product Owner;is responsible for;Process define the product specification;2
+qwen9b;2;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;2
+qwen9b;2;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;2
+qwen9b;3;Role Product Owner;is responsible for;Process target setting;2
+qwen9b;3;Role Product Owner;is responsible for;Process define the product specification;2
+qwen9b;3;Role Product designer;is responsible for;Process Product design;2

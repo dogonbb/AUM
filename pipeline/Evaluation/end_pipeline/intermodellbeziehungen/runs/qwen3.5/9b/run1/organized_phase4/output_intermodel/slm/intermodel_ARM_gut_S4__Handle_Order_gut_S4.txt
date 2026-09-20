@@ -1,0 +1,3 @@
+Multi-Heat performs Check availability
+Multi-Heat performs Check customer status
+Multi-Heat performs Check configuration

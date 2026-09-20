@@ -1,0 +1,8 @@
+Plan marketing campaign requires Concept Campaign target document
+Plan marketing campaign creates Concept Campaign plan
+Run social media campaign uses Concept Campaign plan
+Run print media campaign uses Concept Campaign plan
+Run social media campaign supports Concept Campaign statistics
+Run print media campaign supports Concept Campaign statistics
+Supervise campaign results uses Concept Campaign statistics
+Supervise campaign results creates Concept Campaign result document

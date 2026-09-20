@@ -1,0 +1,44 @@
+szenario;modellpaar;musterloesung;erzeugt;start_ende_gleich;vollstaendig_gleich
+controlled;Actors/Resources Model -> Business Process Model;33;33;33;33
+controlled;Actors/Resources Model -> Goal Model;21;22;21;21
+controlled;Actors/Resources Model -> Marketing Model;30;20;18;18
+controlled;Actors/Resources Model -> Product/Service Model;0;22;0;0
+controlled;Actors/Resources Model -> Technical Components/Requirements Model;0;13;0;0
+controlled;Business Process Model -> Concept Model;45;54;15;0
+controlled;Business Process Model -> Technical Components/Requirements Model;0;28;0;0
+controlled;Customer Order Model -> Concept Model;12;8;0;0
+controlled;Customer Order Model -> Technical Components/Requirements Model;0;9;0;0
+controlled;Goal Model -> Business Process Model;0;119;0;0
+controlled;Goal Model -> Concept Model;18;49;5;3
+controlled;Goal Model -> Customer Order Model;0;2;0;0
+controlled;Goal Model -> Product/Service Model;0;32;0;0
+controlled;Goal Model -> Technical Components/Requirements Model;24;28;10;0
+controlled;Handle Order Model -> Concept Model;0;2;2;0
+controlled;Handle Order Model -> Technical Components/Requirements Model;0;6;0;0
+controlled;Marketing Model -> Concept Model;24;40;0;0
+controlled;Marketing Model -> Technical Components/Requirements Model;0;12;0;0
+controlled;Product/Service Model -> Concept Model;21;44;10;10
+controlled;Product/Service Model -> Technical Components/Requirements Model;0;4;0;0
+controlled;Technical Components/Requirements Model -> Concept Model;0;70;0;0
+organized;Actors/Resources Model -> Business Process Model;33;27;24;2
+organized;Actors/Resources Model -> Customer Order Model;0;4;0;0
+organized;Actors/Resources Model -> Goal Model;21;28;15;15
+organized;Actors/Resources Model -> Handle Order Model;0;4;0;0
+organized;Actors/Resources Model -> Marketing Model;30;22;16;16
+organized;Actors/Resources Model -> Product/Service Model;0;34;0;0
+organized;Actors/Resources Model -> Technical Components/Requirements Model;0;14;0;0
+organized;Business Process Model -> Concept Model;45;26;0;0
+organized;Business Process Model -> Technical Components/Requirements Model;0;24;0;0
+organized;Customer Order Model -> Concept Model;12;16;0;0
+organized;Customer Order Model -> Technical Components/Requirements Model;0;8;0;0
+organized;Goal Model -> Business Process Model;0;36;0;0
+organized;Goal Model -> Concept Model;18;48;5;2
+organized;Goal Model -> Product/Service Model;0;41;0;0
+organized;Goal Model -> Technical Components/Requirements Model;24;26;8;0
+organized;Handle Order Model -> Concept Model;0;5;0;0
+organized;Handle Order Model -> Technical Components/Requirements Model;0;9;0;0
+organized;Marketing Model -> Concept Model;24;39;0;0
+organized;Marketing Model -> Technical Components/Requirements Model;0;10;0;0
+organized;Product/Service Model -> Concept Model;21;66;9;9
+organized;Product/Service Model -> Technical Components/Requirements Model;0;4;0;0
+organized;Technical Components/Requirements Model -> Concept Model;0;65;0;0

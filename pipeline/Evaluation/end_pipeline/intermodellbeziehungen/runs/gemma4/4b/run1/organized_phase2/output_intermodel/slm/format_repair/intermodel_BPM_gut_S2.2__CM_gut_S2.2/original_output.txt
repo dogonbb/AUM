@@ -1,0 +1,6 @@
+Process target setting uses Concept Customer Survey
+Process target setting creates Concept Target Feature
+Process define the product specification uses Concept Target Feature
+Process define the product specification creates Concept Specification Document
+Process Product design uses Concept Specification Document
+Process Product design creates Concept Design description

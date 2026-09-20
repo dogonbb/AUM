@@ -1,0 +1,38 @@
+[GM_gut_S2.2 -> CM_gut_S2.2]
+Providing most energy-efficient heating solution in market requires Energy-efficiency
+Minimize energy consumption of heat pump requires Heat pump
+Produce remaining energy required by heat pump with photovoltaic module requires Zero-emission energy production
+Energy consumption of current product version is too high requires Product
+
+[GM_gut_S2.2 -> BPM_gut_S2.2]
+Providing most energy-efficient heating solution in market motivates target setting
+Energy consumption of current product version is too high motivates target setting
+Minimize energy consumption of heat pump requires define the product specification
+Produce remaining energy required by heat pump with photovoltaic module requires Product design
+
+[GM_gut_S2.2 -> PM_gut_S2.2]
+Providing most energy-efficient heating solution in market requires energy-efficient
+Energy consumption of current product version is too high requires energy-efficient
+Minimize energy consumption of heat pump requires energy-efficient
+Produce remaining energy required by heat pump with photovoltaic module requires Zero-emission energy production
+
+[ARM_gut_S2.2 -> GM_gut_S2.2]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Product designer is responsible for Minimize energy consumption of heat pump
+
+[ARM_gut_S2.2 -> BPM_gut_S2.2]
+Product Owner is responsible for target setting
+Product Owner is responsible for define the product specification
+Product designer is responsible for Product design
+
+[ARM_gut_S2.2 -> PM_gut_S2.2]
+Product Owner is responsible for Smart Heat
+Product designer is responsible for energy-efficient
+
+[PM_gut_S2.2 -> CM_gut_S2.2]
+Smart Heat relates to Product
+Smart Heat relates to Heat pump
+energy-efficient relates to Feature
+Zero-emission energy production relates to Feature
+Zero-emission energy production relates to Zero-emission energy production
+Heat pump relates to Heat pump

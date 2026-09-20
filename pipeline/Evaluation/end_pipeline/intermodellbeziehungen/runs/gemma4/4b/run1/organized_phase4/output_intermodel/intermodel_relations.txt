@@ -1,0 +1,91 @@
+[ARM_gut_S4 -> GM_gut_S4]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Product designer is responsible for Minimize energy consumption of heat pump
+
+[ARM_gut_S4 -> BPM_gut_S4]
+Product Owner is responsible for target setting
+Product Owner is responsible for define the product specification
+Product Owner is responsible for Product design
+Product designer performs Product design
+
+[ARM_gut_S4 -> Marketing_gut_S4]
+Marketing department is responsible for Plan marketing campaign
+Social media group performs Run social media campaign
+Print media group performs Run print media campaign
+General Manager is responsible for Plan marketing campaign
+
+[ARM_gut_S4 -> Handle_Order_gut_S4]
+Multi-Heat performs Check availability
+
+[ARM_gut_S4 -> TRM_gut_S4]
+Social media designer performs Social media studio
+Product Owner is responsible for Production system
+Product designer performs Production system
+
+[ARM_gut_S4 -> PM_gut_S4]
+Product Owner is responsible for Smart Heat
+Product designer is responsible for energy-efficient
+
+[BPM_gut_S4 -> CM_gut_S4]
+target setting Input Customer Survey
+target setting Output Target Feature
+define the product specification Input Target Feature
+define the product specification Output Specification Document
+Product design Input Specification Document
+Product design Output Design description
+
+[Marketing_gut_S4 -> CM_gut_S4]
+Plan marketing campaign requires Campaign target document
+Plan marketing campaign creates Campaign plan
+Run social media campaign uses Campaign plan
+Run print media campaign uses Campaign plan
+Run social media campaign Supports Campaign statistics
+Run print media campaign Supports Campaign statistics
+Supervise campaign results uses Campaign statistics
+Supervise campaign results creates Campaign result document
+
+[CustomerOrder_gut_S4 -> CM_gut_S4]
+Submit customer order creates Order specification
+Check order validity uses Order specification
+Check order validity creates Verified order specification
+Check order validity creates Rejected order specification
+Handle customer order creates Order confirmation
+Prepare product delivery creates Delivery order
+Reject customer order uses Rejected order specification
+
+[Handle_Order_gut_S4 -> CM_gut_S4]
+verified order specification Output Verified order specification
+Order confirmation Output Order confirmation
+Check availability uses Product
+Check customer status requires Order specification
+Check configuration uses Specification Document
+
+[Marketing_gut_S4 -> TRM_gut_S4]
+Run social media campaign uses SM authoring system
+
+[CustomerOrder_gut_S4 -> TRM_gut_S4]
+Check order validity requires Product planning system
+Handle customer order requires Product planning system
+Handle customer order requires Enterprise resource planning system
+Prepare product delivery requires Enterprise resource planning system
+
+[Handle_Order_gut_S4 -> TRM_gut_S4]
+Check availability requires Enterprise resource planning system
+Check customer status requires Enterprise resource planning system
+Check configuration requires Product planning system
+
+[TRM_gut_S4 -> CM_gut_S4]
+Production system supports Product
+Version management system supports Product
+Social media studio supports Campaign plan
+SM life system supports Campaign plan
+SM authoring system supports Campaign plan
+SM repository supports Campaign plan
+Product planning system supports Order specification
+Enterprise resource planning system supports Order specification
+Distributed database supports Order specification
+
+[PM_gut_S4 -> CM_gut_S4]
+Smart Heat relates to Heat pump
+energy-efficient relates to Heat pump
+Photovoltaic module relates to Zero-emission energy production

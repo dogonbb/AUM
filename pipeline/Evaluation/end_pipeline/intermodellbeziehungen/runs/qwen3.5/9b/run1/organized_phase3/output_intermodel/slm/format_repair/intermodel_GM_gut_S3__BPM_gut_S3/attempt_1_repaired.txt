@@ -1,0 +1,8 @@
+Goal - 1 motivates Product innovation process
+Goal - 1 requires Information Set - 1
+Goal - 1 requires Information Set - 2
+Goal - 1 requires Information Set - 3
+Problem - 1 motivates Product innovation process
+Constraint - 1 Affects Product innovation process
+Problem - 2 hinders Product innovation process
+Problem - 3 hinders Product innovation process

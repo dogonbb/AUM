@@ -1,0 +1,15 @@
+Goal Providing most energy-efficient heating solution in market relates to Concept Heat pump
+Goal Providing most energy-efficient heating solution in market relates to Attribute Energy-efficiency
+Goal Providing most energy-efficient heating solution in market relates to Concept Product
+Goal Providing most energy-efficient heating solution in market motivates Concept Specification Document
+Problem Energy consumption of current product version is too high relates to Attribute Energy consumption
+Problem Energy consumption of current product version is too high relates to Attribute Version
+Goal Minimize energy consumption of heat pump relates to Attribute Energy consumption
+Goal Minimize energy consumption of heat pump relates to Concept Heat pump
+Goal Produce remaining energy required by heat pump with photovoltaic module relates to Concept Zero-emission energy production
+Goal Develop new heat extractor with very low energy consumption relates to Concept Feature
+Goal Develop new heat extractor with very low energy consumption relates to Concept Target Feature
+Goal Re-design existing heat extractor bay adapting it for a new refrigerant relates to Concept Feature
+Problem New refrigerants are very expensive relates to Concept Feature
+Constraint Maximum energy production of photovoltaic module is 50 kWh relates to Concept Heat pump
+Problem Short period for development relates to Concept Product

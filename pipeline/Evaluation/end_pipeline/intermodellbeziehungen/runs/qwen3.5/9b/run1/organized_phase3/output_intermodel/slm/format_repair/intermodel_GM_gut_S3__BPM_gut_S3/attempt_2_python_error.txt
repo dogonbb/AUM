@@ -1,0 +1,6 @@
+Multiple validation errors (5):
+1. Relationship line 2: Target class 'Comment' cannot be referenced from 'Goal Model' to 'Business Process Model'. Allowed target classes: Process, External Process, Information Set.
+2. Relationship line 6: Target class 'Comment' cannot be referenced from 'Goal Model' to 'Business Process Model'. Allowed target classes: Process, External Process, Information Set.
+3. Relationship line 7: Target class 'Comment' cannot be referenced from 'Goal Model' to 'Business Process Model'. Allowed target classes: Process, External Process, Information Set.
+4. Relationship line 8: Target class 'Comment' cannot be referenced from 'Goal Model' to 'Business Process Model'. Allowed target classes: Process, External Process, Information Set.
+5. Relationship line 9: Target class 'Comment' cannot be referenced from 'Goal Model' to 'Business Process Model'. Allowed target classes: Process, External Process, Information Set.

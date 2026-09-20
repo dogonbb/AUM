@@ -1,0 +1,17 @@
+Smart Heat relates to Product
+Heat pump relates to Heat pump
+Heat pump relates to Product
+Maintenance and trouble-shooting relates to Product
+Annual service relates to Product
+Repair relates to Product
+Service kit relates to Product
+energy-efficient relates to Feature
+Zero-emission energy production relates to Zero-emission energy production
+Quick response to error situations relates to Feature
+Discount prices in case of repairs relates to Feature
+Personal service technician relates to Feature
+Photovoltaic module relates to Zero-emission energy production
+indoor module relates to Product
+outdoor module relates to Product
+Outdoor air exchange unit relates to Product
+Zero-emission energy production relates to Feature

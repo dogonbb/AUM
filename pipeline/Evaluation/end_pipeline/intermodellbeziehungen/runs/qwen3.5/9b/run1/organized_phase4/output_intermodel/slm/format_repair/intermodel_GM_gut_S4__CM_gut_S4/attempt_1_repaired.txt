@@ -1,0 +1,11 @@
+Energy consumption of current product version is too high Affects Product
+Energy consumption of current product version is too high relates to Energy consumption
+Providing most energy-efficient heating solution in market relates to Heat pump
+Providing most energy-efficient heating solution in market relates to Energy-efficiency
+Minimize energy consumption of heat pump requires Heat pump
+Minimize energy consumption of heat pump relates to Energy consumption
+Produce remaining energy required by heat pump with photovoltaic module relates to Zero-emission energy production
+Develop new heat extractor with very low energy consumption relates to Design description
+Re-design existing heat extractor bay adapting it for a new refrigerant relates to Design description
+Provide services supporting high availability of heat pump relates to Heat pump
+Maximum energy production of photovoltaic module is 50 kWh Affects Product

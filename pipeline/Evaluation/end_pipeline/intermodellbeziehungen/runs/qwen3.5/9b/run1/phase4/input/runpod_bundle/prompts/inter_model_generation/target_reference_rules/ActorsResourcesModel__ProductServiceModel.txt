@@ -1,6 +1,0 @@
-Allowed target element types:
-- Product
-- Service
-- Feature
-
-Use no other target element types.

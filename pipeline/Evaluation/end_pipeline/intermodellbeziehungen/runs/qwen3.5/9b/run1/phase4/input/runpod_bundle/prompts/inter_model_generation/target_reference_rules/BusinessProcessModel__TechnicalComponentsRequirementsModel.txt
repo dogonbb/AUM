@@ -1,9 +1,0 @@
-Allowed target element types:
-- Information System Goal
-- Information System Problem
-- Information System Requirement
-- Information System Functional Requirement
-- Information System Non-Functional Requirement
-- Technical Component
-
-Use no other target element types.

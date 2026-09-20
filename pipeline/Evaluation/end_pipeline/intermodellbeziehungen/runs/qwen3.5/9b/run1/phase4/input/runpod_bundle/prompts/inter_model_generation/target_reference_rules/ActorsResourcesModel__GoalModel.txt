@@ -1,8 +1,0 @@
-Allowed target element types:
-- Goal
-- Problem
-- Cause
-- Constraint
-- Opportunity
-
-Use no other target element types.

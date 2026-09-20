@@ -1,0 +1,6 @@
+Social media studio supports Campaign plan
+SM authoring system supports Campaign plan
+SM life system supports Campaign plan
+SM repository supports Campaign plan
+Version management system has requirement Specification Document
+Production system supports Design description

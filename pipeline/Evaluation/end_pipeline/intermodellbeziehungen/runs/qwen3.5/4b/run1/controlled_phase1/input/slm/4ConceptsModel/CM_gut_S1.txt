@@ -1,0 +1,19 @@
+ELEMENTS
+Concept Customer Survey
+Concept Feature
+Concept Target Feature
+Concept Specification Document
+Concept Product
+Attribute Version
+Attribute Energy-efficiency
+Attribute Energy consumption
+
+CONNECTIONS
+Customer Survey 1:n Target Feature
+Target Feature 1:1 Feature
+Specification Document 1:n Target Feature
+Specification Document 1:1 Product
+Product n:m Feature
+Product has attribute Version
+Product has attribute Energy-efficiency
+Product has attribute Energy consumption

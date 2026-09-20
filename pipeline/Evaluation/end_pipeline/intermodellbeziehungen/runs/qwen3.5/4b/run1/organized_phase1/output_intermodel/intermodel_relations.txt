@@ -1,0 +1,22 @@
+[GM_gut_S1 -> CM_gut_S1]
+Providing most energy-efficient heating solution in market requires Product
+Energy consumption of current product version is too high Hinders Energy-efficiency
+Providing most energy-efficient heating solution in market requires Target Feature
+
+[GM_gut_S1 -> TRM_gut_S1]
+Providing most energy-efficient heating solution in market motivates Production system
+Energy consumption of current product version is too high motivates Version management system
+
+[GM_gut_S1 -> PM_gut_S1]
+Providing most energy-efficient heating solution in market requires energy-efficient
+Energy consumption of current product version is too high requires energy-efficient
+
+[ARM_gut_S1 -> GM_gut_S1]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+
+[ARM_gut_S1 -> BPM_gut_S1]
+Product Owner is responsible for target setting
+Product Owner is responsible for define the product specification
+
+[ARM_gut_S1 -> PM_gut_S1]
+Product Owner is responsible for Smart Heat

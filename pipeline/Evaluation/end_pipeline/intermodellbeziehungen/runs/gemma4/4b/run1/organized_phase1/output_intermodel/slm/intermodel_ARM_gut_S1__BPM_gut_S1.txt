@@ -1,0 +1,4 @@
+Product Owner is responsible for target setting
+Product Owner is responsible for define the product specification
+Product development department performs target setting
+Product development department performs define the product specification

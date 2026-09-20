@@ -1,0 +1,8 @@
+Product Owner is responsible for Smart Heat
+Product Owner is responsible for energy-efficient
+Product designer is responsible for Heat pump
+Product designer is responsible for energy-efficient
+Multi-Heat is responsible for Smart Heat
+Multi-Heat is responsible for Maintenance and trouble-shooting
+General Manager is responsible for Smart Heat
+General Manager is responsible for Maintenance and trouble-shooting

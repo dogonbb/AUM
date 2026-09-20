@@ -1,0 +1,12 @@
+Providing most energy-efficient heating solution in market relates to Attribute Energy-efficiency
+Providing most energy-efficient heating solution in market relates to Concept Heat pump
+Providing most energy-efficient heating solution in market relates to Concept Product
+Energy consumption of current product version is too high relates to Attribute Energy consumption
+Energy consumption of current product version is too high relates to Concept Product
+Energy consumption of current product version is too high relates to Attribute Version
+Minimize energy consumption of heat pump relates to Concept Heat pump
+Minimize energy consumption of heat pump relates to Attribute Energy consumption
+Produce remaining energy required by heat pump with photovoltaic module relates to Concept Heat pump
+Produce remaining energy required by heat pump with photovoltaic module relates to Attribute Energy consumption
+Produce remaining energy required by heat pump with photovoltaic module relates to Concept Zero-emission energy production
+Produce remaining energy required by heat pump with photovoltaic module relates to Concept Feature

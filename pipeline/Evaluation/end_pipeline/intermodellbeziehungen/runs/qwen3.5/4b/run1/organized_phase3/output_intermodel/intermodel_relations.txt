@@ -1,0 +1,50 @@
+[GM_gut_S3 -> CM_gut_S3]
+Providing most energy-efficient heating solution in market relates to Heat pump
+Minimize energy consumption of heat pump requires Energy consumption
+Develop new heat extractor with very low energy consumption requires Design description
+Re-design existing heat extractor bay adapting it for a new refrigerant requires Design description
+Energy consumption of current product version is too high relates to Product
+Short period for development relates to Product
+New refrigerants are very expensive relates to Product
+Maximum energy production of photovoltaic module is 50 kWh relates to Product
+Providing most energy-efficient heating solution in market relates to Energy-efficiency
+Produce remaining energy required by heat pump with photovoltaic module relates to Zero-emission energy production
+
+[ARM_gut_S3 -> BPM_gut_S3]
+Product Owner is responsible for target setting
+Product Owner is responsible for define the product specification
+Product designer performs Product design
+
+[ARM_gut_S3 -> Marketing_gut_S3]
+Marketing department is responsible for Plan marketing campaign
+
+[ARM_gut_S3 -> PM_gut_S3]
+Product Owner is responsible for Smart Heat
+Product designer is responsible for energy-efficient
+
+[BPM_gut_S3 -> CM_gut_S3]
+target setting Input Customer Survey
+target setting Output Target Feature
+define the product specification Input Target Feature
+define the product specification Output Specification Document
+Product design Input Specification Document
+Product design Output Design description
+
+[Marketing_gut_S3 -> CM_gut_S3]
+Plan marketing campaign Input Campaign target document
+Plan marketing campaign creates Campaign plan
+Run social media campaign Input Campaign plan
+Run print media campaign Input Campaign plan
+Supervise campaign results creates Campaign result document
+Run social media campaign creates Campaign statistics
+Run print media campaign creates Campaign statistics
+
+[BPM_gut_S3 -> TRM_gut_S3]
+target setting uses Production system
+define the product specification uses Version management system
+Product design uses Production system
+
+[TRM_gut_S3 -> CM_gut_S3]
+Production system supports Product
+Social media studio supports Campaign plan
+Version management system applies to Target Feature

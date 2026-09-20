@@ -1,0 +1,7 @@
+Multiple validation errors (6):
+1. Relationship line 3: Relationship line uses connector 'hinders', which is not valid for source model type 'Goal Model'. Allowed: 'Supports', 'Hinders', 'Contradicts', 'Affects', 'Defined by', 'motivates', 'requires', 'uses', 'relates to'.
+2. Relationship line 4: Relationship line uses connector 'supports', which is not valid for source model type 'Goal Model'. Allowed: 'Supports', 'Hinders', 'Contradicts', 'Affects', 'Defined by', 'motivates', 'requires', 'uses', 'relates to'.
+3. Relationship line 5: Relationship line uses connector 'supports', which is not valid for source model type 'Goal Model'. Allowed: 'Supports', 'Hinders', 'Contradicts', 'Affects', 'Defined by', 'motivates', 'requires', 'uses', 'relates to'.
+4. Relationship line 6: Relationship line uses connector 'affects', which is not valid for source model type 'Goal Model'. Allowed: 'Supports', 'Hinders', 'Contradicts', 'Affects', 'Defined by', 'motivates', 'requires', 'uses', 'relates to'.
+5. Relationship line 7: Relationship line uses connector 'supports', which is not valid for source model type 'Goal Model'. Allowed: 'Supports', 'Hinders', 'Contradicts', 'Affects', 'Defined by', 'motivates', 'requires', 'uses', 'relates to'.
+6. Relationship line 8: Relationship line uses connector 'supports', which is not valid for source model type 'Goal Model'. Allowed: 'Supports', 'Hinders', 'Contradicts', 'Affects', 'Defined by', 'motivates', 'requires', 'uses', 'relates to'.

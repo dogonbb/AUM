@@ -1,0 +1,3 @@
+define the product specification uses Production system
+Product design uses Production system
+specification document requires Version management system

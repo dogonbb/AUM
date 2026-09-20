@@ -1,0 +1,7 @@
+Submit customer order creates Order specification
+Check order validity uses Order specification
+Check order validity creates Verified order specification
+Check order validity creates Rejected order specification
+Handle customer order creates Order confirmation
+Prepare product delivery creates Delivery order
+Reject customer order uses Rejected order specification

@@ -1,0 +1,5 @@
+ELEMENTS
+Process Product innovation process
+Process Marketing campaign process
+
+CONNECTIONS

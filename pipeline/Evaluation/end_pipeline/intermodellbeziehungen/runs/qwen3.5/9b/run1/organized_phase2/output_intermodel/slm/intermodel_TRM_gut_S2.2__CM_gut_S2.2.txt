@@ -1,0 +1,5 @@
+Production system supports Product
+Version management system supports Product
+Database system supports Product
+Transaction middleware supports Product
+User interface applies to Design description

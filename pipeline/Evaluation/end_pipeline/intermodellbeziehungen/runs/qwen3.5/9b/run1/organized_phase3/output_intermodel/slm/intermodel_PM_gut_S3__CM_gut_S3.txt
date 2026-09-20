@@ -1,0 +1,20 @@
+Smart Heat relates to Product
+Smart Heat relates to Feature
+Smart Heat relates to Design description
+Smart Heat relates to Specification Document
+Smart Heat motivates Customer Survey
+indoor module relates to Design description
+outdoor module relates to Design description
+energy-efficient relates to Feature
+Heat pump relates to Product
+Heat pump relates to Heat pump
+Photovoltaic module relates to Design description
+Photovoltaic module relates to Zero-emission energy production
+Outdoor air exchange unit relates to Design description
+Zero-emission energy production relates to Zero-emission energy production
+Zero-emission energy production relates to Feature
+Maintenance and trouble-shooting relates to Product
+Maintenance and trouble-shooting motivates Customer Survey
+Annual service relates to Product
+Repair relates to Product
+Service kit relates to Product

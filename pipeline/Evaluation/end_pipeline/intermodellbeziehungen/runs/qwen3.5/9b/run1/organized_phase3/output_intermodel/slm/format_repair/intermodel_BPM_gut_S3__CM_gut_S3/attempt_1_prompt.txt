@@ -1,0 +1,371 @@
+## General explanation
+
+You repair an already generated intermodel relationship output after the Python integrator failed to process it.
+
+Follow this order strictly:
+1. Review the complete generated output and the complete Python error before making changes.
+2. Correct every reported formatting violation throughout the file, while preserving semantic content wherever possible.
+3. Correct every reported semantic validation error using the scenario texts, model explanation, original intermodel generation rules, and required output format. Make only the smallest content changes required for the Python integrator to accept the output.
+
+The Python error may contain a numbered `Multiple validation errors` list, including multiple errors for one line. Resolve every listed error in one repaired output. Do not stop after fixing the first item. Check every line named in the error list and keep every source and target element name exactly consistent with the existing elements in its respective model. Preserve the required source-to-target direction.
+
+Connector enumeration values are source-model-specific. Use only the exact
+case-sensitive connector list and allowed target element types contained in the
+supplied intermodel generation rules; never translate, normalize, underscore,
+or change the capitalization of an enumeration value.
+
+For a semantic correction, use only information present in the supplied scenario texts, model explanation, and intermodel generation rules. Do not invent elements, names, facts, or relationships. Remove, replace, or add only what is necessary to resolve the reported validation errors. Preserve every unaffected name and relationship exactly.
+
+Do not add `ELEMENTS` or `CONNECTIONS` sections and do not reproduce internal relationships from either model. Do not add a model-pair header; the pipeline adds that header separately during validation and aggregation.
+
+Return only the complete repaired output. Do not provide an explanation, Markdown, code fences, or introductory or concluding text.
+
+## Scenario texts
+
+The first step in the product innovation process is target setting. In target setting, we need the customer survey as input and use it to develop the list of target features. The next step is to define the product specification based on the target feature list. The result is the specification document, which is the input for the step, the product design. This process produces the design description and concludes the innovation process. As the product owner, I am responsible for both steps, target setting and product specification. My colleague, the product designer is in charge of product design process.
+
+---
+
+Let me explain some of the important concepts we use in the company:
+•	Energy-efficiency can be calculated as the energy output for heating divided by the energy consumption. 
+•	Energy consumption is measured in kilowatt-hours (kWh)
+•	The customer survey provides an overview what our customers expect for the next version of our products.
+•	Feature is something the customer wants the product to have.
+•	Target feature is a feature we will implement in the next version of the product
+•	Specification document defines the functional and non-functional characteristics to be offered by the product
+•	Design description defines the main building blocks of a product with their interfaces.
+•	Zero-emission energy production means that energy is produced without CO2 emissions
+•	Heat pump extracts heat from the environment to be used to heat buildings. Heat pumps are characterized by their energy-efficiency, energy consumption and features.
+•	Campaign target document defines the target group, campaign start and end date, and the campaign budget.
+•	Campaign plan describes what social media activities and print media products are part of the campaign.
+•	Campaign statistics summarizes the response rates for the social media and print media activities.
+•	Campaign result document summarizes the statistics and compares them with the campaign target.
+
+## Model explanation
+
+### Source model semantics
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Business Process Model
+
+## Purpose of the model
+
+The Business Process Model describes enterprise processes, their interactions, and the flow of information between them. It represents internal processes, relevant external processes, information sets, and branching or joining structures. The model explains how information is consumed as input, produced as output, and transferred between process elements.
+
+## Element types
+
+- Process
+- External Process
+- Information Set
+
+## Meaning of element types
+
+- Process: A collection of activities within the enterprise or problem domain that consumes input, produces output, is controlled by rules, may have a performer or responsible actor, and uses resources and time.
+- External Process: A collection of activities outside the organisational scope that communicates with processes in the problem domain and may act as a source or destination of information.
+- Information Set: A set of information transferred from one Process or External Process to another.
+
+## Internal connection types
+
+Direct connections:
+
+- relation
+- Input
+- Output
+
+Connector-based connections:
+
+- Split (AND)
+- Join (AND)
+- Split (OR)
+- Join (OR)
+
+## Meaning of internal connections
+
+- A relation B: A is directly connected to B by an unlabeled business-process relation.
+- A Input B: Information Set A is used as input by Process or External Process B.
+- A Output B: Process or External Process A produces Information Set B as output.
+- A Split (AND) B, C, D: A branches to B, C, and D, and all branches apply.
+- A Split (OR) B, C, D: A branches to B, C, and D as alternatives.
+- A, B, C Join (AND) D: A, B, and C are joined before D, and all incoming branches apply.
+- A, B, C Join (OR) D: A, B, and C are alternative incoming branches joined before D.
+
+## Structural rules
+
+- Internal enterprise activities are represented as Process.
+- Activities outside the organisational scope are represented as External Process.
+- Transferred information is represented as Information Set.
+- Input connections lead from Information Sets to Processes or External Processes.
+- Output connections lead from Processes or External Processes to Information Sets.
+- AND connectors represent parallel or jointly required branches.
+- OR connectors represent alternative branches.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, causes, constraints, opportunities, actors, roles, organisational units, products, services, concepts, business rules, or technical requirements as model elements.
+
+### Target model semantics
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Concepts Model
+
+## Purpose of the model
+
+The Concepts Model defines the things, phenomena, business objects, information objects, and important terms discussed in the other enterprise models. It establishes the business vocabulary of the enterprise, gives precise meanings to relevant expressions, and represents semantic relationships, attributes, classifications, and compositions among concepts.
+
+## Element types
+
+- Concept
+- Attribute
+
+## Meaning of element types
+
+- Concept: A thing, phenomenon, business object, information object, domain object, or important term in the domain of interest that the enterprise needs to reason about, characterise, or define.
+- Attribute: A property used only to characterise a Concept.
+
+## Internal connection types
+
+Direct connections:
+
+- 1:1
+- 1:n
+- n:m
+- has attribute
+
+Connector-based connections:
+
+- Partial-ISA
+- Total-ISA
+- Partial-PartOF
+- Total-PartOF
+
+## Meaning of internal connections
+
+- A 1:1 B: One instance of Concept A is related to exactly one instance of Concept B, and vice versa.
+- A 1:n B: One instance of Concept A may be related to several instances of Concept B.
+- A n:m B: Several instances of Concept A may be related to several instances of Concept B.
+- A has attribute B: Concept A is characterised by Attribute B.
+- A, B, C Partial-ISA D: A, B, and C are specialisations of D, but the listed specialisations are not necessarily complete.
+- A, B, C Total-ISA D: A, B, and C are specialisations of D and together completely cover D.
+- A, B, C Partial-PartOF D: A, B, and C are parts of D, but the listed parts are not necessarily complete.
+- A, B, C Total-PartOF D: A, B, and C are parts of D and together completely compose D.
+
+## Structural rules
+
+- Concepts represent independent domain terms or objects.
+- Attributes represent properties that characterise Concepts and are not treated as independent Concepts when they serve only that purpose.
+- Connector-based connections may have one or more sources; a single-source connector is valid.
+- Cardinality connections represent semantic associations between Concepts.
+- ISA connections represent generalisation and specialisation.
+- PartOF connections represent aggregation and composition.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent goals, problems, causes, constraints, opportunities, products, services, actors, roles, resources, processes, business rules, or technical requirements as model elements.
+
+### Existing source model
+
+ELEMENTS
+Process target setting
+Information Set customer survey
+Information Set target features
+Process define the product specification
+Information Set specification document
+Process Product design
+Information Set Design description
+
+CONNECTIONS
+target setting Output target features
+customer survey Input target setting
+target features Input define the product specification
+define the product specification Output specification document
+specification document Input Product design
+Product design Output Design description
+
+### Existing target model
+
+ELEMENTS
+Concept Customer Survey
+Concept Feature
+Concept Target Feature
+Concept Specification Document
+Concept Product
+Attribute Version
+Attribute Energy-efficiency
+Attribute Energy consumption
+Concept Design description
+Concept Zero-emission energy production
+Concept Heat pump
+Attribute List of features
+Concept Campaign target document
+Attribute Target group
+Attribute Campaign start date
+Attribute Campaign end date
+Attribute Campaign budget
+Concept Campaign plan
+Attribute Print media products
+Attribute Social media activities
+Concept Campaign statistics
+Attribute Response rate social media
+Attribute Response rate print media
+Concept Campaign result document
+
+CONNECTIONS
+Customer Survey 1:n Target Feature
+Target Feature 1:1 Feature
+Specification Document 1:n Target Feature
+Specification Document 1:1 Product
+Product n:m Feature
+Product has attribute Version
+Design description 1:1 Product
+Zero-emission energy production 1:1 Feature
+Heat pump has attribute Energy-efficiency
+Heat pump has attribute Energy consumption
+Heat pump 1:1 Product
+Heat pump has attribute List of features
+Campaign target document 1:1 Campaign plan
+Campaign result document 1:1 Campaign statistics
+Campaign result document 1:1 Campaign target document
+Target group, Campaign start date, Campaign end date, Campaign budget Total-PartOF Campaign target document
+Print media products, Social media activities Total-PartOF Campaign plan
+Response rate social media, Response rate print media Total-PartOF Campaign statistics
+
+## Original intermodel generation rules
+
+## Task
+
+Identify all semantically meaningful intermodel relationships from elements of the source model to elements of the target model.
+
+Consider every element of the source model as a possible source. As targets, use
+only elements whose element type is listed as allowed for the target model below.
+
+However, create a relationship only when it is supported by the meanings of the two elements and by the provided case descriptions.
+
+Do not create a relationship merely because the two elements contain similar words.
+Do not create speculative relationships that are not supported by the available information.
+Do not create relationships between two elements belonging to the same model.
+
+## Source-model intermodel connector rules
+
+Source model: Business Process Model
+
+Allowed connectors (exact enumeration values):
+- Input
+- Output
+- Triggers
+- Supports
+- uses
+- creates
+- motivates
+- requires
+
+Connector spelling and capitalization are case-sensitive.
+
+Connector meanings (always source -> target):
+- `Input`: the source receives or consumes the target as an input.
+- `Output`: the source produces or supplies the target as an output.
+- `Triggers`: the source initiates or causes the target to start or become active.
+- `Supports`: the source positively contributes to the target without producing, consuming, or triggering it.
+- `uses`: the source employs the target while being performed.
+- `creates`: the source brings the target into existence.
+- `motivates`: the source provides a reason or justification for the target.
+- `requires`: the source depends on the target to be performed or completed.
+
+Interpret every connector from source to target. Do not reverse a relationship
+merely to make its label sound natural. Preserve connector capitalization and
+spaces exactly.
+
+## Target-model reference rules
+
+Allowed target element types:
+- Concept
+- Attribute
+
+Use no other target element types.
+
+Use the element types exactly as written in the target model. If no target
+element type is allowed, return
+exactly `NO_INTERMODEL_RELATIONSHIPS`.
+
+## Direction
+
+Every returned relationship must start with an element from the source model and end with an element from the target model.
+
+Do not reverse the direction.
+
+## Output format
+
+Return only the intermodel relationships.
+
+Write exactly one relationship per line using the following syntax:
+
+<ElementNameFromModel1> <Connector> <ElementNameFromModel2>
+
+Use only the exact element names declared in the `ELEMENTS` sections of the
+source model and target model shown above.
+
+Do not include the element type before or after an element name.
+
+Do not prefix either element name with its element type. For example, if an
+element is declared as `Role Customer Service Representative`, use only
+`Customer Service Representative` as its name in a relationship line.
+
+## Output rules
+
+1. Return relationships only.
+2. Do not return an ELEMENTS section.
+3. Do not return a CONNECTIONS heading.
+4. Do not reproduce internal model relationships.
+5. Do not create new elements.
+6. Do not rename, shorten, translate, or normalize element names.
+7. Do not include element types in the relationships.
+8. Use only the allowed connectors.
+9. Do not include explanations, comments, bullet points, numbering, Markdown, or code fences.
+10. Create at most one relationship between any pair of elements. Do not connect the same source and target elements more than once, even with different connectors. Choose the single most specific applicable connector.
+11. If no meaningful intermodel relationship can be identified, return exactly:
+
+NO_INTERMODEL_RELATIONSHIPS
+
+## Required output format
+
+Return only the complete repaired output as plain text containing relationship lines for the one supplied model pair. Do not write a model-pair header, Markdown fences, bullets, numbering, comments, explanations, `ELEMENTS`, or `CONNECTIONS` headings.
+
+Write every relationship on its own line:
+`exact source element name connector exact target element name`
+
+The source element must belong to the supplied source model. The target element must belong to the supplied target model. Names must exactly match existing element names in those models. Do not include element types before element names.
+
+Use only the exact source-specific connectors stated in the supplied original
+intermodel generation rules. Preserve capitalization and spaces exactly. The target element
+type must also be allowed for the supplied directed model pair according
+to the original intermodel generation rules.
+
+Do not use pipes, `::`, arrows, or any alternative syntax even if a parser accepts it. Create at most one relationship between any pair of elements. If multiple relationships connect the same source and target elements, keep only the single most specific applicable connector.
+
+If no relationship exists, return exactly `NO_INTERMODEL_RELATIONSHIPS` on a single line and nothing else.
+
+## Python error
+
+Multiple validation errors (6):
+1. Relationship line 2: Relationship line 2: Source element 'Process target setting' was not found by INSTANCE name or Description in model 'BPM_gut_S3' (Business Process Model). Names: Information Set - 1, Information Set - 2, Information Set - 3, Information Set - 4, Process - 1, Process - 2, Process - 4, Product innovation process. Descriptions: Design description | Product design | customer survey | define the product specification | specification document | target features | target setting
+2. Relationship line 3: Relationship line 3: Source element 'Process target setting' was not found by INSTANCE name or Description in model 'BPM_gut_S3' (Business Process Model). Names: Information Set - 1, Information Set - 2, Information Set - 3, Information Set - 4, Process - 1, Process - 2, Process - 4, Product innovation process. Descriptions: Design description | Product design | customer survey | define the product specification | specification document | target features | target setting
+3. Relationship line 4: Relationship line 4: Source element 'Process define the product specification' was not found by INSTANCE name or Description in model 'BPM_gut_S3' (Business Process Model). Names: Information Set - 1, Information Set - 2, Information Set - 3, Information Set - 4, Process - 1, Process - 2, Process - 4, Product innovation process. Descriptions: Design description | Product design | customer survey | define the product specification | specification document | target features | target setting
+4. Relationship line 5: Relationship line 5: Source element 'Process define the product specification' was not found by INSTANCE name or Description in model 'BPM_gut_S3' (Business Process Model). Names: Information Set - 1, Information Set - 2, Information Set - 3, Information Set - 4, Process - 1, Process - 2, Process - 4, Product innovation process. Descriptions: Design description | Product design | customer survey | define the product specification | specification document | target features | target setting
+5. Relationship line 6: Relationship line 6: Source element 'Process Product design' was not found by INSTANCE name or Description in model 'BPM_gut_S3' (Business Process Model). Names: Information Set - 1, Information Set - 2, Information Set - 3, Information Set - 4, Process - 1, Process - 2, Process - 4, Product innovation process. Descriptions: Design description | Product design | customer survey | define the product specification | specification document | target features | target setting
+6. Relationship line 7: Relationship line 7: Source element 'Process Product design' was not found by INSTANCE name or Description in model 'BPM_gut_S3' (Business Process Model). Names: Information Set - 1, Information Set - 2, Information Set - 3, Information Set - 4, Process - 1, Process - 2, Process - 4, Product innovation process. Descriptions: Design description | Product design | customer survey | define the product specification | specification document | target features | target setting
+
+## Output to repair
+
+Process target setting Input Concept Customer Survey
+Process target setting Output Concept Target Feature
+Process define the product specification Input Concept Target Feature
+Process define the product specification Output Concept Specification Document
+Process Product design Input Concept Specification Document
+Process Product design Output Concept Design description

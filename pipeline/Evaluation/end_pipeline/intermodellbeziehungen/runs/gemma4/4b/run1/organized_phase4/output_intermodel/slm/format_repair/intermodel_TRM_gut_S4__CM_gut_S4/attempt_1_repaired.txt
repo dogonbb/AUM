@@ -1,0 +1,9 @@
+Production system supports Concept Product
+Version management system supports Concept Product
+Social media studio supports Concept Campaign plan
+SM life system supports Concept Campaign plan
+SM authoring system supports Concept Campaign plan
+SM repository supports Concept Campaign plan
+Product planning system supports Concept Order specification
+Enterprise resource planning system supports Concept Order specification
+Distributed database supports Concept Order specification

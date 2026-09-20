@@ -1,0 +1,4 @@
+target setting uses Concept Customer Survey
+target setting creates Concept Target Feature
+define the product specification creates Concept Specification Document
+Product design creates Concept Design description

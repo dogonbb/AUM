@@ -1,0 +1,10 @@
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Product designer is responsible for Minimize energy consumption of heat pump
+General Manager is responsible for Provide services supporting high availability of heat pump
+General Manager is responsible for Problem control unit needs Internet to provide status information
+General Manager is responsible for Problem Company has not much experience with online information processing
+General Manager is responsible for Opportunity New european regulation for energy-efficient heating that requires continuous monitoring of devices
+General Manager is responsible for Constraint Maximum energy production of photovoltaic module is 50 kWh
+General Manager is responsible for Problem Energy consumption of current product version is too high
+General Manager is responsible for Problem Short period for development
+General Manager is responsible for Problem New refrigerants are very expensive

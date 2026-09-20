@@ -1,0 +1,8 @@
+Plan marketing campaign requires Campaign target document
+Run social media campaign requires Campaign plan
+Run print media campaign requires Campaign plan
+Supervise campaign results requires Campaign statistics
+Plan marketing campaign creates Campaign plan
+Run social media campaign creates Campaign statistics
+Run print media campaign creates Campaign statistics
+Supervise campaign results creates Campaign result document

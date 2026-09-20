@@ -1,0 +1,7 @@
+szenario;modell;musterloesung;erzeugt;start_ende_gleich;start_ende_anteil_prozent;vollstaendig_gleich;vollstaendig_anteil_prozent
+controlled;gemm4_e4b;76;182;39;51.32;25;32.89
+organized;gemm4_e4b;76;175;28;36.84;13;17.11
+controlled;qwen3_5_4b;76;102;31;40.79;30;39.47
+organized;qwen3_5_4b;76;97;17;22.37;8;10.53
+controlled;qwen9b;76;333;44;57.89;30;39.47
+organized;qwen9b;76;284;32;42.11;23;30.26

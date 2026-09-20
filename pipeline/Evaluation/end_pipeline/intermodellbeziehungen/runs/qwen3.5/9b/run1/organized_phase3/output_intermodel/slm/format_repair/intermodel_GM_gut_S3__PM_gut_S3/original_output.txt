@@ -1,0 +1,5 @@
+Goal Providing most energy-efficient heating solution in market motivates energy-efficient
+Goal Minimize energy consumption of heat pump motivates energy-efficient
+Problem Energy consumption of current product version is too high requires energy-efficient
+Goal Produce remaining energy required by heat pump with photovoltaic module motivates Zero-emission energy production
+Goal Develop new heat extractor with very low energy consumption motivates energy-efficient

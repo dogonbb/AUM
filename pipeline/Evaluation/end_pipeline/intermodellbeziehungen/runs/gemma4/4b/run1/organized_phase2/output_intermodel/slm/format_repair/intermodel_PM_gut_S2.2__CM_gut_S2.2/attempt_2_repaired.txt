@@ -1,0 +1,8 @@
+energy-efficient relates to Attribute Energy-efficiency
+Zero-emission energy production relates to Concept Zero-emission energy production
+Heat pump relates to Heat pump
+Smart Heat relates to Heat pump
+Photovoltaic module requires Concept Zero-emission energy production
+indoor module relates to Design description
+outdoor module relates to Design description
+Outdoor air exchange unit relates to Design description

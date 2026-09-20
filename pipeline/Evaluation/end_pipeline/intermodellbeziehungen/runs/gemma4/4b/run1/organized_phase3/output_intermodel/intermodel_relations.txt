@@ -1,0 +1,84 @@
+[GM_gut_S3 -> CM_gut_S3]
+Providing most energy-efficient heating solution in market motivates Heat pump
+Energy consumption of current product version is too high Hinders Energy-efficiency
+Minimize energy consumption of heat pump Supports Energy consumption
+Produce remaining energy required by heat pump with photovoltaic module Supports Zero-emission energy production
+Maximum energy production of photovoltaic module is 50 kWh Affects Energy-efficiency
+Develop new heat extractor with very low energy consumption Supports Energy consumption
+Re-design existing heat extractor bay adapting it for a new refrigerant Supports Product
+
+[GM_gut_S3 -> BPM_gut_S3]
+Providing most energy-efficient heating solution in market motivates target setting
+Minimize energy consumption of heat pump requires define the product specification
+Energy consumption of current product version is too high motivates Product design
+
+[GM_gut_S3 -> PM_gut_S3]
+Providing most energy-efficient heating solution in market Supports energy-efficient
+Energy consumption of current product version is too high Hinders energy-efficient
+Minimize energy consumption of heat pump Supports energy-efficient
+Produce remaining energy required by heat pump with photovoltaic module Supports Zero-emission energy production
+Develop new heat extractor with very low energy consumption Supports energy-efficient
+Re-design existing heat extractor bay adapting it for a new refrigerant Supports energy-efficient
+
+[ARM_gut_S3 -> GM_gut_S3]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Product development department is responsible for Providing most energy-efficient heating solution in market
+Product designer is responsible for Minimize energy consumption of heat pump
+Multi-Heat is responsible for Providing most energy-efficient heating solution in market
+
+[ARM_gut_S3 -> BPM_gut_S3]
+Product Owner is responsible for target setting
+Product Owner is responsible for define the product specification
+Product designer is responsible for Product design
+
+[ARM_gut_S3 -> Marketing_gut_S3]
+Marketing department is responsible for Plan marketing campaign
+Marketing department is responsible for Run social media campaign
+Marketing department is responsible for Run print media campaign
+Marketing department is responsible for Supervise campaign results
+
+[ARM_gut_S3 -> TRM_gut_S3]
+Product Owner is responsible for Production system
+
+[ARM_gut_S3 -> PM_gut_S3]
+Product Owner is responsible for Smart Heat
+Product Owner is responsible for energy-efficient
+Product development department is responsible for Smart Heat
+Product designer is responsible for Heat pump
+
+[BPM_gut_S3 -> CM_gut_S3]
+target setting Input Customer Survey
+target setting Output Target Feature
+define the product specification Output Specification Document
+Product design Output Design description
+
+[Marketing_gut_S3 -> CM_gut_S3]
+Plan marketing campaign requires Campaign target document
+Run social media campaign requires Campaign plan
+Run print media campaign requires Campaign plan
+Supervise campaign results requires Campaign statistics
+Plan marketing campaign creates Campaign plan
+Run social media campaign creates Campaign statistics
+Run print media campaign creates Campaign statistics
+Supervise campaign results creates Campaign result document
+
+[BPM_gut_S3 -> TRM_gut_S3]
+define the product specification uses Production system
+Product design uses Production system
+specification document requires Version management system
+
+[Marketing_gut_S3 -> TRM_gut_S3]
+Run social media campaign uses Social media studio
+
+[TRM_gut_S3 -> CM_gut_S3]
+Social media studio supports Campaign plan
+SM authoring system supports Campaign plan
+SM life system supports Campaign plan
+SM repository supports Campaign plan
+Version management system has requirement Specification Document
+Production system supports Design description
+
+[PM_gut_S3 -> CM_gut_S3]
+Smart Heat relates to Heat pump
+energy-efficient relates to Feature
+Photovoltaic module relates to Zero-emission energy production

@@ -1,0 +1,16 @@
+ELEMENTS
+Role Product Owner
+Organizational Unit Product development department
+Role Product designer
+Organizational Unit Multi-Heat
+Organizational Unit Marketing department
+Organizational Unit Social media group
+Organizational Unit Print media group
+Resource Printing press
+
+CONNECTIONS
+Product Owner works in Product development department
+Product designer works in Product development department
+Printing press belongs to Print media group
+Product development department, Marketing department Total-PartOF Multi-Heat
+Social media group, Print media group Total-PartOF Marketing department

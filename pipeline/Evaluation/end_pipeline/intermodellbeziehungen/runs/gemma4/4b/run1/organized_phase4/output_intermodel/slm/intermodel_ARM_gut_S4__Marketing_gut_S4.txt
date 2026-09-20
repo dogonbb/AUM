@@ -1,0 +1,4 @@
+Marketing department is responsible for Plan marketing campaign
+Social media group performs Run social media campaign
+Print media group performs Run print media campaign
+General Manager is responsible for Plan marketing campaign

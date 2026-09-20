@@ -1,0 +1,10 @@
+ELEMENTS
+Role Product Owner
+Organizational Unit Product development department
+Role Product designer
+Organizational Unit Organization
+
+CONNECTIONS
+Product Owner works in Product development department
+Product designer works in Product development department
+Product development department Partial-PartOF Organization

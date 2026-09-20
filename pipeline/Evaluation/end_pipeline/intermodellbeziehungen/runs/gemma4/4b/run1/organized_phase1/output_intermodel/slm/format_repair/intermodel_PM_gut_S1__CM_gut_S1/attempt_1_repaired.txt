@@ -1,0 +1,4 @@
+Smart Heat relates to Product
+energy-efficient relates to Feature
+Smart Heat relates to Energy-efficiency
+energy-efficient relates to Energy-efficiency

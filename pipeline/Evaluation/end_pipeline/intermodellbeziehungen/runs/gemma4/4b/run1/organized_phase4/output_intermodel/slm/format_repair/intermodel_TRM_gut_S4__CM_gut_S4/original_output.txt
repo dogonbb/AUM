@@ -1,0 +1,9 @@
+Technical Component Production system supports Concept Product
+Technical Component Version management system supports Concept Product
+Technical Component Social media studio supports Concept Campaign plan
+Technical Component SM life system supports Concept Campaign plan
+Technical Component SM authoring system supports Concept Campaign plan
+Technical Component SM repository supports Concept Campaign plan
+Technical Component Product planning system supports Concept Order specification
+Technical Component Enterprise resource planning system supports Concept Order specification
+Technical Component Distributed database supports Concept Order specification

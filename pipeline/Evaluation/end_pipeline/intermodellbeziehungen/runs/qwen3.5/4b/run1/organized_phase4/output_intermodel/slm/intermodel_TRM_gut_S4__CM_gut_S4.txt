@@ -1,0 +1,7 @@
+Production system supports Product
+Version management system supports Specification Document
+Product planning system supports Order specification
+Enterprise resource planning system supports Order specification
+Social media studio supports Campaign plan
+Distributed database supports Order specification
+SM repository supports Campaign plan

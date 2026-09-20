@@ -1,0 +1,61 @@
+[GM_gut_S2.2 -> BPM_gut_S2.2]
+Providing most energy-efficient heating solution in market motivates target setting
+
+[GM_gut_S2.2 -> TRM_gut_S2.2]
+Providing most energy-efficient heating solution in market motivates Production system
+Providing most energy-efficient heating solution in market motivates Version management system
+Energy consumption of current product version is too high motivates Production system
+Energy consumption of current product version is too high motivates Version management system
+Minimize energy consumption of heat pump motivates Production system
+Minimize energy consumption of heat pump motivates Version management system
+Produce remaining energy required by heat pump with photovoltaic module motivates Production system
+Produce remaining energy required by heat pump with photovoltaic module motivates Version management system
+
+[GM_gut_S2.2 -> PM_gut_S2.2]
+Providing most energy-efficient heating solution in market motivates energy-efficient
+Energy consumption of current product version is too high motivates energy-efficient
+Minimize energy consumption of heat pump motivates energy-efficient
+Produce remaining energy required by heat pump with photovoltaic module motivates Zero-emission energy production
+
+[ARM_gut_S2.2 -> GM_gut_S2.2]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Product designer is responsible for Minimize energy consumption of heat pump
+Organization is responsible for Providing most energy-efficient heating solution in market
+
+[ARM_gut_S2.2 -> TRM_gut_S2.2]
+Product Owner is responsible for Production system
+Product Owner is responsible for Version management system
+
+[ARM_gut_S2.2 -> PM_gut_S2.2]
+Product Owner is responsible for Smart Heat
+Product designer is responsible for energy-efficient
+Product designer is responsible for Heat pump
+
+[BPM_gut_S2.2 -> TRM_gut_S2.2]
+target setting uses Production system
+target setting uses Version management system
+define the product specification uses Production system
+define the product specification uses Version management system
+Product design uses Production system
+Product design uses Version management system
+
+[TRM_gut_S2.2 -> CM_gut_S2.2]
+Production system supports Product
+Version management system supports Product
+Database system supports Product
+Transaction middleware supports Product
+User interface applies to Design description
+
+[PM_gut_S2.2 -> CM_gut_S2.2]
+Smart Heat relates to Product
+Smart Heat relates to Feature
+Smart Heat relates to Heat pump
+Heat pump relates to Heat pump
+Heat pump relates to Product
+energy-efficient relates to Feature
+energy-efficient relates to Heat pump
+Zero-emission energy production relates to Zero-emission energy production
+Photovoltaic module relates to Zero-emission energy production
+indoor module relates to Product
+outdoor module relates to Product
+Outdoor air exchange unit relates to Product

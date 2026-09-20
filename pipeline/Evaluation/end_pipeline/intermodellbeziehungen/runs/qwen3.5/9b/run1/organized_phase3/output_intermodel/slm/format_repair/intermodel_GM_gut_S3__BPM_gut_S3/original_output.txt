@@ -1,0 +1,13 @@
+Providing most energy-efficient heating solution in market motivates Process target setting
+Providing most energy-efficient heating solution in market requires Information Set target features
+Providing most energy-efficient heating solution in market motivates Process define the product specification
+Providing most energy-efficient heating solution in market requires Information Set specification document
+Providing most energy-efficient heating solution in market motivates Process Product design
+Goal Minimize energy consumption of heat pump motivates Process Product design
+Goal Produce remaining energy required by heat pump with photovoltaic module motivates Process Product design
+Goal Develop new heat extractor with very low energy consumption motivates Process Product design
+Goal Re-design existing heat extractor bay adapting it for a new refrigerant motivates Process Product design
+Problem Energy consumption of current product version is too high motivates Process Product design
+Constraint Maximum energy production of photovoltaic module is 50 kWh Affects Process Product design
+Problem Short period for development hinders Process Product design
+Problem New refrigerants are very expensive hinders Process Product design

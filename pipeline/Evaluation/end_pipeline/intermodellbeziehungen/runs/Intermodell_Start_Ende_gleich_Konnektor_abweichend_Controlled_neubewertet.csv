@@ -1,0 +1,30 @@
+modell;phase;startelement;connection;end_element;klassifikation
+gemm4_e4b;1;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;2
+gemm4_e4b;1;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;2
+gemm4_e4b;1;Information Set customer survey;Supports;Concept Customer Survey;2
+gemm4_e4b;1;Information Set target features;Supports;Concept Target Feature;2
+gemm4_e4b;1;Information Set specification document;Supports;Concept Specification Document;2
+gemm4_e4b;2;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;2
+gemm4_e4b;2;Goal Produce remaining energy required by heat pump with photovoltaic module;motivates;Concept Zero-emission energy production;2
+gemm4_e4b;3;Goal Produce remaining energy required by heat pump with photovoltaic module;Supports;Concept Zero-emission energy production;2
+gemm4_e4b;4;Information Set customer survey;Supports;Concept Customer Survey;2
+gemm4_e4b;4;Information Set target features;Supports;Concept Target Feature;2
+gemm4_e4b;4;Information Set specification document;Supports;Concept Specification Document;2
+gemm4_e4b;4;Information Set Design description;Supports;Concept Design description;2
+gemm4_e4b;4;Information Set verified order specification;Supports;Concept Verified order specification;2
+gemm4_e4b;4;Information Set Order confirmation;Supports;Concept Order confirmation;2
+qwen3_5_4b;1;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;2
+qwen9b;1;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;2
+qwen9b;1;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;2
+qwen9b;2;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;2
+qwen9b;2;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;2
+qwen9b;3;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Production system;2
+qwen9b;3;Goal Providing most energy-efficient heating solution in market;motivates;IS Technical Component Version management system;2
+qwen9b;3;Information Set customer survey;uses;Concept Customer Survey;2
+qwen9b;3;Information Set target features;uses;Concept Target Feature;2
+qwen9b;3;Information Set specification document;uses;Concept Specification Document;2
+qwen9b;3;Information Set Design description;uses;Concept Design description;2
+qwen9b;4;Information Set customer survey;uses;Concept Customer Survey;2
+qwen9b;4;Information Set target features;uses;Concept Target Feature;2
+qwen9b;4;Information Set specification document;uses;Concept Specification Document;2
+qwen9b;4;Information Set Design description;uses;Concept Design description;2

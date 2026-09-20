@@ -1,0 +1,8 @@
+Role Product Owner is responsible for Product Smart Heat
+Role Product Owner is responsible for Feature energy-efficient
+Role Product Designer is responsible for Product Heat pump
+Role Product Designer is responsible for Feature energy-efficient
+Organizational Unit Multi-Heat is responsible for Product Smart Heat
+Organizational Unit Multi-Heat is responsible for Product Maintenance and trouble-shooting
+Role General Manager is responsible for Product Smart Heat
+Role General Manager is responsible for Product Maintenance and trouble-shooting

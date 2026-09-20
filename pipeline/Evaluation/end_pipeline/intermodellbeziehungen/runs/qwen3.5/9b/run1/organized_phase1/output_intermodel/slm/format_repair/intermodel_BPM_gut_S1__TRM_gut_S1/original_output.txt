@@ -1,0 +1,4 @@
+Process target setting uses Technical Component Production system
+Process target setting uses Technical Component Version management system
+Process define the product specification uses Technical Component Production system
+Process define the product specification uses Technical Component Version management system

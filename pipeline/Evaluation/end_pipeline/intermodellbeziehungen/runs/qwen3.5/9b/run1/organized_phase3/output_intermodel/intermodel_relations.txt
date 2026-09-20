@@ -1,0 +1,130 @@
+[GM_gut_S3 -> BPM_gut_S3]
+Providing most energy-efficient heating solution in market motivates target setting
+Energy consumption of current product version is too high motivates target setting
+Maximum energy production of photovoltaic module is 50 kWh Affects Product design
+Short period for development Hinders Product design
+New refrigerants are very expensive Hinders Product design
+
+[GM_gut_S3 -> TRM_gut_S3]
+Providing most energy-efficient heating solution in market motivates Social media studio
+Develop new heat extractor with very low energy consumption motivates Production system
+Develop new heat extractor with very low energy consumption motivates Version management system
+Re-design existing heat extractor bay adapting it for a new refrigerant motivates Production system
+Re-design existing heat extractor bay adapting it for a new refrigerant motivates Version management system
+
+[GM_gut_S3 -> PM_gut_S3]
+Providing most energy-efficient heating solution in market motivates energy-efficient
+Minimize energy consumption of heat pump motivates energy-efficient
+Energy consumption of current product version is too high requires energy-efficient
+Produce remaining energy required by heat pump with photovoltaic module motivates Zero-emission energy production
+Develop new heat extractor with very low energy consumption motivates energy-efficient
+
+[ARM_gut_S3 -> GM_gut_S3]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Multi-Heat is responsible for Providing most energy-efficient heating solution in market
+Product designer is responsible for Minimize energy consumption of heat pump
+Multi-Heat is responsible for Minimize energy consumption of heat pump
+Product Owner is responsible for Produce remaining energy required by heat pump with photovoltaic module
+Multi-Heat is responsible for Produce remaining energy required by heat pump with photovoltaic module
+Product Owner is responsible for Develop new heat extractor with very low energy consumption
+Multi-Heat is responsible for Develop new heat extractor with very low energy consumption
+Product Owner is responsible for Re-design existing heat extractor bay adapting it for a new refrigerant
+Multi-Heat is responsible for Re-design existing heat extractor bay adapting it for a new refrigerant
+
+[ARM_gut_S3 -> BPM_gut_S3]
+Product Owner is responsible for target setting
+Product Owner is responsible for define the product specification
+Product designer is responsible for Product design
+
+[ARM_gut_S3 -> Marketing_gut_S3]
+Marketing department is responsible for Plan marketing campaign
+Marketing department is responsible for Run social media campaign
+Marketing department is responsible for Run print media campaign
+Marketing department is responsible for Supervise campaign results
+Print media group performs Run print media campaign
+Social media group performs Run social media campaign
+
+[ARM_gut_S3 -> TRM_gut_S3]
+Product Owner empty Production system
+Product Owner empty Version management system
+Product designer empty Production system
+Product designer empty Version management system
+Product development department empty Production system
+Product development department empty Version management system
+Marketing department empty Social media studio
+Social media group empty Social media studio
+
+[ARM_gut_S3 -> PM_gut_S3]
+Product Owner is responsible for Smart Heat
+Product designer is responsible for energy-efficient
+Product Owner is responsible for energy-efficient
+Multi-Heat is responsible for Maintenance and trouble-shooting
+
+[Marketing_gut_S3 -> CM_gut_S3]
+Plan marketing campaign Output Campaign plan
+Plan marketing campaign Input Campaign target document
+Run social media campaign Input Campaign plan
+Run print media campaign Input Campaign plan
+Run social media campaign Output Campaign statistics
+Run print media campaign Output Campaign statistics
+Supervise campaign results Output Campaign result document
+Supervise campaign results Input Campaign statistics
+
+[BPM_gut_S3 -> TRM_gut_S3]
+target setting uses Production system
+target setting uses Version management system
+define the product specification uses Production system
+define the product specification uses Version management system
+Product design uses Production system
+Product design uses Version management system
+
+[Marketing_gut_S3 -> TRM_gut_S3]
+Plan marketing campaign uses Social media studio
+Run social media campaign uses Social media studio
+Supervise campaign results uses Social media studio
+
+[TRM_gut_S3 -> CM_gut_S3]
+Production system supports Product
+Version management system supports Product
+Database system supports Product
+Transaction middleware supports Product
+User interface supports Product
+Social media studio supports Campaign target document
+Social media studio supports Campaign plan
+Social media studio supports Campaign statistics
+Social media studio supports Campaign result document
+SM life system supports Campaign plan
+SM repository supports Product
+SM repository supports Feature
+Version management system supports Version
+Social media studio supports Social media activities
+SM repository supports List of features
+Production system supports Specification Document
+Production system supports Design description
+Version management system supports Feature
+Version management system supports Target Feature
+Database system supports Specification Document
+Social media studio supports Print media products
+SM repository supports Specification Document
+
+[PM_gut_S3 -> CM_gut_S3]
+Smart Heat relates to Product
+Smart Heat relates to Feature
+Smart Heat relates to Design description
+Smart Heat relates to Specification Document
+Smart Heat motivates Customer Survey
+indoor module relates to Design description
+outdoor module relates to Design description
+energy-efficient relates to Feature
+Heat pump relates to Product
+Heat pump relates to Heat pump
+Photovoltaic module relates to Design description
+Photovoltaic module relates to Zero-emission energy production
+Outdoor air exchange unit relates to Design description
+Zero-emission energy production relates to Zero-emission energy production
+Zero-emission energy production relates to Feature
+Maintenance and trouble-shooting relates to Product
+Maintenance and trouble-shooting motivates Customer Survey
+Annual service relates to Product
+Repair relates to Product
+Service kit relates to Product

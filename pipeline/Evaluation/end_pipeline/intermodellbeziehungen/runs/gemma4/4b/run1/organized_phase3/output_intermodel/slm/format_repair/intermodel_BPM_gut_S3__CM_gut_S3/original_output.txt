@@ -1,0 +1,4 @@
+target setting uses Concept Customer Survey
+target setting Output Concept Target Feature
+define the product specification Output Concept Specification Document
+Product design Output Concept Design description

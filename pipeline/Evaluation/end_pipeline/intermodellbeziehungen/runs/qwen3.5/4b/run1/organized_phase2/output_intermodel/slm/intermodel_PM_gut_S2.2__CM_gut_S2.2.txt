@@ -1,0 +1,6 @@
+Smart Heat relates to Product
+Smart Heat relates to Heat pump
+energy-efficient relates to Feature
+Zero-emission energy production relates to Feature
+Zero-emission energy production relates to Zero-emission energy production
+Heat pump relates to Heat pump

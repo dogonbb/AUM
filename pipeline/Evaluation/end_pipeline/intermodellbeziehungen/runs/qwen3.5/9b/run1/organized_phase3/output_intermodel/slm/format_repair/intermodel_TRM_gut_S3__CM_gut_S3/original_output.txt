@@ -1,0 +1,22 @@
+Technical Component Production system supports Concept Product
+Technical Component Version management system supports Concept Product
+Technical Component Database system supports Concept Product
+Technical Component Transaction middleware supports Concept Product
+Technical Component User interface supports Concept Product
+Technical Component Social media studio supports Concept Campaign target document
+Technical Component Social media studio supports Concept Campaign plan
+Technical Component Social media studio supports Concept Campaign statistics
+Technical Component Social media studio supports Concept Campaign result document
+Technical Component SM life system supports Concept Campaign plan
+Technical Component SM repository supports Concept Product
+Technical Component SM repository supports Concept Feature
+Technical Component Version management system supports Attribute Version
+Technical Component Social media studio supports Attribute Social media activities
+Technical Component SM repository supports Attribute List of features
+Technical Component Production system supports Concept Specification Document
+Technical Component Production system supports Concept Design description
+Technical Component Version management system supports Concept Feature
+Technical Component Version management system supports Concept Target Feature
+Technical Component Database system supports Concept Specification Document
+Technical Component Social media studio supports Attribute Print media products
+Technical Component SM repository supports Concept Specification Document

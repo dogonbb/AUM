@@ -1,0 +1,13 @@
+Providing most energy-efficient heating solution in market motivates target setting
+Energy consumption of current product version is too high motivates target setting
+Minimize energy consumption of heat pump relates to target setting
+Produce remaining energy required by heat pump with photovoltaic module relates to target setting
+Maximum energy production of photovoltaic module is 50 kWh relates to define the product specification
+Develop new heat extractor with very low energy consumption relates to define the product specification
+Re-design existing heat extractor bay adapting it for a new refrigerant relates to define the product specification
+Short period for development hinders target setting
+New refrigerants are very expensive hinders target setting
+Provide services supporting high availability of heat pump relates to target setting
+control unit needs Internet to provide status information relates to define the product specification
+Company has not much experience with online information processing hinders target setting
+New european regulation for energy-efficient heating that requires continuous monitoring of devices motivates target setting

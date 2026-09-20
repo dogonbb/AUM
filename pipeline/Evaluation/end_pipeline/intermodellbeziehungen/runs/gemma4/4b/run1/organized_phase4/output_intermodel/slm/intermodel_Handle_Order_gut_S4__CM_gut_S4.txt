@@ -1,0 +1,5 @@
+verified order specification Output Verified order specification
+Order confirmation Output Order confirmation
+Check availability uses Product
+Check customer status requires Order specification
+Check configuration uses Specification Document

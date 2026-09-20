@@ -1,0 +1,3 @@
+Check availability requires Technical Component Enterprise resource planning system
+Check customer status requires Technical Component Enterprise resource planning system
+Check configuration requires Technical Component Product planning system

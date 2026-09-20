@@ -1,0 +1,10 @@
+Providing most energy-efficient heating solution in market relates to Heat pump
+Minimize energy consumption of heat pump requires Energy consumption
+Develop new heat extractor with very low energy consumption requires Design description
+Re-design existing heat extractor bay adapting it for a new refrigerant requires Design description
+Energy consumption of current product version is too high relates to Product
+Short period for development relates to Product
+New refrigerants are very expensive relates to Product
+Maximum energy production of photovoltaic module is 50 kWh relates to Product
+Providing most energy-efficient heating solution in market relates to Energy-efficiency
+Produce remaining energy required by heat pump with photovoltaic module relates to Zero-emission energy production

@@ -1,4 +1,0 @@
-Allowed target element types:
-- Feature
-
-Use no other target element types.

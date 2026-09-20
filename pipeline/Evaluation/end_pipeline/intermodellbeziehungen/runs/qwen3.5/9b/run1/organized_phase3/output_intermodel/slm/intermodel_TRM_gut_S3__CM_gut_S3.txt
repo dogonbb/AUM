@@ -1,0 +1,22 @@
+Production system supports Product
+Version management system supports Product
+Database system supports Product
+Transaction middleware supports Product
+User interface supports Product
+Social media studio supports Campaign target document
+Social media studio supports Campaign plan
+Social media studio supports Campaign statistics
+Social media studio supports Campaign result document
+SM life system supports Campaign plan
+SM repository supports Product
+SM repository supports Feature
+Version management system supports Version
+Social media studio supports Social media activities
+SM repository supports List of features
+Production system supports Specification Document
+Production system supports Design description
+Version management system supports Feature
+Version management system supports Target Feature
+Database system supports Specification Document
+Social media studio supports Print media products
+SM repository supports Specification Document

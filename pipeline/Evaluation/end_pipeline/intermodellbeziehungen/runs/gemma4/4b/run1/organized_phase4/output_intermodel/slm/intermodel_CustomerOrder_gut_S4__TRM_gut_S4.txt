@@ -1,0 +1,4 @@
+Check order validity requires Product planning system
+Handle customer order requires Product planning system
+Handle customer order requires Enterprise resource planning system
+Prepare product delivery requires Enterprise resource planning system

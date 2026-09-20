@@ -1,0 +1,7 @@
+Goal Providing most energy-efficient heating solution in market supports Feature energy-efficient
+Goal Minimize energy consumption of heat pump supports Feature energy-efficient
+Goal Produce remaining energy required by heat pump with photovoltaic module supports Feature Zero-emission energy production
+Goal Develop new heat extractor with very low energy consumption supports Feature energy-efficient
+Goal Provide services supporting high availability of heat pump supports Feature Quick response to error situations
+Goal Provide services supporting high availability of heat pump supports Feature Personal service technician
+Opportunity New european regulation for energy-efficient heating that requires continuous monitoring of devices supports Feature energy-efficient

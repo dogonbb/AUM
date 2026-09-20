@@ -1,0 +1,3 @@
+Process define the product specification uses Technical Component Production system
+Process Product design uses Technical Component Production system
+Information Set specification document requires Technical Component Version management system

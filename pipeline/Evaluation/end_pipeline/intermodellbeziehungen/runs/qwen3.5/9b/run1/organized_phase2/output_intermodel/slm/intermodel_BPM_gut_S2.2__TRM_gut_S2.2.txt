@@ -1,0 +1,6 @@
+target setting uses Production system
+target setting uses Version management system
+define the product specification uses Production system
+define the product specification uses Version management system
+Product design uses Production system
+Product design uses Version management system

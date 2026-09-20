@@ -1,0 +1,40 @@
+[GM_gut_S1 -> CM_gut_S1]
+Providing most energy-efficient heating solution in market motivates Energy-efficiency
+Providing most energy-efficient heating solution in market requires Target Feature
+Energy consumption of current product version is too high relates to Energy consumption
+Energy consumption of current product version is too high motivates Target Feature
+
+[GM_gut_S1 -> BPM_gut_S1]
+Energy consumption of current product version is too high motivates target setting
+Providing most energy-efficient heating solution in market motivates define the product specification
+Energy consumption of current product version is too high motivates target features
+
+[GM_gut_S1 -> TRM_gut_S1]
+Providing most energy-efficient heating solution in market motivates Production system
+Providing most energy-efficient heating solution in market motivates Version management system
+Energy consumption of current product version is too high Hinders Production system
+
+[GM_gut_S1 -> PM_gut_S1]
+Providing most energy-efficient heating solution in market requires energy-efficient
+Energy consumption of current product version is too high motivates energy-efficient
+
+[ARM_gut_S1 -> GM_gut_S1]
+Product Owner is responsible for Providing most energy-efficient heating solution in market
+Product development department is responsible for Providing most energy-efficient heating solution in market
+Product development department is responsible for Energy consumption of current product version is too high
+
+[ARM_gut_S1 -> BPM_gut_S1]
+Product Owner is responsible for target setting
+Product Owner is responsible for define the product specification
+Product development department performs target setting
+Product development department performs define the product specification
+
+[ARM_gut_S1 -> PM_gut_S1]
+Product Owner is responsible for Smart Heat
+
+[TRM_gut_S1 -> CM_gut_S1]
+Production system supports Product
+Version management system supports Product
+Production system supports Specification Document
+Production system has requirement Target Feature
+Version management system supports Version

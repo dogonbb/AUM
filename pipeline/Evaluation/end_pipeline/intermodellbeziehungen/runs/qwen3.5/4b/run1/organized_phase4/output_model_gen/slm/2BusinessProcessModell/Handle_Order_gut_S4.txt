@@ -1,0 +1,10 @@
+ELEMENTS
+Process Check availability
+Process Check customer status
+Process Check configuration
+Information Set verified order specification
+Information Set Order confirmation
+
+CONNECTIONS
+verified order specification Split (AND) Check customer status, Check configuration, Check availability
+Check availability, Check customer status, Check configuration Join (AND) Order confirmation

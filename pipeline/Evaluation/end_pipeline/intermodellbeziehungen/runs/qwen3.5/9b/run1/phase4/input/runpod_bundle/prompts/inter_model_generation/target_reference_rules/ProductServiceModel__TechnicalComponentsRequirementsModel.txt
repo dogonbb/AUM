@@ -1,4 +1,0 @@
-Allowed target element types:
-- Technical Component
-
-Use no other target element types.

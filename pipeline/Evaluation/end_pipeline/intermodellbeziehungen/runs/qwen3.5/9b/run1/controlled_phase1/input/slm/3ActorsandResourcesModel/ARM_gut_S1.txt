@@ -1,0 +1,6 @@
+ELEMENTS
+Role Product Owner
+Organizational Unit Product development department
+
+CONNECTIONS
+Product Owner works in Product development department

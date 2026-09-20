@@ -1,0 +1,4 @@
+Role Product Owner is responsible for Smart Heat
+Role Product Designer is responsible for energy-efficient
+Role Product Owner is responsible for energy-efficient
+Organizational Unit Multi-Heat is responsible for Maintenance and trouble-shooting

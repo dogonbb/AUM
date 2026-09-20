@@ -1,0 +1,25 @@
+ELEMENTS
+Goal Providing most energy-efficient heating solution in market
+Problem Energy consumption of current product version is too high
+Goal Minimize energy consumption of heat pump
+Goal Produce remaining energy required by heat pump with photovoltaic module
+Constraint Maximum energy production of photovoltaic module is 50 kWh
+Goal Develop new heat extractor with very low energy consumption
+Goal Re-design existing heat extractor bay adapting it for a new refrigerant
+Problem Short period for development
+Problem New refrigerants are very expensive
+Goal Provide services supporting high availability of heat pump
+Problem control unit needs Internet to provide status information
+Problem Company has not much experience with online information processing
+Opportunity New european regulation for energy-efficient heating that requires continuous monitoring of devices
+
+CONNECTIONS
+Energy consumption of current product version is too high hinders Providing most energy-efficient heating solution in market
+Maximum energy production of photovoltaic module is 50 kWh hinders Produce remaining energy required by heat pump with photovoltaic module
+Short period for development hinders Develop new heat extractor with very low energy consumption
+New refrigerants are very expensive hinders Re-design existing heat extractor bay adapting it for a new refrigerant
+control unit needs Internet to provide status information hinders Provide services supporting high availability of heat pump
+Company has not much experience with online information processing hinders Provide services supporting high availability of heat pump
+New european regulation for energy-efficient heating that requires continuous monitoring of devices supports Provide services supporting high availability of heat pump
+Minimize energy consumption of heat pump, Produce remaining energy required by heat pump with photovoltaic module, Provide services supporting high availability of heat pump AND Providing most energy-efficient heating solution in market
+Develop new heat extractor with very low energy consumption, Re-design existing heat extractor bay adapting it for a new refrigerant OR Minimize energy consumption of heat pump

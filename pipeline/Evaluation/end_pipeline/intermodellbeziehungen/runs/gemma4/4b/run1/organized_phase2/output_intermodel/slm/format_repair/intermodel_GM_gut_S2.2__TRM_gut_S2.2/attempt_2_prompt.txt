@@ -1,0 +1,343 @@
+## General explanation
+
+You repair an already generated intermodel relationship output after the Python integrator failed to process it.
+
+Follow this order strictly:
+1. Review the complete generated output and the complete Python error before making changes.
+2. Correct every reported formatting violation throughout the file, while preserving semantic content wherever possible.
+3. Correct every reported semantic validation error using the scenario texts, model explanation, original intermodel generation rules, and required output format. Make only the smallest content changes required for the Python integrator to accept the output.
+
+The Python error may contain a numbered `Multiple validation errors` list, including multiple errors for one line. Resolve every listed error in one repaired output. Do not stop after fixing the first item. Check every line named in the error list and keep every source and target element name exactly consistent with the existing elements in its respective model. Preserve the required source-to-target direction.
+
+Connector enumeration values are source-model-specific. Use only the exact
+case-sensitive connector list and allowed target element types contained in the
+supplied intermodel generation rules; never translate, normalize, underscore,
+or change the capitalization of an enumeration value.
+
+For a semantic correction, use only information present in the supplied scenario texts, model explanation, and intermodel generation rules. Do not invent elements, names, facts, or relationships. Remove, replace, or add only what is necessary to resolve the reported validation errors. Preserve every unaffected name and relationship exactly.
+
+Do not add `ELEMENTS` or `CONNECTIONS` sections and do not reproduce internal relationships from either model. Do not add a model-pair header; the pipeline adds that header separately during validation and aggregation.
+
+Return only the complete repaired output. Do not provide an explanation, Markdown, code fences, or introductory or concluding text.
+
+## Scenario texts
+
+Our company develops and manufactures heat pumps for family homes. The company has the goal to provide the most energy-efficient heating solution on the market. To achieve this, we aim to minimize the energy consumption of the heat pump and to produce the remaining energy required by the heat pump with the integrated photovoltaic module. But the energy consumption of the current product version is too high. We have to solve this problem.
+
+---
+
+The product innovation process uses two IT-systems: the production system and the version management system. The production system is the most important one. The version management system supports the production system. The production system consists of three components: the database system, the transaction middleware and the user interface.
+
+## Model explanation
+
+### Source model semantics
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Goal Model
+
+## Purpose of the model
+
+The Goal Model describes what the enterprise and its employees want to achieve, avoid, or take advantage of. It represents desired states, undesirable states, their causes, external restrictions, and favourable opportunities. The model also explains why processes, rules, requirements, and other enterprise-model elements exist.
+
+## Element types
+
+- Goal
+- Problem
+- Cause
+- Constraint
+- Opportunity
+
+## Meaning of element types
+
+- Goal: A desired state, aim, need, requirement, vision, direction, or measurable business objective.
+- Problem: An undesirable current or possible future state that hinders the achievement of goals. Threats and weaknesses are represented as Problems.
+- Cause: A reason, condition, or situation that produces or explains a Problem or Opportunity.
+- Constraint: An external restriction, rule, law, policy, or fixed limitation.
+- Opportunity: A favourable situation that the enterprise may want to exploit.
+
+## Internal connection types
+
+Direct connections:
+
+- supports
+- hinders
+- contradicts
+- causes
+
+Connector-based connections:
+
+- AND
+- OR
+- AND/OR
+
+## Meaning of internal connections
+
+- A supports B: A helps, enables, contributes to, or positively influences B.
+- A hinders B: A obstructs, weakens, prevents, or negatively influences B.
+- A contradicts B: A is in conflict with B.
+- A causes B: A produces, leads to, or explains B.
+- A, B, C AND D: A, B, and C jointly contribute to or decompose D, and all are required.
+- A, B, C OR D: A, B, and C are alternative contributors to or decompositions of D.
+- A, B, C AND/OR D: A, B, and C form a mixed mandatory or optional decomposition of D.
+
+## Structural rules
+
+- Desired states and objectives are represented as Goals.
+- Undesirable states, threats, and weaknesses are represented as Problems.
+- Reasons for Problems or Opportunities are represented as Causes.
+- External restrictions are represented as Constraints.
+- Favourable situations are represented as Opportunities.
+- Supports represents positive influence.
+- Hinders represents negative influence on a Goal.
+- Contradicts represents a genuine conflict between Goals.
+- Causes connects a Cause to a Problem or Opportunity.
+- Connector-based connections represent grouped or decomposed elements.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent products, services, components, features, actors, roles, resources, concepts, technical components, requirements, processes, markets, or business rules as model elements.
+
+### Target model semantics
+
+4EM MODEL DESCRIPTION
+
+## Model name
+
+Technical Components and Requirements Model
+
+## Purpose of the model
+
+The Technical Components and Requirements Model describes the information system and technical environment needed to support enterprise goals, processes, actors, products, services, and business activities. It represents information-system goals, problems, functional and non-functional requirements, general requirements, and technical components. The model also captures support, hindrance, contradiction, motivation, requirements, goals, refinement, and technical part-of structures.
+
+## Element types
+
+- Information System Goal
+- Information System Problem
+- Information System Requirement
+- Information System Functional Requirement
+- Information System Non-Functional Requirement
+- Technical Component
+
+## Meaning of element types
+
+- Information System Goal: A high-level desired state, aim, vision, direction, or objective concerning an information system, subsystem, or technical component.
+- Information System Problem: An undesirable state or problematic fact concerning the current or planned information system.
+- Information System Requirement: A required property of the information system that is not clearly classified as functional or non-functional.
+- Information System Functional Requirement: A definite requirement concerning system behaviour, functionality, services, operations, interfaces, or data processing.
+- Information System Non-Functional Requirement: A quality requirement, constraint, restriction, standard, technology requirement, or other non-functional property such as performance, security, usability, reliability, maintainability, or compatibility.
+- Technical Component: An IT-related system, subsystem, application, software service, information resource, computing component, or other technical asset relevant to the enterprise.
+
+## Internal connection types
+
+Direct connections:
+
+- supports
+- hinders
+- contradicts
+- motivates
+- has requirement
+- has goal
+
+Connector-based connections:
+
+- AND
+- OR
+- AND/OR
+- Partial-PartOF
+- Total-PartOF
+
+## Meaning of internal connections
+
+- A supports B: A enables, fulfils, contributes to, or positively influences B.
+- A hinders B: A obstructs, prevents, weakens, or negatively influences B without necessarily constituting a conflict.
+- A contradicts B: Information System Goal A conflicts with Information System Goal B.
+- A motivates B: Information System Goal A motivates Technical Component B.
+- A has requirement B: Information System Goal or Technical Component A has B as a Technical Component or Information System Requirement.
+- A has goal B: Technical Component A has Information System Goal B.
+- A, B, C AND D: A, B, and C jointly decompose, refine, or contribute to D, and all are required.
+- A, B, C OR D: A, B, and C are alternative decompositions, refinements, or contributions to D.
+- A, B, C AND/OR D: A, B, and C form a mixed mandatory or optional decomposition of D.
+- A, B, C Partial-PartOF D: A, B, and C are an incomplete set of Technical Component parts of D.
+- A, B, C Total-PartOF D: A, B, and C together completely compose Technical Component D.
+
+## Structural rules
+
+- High-level technical objectives are represented as Information System Goals.
+- Undesirable technical states are represented as Information System Problems.
+- Unclassified required system properties are represented as Information System Requirements.
+- Behaviour and functionality are represented as Information System Functional Requirements.
+- Quality attributes, restrictions, standards, and constraints are represented as Information System Non-Functional Requirements.
+- IT systems, applications, services, subsystems, and technical assets are represented as Technical Components.
+- Supports represents positive contribution or fulfilment.
+- Hinders represents supported negative influence.
+- Contradicts represents a conflict between Information System Goals.
+- Motivates connects an Information System Goal to a motivated Technical Component.
+- Has requirement and has goal represent the corresponding reference-model dependencies.
+- AND, OR, and AND/OR represent grouped decompositions, refinements, or alternatives.
+- Partial-PartOF and Total-PartOF represent incomplete or complete Technical Component decompositions.
+- Every connection refers to elements that belong to this model.
+
+## Scope boundaries
+
+The model does not represent human actors, organisational roles, business processes, products, services, concepts, attributes, business rules, markets, or non-technical enterprise elements as model elements.
+
+### Existing source model
+
+ELEMENTS
+Goal Providing most energy-efficient heating solution in market
+Problem Energy consumption of current product version is too high
+Goal Minimize energy consumption of heat pump
+Goal Produce remaining energy required by heat pump with photovoltaic module
+
+CONNECTIONS
+Energy consumption of current product version is too high hinders Providing most energy-efficient heating solution in market
+Minimize energy consumption of heat pump, Produce remaining energy required by heat pump with photovoltaic module AND Providing most energy-efficient heating solution in market
+
+### Existing target model
+
+ELEMENTS
+Technical Component Production system
+Technical Component Version management system
+Technical Component Database system
+Technical Component Transaction middleware
+Technical Component User interface
+
+CONNECTIONS
+Version management system supports Production system
+
+## Original intermodel generation rules
+
+## Task
+
+Identify all semantically meaningful intermodel relationships from elements of the source model to elements of the target model.
+
+Consider every element of the source model as a possible source. As targets, use
+only elements whose element type is listed as allowed for the target model below.
+
+However, create a relationship only when it is supported by the meanings of the two elements and by the provided case descriptions.
+
+Do not create a relationship merely because the two elements contain similar words.
+Do not create speculative relationships that are not supported by the available information.
+Do not create relationships between two elements belonging to the same model.
+
+## Source-model intermodel connector rules
+
+Source model: Goal Model
+
+Allowed connectors (exact enumeration values):
+- Supports
+- Hinders
+- Contradicts
+- Affects
+- Defined by
+- motivates
+- requires
+- uses
+- relates to
+
+Connector spelling and capitalization are case-sensitive.
+
+Connector meanings (always source -> target):
+- `Supports`: the source positively contributes to achieving or satisfying the target.
+- `Hinders`: the source obstructs, weakens, or negatively affects the target.
+- `Contradicts`: the source is logically or practically incompatible with the target.
+- `Affects`: the source has a stated influence on the target whose polarity is unclear.
+- `Defined by`: the source is specified, clarified, or operationally defined by the target.
+- `motivates`: the source provides the reason or business motivation for the target.
+- `requires`: achieving or addressing the source depends on the target being present or fulfilled.
+- `uses`: the source explicitly uses the target as a means, input, or resource.
+- `relates to`: an explicit relevant association exists and no more specific allowed connector applies; use only as a last resort.
+
+Interpret every connector from source to target. Do not reverse a relationship
+merely to make its label sound natural. Preserve connector capitalization and
+spaces exactly.
+
+## Target-model reference rules
+
+Allowed target element types:
+- Information System Goal
+- Information System Problem
+- Information System Requirement
+- Information System Functional Requirement
+- Information System Non-Functional Requirement
+- Technical Component
+
+Use no other target element types.
+
+Use the element types exactly as written in the target model. If no target
+element type is allowed, return
+exactly `NO_INTERMODEL_RELATIONSHIPS`.
+
+## Direction
+
+Every returned relationship must start with an element from the source model and end with an element from the target model.
+
+Do not reverse the direction.
+
+## Output format
+
+Return only the intermodel relationships.
+
+Write exactly one relationship per line using the following syntax:
+
+<ElementNameFromModel1> <Connector> <ElementNameFromModel2>
+
+Use only the exact element names declared in the `ELEMENTS` sections of the
+source model and target model shown above.
+
+Do not include the element type before or after an element name.
+
+Do not prefix either element name with its element type. For example, if an
+element is declared as `Role Customer Service Representative`, use only
+`Customer Service Representative` as its name in a relationship line.
+
+## Output rules
+
+1. Return relationships only.
+2. Do not return an ELEMENTS section.
+3. Do not return a CONNECTIONS heading.
+4. Do not reproduce internal model relationships.
+5. Do not create new elements.
+6. Do not rename, shorten, translate, or normalize element names.
+7. Do not include element types in the relationships.
+8. Use only the allowed connectors.
+9. Do not include explanations, comments, bullet points, numbering, Markdown, or code fences.
+10. Create at most one relationship between any pair of elements. Do not connect the same source and target elements more than once, even with different connectors. Choose the single most specific applicable connector.
+11. If no meaningful intermodel relationship can be identified, return exactly:
+
+NO_INTERMODEL_RELATIONSHIPS
+
+## Required output format
+
+Return only the complete repaired output as plain text containing relationship lines for the one supplied model pair. Do not write a model-pair header, Markdown fences, bullets, numbering, comments, explanations, `ELEMENTS`, or `CONNECTIONS` headings.
+
+Write every relationship on its own line:
+`exact source element name connector exact target element name`
+
+The source element must belong to the supplied source model. The target element must belong to the supplied target model. Names must exactly match existing element names in those models. Do not include element types before element names.
+
+Use only the exact source-specific connectors stated in the supplied original
+intermodel generation rules. Preserve capitalization and spaces exactly. The target element
+type must also be allowed for the supplied directed model pair according
+to the original intermodel generation rules.
+
+Do not use pipes, `::`, arrows, or any alternative syntax even if a parser accepts it. Create at most one relationship between any pair of elements. If multiple relationships connect the same source and target elements, keep only the single most specific applicable connector.
+
+If no relationship exists, return exactly `NO_INTERMODEL_RELATIONSHIPS` on a single line and nothing else.
+
+## Python error
+
+Multiple validation errors (2):
+1. Relationship line 4: Relationship line uses connector 'supports', which is not valid for source model type 'Goal Model'. Allowed: 'Supports', 'Hinders', 'Contradicts', 'Affects', 'Defined by', 'motivates', 'requires', 'uses', 'relates to'.
+2. Relationship line 5: Relationship line uses connector 'supports', which is not valid for source model type 'Goal Model'. Allowed: 'Supports', 'Hinders', 'Contradicts', 'Affects', 'Defined by', 'motivates', 'requires', 'uses', 'relates to'.
+
+## Output to repair
+
+Providing most energy-efficient heating solution in market motivates Production system
+Energy consumption of current product version is too high motivates Production system
+Minimize energy consumption of heat pump supports Production system
+Produce remaining energy required by heat pump with photovoltaic module supports Production system

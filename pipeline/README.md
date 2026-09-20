@@ -43,14 +43,7 @@ pipeline/
 │   └── slm_to_adl/
 └── output/
     ├── runtime_reports/
-    ├── controlled_phase1_run/
-    ├── controlled_phase2_run/
-    ├── controlled_phase3_run/
-    ├── controlled_phase4_run/
-    ├── organized_phase1_run/
-    ├── organized_phase2_run/
-    ├── organized_phase3_run/
-    └── organized_phase4_run/
+    └── <scenario_name>_<timestamp>/
 ```
 
 A normal run folder contains:
@@ -79,7 +72,7 @@ The main configuration file is `parameter.json`. It must be located next to `pip
 
 ```json
 "execution": {
-  "mode": "models_only",
+  "mode": "intermodel_only",
   "overwrite": true,
   "continue_after_failure": true,
   "selected_scenario": "controlled_phase1"
@@ -97,20 +90,20 @@ The main configuration file is `parameter.json`. It must be located next to `pip
 "slm": {
   "provider": "ollama",
   "base_url": "http://localhost:11434",
-  "model": "qwen3.5:9b",
+  "model": "gemma4:e4b",
   "thinking": true,
-  "timeout_seconds": 3600,
-  "log_thinking": true,
+  "timeout_seconds": 1800,
+  "log_thinking": false,
   "thinking_repetition_enabled": true,
-  "thinking_repetition_limit": 5,
-  "thinking_repetition_min_block_chars": 20,
-  "show_stream_output": true,
+  "thinking_repetition_limit": 10,
+  "thinking_repetition_min_block_chars": 40,
+  "show_stream_output": false,
   "keep_alive": "5m",
   "options": {
     "temperature": 0.2,
     "num_ctx": 131072,
     "top_p": 0.9,
-    "seed": false,
+    "seed": 42,
     "num_predict": 131072
   }
 }
@@ -136,7 +129,7 @@ Important fields:
 ```json
 "retry": {
   "max_restart": 3,
-  "seed_mode": "random",
+  "seed_mode": "incremental",
   "seed_increment": 1
 }
 ```
@@ -294,6 +287,10 @@ ProductServiceModel
 
 ### 3.7 Intermodel-Only Jobs
 
+The paths in an intermodel-only job must refer to an existing model-generation
+run. Fixed directory names such as `controlled_phase1_run` below are examples;
+adapt them to the actual `output_run_directory` configured for the run.
+
 ```json
 "intermodel_only": {
   "jobs": [
@@ -427,6 +424,10 @@ This executes 24 runs in total.
 
 ## 7. Run All Eight Intermodel Scenarios Three Times and Save Every Run
 
+The following example assumes fixed run directories named
+`output/<scenario_name>_run`. If different directories are configured under
+`intermodel_only.jobs`, adjust `$sourceFolder` accordingly.
+
 ```powershell
 $scenarios = @(
     "controlled_phase1",
@@ -492,6 +493,10 @@ The folder name includes the run number, timestamp, and status, so runs are not 
 
 ## 8. Directly Integrate an Existing TXT File into ADL
 
+The paths in this example likewise assume the fixed example directory
+`output/controlled_phase1_run` and must be adapted when timestamped or
+model-specific run directories are used.
+
 ```powershell
 python scripts/add_intermodel_relations_slm.py `
     output/controlled_phase1_run/output_model_gen/controlled_phase1_models.adl `
@@ -500,25 +505,10 @@ python scripts/add_intermodel_relations_slm.py `
     --overwrite
 ```
 
-## 9. Scenario Mapping
-
-```text
-controlled_phase1  → solution S1
-organized_phase1   → solution S1
-
-controlled_phase2  → solution S2
-organized_phase2   → solution S2
-
-controlled_phase3  → solution S3
-organized_phase3   → solution S3
-
-controlled_phase4  → solution S4
-organized_phase4   → solution S4
-```
 
 The model solutions are the same for the matching phase. The source descriptions differ between Controlled and Organized scenarios.
 
-## 10. Important Output Files
+## 9. Important Output Files
 
 ```text
 output_model_gen/slm/
@@ -562,7 +552,7 @@ output_intermodel/<scenario_name>_with_intermodel_relations.adl
 
 Final ADL with integrated intermodel relationships.
 
-## 11. Runtime Reports
+## 10. Runtime Reports
 
 Reports are written to:
 
@@ -580,7 +570,7 @@ pipeline_<timestamp>.jsonl
 
 The reports contain configuration data, task status, token usage, timeouts, restart counts, converter errors, and generated file paths.
 
-## 12. Troubleshooting
+## 11. Troubleshooting
 
 ### No final ADL was created
 
@@ -624,7 +614,8 @@ Set:
 "format_repair": { "enabled": false, "max_attempts": 0 }
 ```
 
-This prevents a restart and a new SLM request after a converter failure.
+This prevents an additional SLM repair request after a converter failure.
+Converter failures do not restart the configured Ollama model.
 
 ### Existing files are skipped
 
@@ -640,23 +631,4 @@ Use:
 
 ```json
 "scenario_run_directory_template": "{scenario_name}_{timestamp}"
-```
-
-## 13. Concepts Model Layout
-
-`slm_to_adl_ConceptModel.py` analyses the weakly connected concept graph before
-placing nodes. One connected graph is laid out as one top-down hierarchy;
-multiple components receive separate horizontal areas.
-
-- Only concept-to-concept relations determine hierarchy levels.
-- Attributes are placed in one row below their owning concept. The row uses the
-  free side outside the tree-edge corridor, and its spacing prevents attribute
-  arrows from running through sibling attributes.
-- Feedback relations remain in the ADL but are ignored for hierarchy ranking.
-- The ADL world area grows automatically for wide or deep models.
-
-Generate the included simulation with:
-
-```powershell
-python scripts\slm_to_adl\slm_to_adl_ConceptModel.py examples\simulated_concept_layout.txt examples\output\simulated_concept_layout.adl --model-name Simulated_Concept_Layout
 ```
